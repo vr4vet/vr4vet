@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf7219bab7fe46a1ad266029b2fee19, type: 3}
+  m_Name: Readme
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: 01a38c81e08e40e44b3868eb44f65980, type: 3}
+  iconMaxWidth: 192
+  title: 'Readme '
+  sections:
+  - heading: About Tablet Prefab
+    linkText: 
+    url: 
+    text: This material is protected by copyright and has been copied by and solely
+      for the educational purposes of NTNU under licence. You may not sell, alter
+      or further reproduce or distribute any part of this coursepack/material to
+      any other person. Where provided to you in electronic format, you may only
+      print from it for your own private study and research. Failure to comply with
+      the terms of this warning may expose you to legal action for copyright infringement
+      and/or disciplinary action by the NTNU.
+  - heading: How to use
+    linkText: 
+    url: 
+    text: 1 - Add Tablet prefab to your scene. 2 - Add some ferdigheter to FerdighetManager(Under
+      tablet prefab).  3 - Assign your player to NavigationManager. 4 - For creating
+      tasks, you have to add a "Task" object from the prefabs folder to your scene
+      for each task.
+  - heading: Developer
+    linkText: 
+    url: 
+    text: Abbas Jafari, for any question please use a85jafari@gmail.com
+  loadedLayout: 0
