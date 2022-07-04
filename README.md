@@ -3,7 +3,7 @@ This repository holds the demo Scene and core Prefabs that should be cloned befo
 
 ## Prefabs 
 * 360 Video Player
-*Pause Menu
+* Pause Menu
 * Tablet
   - Navigation manager
   - Skill Manager
