@@ -9,7 +9,7 @@ This repository holds the demo Scene and core Prefabs that should be cloned befo
   - Skill Manager
   - Task and Activities
 
-#Branching 
+## Branching 
 
 The main branch should not be updated directly. All feature branches should be merged into a develop branch and after each release, the release branch should be merged into both main and develop.
 
