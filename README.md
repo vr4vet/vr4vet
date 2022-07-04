@@ -1,13 +1,13 @@
 # VR4VET Core
 This repository holds the demo Scene and core Prefabs that should be cloned before starting a new Experience. if you are creating a new Experience you should cloen this project and start a new repository. 
 
-##Prefabs 
+## Prefabs 
 * 360 Video Player
 *Pause Menu
 * Tablet
-  1. Navigation manager
-  2. Skill Manager
-  3. Task and Activities
+  - Navigation manager
+  - Skill Manager
+  - Task and Activities
 
 #Branching 
 
