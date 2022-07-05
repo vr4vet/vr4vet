@@ -7,7 +7,11 @@ This repository holds a Unity project with demo Scenes and the core Prefabs to c
 
 If you are creating a new game you should create a new repository under this oganization. 
 
-All Experiences/Games should use: Player, Tablet and Menu prefabs. All included in the Demo Scene under the 'Scenes' folder. You can make modifications to the prefabs if you need something specific to your game. If you think a feature is missing or if there is a bug in an existing Prefab, you should make an issue on this repository so someone can make that change.     
+All Experiences/Games should use: Player, Tablet and Menu prefabs. All included in the Demo Scene under the 'Scenes' folder. You can make modifications to the prefabs if you need something specific to your game. If you think a feature is missing or if there is a bug in an existing Prefab, you should make an issue on this repository so someone can make that change.   
+
+## Using the Demo Scene
+
+Instructions will be added here in the future :D 
 
 ## Prefabs 
 * 360 Video Player
