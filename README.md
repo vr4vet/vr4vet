@@ -1,11 +1,13 @@
 # VR4VET Core
-This repository holds the demo Scene and core Prefabs that should be cloned before starting a new Experience. if you are creating a new Experience you should clone this project and start a new repository. 
+This repository holds a Unity project with demo Scenes and the core Prefabs to create VR experiences for the VR4VET project. The goal is to standardize all the experiences(games) and make the development of new ones easier and faster.
 
-## New Project/Game instruccions
+(Note: Both Game and Experience are used in this documentation to describe a VR experience where the user will try a profession)
 
-Please read the 'Branching' section if you are not sure in which repo/brach you should work. 
+## New Experience/Game instructions
 
-All Projects/Games should use: Player, Tablet and Menu prefabs. All included in the Demo Scene under the 'Scenes' folder. You can make modifications to the prefabs if you need something spesific to your game. If you want a new features or if there is a bug in an existing Prefab, you should make an issue so somone can make that change in the develop branch.       
+If you are creating a new game you should create a new repository under this oganization. 
+
+All Experiences/Games should use: Player, Tablet and Menu prefabs. All included in the Demo Scene under the 'Scenes' folder. You can make modifications to the prefabs if you need something specific to your game. If you think a feature is missing or if there is a bug in an existing Prefab, you should make an issue on this repository so someone can make that change.     
 
 ## Prefabs 
 * 360 Video Player
@@ -21,6 +23,8 @@ The main branch should not be updated directly. All feature branches should be m
 The develop branch is where changes to the basic functionalities should be added. Branches with new Prefabs or functionalities should be forked from this Branch.
 
 New Games/Projects belong in a different repository
+
+
 
 
 
