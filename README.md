@@ -5,7 +5,7 @@ This repository holds the demo Scene and core Prefabs that should be cloned befo
 
 Please read the 'Branching' section if you are not sure in which repo/brach you should work. 
 
-All Experiences should use: Player, Tablet and Menu prefabs. All included in the Demo Scene under the 'Scenes' folder. You can make modifications to the prefabs if you need something spesific to your game. If you want a new features or if there is a bug in an existing Prefab, you should make an issue so somone can make that change in the develop branch.       
+All Projects/Games should use: Player, Tablet and Menu prefabs. All included in the Demo Scene under the 'Scenes' folder. You can make modifications to the prefabs if you need something spesific to your game. If you want a new features or if there is a bug in an existing Prefab, you should make an issue so somone can make that change in the develop branch.       
 
 ## Prefabs 
 * 360 Video Player
