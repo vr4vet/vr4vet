@@ -4,6 +4,8 @@
  */
 
 using System.Collections.Generic;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR.Interaction.Toolkit.Inputs;
 using UnityEngine;
 
 /// <summary>
@@ -15,10 +17,16 @@ public class TabletPosition : MonoBehaviour
 {
     [Range(0.1f, 1)]
     public float DistanceFromPlayer = 0.4f;
-
+    public Transform managers;
     Vector3 originalAngles;
-
     private bool tabletIsOpened;
+
+    public enum myEnum // your custom enumeration
+    {
+        TabletOnHand = 0,
+        FloatingTablet = 1,
+    };
+    public myEnum type;
 
     Camera cam;
 
@@ -29,14 +37,33 @@ public class TabletPosition : MonoBehaviour
     public void SelectTablet(bool status)
     {
         tabletIsOpened = status;
+    
     }
+    //Sets active all the objects in the tablet
+    //No change of position since is assumed that is a child of one of the hands
+    public void ToggleTablet()
+    {
+        tabletIsOpened = !tabletIsOpened;
+        foreach (Transform child in GetComponentInChildren<Transform>())
+        {
+            if (child != managers)
+            {
+                child.gameObject.SetActive(tabletIsOpened);
+            }
 
-
+        }
+    }
     /// <summary>
     /// Unity start method
     /// </summary>
     private void Start()
     {
+        if ((int)type == 1)
+        {
+            this.transform.rotation = Quaternion.Euler(-90, 0, 0);
+        }
+
+      //  ToggleTablet();
         originalAngles = transform.eulerAngles;
 
         if (!Camera.main)
@@ -45,35 +72,24 @@ public class TabletPosition : MonoBehaviour
             cam = Camera.main;
     }
 
-
-
     /// <summary>
     /// Unity update method
     /// </summary>
     void Update()
     {
-        var inputDevices = new List<UnityEngine.XR.InputDevice>();
-        UnityEngine.XR.InputDevices.GetDevices(inputDevices);
-
-        if (tabletIsOpened)
+        if (tabletIsOpened && ((int)type == 1) )
         {
-            transform.position = (cam.transform.position  + new Vector3(0,-0.05f,0)) + cam.transform.forward * DistanceFromPlayer;
+            transform.position = (cam.transform.position + new Vector3(0,-0.05f,0)) + cam.transform.forward * DistanceFromPlayer;
             transform.LookAt(cam.transform.position);
             transform.Rotate(originalAngles);
         }
         else
         {
-            transform.position = cam.transform.position - new Vector3(0.5f, 1f, 0);
-            transform.rotation = Quaternion.Euler(0, 180, 90);
-
-            foreach (var device in inputDevices)
+            if ((int)type == 1)
             {
-                bool triggerValue;
-                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue)
-                {
-                    SelectTablet(true);
-                }
-            }
+                transform.position = cam.transform.position - new Vector3(0.5f, 1f, 0);
+                transform.rotation = Quaternion.Euler(0, 180, 90);
+            }  
 
         }
 
