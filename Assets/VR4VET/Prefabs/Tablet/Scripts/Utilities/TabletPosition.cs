@@ -13,6 +13,9 @@ using UnityEngine;
 /// This class should be change if you need to open the tablet by other ways like grapping
 /// or changing the tablet position
 /// </summary>
+/// 
+
+
 public class TabletPosition : MonoBehaviour
 {
     [Range(0.1f, 1)]
@@ -43,6 +46,7 @@ public class TabletPosition : MonoBehaviour
     //No change of position since is assumed that is a child of one of the hands
     public void ToggleTablet()
     {
+        
         tabletIsOpened = !tabletIsOpened;
         foreach (Transform child in GetComponentInChildren<Transform>())
         {
@@ -57,20 +61,31 @@ public class TabletPosition : MonoBehaviour
     /// Unity start method
     /// </summary>
     private void Start()
-    {
+    {     
+
         if ((int)type == 1)
         {
             this.transform.rotation = Quaternion.Euler(-90, 0, 0);
         }
 
-      //  ToggleTablet();
         originalAngles = transform.eulerAngles;
 
         if (!Camera.main)
+        {
             cam = GameObject.FindObjectOfType<Camera>();
+
+        }
         else
+        {
             cam = Camera.main;
+
+        }
+
+        tabletIsOpened = true;
+        ToggleTablet();
     }
+
+
 
     /// <summary>
     /// Unity update method
