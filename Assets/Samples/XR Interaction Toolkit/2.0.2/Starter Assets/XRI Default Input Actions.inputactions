@@ -557,10 +557,21 @@
                 {
                     "name": "",
                     "id": "8e383b1a-270f-4c20-819b-89a59cffb498",
-                    "path": "<XRController>{LeftHand}/Primary2DAxis",
+                    "path": "/Primary2DAxis{LeftHand}/Primary2DAxis",
                     "interactions": "",
                     "processors": "StickDeadzone",
-                    "groups": "Continuous Move",
+                    "groups": "Generic XR Controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ebd6ed58-e800-4f2f-8305-8e6f3c417000",
+                    "path": "<XRController>{LeftHand}/primary2DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
