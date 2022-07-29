@@ -14,24 +14,47 @@ using UnityEngine.InputSystem.Controls;
 public class InteractionSwitch : MonoBehaviour
 {
 
-    public GameObject RayHand;
-    public GameObject DirectHand; 
-   
+    public GameObject RayHandRight;
+    public GameObject DirectHandRight;
+    public TeleportationProvider tpProvider;
+
+    [SerializeField] private XRRayInteractor rayInteractor;
+    [SerializeField] InputActionAsset actionAsset;
+    private InputAction thumbstick;
 
 
-    public void Test(string val)
+    private void Start()
     {
-        Debug.Log("pressed"+val);
-    }
+        rayInteractor.enabled = false;
+        thumbstick = actionAsset.FindActionMap("XRI LeftHand Locomotion").FindAction("Teleport Mode Activate");
+        thumbstick.Enable();
+        thumbstick.performed += RayActivate;
 
+    }
+ 
     public void SwitchInteractionMethod()
     {
-        DirectHand.SetActive(!DirectHand.activeSelf);
-        RayHand.SetActive(!RayHand.activeSelf);
+       // DirectHandRight.SetActive(!DirectHandRight.activeSelf);
+        RayHandRight.SetActive(!RayHandRight.activeSelf);
+    //    tpProvider.enabled = ! tpProvider.isActiveAndEnabled;
+    }
+    void RayActivate(InputAction.CallbackContext context)
+    {
+        rayInteractor.enabled = true;
+     
+    }
+
+   public void RayCancel(InputAction.CallbackContext context)
+    {
+        rayInteractor.enabled = false;
 
     }
 
- 
+    public void CancelMePleaseThanks()
+    {
+        rayInteractor.enabled = false;
+
+    }
 
 }
 

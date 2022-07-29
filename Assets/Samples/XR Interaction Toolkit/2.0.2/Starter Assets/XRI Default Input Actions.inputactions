@@ -284,10 +284,10 @@
                 {
                     "name": "",
                     "id": "71a4d23f-3e9a-4513-923b-ba388c5e84bf",
-                    "path": "<XRController>{LeftHand}/gripPressed",
+                    "path": "<XRController>{LeftHand}/gripButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": "Generic XR Controller;Continuous Move",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -507,6 +507,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Custom Teleport",
+                    "type": "Button",
+                    "id": "c6b3b817-7efe-4dd7-9f47-13520e0f5d0d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -516,7 +525,7 @@
                     "path": "<XRController>{LeftHand}/Primary2DAxis",
                     "interactions": "Sector(directions=-1,sweepBehavior=3)",
                     "processors": "",
-                    "groups": "Noncontinuous Move",
+                    "groups": "Noncontinuous Move;Generic XR Controller",
                     "action": "Teleport Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -525,9 +534,9 @@
                     "name": "",
                     "id": "8da6ed3a-f621-49fe-8c76-1f6b7d7754d6",
                     "path": "<XRController>{LeftHand}/Primary2DAxis",
-                    "interactions": "Sector(directions=1)",
+                    "interactions": "Sector(directions=-1)",
                     "processors": "",
-                    "groups": "Noncontinuous Move",
+                    "groups": "Noncontinuous Move;Generic XR Controller",
                     "action": "Teleport Mode Activate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -556,23 +565,23 @@
                 },
                 {
                     "name": "",
-                    "id": "8e383b1a-270f-4c20-819b-89a59cffb498",
-                    "path": "/Primary2DAxis{LeftHand}/Primary2DAxis",
+                    "id": "c33246ce-1fdd-4b90-84b6-547fdaf198a6",
+                    "path": "<XRController>{LeftHand}/primary2DAxis",
                     "interactions": "",
                     "processors": "StickDeadzone",
-                    "groups": "Generic XR Controller",
+                    "groups": "",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "ebd6ed58-e800-4f2f-8305-8e6f3c417000",
-                    "path": "<XRController>{LeftHand}/primary2DAxis",
+                    "id": "f70f8732-769f-4139-beba-bf8899d3f0b6",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "Move",
+                    "groups": "",
+                    "action": "Custom Teleport",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
