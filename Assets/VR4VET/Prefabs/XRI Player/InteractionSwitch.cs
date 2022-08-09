@@ -15,8 +15,7 @@ public class InteractionSwitch : MonoBehaviour
 {
 
     public GameObject RayHandRight;
-    public GameObject DirectHandRight;
-    public TeleportationProvider tpProvider;
+    public GameObject reticle;
 
     [SerializeField] private XRRayInteractor rayInteractor;
     [SerializeField] InputActionAsset actionAsset;
@@ -25,35 +24,32 @@ public class InteractionSwitch : MonoBehaviour
 
     private void Start()
     {
+        //assign the RayActive function to the whenever someone moves the left thumbstick
         rayInteractor.enabled = false;
         thumbstick = actionAsset.FindActionMap("XRI LeftHand Locomotion").FindAction("Teleport Mode Activate");
         thumbstick.Enable();
-        thumbstick.performed += RayActivate;
-
+        thumbstick.started += RayActivate;
     }
  
     public void SwitchInteractionMethod()
     {
-       // DirectHandRight.SetActive(!DirectHandRight.activeSelf);
         RayHandRight.SetActive(!RayHandRight.activeSelf);
-    //    tpProvider.enabled = ! tpProvider.isActiveAndEnabled;
     }
+
+
     void RayActivate(InputAction.CallbackContext context)
     {
         rayInteractor.enabled = true;
      
     }
 
-   public void RayCancel(InputAction.CallbackContext context)
+
+    //This method is called in the -Selected Exited on the Teleportation Area.
+    public void RayCancel()
     {
         rayInteractor.enabled = false;
-
-    }
-
-    public void CancelMePleaseThanks()
-    {
-        rayInteractor.enabled = false;
-
+        reticle.SetActive(false);
+        Debug.Log("TP Called");
     }
 
 }

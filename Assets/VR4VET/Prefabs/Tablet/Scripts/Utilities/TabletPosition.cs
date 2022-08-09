@@ -1,6 +1,7 @@
 ﻿/* Copyright (C) 2020 IMTEL NTNU - All Rights Reserved
- * Developer: Abbas Jafari
+ * Developer: Abbas Jafari & Jorge Garcia
  * Ask your questions by email: a85jafari@gmail.com
+ * 
  */
 
 using System.Collections.Generic;
@@ -88,7 +89,7 @@ public class TabletPosition : MonoBehaviour
 
 
     /// <summary>
-    /// Unity update method
+    /// Moves the tablet around if the type 1 is selected
     /// </summary>
     void Update()
     {

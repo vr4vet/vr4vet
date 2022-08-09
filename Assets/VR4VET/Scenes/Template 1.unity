@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4512927, g: 0.5009524, b: 0.5732493, a: 1}
+  m_IndirectSpecularColor: {r: 0.18379965, g: 0.22911946, b: 0.30416602, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -291,12 +291,12 @@ PrefabInstance:
     - target: {fileID: 3819676577015031516, guid: c9ea54082e6151843acb776fb52ed6f7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.88
       objectReference: {fileID: 0}
     - target: {fileID: 3819676577015031516, guid: c9ea54082e6151843acb776fb52ed6f7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.76
+      value: -6.7599998
       objectReference: {fileID: 0}
     - target: {fileID: 3819676577015031516, guid: c9ea54082e6151843acb776fb52ed6f7,
         type: 3}
@@ -643,7 +643,7 @@ MonoBehaviour:
   m_SmoothMovement: 0
   m_FollowTightness: 10
   m_SnapThresholdDistance: 10
-  m_Reticle: {fileID: 0}
+  m_Reticle: {fileID: 790714535}
   m_StopLineAtFirstRaycastHit: 1
 --- !u!120 &488700340
 LineRenderer:
@@ -1113,7 +1113,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d9ae9c537cbf978478ac131dfd8f7cec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1178,7 +1178,7 @@ MonoBehaviour:
   m_InteractionLayers:
     m_Bits: 1
   m_SelectMode: 0
-  m_CustomReticle: {fileID: 790714535}
+  m_CustomReticle: {fileID: 0}
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1205,7 +1205,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1642004978}
         m_TargetAssemblyTypeName: InteractionSwitch, Assembly-CSharp
-        m_MethodName: CancelMePleaseThanks
+        m_MethodName: RayCancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3087,7 +3087,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1642004975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.66, z: -2.08}
+  m_LocalPosition: {x: 0, y: 0.66, z: -6.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3111,6 +3111,7 @@ MonoBehaviour:
   RayHandRight: {fileID: 1779946056}
   DirectHandRight: {fileID: 623979770}
   tpProvider: {fileID: 457084276}
+  reticle: {fileID: 790714535}
   rayInteractor: {fileID: 488700341}
   actionAsset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
@@ -3213,19 +3214,7 @@ MonoBehaviour:
     m_ActionId: 9164e093-ebd4-4923-af32-1b52f31c2d66
     m_ActionName: XRI LeftHand Locomotion/Turn
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PrintTest, Assembly-CSharp
-        m_MethodName: PrintSomething
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 9693e25f-8a4f-4aed-842f-3961243c69a1
     m_ActionName: XRI LeftHand Locomotion/Move
   - m_PersistentCalls:
@@ -3462,7 +3451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LineWidth: 0.02
   m_OverrideInteractorLineLength: 1
-  m_LineLength: 10
+  m_LineLength: 1
   m_WidthCurve:
     serializedVersion: 2
     m_Curve:
@@ -3818,7 +3807,7 @@ MonoBehaviour:
     m_Reference: {fileID: -1277054153949319361, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
   m_SelectAction:
-    m_UseReference: 1
+    m_UseReference: 0
     m_Action:
       m_Name: Select
       m_Type: 0
@@ -3831,7 +3820,7 @@ MonoBehaviour:
     m_Reference: {fileID: -8270564778575511633, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
   m_SelectActionValue:
-    m_UseReference: 1
+    m_UseReference: 0
     m_Action:
       m_Name: Select Action Value
       m_Type: 0
@@ -4683,7 +4672,7 @@ PrefabInstance:
     - target: {fileID: 2508374029397580321, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: type
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2508374029397580321, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
