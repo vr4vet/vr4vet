@@ -28,7 +28,11 @@ The develop branch is where changes to the basic functionalities should be added
 
 New Games/Projects belong in a different repository
 
+## Using Prefabs
 
+Some of the prefabs have existing documentation
 
+* 360 Video Player: https://gitlab.stud.idi.ntnu.no/imtel/developers/360videoplayer
+* Tablet: https://gitlab.stud.idi.ntnu.no/imtel/developers/tablet
 
 
