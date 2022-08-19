@@ -1,6 +1,8 @@
 /* Copyright (C) 2022 IMTEL NTNU - All Rights Reserved
  * Developer: Jorge Garcia
  * Ask your questions by email: jorgeega@ntnu.no
+ * 
+ * This methos calls the teleportastion ray and switches the inteaction method for the righ
  */
 
 
@@ -16,6 +18,7 @@ public class InteractionSwitch : MonoBehaviour
 
     public GameObject RayHandRight;
     public GameObject reticle;
+    public GameObject Tablet;  
 
     [SerializeField] private XRRayInteractor rayInteractor;
     [SerializeField] InputActionAsset actionAsset;
@@ -31,11 +34,18 @@ public class InteractionSwitch : MonoBehaviour
         thumbstick.started += RayActivate;
     }
  
-    public void SwitchInteractionMethod()
+    public void ToggleRightRay()
     {
         RayHandRight.SetActive(!RayHandRight.activeSelf);
     }
 
+    //enables tabblet and the ray based on the Tablet status
+    public void TabletModeToggle()
+    {
+        RayHandRight.SetActive(!Tablet.activeSelf);
+        Tablet.SetActive(!Tablet.activeSelf);
+
+    }
 
     void RayActivate(InputAction.CallbackContext context)
     {

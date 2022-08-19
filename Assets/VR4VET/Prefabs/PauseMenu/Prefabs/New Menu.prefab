@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 368296187}
   - component: {fileID: 368296186}
   - component: {fileID: 368296185}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: AboutText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 657967026}
   - component: {fileID: 657967025}
   - component: {fileID: 657967024}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: AboutCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 751328953}
   - component: {fileID: 751328955}
   - component: {fileID: 751328954}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 983689229}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 1034768213}
   - component: {fileID: 1034768212}
   - component: {fileID: 1034768211}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,8 +464,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 68791125}
+        m_TargetAssemblyTypeName: NewMenuManger, Assembly-CSharp
         m_MethodName: CloseAbout
         m_Mode: 1
         m_Arguments:
@@ -476,8 +476,8 @@ MonoBehaviour:
           m_StringArgument: exit
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1164161884453830752}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
@@ -519,8 +519,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 1164161884453830752}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
           m_MethodName: PlayOneShot
           m_Mode: 2
           m_Arguments:
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 1123276867}
   - component: {fileID: 1123276866}
   - component: {fileID: 1123276865}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Scrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 1173496730}
   - component: {fileID: 1173496732}
   - component: {fileID: 1173496731}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 1708564721}
   - component: {fileID: 1708564723}
   - component: {fileID: 1708564722}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 1881555623}
   - component: {fileID: 1881555622}
   - component: {fileID: 1881555621}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 1984023931}
   - component: {fileID: 1984023933}
   - component: {fileID: 1984023932}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1164161884453830753}
+      - m_Target: {fileID: 68791125}
         m_TargetAssemblyTypeName: NewMenuManger, Assembly-CSharp
         m_MethodName: ToggleMenu
         m_Mode: 1
@@ -1191,6 +1191,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 1c0539019e19e334ab797fbfc8809779,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InteractionSwitch, Assembly-CSharp
+        m_MethodName: ToggleRightRay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1396,14 +1408,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+      - m_Target: {fileID: 68791125}
+        m_TargetAssemblyTypeName: NewMenuManger, Assembly-CSharp
+        m_MethodName: OpenAbout
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 1c0539019e19e334ab797fbfc8809779,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1862,10 +1873,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SureToExit
-        m_Mode: 5
+      - m_Target: {fileID: 68791125}
+        m_TargetAssemblyTypeName: NewMenuManger, Assembly-CSharp
+        m_MethodName: ExitGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2063,7 +2074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1164161884240136833
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2085,7 +2096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3.47}
+  m_AnchoredPosition: {x: 0, y: 3.51}
   m_SizeDelta: {x: 1500, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1164161884240136830
@@ -2177,8 +2188,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1164161884453830750}
-  - component: {fileID: 1164161884453830753}
   - component: {fileID: 1164161884453830752}
+  - component: {fileID: 68791125}
   m_Layer: 0
   m_Name: New Menu
   m_TagString: Untagged
@@ -2203,25 +2214,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1164161884453830753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164161884453830751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56ab321cae9af144a9c9f00d38757a9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  distanceToCamera: 0
-  PauseSkyboxMat: {fileID: 0}
-  SkyboxMat: {fileID: 0}
-  menuLayers:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!82 &1164161884453830752
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2318,6 +2310,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &68791125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164161884453830751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ab321cae9af144a9c9f00d38757a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  distanceToCamera: 8
+  PauseSkyboxMat: {fileID: 2100000, guid: 1e5c85c2d47bde341ad403e74aa43044, type: 2}
+  SkyboxMat: {fileID: 2100000, guid: 7b0f2096b49ccfb4f8b47c8084d650fa, type: 2}
+  menuLayers:
+    serializedVersion: 2
+    m_Bits: 1073741856
+  actionAsset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
 --- !u!1 &1164161884929230568
 GameObject:
   m_ObjectHideFlags: 0
@@ -2441,10 +2454,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SureToExit
-        m_Mode: 5
+      - m_Target: {fileID: 68791125}
+        m_TargetAssemblyTypeName: NewMenuManger, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

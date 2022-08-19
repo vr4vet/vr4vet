@@ -1,3 +1,11 @@
+/* Copyright (C) 2022 IMTEL NTNU - All Rights Reserved
+ * Developer: Jorge Garcia
+ * animations made by: Daniel Stringer https://www.youtube.com/watch?v=ijcn-mIJL5s
+ * Ask your questions by email: jorgeega@ntnu.no
+ */
+
+
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,7 +27,7 @@ public class HandAnimation : MonoBehaviour
         pinchAction.action.canceled += PinchRelease;
     }
 
-    private void Awake() => animator = GetComponent<Animator>();
+    private void Start() => animator = GetComponent<Animator>();
 
     private void Gripping(InputAction.CallbackContext obj)
     {
