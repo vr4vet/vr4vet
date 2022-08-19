@@ -18,11 +18,13 @@ public class InteractionSwitch : MonoBehaviour
 
     public GameObject RayHandRight;
     public GameObject reticle;
-    public GameObject Tablet;  
 
     [SerializeField] private XRRayInteractor rayInteractor;
     [SerializeField] InputActionAsset actionAsset;
     private InputAction thumbstick;
+    private GameObject tablet;
+    
+    
 
 
     private void Start()
@@ -32,20 +34,23 @@ public class InteractionSwitch : MonoBehaviour
         thumbstick = actionAsset.FindActionMap("XRI LeftHand Locomotion").FindAction("Move");
         thumbstick.Enable();
         thumbstick.started += RayActivate;
+        tablet= GameObject.Find("Tablet") ;
+        
     }
  
-    public void ToggleRightRay()
+    public void ToggleRightRayTablet()
     {
-        RayHandRight.SetActive(!RayHandRight.activeSelf);
+        var tabP = tablet.GetComponent<TabletPosition>();
+        RayHandRight.SetActive(! tabP.gettabletIsOpened());
     }
+    public void ToggleRightRay(bool mode)
+    {
+        RayHandRight.SetActive(mode);
+    }
+
+
 
     //enables tabblet and the ray based on the Tablet status
-    public void TabletModeToggle()
-    {
-        RayHandRight.SetActive(!Tablet.activeSelf);
-        Tablet.SetActive(!Tablet.activeSelf);
-
-    }
 
     void RayActivate(InputAction.CallbackContext context)
     {

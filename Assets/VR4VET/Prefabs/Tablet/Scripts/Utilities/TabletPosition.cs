@@ -58,6 +58,25 @@ public class TabletPosition : MonoBehaviour
 
         }
     }
+
+    public bool gettabletIsOpened()
+    {
+        return tabletIsOpened;
+    }
+
+    //override of the method
+    public void ToggleTablet(bool isEnabled)
+    {
+
+        foreach (Transform child in GetComponentInChildren<Transform>())
+        {
+            if (child != managers)
+            {
+                child.gameObject.SetActive(isEnabled);
+            }
+
+        }
+    }
     /// <summary>
     /// Unity start method
     /// </summary>
