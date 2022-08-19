@@ -26,7 +26,7 @@ public class InteractionSwitch : MonoBehaviour
     {
         //assign the RayActive function to the whenever someone moves the left thumbstick
         rayInteractor.enabled = false;
-        thumbstick = actionAsset.FindActionMap("XRI LeftHand Locomotion").FindAction("Teleport Mode Activate");
+        thumbstick = actionAsset.FindActionMap("XRI LeftHand Locomotion").FindAction("Move");
         thumbstick.Enable();
         thumbstick.started += RayActivate;
     }
@@ -40,7 +40,8 @@ public class InteractionSwitch : MonoBehaviour
     void RayActivate(InputAction.CallbackContext context)
     {
         rayInteractor.enabled = true;
-     
+        Debug.Log("TP Called");
+
     }
 
 
@@ -49,7 +50,7 @@ public class InteractionSwitch : MonoBehaviour
     {
         rayInteractor.enabled = false;
         reticle.SetActive(false);
-        Debug.Log("TP Called");
+        
     }
 
 }
