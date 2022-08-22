@@ -55,7 +55,6 @@ public class InteractionSwitch : MonoBehaviour
     void RayActivate(InputAction.CallbackContext context)
     {
         rayInteractor.enabled = true;
-        Debug.Log("TP Called");
 
     }
 
