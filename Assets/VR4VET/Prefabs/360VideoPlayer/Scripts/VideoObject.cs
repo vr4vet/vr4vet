@@ -94,7 +94,7 @@ public class VideoObject : MonoBehaviour
 
         //position
         float y = Mathf.PingPong(0.3f * Time.time, 1) * 0.1f + 1f;
-        transform.position = new Vector3(OriginalPosition.x, y, OriginalPosition.z);
+        transform.position = new Vector3(OriginalPosition.x, OriginalPosition.y, OriginalPosition.z);
 
         //scale
         transform.localScale = new Vector3(1f, 1f, 1f);
