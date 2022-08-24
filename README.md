@@ -18,13 +18,13 @@ Under the VR4VET/Scenes you should see a scene called ‘Template 1’. This the
 
 This Scenes demos 3 simple tasks that you can check using your tablet. If you click on the task it will also show you the way towards that task with green arrows(unless you are already too close). 
 
-#Controls
+#### Controls
 
-*Primary button right hand: Tablet
-*Secondary button right hand: Main Menu
-*Trigger right hand: UI Press
-*Thumbstick left hand: teleportation
-*Grip Button both hands: grab
+* Primary button right hand: Tablet
+* Secondary button right hand: Main Menu
+* Trigger right hand: UI Press
+* Thumbstick left hand: teleportation
+* Grip Button both hands: grab
  
 
 This Scene is going to get a lot of changes after transitioning to VR Interaction Framework
