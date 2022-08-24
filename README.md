@@ -3,13 +3,13 @@ This repository holds a Unity project with demo Scenes and the core Prefabs to c
 
 (Note: Both Game and Experience are used in this documentation to describe a VR experience where the user will try a profession)
 
-## Instalation
+## Instalation/Requirements
 
-1. First you need to download unity 2021.3.5f1 (this was the latest LTS at the time the project was started )
+1. First you need to download Unity **2021.3.5f1** (this was the latest LTS at the time the project was started )
 
-2. Clone the repository using git clone
+2. Clone the Develop branch using git clone 
 
-3. Go to ‘Window’ -> ‘Package manage’ and make sure *Open XR Plugin* is installed. If  already there ignore this step
+3. Go to ‘Window’ -> ‘Package manage’ and make sure **Open XR Plugin** is installed. If  already there ignore this step
 
 
 ## Using the Demo Scene
