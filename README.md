@@ -39,8 +39,8 @@ All Experiences/Games should use: Player, Tablet and Menu prefabs. All included 
 
 
 ## Prefabs
-* 360 Video Player
 * Pause Menu
+* 360 Video Player: https://github.com/vr4vet/vr4vet/blob/main/360VideoREADME.md
 * Tablet: https://github.com/vr4vet/vr4vet/blob/main/TabletREADME.md
   - Navigation manager
   - Skill Manager
