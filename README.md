@@ -38,10 +38,10 @@ If you are creating a new game you should create a new repository under this oga
 All Experiences/Games should use: Player, Tablet and Menu prefabs. All included in the Demo Scene under the 'Scenes' folder. You can make modifications to the prefabs if you need something specific to your game. If you think a feature is missing or if there is a bug in an existing Prefab, you should make an issue on this repository so someone can make that change.   
 
 
-## Prefabs 
+## Prefabs
 * 360 Video Player
 * Pause Menu
-* Tablet
+* Tablet: https://github.com/vr4vet/vr4vet/blob/main/TabletREADME.md
   - Navigation manager
   - Skill Manager
   - Task and Activities
