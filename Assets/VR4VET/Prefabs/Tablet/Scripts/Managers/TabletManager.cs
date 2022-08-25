@@ -90,7 +90,8 @@ namespace Tablet
         /// <param name="status"></param>
         public void OpenTablet(bool status)
         {
-            tabletPos.SelectTablet(status);
+          //  tabletPos.SelectTablet(status);
+            tabletPos.ToggleTablet();
         }
 
         /// <summary>
@@ -127,6 +128,7 @@ namespace Tablet
             FerdighetManager.ferdighetManager.DestroyTheFerdigheterList();
             FerdighetManager.ferdighetManager.DestroyTheOppgaveInFerdighetList();
             OpenTablet(false);
+
         }
 
 

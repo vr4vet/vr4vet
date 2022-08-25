@@ -1,9 +1,12 @@
 ﻿/* Copyright (C) 2020 IMTEL NTNU - All Rights Reserved
- * Developer: Abbas Jafari
+ * Developer: Abbas Jafari & Jorge Garcia
  * Ask your questions by email: a85jafari@gmail.com
+ * 
  */
 
 using System.Collections.Generic;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR.Interaction.Toolkit.Inputs;
 using UnityEngine;
 
 /// <summary>
@@ -11,14 +14,23 @@ using UnityEngine;
 /// This class should be change if you need to open the tablet by other ways like grapping
 /// or changing the tablet position
 /// </summary>
+/// 
+
+
 public class TabletPosition : MonoBehaviour
 {
     [Range(0.1f, 1)]
     public float DistanceFromPlayer = 0.4f;
-
+    public Transform managers;
     Vector3 originalAngles;
-
     private bool tabletIsOpened;
+
+    public enum myEnum // your custom enumeration
+    {
+        TabletOnHand = 0,
+        FloatingTablet = 1,
+    };
+    public myEnum type;
 
     Camera cam;
 
@@ -29,51 +41,90 @@ public class TabletPosition : MonoBehaviour
     public void SelectTablet(bool status)
     {
         tabletIsOpened = status;
+    
+    }
+    //Sets active all the objects in the tablet
+    //No change of position since is assumed that is a child of one of the hands
+    public void ToggleTablet()
+    {
+        
+        tabletIsOpened = !tabletIsOpened;
+        foreach (Transform child in GetComponentInChildren<Transform>())
+        {
+            if (child != managers)
+            {
+                child.gameObject.SetActive(tabletIsOpened);
+            }
+
+        }
     }
 
+    public bool gettabletIsOpened()
+    {
+        return tabletIsOpened;
+    }
 
+    //override of the method
+    public void ToggleTablet(bool isEnabled)
+    {
+
+        foreach (Transform child in GetComponentInChildren<Transform>())
+        {
+            if (child != managers)
+            {
+                child.gameObject.SetActive(isEnabled);
+            }
+
+        }
+    }
     /// <summary>
     /// Unity start method
     /// </summary>
     private void Start()
-    {
+    {     
+
+        if ((int)type == 1)
+        {
+            this.transform.rotation = Quaternion.Euler(-90, 0, 0);
+        }
+
         originalAngles = transform.eulerAngles;
 
         if (!Camera.main)
+        {
             cam = GameObject.FindObjectOfType<Camera>();
+
+        }
         else
+        {
             cam = Camera.main;
+
+        }
+
+        tabletIsOpened = true;
+        ToggleTablet();
     }
 
 
 
     /// <summary>
-    /// Unity update method
+    /// Moves the tablet around if the type 1 is selected
     /// </summary>
     void Update()
     {
-        var inputDevices = new List<UnityEngine.XR.InputDevice>();
-        UnityEngine.XR.InputDevices.GetDevices(inputDevices);
-
-        if (tabletIsOpened)
+        if (tabletIsOpened && ((int)type == 1) )
         {
-            transform.position = (cam.transform.position  + new Vector3(0,-0.05f,0)) + cam.transform.forward * DistanceFromPlayer;
+            transform.position = (cam.transform.position + new Vector3(0,-0.05f,0)) + cam.transform.forward * DistanceFromPlayer;
             transform.LookAt(cam.transform.position);
             transform.Rotate(originalAngles);
         }
         else
         {
-            transform.position = cam.transform.position - new Vector3(0.5f, 1f, 0);
-            transform.rotation = Quaternion.Euler(0, 180, 90);
-
-            foreach (var device in inputDevices)
+            if ((int)type == 1)
             {
-                bool triggerValue;
-                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue)
-                {
-                    SelectTablet(true);
-                }
-            }
+                transform.position = cam.transform.position - new Vector3(0.5f, 1f, 0);
+                transform.rotation = Quaternion.Euler(0, 180, 90);
+            }  
 
         }
 

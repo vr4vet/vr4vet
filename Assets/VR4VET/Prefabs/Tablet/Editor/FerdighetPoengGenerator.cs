@@ -16,7 +16,7 @@ namespace Tablet
     class FerdighetPoengGenerator : EditorWindow
     {
 
-        string mainFolder = "Assets/Tablet/";
+        string mainFolder = "Assets/VR4VET/Prefabs/Tablet/";
 
         [MenuItem("IMTEL Tools/Ferdighet Poeng Generator")]
 
