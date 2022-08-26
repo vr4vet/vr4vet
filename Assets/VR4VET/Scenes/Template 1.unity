@@ -162,31 +162,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8823180593022004183, guid: 197a2bcf321059b45b1b29f2077f7adc,
-        type: 3}
-      propertyPath: antallFerdigheter
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8823180593022004183, guid: 197a2bcf321059b45b1b29f2077f7adc,
-        type: 3}
-      propertyPath: ferdighter.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8823180593022004183, guid: 197a2bcf321059b45b1b29f2077f7adc,
-        type: 3}
-      propertyPath: beskrivelser.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8823180593022004183, guid: 197a2bcf321059b45b1b29f2077f7adc,
-        type: 3}
-      propertyPath: ferdighter.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8823180593022004183, guid: 197a2bcf321059b45b1b29f2077f7adc,
-        type: 3}
-      propertyPath: beskrivelser.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8823180593051098972, guid: 197a2bcf321059b45b1b29f2077f7adc,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -211,11 +186,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8823180593545541207, guid: 197a2bcf321059b45b1b29f2077f7adc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.1077
       objectReference: {fileID: 0}
     - target: {fileID: 8823180593892312386, guid: 197a2bcf321059b45b1b29f2077f7adc,
         type: 3}
@@ -242,11 +212,6 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8823180594378057327, guid: 197a2bcf321059b45b1b29f2077f7adc,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 2041771348}
     - target: {fileID: 8823180594581125701, guid: 197a2bcf321059b45b1b29f2077f7adc,
         type: 3}
       propertyPath: m_RootOrder
@@ -2739,96 +2704,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: -1
   m_Mesh: {fileID: 8243947456505669179, guid: 7d4e0691a98d51842b2712afd3a48f39, type: 3}
---- !u!1 &765375417 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d4e0691a98d51842b2712afd3a48f39,
-    type: 3}
-  m_PrefabInstance: {fileID: 407152283}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &765375420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 765375417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 1113344569}
-  m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 1
-  m_SelectMode: 1
-  m_CustomReticle: {fileID: 0}
-  m_FirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FirstSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Activated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Deactivated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnFirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectCanceled:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_TeleportationProvider: {fileID: 0}
-  m_MatchOrientation: 0
-  m_TeleportTrigger: 0
-  m_Teleporting:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &787477142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3235,14 +3110,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 478246134}
-    - target: {fileID: 68791125, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
-      propertyPath: SkyboxMat
-      value: 
-      objectReference: {fileID: 2100000, guid: c051fe5a20f72814f9643eb10ebbd2fc, type: 2}
-    - target: {fileID: 68791125, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
-      propertyPath: PauseSkyboxMat
-      value: 
-      objectReference: {fileID: 2100000, guid: a59fe87939f259d40a7ee37624c9568b, type: 2}
     - target: {fileID: 657967027, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
       propertyPath: m_Camera
       value: 

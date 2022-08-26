@@ -21,9 +21,9 @@ public class TabletPosition : MonoBehaviour
 {
     [Range(0.1f, 1)]
     public float DistanceFromPlayer = 0.4f;
-    public Transform managers;
-    Vector3 originalAngles;
-    private bool tabletIsOpened;
+    public Transform Managers;
+    private Vector3 _originalAngles;
+    private bool _tabletIsOpened;
 
     public enum myEnum // your custom enumeration
     {
@@ -40,7 +40,7 @@ public class TabletPosition : MonoBehaviour
     /// <param name="status"></param>
     public void SelectTablet(bool status)
     {
-        tabletIsOpened = status;
+        _tabletIsOpened = status;
     
     }
     //Sets active all the objects in the tablet
@@ -48,12 +48,12 @@ public class TabletPosition : MonoBehaviour
     public void ToggleTablet()
     {
         
-        tabletIsOpened = !tabletIsOpened;
+        _tabletIsOpened = !_tabletIsOpened;
         foreach (Transform child in GetComponentInChildren<Transform>())
         {
-            if (child != managers)
+            if (child != Managers)
             {
-                child.gameObject.SetActive(tabletIsOpened);
+                child.gameObject.SetActive(_tabletIsOpened);
             }
 
         }
@@ -61,7 +61,7 @@ public class TabletPosition : MonoBehaviour
 
     public bool gettabletIsOpened()
     {
-        return tabletIsOpened;
+        return _tabletIsOpened;
     }
 
     //override of the method
@@ -70,7 +70,7 @@ public class TabletPosition : MonoBehaviour
 
         foreach (Transform child in GetComponentInChildren<Transform>())
         {
-            if (child != managers)
+            if (child != Managers)
             {
                 child.gameObject.SetActive(isEnabled);
             }
@@ -88,7 +88,7 @@ public class TabletPosition : MonoBehaviour
             this.transform.rotation = Quaternion.Euler(-90, 0, 0);
         }
 
-        originalAngles = transform.eulerAngles;
+        _originalAngles = transform.eulerAngles;
 
         if (!Camera.main)
         {
@@ -101,7 +101,7 @@ public class TabletPosition : MonoBehaviour
 
         }
 
-        tabletIsOpened = true;
+        _tabletIsOpened = true;
         ToggleTablet();
     }
 
@@ -112,11 +112,11 @@ public class TabletPosition : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (tabletIsOpened && ((int)type == 1) )
+        if (_tabletIsOpened && ((int)type == 1) )
         {
             transform.position = (cam.transform.position + new Vector3(0,-0.05f,0)) + cam.transform.forward * DistanceFromPlayer;
             transform.LookAt(cam.transform.position);
-            transform.Rotate(originalAngles);
+            transform.Rotate(_originalAngles);
         }
         else
         {

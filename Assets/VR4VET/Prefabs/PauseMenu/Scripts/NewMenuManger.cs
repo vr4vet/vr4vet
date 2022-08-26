@@ -19,23 +19,23 @@ public class NewMenuManger : MonoBehaviour
 
     [SerializeField] public Material PauseSkyboxMat;
     [SerializeField] public Material SkyboxMat;
-    [SerializeField] private LayerMask menuLayers;  //layers mask to put on top when the game is paused
-    [SerializeField] InputActionAsset actionAsset; //we need this to block certain actions
+    [SerializeField] private LayerMask _menuLayers;  //layers mask to put on top when the game is paused
+    [SerializeField] private InputActionAsset _actionAsset; //we need this to block certain actions
 
-    private Camera cam;
-    private GameObject AboutCanvas;
-    private GameObject MenuCanvas;
-    private bool menuOpen = false;
-    private InputAction primaryButton;
+    private Camera _cam;
+    private GameObject _aboutCanvas;
+    private GameObject _menuCanvas;
+    private bool _menuOpen = false;
+    private InputAction _primaryButton;
 
     void Start()
     {
-        AboutCanvas = transform.Find("AboutCanvas").gameObject;
-        MenuCanvas = transform.Find("Canvas").gameObject;
-        cam = Camera.main;
-        MenuCanvas.SetActive(false);
+        _aboutCanvas = transform.Find("AboutCanvas").gameObject;
+        _menuCanvas = transform.Find("Canvas").gameObject;
+        _cam = Camera.main;
+        _menuCanvas.SetActive(false);
 
-        primaryButton = actionAsset.FindActionMap("XRI RightHand Interaction").FindAction("PrimaryButton");
+        _primaryButton = _actionAsset.FindActionMap("XRI RightHand Interaction").FindAction("PrimaryButton");
       
 
     }
@@ -45,19 +45,19 @@ public class NewMenuManger : MonoBehaviour
         transform.position = player.transform.position;
 
         //transform of menu canvas
-        MenuCanvas.transform.position = cam.transform.position + cam.transform.forward * distanceToCamera;
-        MenuCanvas.transform.LookAt(MenuCanvas.transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
+        _menuCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera;
+        _menuCanvas.transform.LookAt(_menuCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
 
-        AboutCanvas.transform.position = cam.transform.position + cam.transform.forward * distanceToCamera;
-        AboutCanvas.transform.LookAt(MenuCanvas.transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
+        _aboutCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera;
+        _aboutCanvas.transform.LookAt(_menuCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
 
     }
 
     public void ToggleMenu()
     {
-        menuOpen = !menuOpen;
+        _menuOpen = !_menuOpen;
 
-        if (menuOpen)
+        if (_menuOpen)
             PauseGame();
         else
             ResumeGame();
@@ -67,9 +67,9 @@ public class NewMenuManger : MonoBehaviour
     {
         Time.timeScale = 0; // pauses time events
         RenderSettings.skybox = PauseSkyboxMat;
-        cam.cullingMask = menuLayers; //show only the chosen menu layers
-        MenuCanvas.SetActive(true);
-        primaryButton.Disable();
+        _cam.cullingMask = _menuLayers; //show only the chosen menu layers
+        _menuCanvas.SetActive(true);
+        _primaryButton.Disable();
 
     }
 
@@ -77,10 +77,10 @@ public class NewMenuManger : MonoBehaviour
     {
         Time.timeScale = 1;
         RenderSettings.skybox = SkyboxMat ;
-        cam.cullingMask = -1; // -1 = "Everything"
-        MenuCanvas.SetActive(false);
-        AboutCanvas.SetActive(false);
-        primaryButton.Enable();
+        _cam.cullingMask = -1; // -1 = "Everything"
+        _menuCanvas.SetActive(false);
+        _aboutCanvas.SetActive(false);
+        _primaryButton.Enable();
 
     }
 
@@ -88,12 +88,12 @@ public class NewMenuManger : MonoBehaviour
 
     public void Restart()
     {
-        primaryButton.Enable();
+        // un-frezes the time and unblocks the player controller
+        _primaryButton.Enable();
         Time.timeScale = 1;
+        //back to the first scene
         SceneManager.LoadScene(0);
 
-        // reload the current scene for good messuare
-       // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
 
 
     }
@@ -102,15 +102,15 @@ public class NewMenuManger : MonoBehaviour
 
     public void OpenAbout()
     {
-        AboutCanvas.SetActive(true);
-        MenuCanvas.SetActive(false);
+        _aboutCanvas.SetActive(true);
+        _menuCanvas.SetActive(false);
     }
 
 
     public void CloseAbout()
     {
-        AboutCanvas.SetActive(false);
-        MenuCanvas.SetActive(true);
+        _aboutCanvas.SetActive(false);
+        _menuCanvas.SetActive(true);
     }
 
     public void ExitGame()

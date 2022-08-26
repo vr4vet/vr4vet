@@ -2150,9 +2150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RayHandRight: {fileID: 8823180594476771836}
-  reticle: {fileID: 5724087888348997684}
-  rayInteractor: {fileID: 8823180593184326145}
-  actionAsset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
+  Reticle: {fileID: 5724087888348997684}
+  _rayInteractor: {fileID: 8823180593184326145}
+  _actionAsset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
 --- !u!1 &8823180594586374987
 GameObject:
@@ -2320,7 +2320,7 @@ PrefabInstance:
     - target: {fileID: 2508374028339719813, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1
+      value: 0.1077
       objectReference: {fileID: 0}
     - target: {fileID: 2508374028339719813, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
@@ -2435,7 +2435,7 @@ PrefabInstance:
     - target: {fileID: 2508374028527349679, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2508374028534941544, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
@@ -2570,17 +2570,17 @@ PrefabInstance:
     - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: antallFerdigheter
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: ferdighter.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: beskrivelser.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
@@ -2748,7 +2748,7 @@ PrefabInstance:
     - target: {fileID: 2508374029176431347, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_Value
-      value: 0.9999992
+      value: 0.99999964
       objectReference: {fileID: 0}
     - target: {fileID: 2508374029176431349, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
@@ -2952,6 +2952,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2508374029397580321, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
+      propertyPath: Managers
+      value: 
+      objectReference: {fileID: 8823180593339413759}
+    - target: {fileID: 2508374029397580321, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
       propertyPath: managers
       value: 
       objectReference: {fileID: 8823180593339413759}
@@ -2968,7 +2973,7 @@ PrefabInstance:
     - target: {fileID: 2508374029437814552, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_Size
-      value: 0.99999917
+      value: 0.9999992
       objectReference: {fileID: 0}
     - target: {fileID: 2508374029437814554, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
@@ -3138,7 +3143,7 @@ PrefabInstance:
     - target: {fileID: 2508374029953729521, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_Value
-      value: 0.9999992
+      value: 0.99999964
       objectReference: {fileID: 0}
     - target: {fileID: 2508374029953729523, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
@@ -3324,7 +3329,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8823180594097048422}
     - target: {fileID: 2508374030282419719, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_Layer

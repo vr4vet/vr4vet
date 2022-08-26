@@ -48,7 +48,7 @@ public class MenuManager : MonoBehaviour
     {
         menu = transform.Find("MainCanvas").gameObject;
         warningMenu = transform.Find("WarningCanvas").gameObject;
-        AboutCanvas = transform.Find("AboutCanvas").gameObject;
+        AboutCanvas = transform.Find("_aboutCanvas").gameObject;
 
         if (!Camera.main) Debug.LogError("Assign 'MainCamera' tag to your main camera.");
 
