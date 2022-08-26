@@ -49,7 +49,7 @@ namespace Tablet
             else
                 cam = Camera.main;
 
-            Debug.Log("All managers can be found under Tablet -> Managers");
+            Debug.Log("All Managers can be found under Tablet -> Managers");
             //set Camera.main as all canvases camera in world space if it's not assigned yet
             if (cam)
             {
