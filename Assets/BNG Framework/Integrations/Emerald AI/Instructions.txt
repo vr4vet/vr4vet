@@ -1,0 +1,19 @@
+The most up to date installation instructions can be found at : https://wiki.beardedninjagames.com/Integrations/EmeraldAI
+
+If you want to deal limb damage or view additional information on EmeraldAI be sure to visit the wiki link above.
+
+In order to damage Emerald AI objects, you need to pass along the damage amount from the VR Framework to the Emerald AI system.
+
+Installation :
+
+1. Extract the EmeraldAI.unityPackage found in this folder
+
+2. Attach the EmeraldAIDamageable Component to any object you wish to deal damage to
+
+3. Create a new Tag called something like "PlayerController" and assign it to your player's "OVRPlayerController" transform. Specify this newly creataed tag in the Emeral AI detection settings. Otherwise the AI may be unable to detect you.
+
+4. Make sure any RaycastWeapons (such as the Pistol) have their "Valid Layers" set to include whatever Layer the Emerald AI objects are set to. Otherwise your Raycast shots will go through the AI targets.
+
+That's it! If you are having issues with Emerald AI detecting the player or receiving damage, make sure you double check the tags and layers are correct and that the EmeraldAIDamageable component has been added to the enemy.
+
+EmeraldAI documentation can be found here : https://docs.google.com/document/d/1_zXR1gg61soAX_bZscs6HC-7as2njM7Jx9pYlqgbtM8/
