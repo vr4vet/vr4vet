@@ -8,7 +8,7 @@ This repository contains the tablet prefab project which is used in all Virtual 
 3. Now you have a new folder “Tablet” with some subfolders.
 4. Drag “Tablet” prefab from Tablet -> Prefabs folder to your scene.
 
-![Adding custom package in Unity](/uploads/af61ea480b0dd2da2fc3c36d7d99db56/360video-readme-01.png)
+![Adding custom package in Unity](/ReadMePictures/360video-readme-01.png)
 
 # Skill manager "FerdighetManager"
 
