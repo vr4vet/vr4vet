@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 257308793674470445}
   - component: {fileID: 6648051356704174432}
   - component: {fileID: 2158857307148594920}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374028182554621}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 2508374028194228193}
   - component: {fileID: 2508374028194228192}
   - component: {fileID: 2508374028194228195}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 2508374028218397128}
   - component: {fileID: 2508374028218397142}
   - component: {fileID: 2508374028218397129}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: OppgaverLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Ferdighet x testes i disse oppgavene
+  m_Text: Skill x is tested in these tasks
 --- !u!1 &2508374028222859229
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 2508374028222859225}
   - component: {fileID: 2508374028222859224}
   - component: {fileID: 2508374028222859227}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,6 +478,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InteractionSwitch, Assembly-CSharp
+        m_MethodName: SwitchInteractionMethod
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2508374028231545024
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,7 +502,7 @@ GameObject:
   - component: {fileID: 2508374028253653216}
   - component: {fileID: 2508374028224504930}
   - component: {fileID: 2508374028224504928}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: HjelpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,7 +635,7 @@ GameObject:
   - component: {fileID: 2508374028253322558}
   - component: {fileID: 2508374028253653246}
   - component: {fileID: 2508374028224504958}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +703,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Hjelp
+  m_Text: Help
 --- !u!1 &2508374028245130233
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,7 +714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2508374028245130182}
   - component: {fileID: 2508374028245130183}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: NavigasjonManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +770,7 @@ GameObject:
   - component: {fileID: 2508374028278544329}
   - component: {fileID: 2508374028278544328}
   - component: {fileID: 2508374028278544343}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ProgressScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -879,7 +891,7 @@ GameObject:
   - component: {fileID: 2508374028279927139}
   - component: {fileID: 2508374028279927137}
   - component: {fileID: 2508374028279927136}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -957,7 +969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374028306425477}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Labels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1001,7 +1013,7 @@ GameObject:
   - component: {fileID: 2508374028323996913}
   - component: {fileID: 2508374028323996912}
   - component: {fileID: 2508374028323996927}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BeskrivelseScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1122,7 +1134,7 @@ GameObject:
   - component: {fileID: 2508374028325644237}
   - component: {fileID: 2508374028325644235}
   - component: {fileID: 2508374028325644234}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: MainTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1190,7 +1202,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Virtuell Praksisplass
+  m_Text: Virtual Internship
 --- !u!1 &2508374028332174208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,7 +1216,7 @@ GameObject:
   - component: {fileID: 2508374028332174220}
   - component: {fileID: 2508374028332174223}
   - component: {fileID: 2508374028332174222}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: FerdigheterScrollListBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1325,7 +1337,7 @@ GameObject:
   - component: {fileID: 2508374028339923668}
   - component: {fileID: 2508374028339923666}
   - component: {fileID: 2508374028339923669}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1404,7 +1416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2508374028339719813}
   - component: {fileID: 2508374029397580321}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Tablet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1441,7 +1453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacd11c2dea98454baece86858299987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DistanceFromPlayer: 0.4
+  DistanceFromPlayer: 0.421
   Managers: {fileID: 2508374029220080685}
   type: 0
 --- !u!1 &2508374028344300896
@@ -1455,7 +1467,7 @@ GameObject:
   - component: {fileID: 2508374028344300897}
   - component: {fileID: 2508374028344300911}
   - component: {fileID: 2508374028344300910}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1535,7 +1547,7 @@ GameObject:
   - component: {fileID: 2508374028447427274}
   - component: {fileID: 2508374028447427272}
   - component: {fileID: 2508374028447427275}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1613,7 +1625,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374028473249440}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1652,7 +1664,7 @@ GameObject:
   - component: {fileID: 2508374028480832290}
   - component: {fileID: 2508374028480832288}
   - component: {fileID: 2508374028480832291}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1732,7 +1744,7 @@ GameObject:
   - component: {fileID: 2508374028500124877}
   - component: {fileID: 2508374028500124875}
   - component: {fileID: 2508374028500124874}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1813,7 +1825,7 @@ GameObject:
   - component: {fileID: 2508374028509978684}
   - component: {fileID: 2508374028509978687}
   - component: {fileID: 2508374028509978686}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ScrollListViewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1903,7 +1915,7 @@ GameObject:
   - component: {fileID: 2508374028511743740}
   - component: {fileID: 2508374028511743738}
   - component: {fileID: 2508374028511743741}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1984,7 +1996,7 @@ GameObject:
   - component: {fileID: 2508374028516431534}
   - component: {fileID: 2508374028516431521}
   - component: {fileID: 2508374028516431520}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2129,7 +2141,7 @@ GameObject:
   - component: {fileID: 2508374028527349677}
   - component: {fileID: 2508374028527349676}
   - component: {fileID: 2508374028527349679}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListScrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2255,7 +2267,7 @@ GameObject:
   - component: {fileID: 2508374028534941545}
   - component: {fileID: 2508374028534941559}
   - component: {fileID: 2508374028534941558}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: PoengLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2337,7 +2349,7 @@ GameObject:
   - component: {fileID: 2508374028562937951}
   - component: {fileID: 2508374028562937950}
   - component: {fileID: 2508374028562937937}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: HelpPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2409,7 +2421,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2508374028562937950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2457,7 +2469,7 @@ GameObject:
   - component: {fileID: 2508374028567504931}
   - component: {fileID: 2508374028567504929}
   - component: {fileID: 2508374028567504928}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2534,7 +2546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374028580586312}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2576,7 +2588,7 @@ GameObject:
   - component: {fileID: 2508374028605609030}
   - component: {fileID: 2508374028605609081}
   - component: {fileID: 2508374028605609080}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2705,7 +2717,7 @@ GameObject:
   - component: {fileID: 2508374028612387645}
   - component: {fileID: 2508374028612387643}
   - component: {fileID: 2508374028612387642}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: YrkesTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
@@ -2773,7 +2785,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Yrkesnavn
+  m_Text: 'Occupational name
 
 '
 --- !u!1 &2508374028652596252
@@ -2787,7 +2799,7 @@ GameObject:
   - component: {fileID: 2508374028652596253}
   - component: {fileID: 2508374028652596251}
   - component: {fileID: 2508374028652596250}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: YrkesTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
@@ -2855,7 +2867,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Yrkesnavn
+  m_Text: 'Occupational name
 
 '
 --- !u!1 &2508374028671582234
@@ -2869,7 +2881,7 @@ GameObject:
   - component: {fileID: 2508374028671582235}
   - component: {fileID: 2508374028671582233}
   - component: {fileID: 2508374028671582232}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: HeaderBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2950,7 +2962,7 @@ GameObject:
   - component: {fileID: 2508374028672295836}
   - component: {fileID: 2508374028672295839}
   - component: {fileID: 2508374028672295838}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListScrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3077,7 +3089,7 @@ GameObject:
   - component: {fileID: 2508374028693577299}
   - component: {fileID: 2508374028693577298}
   - component: {fileID: 2508374028693577301}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3209,7 +3221,7 @@ GameObject:
   - component: {fileID: 2508374028736793809}
   - component: {fileID: 2508374028736793823}
   - component: {fileID: 2508374028736793822}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: HeaderBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3289,7 +3301,7 @@ GameObject:
   - component: {fileID: 2508374028759605094}
   - component: {fileID: 2508374028759605092}
   - component: {fileID: 2508374028759605095}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BeskrivelseText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3375,7 +3387,7 @@ GameObject:
   - component: {fileID: 2508374028779297411}
   - component: {fileID: 2508374028779297410}
   - component: {fileID: 2508374028779297413}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: AktivitetScrollListViewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3463,7 +3475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374028808977297}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Canvases
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3504,7 +3516,7 @@ GameObject:
   - component: {fileID: 2508374028818846999}
   - component: {fileID: 2508374028818846998}
   - component: {fileID: 2508374028818846985}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3620,7 +3632,7 @@ GameObject:
   - component: {fileID: 2508374028861649731}
   - component: {fileID: 2508374028861649729}
   - component: {fileID: 2508374028861649728}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3699,7 +3711,7 @@ GameObject:
   - component: {fileID: 2508374028883112696}
   - component: {fileID: 2508374028883112646}
   - component: {fileID: 2508374028883112697}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: PoengLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3767,7 +3779,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Poeng
+  m_Text: Point
 --- !u!1 &2508374028884394849
 GameObject:
   m_ObjectHideFlags: 0
@@ -3780,7 +3792,7 @@ GameObject:
   - component: {fileID: 2508374028862438209}
   - component: {fileID: 2508374028890535875}
   - component: {fileID: 2508374028890535873}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: OppgaverButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3913,7 +3925,7 @@ GameObject:
   - component: {fileID: 2508374028862623391}
   - component: {fileID: 2508374028862438239}
   - component: {fileID: 2508374028890535903}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3981,7 +3993,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Oppgaver
+  m_Text: Tasks
 --- !u!1 &2508374028889763265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3995,7 +4007,7 @@ GameObject:
   - component: {fileID: 2508374028889763277}
   - component: {fileID: 2508374028889763276}
   - component: {fileID: 2508374028889763279}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: AktivitetPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4067,7 +4079,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2508374028889763276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4114,7 +4126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2508374028898906884}
   - component: {fileID: 2508374028898906885}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: FerdighetManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4148,9 +4160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b5bbc1217661040bf319b005e75209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  antallFerdigheter: 0
-  ferdighter: []
-  beskrivelser: []
+  antallFerdigheter: 1
+  ferdighter:
+  - Accuracy
+  beskrivelser:
+  - the condition or quality of being true, correct, or exact; freedom from error
+    or defect; precision or exactness; correctness. Chemistry, Physics. the extent
+    to which a given measurement agrees with the standard value for that measurement.
+    Compare precision (def.
   ferdigheterList: []
 --- !u!1 &2508374028919080833
 GameObject:
@@ -4163,7 +4180,7 @@ GameObject:
   - component: {fileID: 2508374028919080846}
   - component: {fileID: 2508374028919080844}
   - component: {fileID: 2508374028919080847}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4242,7 +4259,7 @@ GameObject:
   - component: {fileID: 2508374028967839057}
   - component: {fileID: 2508374028967839071}
   - component: {fileID: 2508374028967839070}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4320,7 +4337,7 @@ GameObject:
   - component: {fileID: 2508374028970569000}
   - component: {fileID: 2508374028970569014}
   - component: {fileID: 2508374028970569001}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4400,7 +4417,7 @@ GameObject:
   - component: {fileID: 2508374029007013668}
   - component: {fileID: 2508374029007013666}
   - component: {fileID: 2508374029007013669}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4468,7 +4485,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Oppgaver
+  m_Text: Tasks
 --- !u!1 &2508374029020071818
 GameObject:
   m_ObjectHideFlags: 0
@@ -4482,7 +4499,7 @@ GameObject:
   - component: {fileID: 2508374029020071816}
   - component: {fileID: 2508374029020071830}
   - component: {fileID: 2508374029020071831}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: OppgaverScrollListBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4603,7 +4620,7 @@ GameObject:
   - component: {fileID: 2508374029026891866}
   - component: {fileID: 2508374029026891864}
   - component: {fileID: 2508374029026891867}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: FerdighetNameLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4671,7 +4688,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Ferdighet X
+  m_Text: Skill X
 --- !u!1 &2508374029028015217
 GameObject:
   m_ObjectHideFlags: 0
@@ -4686,7 +4703,7 @@ GameObject:
   - component: {fileID: 2508374029028015229}
   - component: {fileID: 2508374029028015228}
   - component: {fileID: 2508374029028015231}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4815,7 +4832,7 @@ GameObject:
   - component: {fileID: 2508374029030333169}
   - component: {fileID: 2508374029030333183}
   - component: {fileID: 2508374029030333182}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: HelpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4901,7 +4918,7 @@ GameObject:
   - component: {fileID: 2508374029047080412}
   - component: {fileID: 2508374029047080415}
   - component: {fileID: 2508374029047080414}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5022,6 +5039,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InteractionSwitch, Assembly-CSharp
+        m_MethodName: SwitchInteractionMethod
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2508374029069226707
 GameObject:
   m_ObjectHideFlags: 0
@@ -5034,7 +5063,7 @@ GameObject:
   - component: {fileID: 2508374029069226719}
   - component: {fileID: 2508374029069226718}
   - component: {fileID: 2508374029069226705}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5178,7 +5207,7 @@ GameObject:
   - component: {fileID: 2508374029117190061}
   - component: {fileID: 2508374029117512301}
   - component: {fileID: 2508374029105207021}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5246,7 +5275,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Poeng
+  m_Text: Points
 --- !u!1 &2508374029095412307
 GameObject:
   m_ObjectHideFlags: 0
@@ -5259,7 +5288,7 @@ GameObject:
   - component: {fileID: 2508374029117512307}
   - component: {fileID: 2508374029105207025}
   - component: {fileID: 2508374029105207027}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: PoengButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5392,7 +5421,7 @@ GameObject:
   - component: {fileID: 2508374029111974650}
   - component: {fileID: 2508374029111974648}
   - component: {fileID: 2508374029111974651}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5472,7 +5501,7 @@ GameObject:
   - component: {fileID: 2508374029131473394}
   - component: {fileID: 2508374029131473392}
   - component: {fileID: 2508374029131473395}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: HeaderBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5552,7 +5581,7 @@ GameObject:
   - component: {fileID: 2508374029131563470}
   - component: {fileID: 2508374029131563468}
   - component: {fileID: 2508374029131563471}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5632,7 +5661,7 @@ GameObject:
   - component: {fileID: 2508374029155632494}
   - component: {fileID: 2508374029155632492}
   - component: {fileID: 2508374029155632495}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5711,7 +5740,7 @@ GameObject:
   - component: {fileID: 2508374029162140001}
   - component: {fileID: 2508374029162140000}
   - component: {fileID: 2508374029162140003}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BeskrivelseScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5820,7 +5849,7 @@ GameObject:
   - component: {fileID: 2508374029176431345}
   - component: {fileID: 2508374029176431344}
   - component: {fileID: 2508374029176431347}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5929,8 +5958,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2508374029176431344}
   m_HandleRect: {fileID: 2508374029226701211}
   m_Direction: 2
-  m_Value: 0.99999964
-  m_Size: 0.458295
+  m_Value: 0.9999991
+  m_Size: 0.45829496
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5947,7 +5976,7 @@ GameObject:
   - component: {fileID: 2508374029186144787}
   - component: {fileID: 2508374029186144786}
   - component: {fileID: 2508374029186144789}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListScrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6073,7 +6102,7 @@ GameObject:
   - component: {fileID: 2508374029197104153}
   - component: {fileID: 2508374029197104359}
   - component: {fileID: 2508374029197104358}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: YrkesTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
@@ -6141,7 +6170,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Yrkesnavn
+  m_Text: 'Occupational name
 
 '
 --- !u!1 &2508374029205915950
@@ -6153,7 +6182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374029205915951}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6194,7 +6223,7 @@ GameObject:
   - component: {fileID: 2508374029210061618}
   - component: {fileID: 2508374029210061621}
   - component: {fileID: 2508374029210061620}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: FerdigheterPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6266,7 +6295,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2508374029210061621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6312,7 +6341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374029220080685}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6349,7 +6378,7 @@ GameObject:
   - component: {fileID: 2508374029226701211}
   - component: {fileID: 2508374029226701209}
   - component: {fileID: 2508374029226701208}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6429,7 +6458,7 @@ GameObject:
   - component: {fileID: 2508374029251478954}
   - component: {fileID: 2508374029251478957}
   - component: {fileID: 2508374029251478956}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ScrollListViewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6520,7 +6549,7 @@ GameObject:
   - component: {fileID: 2508374029253938576}
   - component: {fileID: 2508374029253938579}
   - component: {fileID: 2508374029253938578}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6641,6 +6670,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InteractionSwitch, Assembly-CSharp
+        m_MethodName: SwitchInteractionMethod
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2508374029273113003
 GameObject:
   m_ObjectHideFlags: 0
@@ -6652,7 +6693,7 @@ GameObject:
   - component: {fileID: 2508374029273113000}
   - component: {fileID: 2508374029273113014}
   - component: {fileID: 2508374029273113001}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6732,7 +6773,7 @@ GameObject:
   - component: {fileID: 2508374029299025029}
   - component: {fileID: 2508374029299025027}
   - component: {fileID: 2508374029299025026}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: StatusLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6812,7 +6853,7 @@ GameObject:
   - component: {fileID: 2508374029315362002}
   - component: {fileID: 2508374029315362000}
   - component: {fileID: 2508374029315362003}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6890,7 +6931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374029324302007}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6929,7 +6970,7 @@ GameObject:
   - component: {fileID: 2508374029345624952}
   - component: {fileID: 2508374029345624902}
   - component: {fileID: 2508374029345624953}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: MainTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6997,7 +7038,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Virtuell Praksisplass
+  m_Text: Virtual Internship
 --- !u!1 &2508374029348888558
 GameObject:
   m_ObjectHideFlags: 0
@@ -7009,7 +7050,7 @@ GameObject:
   - component: {fileID: 2508374029348888559}
   - component: {fileID: 2508374029348888557}
   - component: {fileID: 2508374029348888556}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: AktivitetLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7090,7 +7131,7 @@ GameObject:
   - component: {fileID: 2508374029353259517}
   - component: {fileID: 2508374029353259516}
   - component: {fileID: 2508374029353259519}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7235,7 +7276,7 @@ GameObject:
   - component: {fileID: 2508374029372545804}
   - component: {fileID: 2508374029372545807}
   - component: {fileID: 2508374029372545805}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7356,6 +7397,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InteractionSwitch, Assembly-CSharp
+        m_MethodName: SwitchInteractionMethod
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2508374029380388659
 GameObject:
   m_ObjectHideFlags: 0
@@ -7368,7 +7421,7 @@ GameObject:
   - component: {fileID: 2508374029380388671}
   - component: {fileID: 2508374029380388670}
   - component: {fileID: 2508374029380388657}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7457,7 +7510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2508374029395503702}
   - component: {fileID: 2508374029395503700}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: TabletManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7491,7 +7544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e9443e780440a41b87c1c90689efd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YrkesNavn: Yrkesnavn
+  YrkesNavn: Demo Scene
   mainPageCanvas: {fileID: 2508374029462862932}
   oppgaverPageCanvas: {fileID: 2508374030258667197}
   aktiviteterPageCanvas: {fileID: 2508374028889763274}
@@ -7510,7 +7563,7 @@ GameObject:
   - component: {fileID: 2508374029437814758}
   - component: {fileID: 2508374029437814553}
   - component: {fileID: 2508374029437814552}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7620,7 +7673,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2508374029991185379}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999992
+  m_Size: 0.99999917
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7638,7 +7691,7 @@ GameObject:
   - component: {fileID: 2508374029437825505}
   - component: {fileID: 2508374029437825504}
   - component: {fileID: 2508374029437825519}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: AktiviteterScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7759,7 +7812,7 @@ GameObject:
   - component: {fileID: 2508374029438045160}
   - component: {fileID: 2508374029438045174}
   - component: {fileID: 2508374029438045161}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7839,7 +7892,7 @@ GameObject:
   - component: {fileID: 2508374029456677647}
   - component: {fileID: 2508374029456677645}
   - component: {fileID: 2508374029456677644}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: YrkesTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
@@ -7907,7 +7960,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Yrkesnavn
+  m_Text: 'Occupational name
 
 '
 --- !u!1 &2508374029462862920
@@ -7923,7 +7976,7 @@ GameObject:
   - component: {fileID: 2508374029462862935}
   - component: {fileID: 2508374029462862934}
   - component: {fileID: 2508374029462862933}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: MainPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7998,7 +8051,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2508374029462862934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8046,7 +8099,7 @@ GameObject:
   - component: {fileID: 2508374029480490039}
   - component: {fileID: 2508374029480490037}
   - component: {fileID: 2508374029480490036}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8127,7 +8180,7 @@ GameObject:
   - component: {fileID: 2508374029482027219}
   - component: {fileID: 2508374029482027218}
   - component: {fileID: 2508374029482027217}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BeskrivelseScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8247,7 +8300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2508374029496156192}
   - component: {fileID: 2508374029496156193}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: OppgaveManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8295,7 +8348,7 @@ GameObject:
   - component: {fileID: 2508374029509628749}
   - component: {fileID: 2508374029509628747}
   - component: {fileID: 2508374029509628746}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: YrkesTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
@@ -8363,7 +8416,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Yrkesnavn
+  m_Text: 'Occupational name
 
 '
 --- !u!1 &2508374029514356547
@@ -8377,7 +8430,7 @@ GameObject:
   - component: {fileID: 2508374029514356544}
   - component: {fileID: 2508374029514356558}
   - component: {fileID: 2508374029514356545}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: HeaderBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8457,7 +8510,7 @@ GameObject:
   - component: {fileID: 2508374029560238383}
   - component: {fileID: 2508374029560238381}
   - component: {fileID: 2508374029560238380}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: 0ppgaveLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8525,7 +8578,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Oppgaver
+  m_Text: Task
 --- !u!1 &2508374029603762620
 GameObject:
   m_ObjectHideFlags: 0
@@ -8537,7 +8590,7 @@ GameObject:
   - component: {fileID: 2508374029603762621}
   - component: {fileID: 2508374029603762619}
   - component: {fileID: 2508374029603762618}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: MainTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8605,7 +8658,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Virtuell Praksisplass
+  m_Text: Virtual Intership
 --- !u!1 &2508374029616698042
 GameObject:
   m_ObjectHideFlags: 0
@@ -8615,7 +8668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374029616698043}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8656,7 +8709,7 @@ GameObject:
   - component: {fileID: 2508374029642193899}
   - component: {fileID: 2508374029642193898}
   - component: {fileID: 2508374029642193901}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8773,7 +8826,7 @@ GameObject:
   - component: {fileID: 2508374029656956269}
   - component: {fileID: 2508374029656956268}
   - component: {fileID: 2508374029656956271}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8863,7 +8916,7 @@ GameObject:
   - component: {fileID: 2508374029659667902}
   - component: {fileID: 2508374029659667900}
   - component: {fileID: 2508374029659667903}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8940,7 +8993,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374029675925947}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BeskrivelseContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8979,7 +9032,7 @@ GameObject:
   - component: {fileID: 2508374029727391210}
   - component: {fileID: 2508374029727391208}
   - component: {fileID: 2508374029727391211}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9059,7 +9112,7 @@ GameObject:
   - component: {fileID: 2508374029732809748}
   - component: {fileID: 2508374029732809746}
   - component: {fileID: 2508374029732809749}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BeskrivelseText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9144,7 +9197,7 @@ GameObject:
   - component: {fileID: 2508374029757966737}
   - component: {fileID: 2508374029757966751}
   - component: {fileID: 2508374029757966750}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: MainTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9212,7 +9265,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Virtuell Praksisplass
+  m_Text: Virtual Internship
 --- !u!1 &2508374029761741572
 GameObject:
   m_ObjectHideFlags: 0
@@ -9224,7 +9277,7 @@ GameObject:
   - component: {fileID: 2508374029761741573}
   - component: {fileID: 2508374029761741571}
   - component: {fileID: 2508374029761741570}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9304,7 +9357,7 @@ GameObject:
   - component: {fileID: 2508374029773413776}
   - component: {fileID: 2508374029773413790}
   - component: {fileID: 2508374029773413777}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9383,7 +9436,7 @@ GameObject:
   - component: {fileID: 2508374029780242842}
   - component: {fileID: 2508374029780242840}
   - component: {fileID: 2508374029780242843}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: MainTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9451,7 +9504,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Virtuell Praksisplass
+  m_Text: Virtual Intership
 --- !u!1 &2508374029805674288
 GameObject:
   m_ObjectHideFlags: 0
@@ -9465,7 +9518,7 @@ GameObject:
   - component: {fileID: 2508374029805674300}
   - component: {fileID: 2508374029805674303}
   - component: {fileID: 2508374029805674302}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: FerdighetPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9537,7 +9590,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2508374029805674303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9586,7 +9639,7 @@ GameObject:
   - component: {fileID: 2508374029953729535}
   - component: {fileID: 2508374029953729534}
   - component: {fileID: 2508374029953729521}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9695,8 +9748,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2508374029953729534}
   m_HandleRect: {fileID: 2508374029659667902}
   m_Direction: 2
-  m_Value: 0.99999964
-  m_Size: 0.458295
+  m_Value: 0.9999991
+  m_Size: 0.45829496
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9712,7 +9765,7 @@ GameObject:
   - component: {fileID: 2508374029991185379}
   - component: {fileID: 2508374029991185377}
   - component: {fileID: 2508374029991185376}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9791,7 +9844,7 @@ GameObject:
   - component: {fileID: 2508374029992053074}
   - component: {fileID: 2508374029992053072}
   - component: {fileID: 2508374029992053075}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: HeaderBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9871,7 +9924,7 @@ GameObject:
   - component: {fileID: 2508374030009252073}
   - component: {fileID: 2508374030009252087}
   - component: {fileID: 2508374030009252086}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9951,7 +10004,7 @@ GameObject:
   - component: {fileID: 2508374030036463647}
   - component: {fileID: 2508374030036463646}
   - component: {fileID: 2508374030036463633}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10041,7 +10094,7 @@ GameObject:
   - component: {fileID: 2508374030055600824}
   - component: {fileID: 2508374030055600774}
   - component: {fileID: 2508374030055600825}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10118,7 +10171,7 @@ GameObject:
   - component: {fileID: 2508374030063529199}
   - component: {fileID: 2508374030063529198}
   - component: {fileID: 2508374030063529185}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10239,6 +10292,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InteractionSwitch, Assembly-CSharp
+        m_MethodName: SwitchInteractionMethod
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2508374030068050311
 GameObject:
   m_ObjectHideFlags: 0
@@ -10251,7 +10316,7 @@ GameObject:
   - component: {fileID: 2508374030068050307}
   - component: {fileID: 2508374030068050306}
   - component: {fileID: 2508374030068050309}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10372,6 +10437,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InteractionSwitch, Assembly-CSharp
+        m_MethodName: SwitchInteractionMethod
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2508374030068357606
 GameObject:
   m_ObjectHideFlags: 0
@@ -10381,7 +10458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374030068357607}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BeskrivelseContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10420,7 +10497,7 @@ GameObject:
   - component: {fileID: 2508374030068664351}
   - component: {fileID: 2508374030068664349}
   - component: {fileID: 2508374030068664348}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: OppgaveNameLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10498,7 +10575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374030069789698}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10535,7 +10612,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374030103350455}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Labels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10575,7 +10652,7 @@ GameObject:
   - component: {fileID: 2508374030172836836}
   - component: {fileID: 2508374030172836834}
   - component: {fileID: 2508374030172836837}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: MainTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10643,7 +10720,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Virtuell Praksisplass
+  m_Text: Virtual Internship
 --- !u!1 &2508374030197538172
 GameObject:
   m_ObjectHideFlags: 0
@@ -10656,7 +10733,7 @@ GameObject:
   - component: {fileID: 2508374030197538168}
   - component: {fileID: 2508374030197538171}
   - component: {fileID: 2508374030197538170}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ListScrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10782,7 +10859,7 @@ GameObject:
   - component: {fileID: 2508374030207152090}
   - component: {fileID: 2508374030207152088}
   - component: {fileID: 2508374030207152091}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10862,7 +10939,7 @@ GameObject:
   - component: {fileID: 2508374030218036147}
   - component: {fileID: 2508374030218036145}
   - component: {fileID: 2508374030218036144}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: YrkesTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
@@ -10930,7 +11007,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Yrkesnavn
+  m_Text: 'Occupational name
 
 '
 --- !u!1 &2508374030232128124
@@ -10944,7 +11021,7 @@ GameObject:
   - component: {fileID: 2508374030232128125}
   - component: {fileID: 2508374030232128123}
   - component: {fileID: 2508374030232128122}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11026,7 +11103,7 @@ GameObject:
   - component: {fileID: 2508374030258667196}
   - component: {fileID: 2508374030258667199}
   - component: {fileID: 2508374030258667198}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: OppgavePageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11098,7 +11175,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2508374030258667199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11144,7 +11221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508374030282419716}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11183,7 +11260,7 @@ GameObject:
   - component: {fileID: 2508374030284280795}
   - component: {fileID: 2508374030284280793}
   - component: {fileID: 2508374030284280792}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: HelpLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11263,7 +11340,7 @@ GameObject:
   - component: {fileID: 2508374030296111268}
   - component: {fileID: 2508374030296111266}
   - component: {fileID: 2508374030296111269}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11344,7 +11421,7 @@ GameObject:
   - component: {fileID: 2508374030302518023}
   - component: {fileID: 2508374030302518022}
   - component: {fileID: 2508374030302518073}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ProgressScrollListViewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11434,7 +11511,7 @@ GameObject:
   - component: {fileID: 4356509014690531174}
   - component: {fileID: 4356509014690869926}
   - component: {fileID: 4356509014676438564}
-  m_Layer: 5
+  m_Layer: 30
   m_Name: HeaderBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11514,7 +11591,7 @@ GameObject:
   - component: {fileID: 6660062000835846975}
   - component: {fileID: 7854349159180948232}
   - component: {fileID: 62482300572736621}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BackgroundPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11590,7 +11667,7 @@ GameObject:
   - component: {fileID: 8625787805036618846}
   - component: {fileID: 8625787805036618840}
   - component: {fileID: 8625787805036618847}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11670,7 +11747,7 @@ GameObject:
   - component: {fileID: 8625787805486503472}
   - component: {fileID: 8625787805486503474}
   - component: {fileID: 8625787805486503473}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11750,7 +11827,7 @@ GameObject:
   - component: {fileID: 8625787805915919918}
   - component: {fileID: 8625787805915919912}
   - component: {fileID: 8625787805915919919}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: _1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11830,7 +11907,7 @@ GameObject:
   - component: {fileID: 8625787806344444788}
   - component: {fileID: 8625787806344444790}
   - component: {fileID: 8625787806344444789}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
