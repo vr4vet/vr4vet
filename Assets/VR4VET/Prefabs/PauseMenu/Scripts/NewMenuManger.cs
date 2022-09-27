@@ -34,9 +34,16 @@ public class NewMenuManger : MonoBehaviour
         _menuCanvas = transform.Find("Canvas").gameObject;
         _cam = Camera.main;
         _menuCanvas.SetActive(false);
+        _primaryButton = new InputAction();
+        try
+        {
+            _primaryButton = _actionAsset.FindActionMap("XRI RightHand Interaction").FindAction("PrimaryButton");
+        }
+        catch
+        {
+            Debug.Log("different controller");
+        }
 
-        _primaryButton = _actionAsset.FindActionMap("XRI RightHand Interaction").FindAction("PrimaryButton");
-      
 
     }
 

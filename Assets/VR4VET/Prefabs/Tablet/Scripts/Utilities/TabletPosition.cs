@@ -102,7 +102,8 @@ public class TabletPosition : MonoBehaviour
         }
 
         _tabletIsOpened = true;
-        ToggleTablet();
+        if ((int)type == 1)
+            ToggleTablet();
     }
 
 
