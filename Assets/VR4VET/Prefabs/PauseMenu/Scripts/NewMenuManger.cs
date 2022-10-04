@@ -27,11 +27,20 @@ public class NewMenuManger : MonoBehaviour
     private GameObject _menuCanvas;
     private bool _menuOpen = false;
     private InputAction _primaryButton;
+    private float _height;
+    private float _aboutHeight;
 
     void Start()
     {
         _aboutCanvas = transform.Find("AboutCanvas").gameObject;
         _menuCanvas = transform.Find("Canvas").gameObject;
+
+        //get half of the height of the canvas to later use a position
+        //just saving the initial height is also a good option 
+        _height = _menuCanvas.GetComponent<RectTransform>().rect.height * _menuCanvas.GetComponent<RectTransform>().localScale.y /2;
+        _aboutHeight = _aboutCanvas.GetComponent<RectTransform>().rect.height * _aboutCanvas.GetComponent<RectTransform>().localScale.y / 2;
+
+
         _cam = Camera.main;
         _menuCanvas.SetActive(false);
         _primaryButton = new InputAction();
@@ -41,22 +50,32 @@ public class NewMenuManger : MonoBehaviour
         }
         catch
         {
-            Debug.Log("different controller");
+            Debug.Log("not using XRI currently");
         }
-
-
+        
     }
 
     void Update()
     {
-        transform.position = player.transform.position;
+        transform.position = player.transform.position;//set origin of parent object 
 
-        //transform of menu canvas
-        _menuCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera;
+     
+        //set the menu to be on front of the player and looking toward them
+        _menuCanvas.transform.position =  _cam.transform.position + _cam.transform.forward * distanceToCamera;
         _menuCanvas.transform.LookAt(_menuCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
 
-        _aboutCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera;
-        _aboutCanvas.transform.LookAt(_menuCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
+        _aboutCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera * 1.3f; // move a bit further
+        _aboutCanvas.transform.LookAt(_aboutCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
+
+        //change the Y position to fix one (height) , and the X,Z rotation to 0 )
+        
+        _menuCanvas.transform.position = new Vector3(_menuCanvas.transform.position.x,_height , _menuCanvas.transform.position.z);
+        _menuCanvas.transform.eulerAngles = new Vector3(0, _menuCanvas.transform.eulerAngles.y,0);
+
+        _aboutCanvas.transform.position = new Vector3(_aboutCanvas.transform.position.x, _aboutHeight, _aboutCanvas.transform.position.z);
+        _aboutCanvas.transform.eulerAngles = new Vector3(0, _aboutCanvas.transform.eulerAngles.y, 0);
+
+
 
     }
 
@@ -82,6 +101,7 @@ public class NewMenuManger : MonoBehaviour
 
     void ResumeGame()
     {
+
         Time.timeScale = 1;
         RenderSettings.skybox = SkyboxMat ;
         _cam.cullingMask = -1; // -1 = "Everything"
@@ -90,8 +110,6 @@ public class NewMenuManger : MonoBehaviour
         _primaryButton.Enable();
 
     }
-
-
 
     public void Restart()
     {
@@ -104,8 +122,6 @@ public class NewMenuManger : MonoBehaviour
 
 
     }
-
-
 
     public void OpenAbout()
     {
