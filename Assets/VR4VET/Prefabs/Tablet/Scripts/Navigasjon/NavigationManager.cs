@@ -77,7 +77,8 @@ namespace Tablet
         {
             if (target && target.activeInHierarchy)
             {
-                newArrow = Instantiate(Arrow, player.transform.position, player.transform.rotation);
+                //modified the script so it won't foolow the Y axis
+                newArrow = Instantiate(Arrow, new Vector3 (player.transform.position.x, 0, player.transform.position.z) , player.transform.rotation);
                 if (newArrow.GetComponent<NavMeshAgent>().velocity != Vector3.zero)
                     newArrow.transform.rotation = Quaternion.LookRotation(newArrow.GetComponent<NavMeshAgent>().velocity, Vector3.up);
                 CurrentArrows.Add(newArrow);

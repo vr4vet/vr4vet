@@ -21,6 +21,7 @@ public class NewMenuManger : MonoBehaviour
     [SerializeField] public Material SkyboxMat;
     [SerializeField] private LayerMask _menuLayers;  //layers mask to put on top when the game is paused
     [SerializeField] private InputActionAsset _actionAsset; //we need this to block certain actions
+    [SerializeField] private Material _walls; 
 
     private Camera _cam;
     private GameObject _aboutCanvas;
@@ -91,6 +92,9 @@ public class NewMenuManger : MonoBehaviour
 
      void PauseGame()
     {
+        Color c = _walls.color;
+        c.a = 0.7f;
+        _walls.color = c;
         Time.timeScale = 0; // pauses time events
         RenderSettings.skybox = PauseSkyboxMat;
         _cam.cullingMask = _menuLayers; //show only the chosen menu layers
@@ -101,7 +105,9 @@ public class NewMenuManger : MonoBehaviour
 
     void ResumeGame()
     {
-
+        Color c = _walls.color;
+        c.a = 1f;
+        _walls.color = c;
         Time.timeScale = 1;
         RenderSettings.skybox = SkyboxMat ;
         _cam.cullingMask = -1; // -1 = "Everything"
