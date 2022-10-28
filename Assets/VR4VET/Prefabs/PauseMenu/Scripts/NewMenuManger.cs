@@ -31,6 +31,8 @@ public class NewMenuManger : MonoBehaviour
     private float _height;
     private float _aboutHeight;
 
+    private bool thething=false;
+
     void Start()
     {
         _aboutCanvas = transform.Find("AboutCanvas").gameObject;
@@ -53,28 +55,31 @@ public class NewMenuManger : MonoBehaviour
         {
             Debug.Log("not using XRI currently");
         }
-        
+       
+        // InvokeRepeating("UpdatePosition", 0.1f, 0.1f);
+
     }
 
     void Update()
     {
-        transform.position = player.transform.position;//set origin of parent object 
+        this.transform.position = player.transform.position;//set origin of parent object 
 
-     
+
         //set the menu to be on front of the player and looking toward them
-        _menuCanvas.transform.position =  _cam.transform.position + _cam.transform.forward * distanceToCamera;
+        _menuCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera;
         _menuCanvas.transform.LookAt(_menuCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
 
         _aboutCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera * 1.3f; // move a bit further
         _aboutCanvas.transform.LookAt(_aboutCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
 
         //change the Y position to fix one (height) , and the X,Z rotation to 0 )
-        
-        _menuCanvas.transform.position = new Vector3(_menuCanvas.transform.position.x,_height , _menuCanvas.transform.position.z);
-        _menuCanvas.transform.eulerAngles = new Vector3(0, _menuCanvas.transform.eulerAngles.y,0);
+
+        _menuCanvas.transform.position = new Vector3(_menuCanvas.transform.position.x, _height, _menuCanvas.transform.position.z);
+        _menuCanvas.transform.eulerAngles = new Vector3(0, _menuCanvas.transform.eulerAngles.y, 0);
 
         _aboutCanvas.transform.position = new Vector3(_aboutCanvas.transform.position.x, _aboutHeight, _aboutCanvas.transform.position.z);
         _aboutCanvas.transform.eulerAngles = new Vector3(0, _aboutCanvas.transform.eulerAngles.y, 0);
+
 
 
 
@@ -147,4 +152,36 @@ public class NewMenuManger : MonoBehaviour
         Application.Quit();
     }
 
-}
+
+     IEnumerator UpdatePosition()
+    {
+        
+        while (true)
+        {
+            this.transform.position = player.transform.position;//set origin of parent object 
+
+
+            //set the menu to be on front of the player and looking toward them
+            _menuCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera;
+            _menuCanvas.transform.LookAt(_menuCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
+
+            _aboutCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera * 1.3f; // move a bit further
+            _aboutCanvas.transform.LookAt(_aboutCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
+
+            //change the Y position to fix one (height) , and the X,Z rotation to 0 )
+
+            _menuCanvas.transform.position = new Vector3(_menuCanvas.transform.position.x, _height, _menuCanvas.transform.position.z);
+            _menuCanvas.transform.eulerAngles = new Vector3(0, _menuCanvas.transform.eulerAngles.y, 0);
+
+            _aboutCanvas.transform.position = new Vector3(_aboutCanvas.transform.position.x, _aboutHeight, _aboutCanvas.transform.position.z);
+            _aboutCanvas.transform.eulerAngles = new Vector3(0, _aboutCanvas.transform.eulerAngles.y, 0);
+
+            yield return new WaitForSeconds(0.1f);
+
+        }
+
+
+    }
+
+
+    }

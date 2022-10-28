@@ -3808,7 +3808,7 @@ PrefabInstance:
     - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -13.66
       objectReference: {fileID: 0}
     - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
@@ -7603,7 +7603,17 @@ PrefabInstance:
     - target: {fileID: 6065732222583390601, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
       propertyPath: DefaultLocomotion
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065732222583390601, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: LocomotionToggleAction
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065732222583390601, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: locomotionToggleInput.Array.data[0]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6066469697390380614, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
@@ -16260,7 +16270,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedHand: 1
-  UseXRInteractionToolkitUISystem: 1
   LeftPointerTransform: {fileID: 0}
   RightPointerTransform: {fileID: 0}
   ControllerInput: 0f000000
@@ -16461,13 +16470,23 @@ PrefabInstance:
     - target: {fileID: 907931764449879999, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 907931764449879999, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
         type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1325786131}
+    - target: {fileID: 907931764449879999, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
+        type: 3}
+      propertyPath: m_Colliders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 907931764449879999, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
+        type: 3}
+      propertyPath: m_Colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1739672896}
     - target: {fileID: 907931764449879999, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
         type: 3}
       propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.size
@@ -16521,7 +16540,7 @@ PrefabInstance:
     - target: {fileID: 4234165376520476066, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9330474
+      value: 1.13
       objectReference: {fileID: 0}
     - target: {fileID: 4234165376520476066, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
         type: 3}
@@ -16601,8 +16620,8 @@ MonoBehaviour:
   BeingHeld: 0
   GrabButton: 2
   Grabtype: 2
-  GrabPhysics: 4
-  GrabMechanic: 1
+  GrabPhysics: 2
+  GrabMechanic: 0
   GrabSpeed: 15
   RemoteGrabbable: 0
   RemoteGrabMechanic: 0
@@ -16655,6 +16674,12 @@ MonoBehaviour:
   UseCustomInspector: 1
   lastFlickTime: 0
   FlickForce: 1
+--- !u!65 &1739672896 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 907931764449879997, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1739672881}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1744100799
 GameObject:
   m_ObjectHideFlags: 0
