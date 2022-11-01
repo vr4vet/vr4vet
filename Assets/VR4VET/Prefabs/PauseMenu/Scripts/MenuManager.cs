@@ -112,7 +112,7 @@ public class MenuManager : MonoBehaviour
     {
         if (!menuIsOpened) //Open menu
         {
-            Time.timeScale = 0;
+           // Time.timeScale = 0;
             cam.cullingMask = menuLayers;
             menuIsOpened = true;
             menu.transform.Rotate(player.transform.forward, Space.World);
@@ -121,7 +121,7 @@ public class MenuManager : MonoBehaviour
         }
         else //Close menu
         {
-            Time.timeScale = 1;
+          //  Time.timeScale = 1;
             cam.cullingMask = oldLayers;
             menuIsOpened = false;
             menu.SetActive(menuIsOpened);
