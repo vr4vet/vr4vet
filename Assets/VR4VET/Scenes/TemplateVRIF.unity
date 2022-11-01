@@ -3813,7 +3813,7 @@ PrefabInstance:
     - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.89
+      value: 1.12
       objectReference: {fileID: 0}
     - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
@@ -10697,6 +10697,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ac7df741a9c0a2418ec19477729ee3d, type: 3}
+--- !u!1 &400921552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1164161884240136826, guid: bcd73c4201a58384d84d73ed781cf7d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1384452678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &400921558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400921552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a1a19615403d34f8baf40dd0fd26e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  _delay: 30
+  _distanceToCamera: 5
 --- !u!1 &511556963
 GameObject:
   m_ObjectHideFlags: 0
@@ -15602,7 +15623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 68791125, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
       propertyPath: _menuLayers.m_Bits
-      value: 7840
+      value: 6816
       objectReference: {fileID: 0}
     - target: {fileID: 368296184, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
       propertyPath: m_SizeDelta.y
@@ -15764,6 +15785,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
+--- !u!1 &1532371793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 657967022, guid: bcd73c4201a58384d84d73ed781cf7d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1384452678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1532371799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532371793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a1a19615403d34f8baf40dd0fd26e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  _delay: 30
+  _distanceToCamera: 7
 --- !u!1001 &1536671133
 PrefabInstance:
   m_ObjectHideFlags: 0
