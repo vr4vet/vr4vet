@@ -1,3 +1,7 @@
+/* Copyright (C) 2022 IMTEL NTNU - All Rights Reserved
+ * Developer: Jorge Garcia
+ * Ask your questions by email: jorgeega@ntnu.no
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
