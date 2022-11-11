@@ -2,15 +2,15 @@
 
 
 ## Translation System
-The unity package 'Localization 1.4.2' is used for localization and translation (found under package manager > unity registry).
+The unity package 'Localization 1.4.2' is used for localization and translation (found under package manager > unity registry).\
 Documentation can be found at: https://docs.unity3d.com/Packages/com.unity.localization@1.4/manual/index.html
 
-The default language is set to English, and is configurable by modifying both:
-Project Settings > Localization > Specific Locale Selector > Locale Id
+The default language is set to English, and is configurable by modifying both:\
+Project Settings > Localization > Specific Locale Selector > Locale Id\
 and Project Settings > Localization > Project Locale Identifier
 
-The translation tables can be found at:
-Window > Asset Management > Localization Tables 
+The translation tables can be found at:\
+Window > Asset Management > Localization Tables\
 Note unity will only load 1 unique localization table per asset type (e.g. string, texture etc) per scene.
 
 ### Localization Scene Controls
