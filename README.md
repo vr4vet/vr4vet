@@ -24,3 +24,6 @@ The Localization system allows you to work directly with scene components and wi
 2- Any asset changes you make now are recorded into the selected Asset Table.\
 3- The workflow is: Select the current locale in the Localization Scene Controls, modify assets to conform to the selected locale (e.g. if 'French' is selected as current locale, then edit the asset to be french, the edited fields that are tracked by the localization system will highlight in GREEN - otherwise it is not working).\
 ![localizaton_green_field](https://user-images.githubusercontent.com/112614548/201331942-479f7ed3-c646-440d-93ae-d4f4946319b2.JPG)
+
+### Changing Language
+To change language, when running the game in the unity editor, in the game view in the top right there should be a dropdown to select the current language.
