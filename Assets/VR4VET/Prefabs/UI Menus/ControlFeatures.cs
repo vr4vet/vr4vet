@@ -12,30 +12,35 @@ public class ControlFeatures : MonoBehaviour
     [SerializeField] private GameObject PlayerController;
     private PlayerTeleport _pt;
     private PlayerRotation _pr;
-
+    private bool _flipMode = false;
 
     void Start()
     {
-        _pt = (PlayerTeleport)PlayerController.GetComponent("PLayerTeleport");
-        _pr = (PlayerRotation)PlayerController.GetComponent("PLayerRotation");
+        _pt = (PlayerTeleport)PlayerController.GetComponent("PlayerTeleport");
+        _pr = (PlayerRotation)PlayerController.GetComponent("PlayerRotation");
 
 
     }
 
-    void InverertedMode()
+    public void InverertedMode()
     {
+        _flipMode = !_flipMode;
+        
+        if(_flipMode)
+        {
+            //lefty mode
+            _pt.HandSide = ControllerHand.Right;
+            _pr.inputAxis.Clear();
+            _pr.inputAxis.Add(InputAxis.LeftThumbStickAxis);
+        }
+        else
+        {
+            //normal mode
+            _pt.HandSide = ControllerHand.Left;
+            _pr.inputAxis.Clear();
+            _pr.inputAxis.Add(InputAxis.RightThumbStickAxis);
+        }
 
-        _pt.HandSide = ControllerHand.Right;
-        _pr.inputAxis.Clear();
-        _pr.inputAxis.Add(InputAxis.LeftThumbStickAxis);
-
-    }
-
-    void OriginalMode()
-    {
-        _pt.HandSide = ControllerHand.Left;
-        _pr.inputAxis.Clear();
-        _pr.inputAxis.Add(InputAxis.RightThumbStickAxis);
     }
 
 
