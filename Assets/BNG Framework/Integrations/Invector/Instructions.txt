@@ -1,7 +1,0 @@
-VRIF has built-in support for damaging Invector AI / objects. Simply make sure any object you want to damage has a VRIF "Damageable" component on it, and the framework will apply any damage to the invector object with all of the proper parameters.
-
-This is done through using the #if INVECTOR_BASIC compile time directives on the Damageable component. You can turn this feature off on the Damageable component's "SendDamageToInvector" property if you wish to handle damage dealing manually.
-
-If you need more control in damaging an NPC, you may want to consider overriding the Damageable component's 'DealDamage' method. All damage goes through this function, and should have all of the information you need, including how much damage to apply, hit position, the normal of the hit, the sender, and more. 
-
-Lastly, an example script has been included called "ReceiveInvectorDamage.cs". This is an example of how a player can receive damage from an AI, in case you want to track the player health separately or perform custom functions.
