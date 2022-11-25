@@ -8,7 +8,7 @@ This repository contains the tablet prefab project which is used in all Virtual 
 3. Now you have a new folder “Tablet” with some subfolders.
 4. Drag “Tablet” prefab from Tablet -> Prefabs folder to your scene.
 
-![Adding custom package in Unity](/uploads/af61ea480b0dd2da2fc3c36d7d99db56/360video-readme-01.png)
+![Adding custom package in Unity](/ReadMePictures/360video-readme-01.png)
 
 # Skill manager "FerdighetManager"
 
@@ -16,7 +16,7 @@ Expand the tablet object in the hierarchy window and under Managers choose Ferdi
 Now you can define the number of skills, add new skills, and their descriptions in the inspector. 
 For each skill, you need to define the name of the skill and provide a short description.
 
-![Skill manager screenshot](/uploads/14c7acf6f72b7b8c55bacffef5292a68/Tablet-readme-02.png)
+![Skill manager screenshot](/ReadMePictures/Tablet-readme-02.png)
 
 # Navigation manager "NavigationManager"
 
@@ -26,7 +26,7 @@ If you use XR plugin, you can add XR Rig to the player field.
 Remember to bake the navigation areas. 
 Go to Window -> AI -> Navigation and then press the bake button. Remember to check the areas where the player can walk or teleport on. The static option can be found in the inspector window of each object. Do the same for the obstacles in your scene.
 
-![Navigation manager screenshot](/uploads/1d67c5b3f4ea3f5ecb88b08dad4a051d/Tablet-readme-03.png)
+![Navigation manager screenshot](/ReadMePictures/Tablet-readme-03.png)
 
 # Tasks
 
@@ -35,7 +35,7 @@ Go to Window -> AI -> Navigation and then press the bake button. Remember to che
 For creating a new task, you need a new “Task” object which is in the prefabs folder and it should be added to the scene.
 If you have two tasks, then you need two “Task” objects in your scene.
 
-![Task objects in a Unity scene screenshot](/uploads/c8009c80b70a032ef2cbea4ae633a231/Tablet-readme-04.png)
+![Task objects in a Unity scene screenshot](/ReadMePictures/Tablet-readme-04.png)
 
 ## Activities of tasks: connecting to navigation and points
 
@@ -44,7 +44,7 @@ Every task can have several activities (Aktiviteter) that can be defined in the 
 In addition, you need to assign the target object of this task. The navigation system will use this target to navigate to this task.
 This target should be destroyed or inactive only when all activities of this task are completed.
 
-![Task object Unity inspector screenshot](/uploads/68b5fd8f78e6940b8529053daacab145/Tablet-readme-05.png)
+![Task object Unity inspector screenshot](/ReadMePictures/Tablet-readme-05.png)
 
 Prerequisite will be assigned when there is a prerequisite task for this task, and it should be done before this one. 
 *Note:* The "prerequisite task" feature is in beta and it may happen some small bugs! If you find bugs, please, create issues.
@@ -62,14 +62,14 @@ The point file (FerdighetPoenger.txt) contains the maximum point that every acti
 *Note:* The structure of this file is important, so just fill it like the picture bellow. Also, you need to generate it again each time you add a new skill, task or activity.
 *Note:* Generating a new point file will erase all numbers in the existing file
 
-![Generating the point file in Unity screenshot](/uploads/9d8c84e8d63d864cacd27e2380c59cbf/Tablet-readme-06.png)
+![Generating the point file in Unity screenshot](/ReadMePictures/Tablet-readme-06.png)
 
 ## Example
 In the example below, you can see two skills: "Accuracy" and "Speed". You can also see two tasks "HMS" and "Find Hammer".
 Task "HMS" contains four activities. The are listed under both skills.
 The "Find the helmet" activity can give a max of 20 points for the Accuracy of the player and 15 points for the Speed.
 
-![Point file example screenshot](/uploads/63856d9b24c3c0109c2e4d79e81aea7e/Tablet-readme-07.png)
+![Point file example screenshot](/ReadMePictures/Tablet-readme-07.png)
 
 ## How can we give point to an activity?
 
