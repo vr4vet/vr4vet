@@ -29,6 +29,12 @@ public class NewMenuManger : MonoBehaviour
     private Camera _cam;
     [SerializeField] private GameObject _aboutCanvas;
     [SerializeField] private GameObject _menuCanvas;
+    public GameObject stateSaverComponent;
+
+    private Camera _cam;
+    private GameObject _aboutCanvas;
+    private GameObject _menuCanvas;
+    private GameObject _savedStates;
     private bool _menuOpen = false;
     private float _holdtime = 1.5f;
 
@@ -37,7 +43,16 @@ public class NewMenuManger : MonoBehaviour
   
 
     void Start()
-    {               
+    {
+        _aboutCanvas = transform.Find("AboutCanvas").gameObject;
+        _menuCanvas = transform.Find("Canvas").gameObject;
+        _savedStates = transform.Find("SavedStates").gameObject;
+
+        //get half of the height of the canvas to later use a position
+        //just saving the initial height is also a good option 
+
+
+
         _cam = Camera.main;
     }
 
@@ -106,8 +121,32 @@ public class NewMenuManger : MonoBehaviour
         _menuCanvas.SetActive(true);
     }
 
+    public void OpenSaves()
+    {
+        _savedStates.SetActive(true);
+        _menuCanvas.SetActive(false);
+        for (int i = 0; i < 5; i++)
+        {
+            if (_savedStates.transform.GetChild(i).gameObject.GetComponent<UnityEngine.UI.Text>().text != "")
+            {
+                _savedStates.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void CloseSaves()
+    {
+        _savedStates.SetActive(false);
+        _menuCanvas.SetActive(true);
+        for (int i = 0; i < 5; i++)
+        {
+            _savedStates.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
     public void ExitGame()
     {
+        stateSaverComponent.GetComponent<stateSaver>().saveObjects();
         Application.Quit();
     }
 
