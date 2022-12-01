@@ -80,7 +80,7 @@ public class NewMenuManger : MonoBehaviour
 
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
         Color c = _walls.color;
         c.a = 1f;

@@ -9,8 +9,10 @@ using Unity.XR.CoreUtils;
 public class stateSaver: MonoBehaviour
 {
     public List<GameObject> unityGameObjects = new List<GameObject>();
-    public GameData gameData;
     public GameObject loadMenu;
+    public GameObject mainMenu;
+    [HideInInspector]
+    public GameData gameData;
 
     public void Start()
     {
@@ -22,11 +24,10 @@ public class stateSaver: MonoBehaviour
         {
             GameObject gameObjectReference = loadMenu.transform.GetChild(i).gameObject;
             string saveName = saveStates[i].Substring(0, saveStates[i].Length - 4);
-            Debug.Log(i);
             gameObjectReference.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = saveStates[i];
             gameObjectReference.SetActive(true);
-            Debug.Log(saveStates[i]);
-            gameObjectReference.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { loadObjects(saveStates[i]); });
+            string stateName = saveStates[i];
+            gameObjectReference.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { loadObjects(stateName); });
         }
         loadMenu.SetActive(false);
 }
@@ -78,6 +79,9 @@ public class stateSaver: MonoBehaviour
         FileStream gameDataStream = new FileStream(gameDataPath, FileMode.Open);
         GameData gameDataLoaded = formatter.Deserialize(gameDataStream) as GameData;
         gameData = gameDataLoaded;
+            
+        // If game data needs to be used on retrieving it can be done here.
+        
 
         foreach (GameObject gameObject in unityGameObjects)
         {
@@ -91,11 +95,13 @@ public class stateSaver: MonoBehaviour
                 gameObject.transform.rotation = Quaternion.Euler(new Vector3(data.rotation[0], data.rotation[1], data.rotation[2]));
 
                 stream.Close();
-            } else
+            }
+            else
             {
                 Debug.LogError("Save file not found in " + path);
             }
         }
         loadMenu.SetActive(false);
+        mainMenu.GetComponent<NewMenuManger>().ResumeGame();
     }
 }
