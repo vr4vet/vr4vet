@@ -37,13 +37,9 @@ public class NewMenuManger : MonoBehaviour
   
 
     void Start()
-    {
-               
+    {               
         _cam = Camera.main;
-  
-
     }
-
 
 
     public void ToggleMenu()

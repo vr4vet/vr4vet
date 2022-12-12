@@ -12,21 +12,23 @@ public class ControlFeatures : MonoBehaviour
     [SerializeField] private GameObject PlayerController;
     private PlayerTeleport _pt;
     private PlayerRotation _pr;
-    private bool _flipMode = false;
-
+    private bool _flipModeB = false;
+    private bool _snapRotationB= true;
+    private bool _teleportRotationB = true;
+    private bool _teleportPressB = false;
     void Start()
     {
         _pt = (PlayerTeleport)PlayerController.GetComponent("PlayerTeleport");
         _pr = (PlayerRotation)PlayerController.GetComponent("PlayerRotation");
-
+        
 
     }
 
     public void InverertedMode()
     {
-        _flipMode = !_flipMode;
+        _flipModeB = !_flipModeB;
         
-        if(_flipMode)
+        if(_flipModeB)
         {
             //lefty mode
             _pt.HandSide = ControllerHand.Right;
@@ -43,5 +45,51 @@ public class ControlFeatures : MonoBehaviour
 
     }
 
+
+    public void SnapRotationMode()
+    {
+        _snapRotationB = !_snapRotationB;
+
+        if (_snapRotationB)
+        {
+            _pr.AllowInput = true;
+        }
+        else
+        {
+            _pr.AllowInput = false;
+        }
+
+    }
+
+
+    public void DirectionalTeleportationMode()
+    {
+        _teleportRotationB = !_teleportRotationB;
+
+        if (_teleportRotationB)
+        {
+            _pt.AllowTeleportRotation = true;
+        }
+        else
+        {
+            _pt.AllowTeleportRotation = false;
+        }
+
+    }
+
+    public void TeleportInput()
+    {
+        _teleportPressB = !_teleportPressB;
+
+        if (_teleportPressB)
+        {
+            _pt.ControlType = TeleportControls.ThumbstickDown;
+        }
+        else
+        {
+            _pt.ControlType = TeleportControls.ThumbstickRotate;
+        }
+
+    }
 
 }
