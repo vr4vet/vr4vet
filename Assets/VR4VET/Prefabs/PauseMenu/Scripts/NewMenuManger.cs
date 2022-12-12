@@ -8,50 +8,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class NewMenuManger : MonoBehaviour
 {
 
-    public GameObject player;
-
-    public float distanceToCamera;
- 
-
+    [SerializeField]public GameObject player;
     [SerializeField] public Material PauseSkyboxMat;
     [SerializeField] public Material SkyboxMat;
     [SerializeField] private LayerMask _menuLayers;  //layers mask to put on top when the game is paused
     [SerializeField] private InputActionAsset _actionAsset; //we need this to block certain actions
+    [SerializeField] private Material _walls;
+    [SerializeField] private bool _holdToOpen;
+
+
+    // Defined in Unity, refers to image used in loading animation.
+    [SerializeField] private Image LoadingWheel;
 
     private Camera _cam;
-    private GameObject _aboutCanvas;
-    private GameObject _menuCanvas;
+    [SerializeField] private GameObject _aboutCanvas;
+    [SerializeField] private GameObject _menuCanvas;
     private bool _menuOpen = false;
-    private InputAction _primaryButton;
+    private float _holdtime = 1.5f;
+
+
+
+  
 
     void Start()
     {
-        _aboutCanvas = transform.Find("AboutCanvas").gameObject;
-        _menuCanvas = transform.Find("Canvas").gameObject;
+               
         _cam = Camera.main;
-        _menuCanvas.SetActive(false);
-
-        _primaryButton = _actionAsset.FindActionMap("XRI RightHand Interaction").FindAction("PrimaryButton");
-      
+  
 
     }
 
-    void Update()
-    {
-        transform.position = player.transform.position;
 
-        //transform of menu canvas
-        _menuCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera;
-        _menuCanvas.transform.LookAt(_menuCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
-
-        _aboutCanvas.transform.position = _cam.transform.position + _cam.transform.forward * distanceToCamera;
-        _aboutCanvas.transform.LookAt(_menuCanvas.transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
-
-    }
 
     public void ToggleMenu()
     {
@@ -65,31 +58,37 @@ public class NewMenuManger : MonoBehaviour
 
      void PauseGame()
     {
+        Color c = _walls.color;
+        c.a = 0.7f;
+        _walls.color = c;
         Time.timeScale = 0; // pauses time events
         RenderSettings.skybox = PauseSkyboxMat;
         _cam.cullingMask = _menuLayers; //show only the chosen menu layers
         _menuCanvas.SetActive(true);
-        _primaryButton.Disable();
+     
 
     }
 
     void ResumeGame()
     {
+        Color c = _walls.color;
+        c.a = 1f;
+        _walls.color = c;
         Time.timeScale = 1;
         RenderSettings.skybox = SkyboxMat ;
         _cam.cullingMask = -1; // -1 = "Everything"
         _menuCanvas.SetActive(false);
         _aboutCanvas.SetActive(false);
-        _primaryButton.Enable();
+
 
     }
 
 
+  
 
     public void Restart()
     {
         // un-frezes the time and unblocks the player controller
-        _primaryButton.Enable();
         Time.timeScale = 1;
         //back to the first scene
         SceneManager.LoadScene(0);
@@ -97,8 +96,6 @@ public class NewMenuManger : MonoBehaviour
 
 
     }
-
-
 
     public void OpenAbout()
     {
@@ -117,5 +114,64 @@ public class NewMenuManger : MonoBehaviour
     {
         Application.Quit();
     }
+
+
+
+    public void PressHoldMenu(InputAction.CallbackContext context)
+    {
+        if (_holdToOpen)
+        {
+            if (context.started)
+            {
+                StartCoroutine(HoldPause());
+            }
+        } else
+        {
+            ToggleMenu();
+        }
+       
+    }
+
+
+    public IEnumerator HoldPause()
+    {
+
+        for (float I = 0f; I < _holdtime; I += Time.deltaTime)
+        {
+
+            // Get left-handed device and its current state (pressed or not).
+            UnityEngine.XR.InputDevice _rightDevice = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+            _rightDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out bool triggerValue);
+
+            // Fill LoadingWheel if trigger is pressed
+            if (triggerValue)
+            {
+                LoadingWheel.fillAmount = I;
+            }
+
+            // Open menu if it has been continuously pressed.
+            if (I >= 1f)
+            {
+
+                LoadingWheel.fillAmount = 0f;
+                I = _holdtime+1;
+
+                PauseGame();
+            }
+
+            // If trigger is no longer pressed, reset the LoadingWheel.
+            if ((!triggerValue))
+            {
+
+                LoadingWheel.fillAmount = 0f;
+                I = 1.6f;
+            }
+            yield return null;
+        }
+    }
+
+
+
+
 
 }

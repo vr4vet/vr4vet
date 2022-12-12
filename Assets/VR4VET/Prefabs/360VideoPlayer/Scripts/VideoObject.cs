@@ -5,7 +5,8 @@
 
 using UnityEngine;
 using UnityEngine.Video;
-using UnityEngine.XR.Interaction.Toolkit;
+//using UnityEngine.XR.Interaction.Toolkit;
+using BNG;
 
 public class VideoObject : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class VideoObject : MonoBehaviour
     private Quaternion OriginalRotation;
     private Vector3 OriginalPosition;
     private bool VideoIsPlayedOnce;
-    private XRGrabInteractable XRGI;
+    //private XRGrabInteractable XRGI; 
+    private Grabbable BNGG;
     private VideoObject[] Headsets;
 
     /// <summary>
@@ -30,7 +32,8 @@ public class VideoObject : MonoBehaviour
         hintText.transform.SetParent(null);
         OriginalRotation = transform.rotation;
         OriginalPosition = transform.position;
-        XRGI = GetComponent<XRGrabInteractable>();
+      //  XRGI = GetComponent<XRGrabInteractable>();
+        BNGG = GetComponent<Grabbable>();
         Headsets = FindObjectsOfType<VideoObject>();
     }
 
@@ -44,7 +47,7 @@ public class VideoObject : MonoBehaviour
         hintText.gameObject.transform.position = transform.position + new Vector3(0, 0.2f ,0);
 
 
-        if (XRGI.isSelected)
+        if (BNGG.BeingHeld)
         {
 
             if (!videoPlayer.isPlaying)
