@@ -129,7 +129,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1384452678}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 793617879}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56ab321cae9af144a9c9f00d38757a9d, type: 3}
@@ -11890,6 +11890,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: HardHelmet
+--- !u!1 &793617879 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1164161884453830751, guid: bcd73c4201a58384d84d73ed781cf7d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1384452678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &795157221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12200,11 +12206,12 @@ MonoBehaviour:
   unityGameObjects:
   - {fileID: 285689508}
   - {fileID: 787477144}
+  loadMenu: {fileID: 333925383463649336}
+  mainMenu: {fileID: 793617879}
   gameData:
     score: 0
     saveDate: 
     saveName: 
-  loadMenu: {fileID: 333925383463649336}
 --- !u!4 &1023943222
 Transform:
   m_ObjectHideFlags: 0
@@ -17158,6 +17165,14 @@ PrefabInstance:
     - target: {fileID: 657967023, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 4.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033254721, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647413581, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1708564721, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
       propertyPath: m_AnchorMax.x
