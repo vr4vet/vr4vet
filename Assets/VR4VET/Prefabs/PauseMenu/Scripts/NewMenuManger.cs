@@ -31,9 +31,6 @@ public class NewMenuManger : MonoBehaviour
     [SerializeField] private GameObject _menuCanvas;
     public GameObject stateSaverComponent;
 
-    private Camera _cam;
-    private GameObject _aboutCanvas;
-    private GameObject _menuCanvas;
     private GameObject _savedStates;
     private bool _menuOpen = false;
     private float _holdtime = 1.5f;
@@ -45,7 +42,7 @@ public class NewMenuManger : MonoBehaviour
     void Start()
     {
         _aboutCanvas = transform.Find("AboutCanvas").gameObject;
-        _menuCanvas = transform.Find("Canvas").gameObject;
+        _menuCanvas = transform.Find("MainCanvas").gameObject;
         _savedStates = transform.Find("SavedStates").gameObject;
 
         //get half of the height of the canvas to later use a position
