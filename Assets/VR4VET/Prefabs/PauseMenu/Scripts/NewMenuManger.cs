@@ -29,6 +29,9 @@ public class NewMenuManger : MonoBehaviour
     private Camera _cam;
     [SerializeField] private GameObject _aboutCanvas;
     [SerializeField] private GameObject _menuCanvas;
+    public GameObject stateSaverComponent;
+
+    private GameObject _savedStates;
     private bool _menuOpen = false;
     private float _holdtime = 1.5f;
 
@@ -47,9 +50,7 @@ public class NewMenuManger : MonoBehaviour
         Color c = _walls.color;
         c.a = 1f;
         _walls.color = c;
-
     }
-
 
 
     public void ToggleMenu()
@@ -75,7 +76,7 @@ public class NewMenuManger : MonoBehaviour
 
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
         Color c = _walls.color;
         c.a = 1f;
@@ -116,8 +117,32 @@ public class NewMenuManger : MonoBehaviour
         _menuCanvas.SetActive(true);
     }
 
+    public void OpenSaves()
+    {
+        _savedStates.SetActive(true);
+        _menuCanvas.SetActive(false);
+        for (int i = 0; i < 5; i++)
+        {
+            if (_savedStates.transform.GetChild(i).gameObject.GetComponent<UnityEngine.UI.Text>().text != "")
+            {
+                _savedStates.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void CloseSaves()
+    {
+        _savedStates.SetActive(false);
+        _menuCanvas.SetActive(true);
+        for (int i = 0; i < 5; i++)
+        {
+            _savedStates.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
     public void ExitGame()
     {
+        stateSaverComponent.GetComponent<stateSaver>().saveObjects();
         Application.Quit();
     }
 
