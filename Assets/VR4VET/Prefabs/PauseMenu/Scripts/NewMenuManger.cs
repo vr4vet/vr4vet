@@ -44,24 +44,22 @@ public class NewMenuManger : MonoBehaviour
 
     void Start()
     {
-        _aboutCanvas = transform.Find("AboutCanvas").gameObject;
-        _menuCanvas = transform.Find("MainCanvas").gameObject;
-        _savedStates = transform.Find("SavedStates").gameObject;
-
-        //get half of the height of the canvas to later use a position
-        //just saving the initial height is also a good option 
-
-
-
+               
         _cam = Camera.main;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 8af3bcb10406159d37000c520a27b5bdefc50b60
         //set the color of the walls to original transparency
         Color c = _walls.color;
         c.a = 1f;
         _walls.color = c;
+<<<<<<< HEAD
 
 >>>>>>> 44-material-alpha-change-bug-puase
+=======
+>>>>>>> 8af3bcb10406159d37000c520a27b5bdefc50b60
     }
 
 
