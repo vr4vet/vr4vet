@@ -36,8 +36,11 @@ public class NewMenuManger : MonoBehaviour
     private float _holdtime = 1.5f;
 
 
-
-  
+    /// <summary>
+    /// This Script manages all aspects of the Pause Menu:
+    /// Toggle, or Hold to Pause
+    /// Change transparency of material while pausing
+    /// </summary>
 
     void Start()
     {
@@ -51,6 +54,14 @@ public class NewMenuManger : MonoBehaviour
 
 
         _cam = Camera.main;
+<<<<<<< HEAD
+=======
+        //set the color of the walls to original transparency
+        Color c = _walls.color;
+        c.a = 1f;
+        _walls.color = c;
+
+>>>>>>> 44-material-alpha-change-bug-puase
     }
 
 
@@ -164,7 +175,7 @@ public class NewMenuManger : MonoBehaviour
        
     }
 
-
+    // Loading wheel to open the pause menu
     public IEnumerator HoldPause()
     {
 
