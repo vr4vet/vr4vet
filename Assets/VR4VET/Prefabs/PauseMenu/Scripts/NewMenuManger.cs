@@ -29,21 +29,40 @@ public class NewMenuManger : MonoBehaviour
     private Camera _cam;
     [SerializeField] private GameObject _aboutCanvas;
     [SerializeField] private GameObject _menuCanvas;
+    public GameObject stateSaverComponent;
+
+    private GameObject _savedStates;
     private bool _menuOpen = false;
     private float _holdtime = 1.5f;
 
 
-
-  
+    /// <summary>
+    /// This Script manages all aspects of the Pause Menu:
+    /// Toggle, or Hold to Pause
+    /// Change transparency of material while pausing
+    /// </summary>
 
     void Start()
     {
-               
+        _aboutCanvas = transform.Find("AboutCanvas").gameObject;
+        _menuCanvas = transform.Find("MainCanvas").gameObject;
+        _savedStates = transform.Find("SavedStates").gameObject;
+
+        //get half of the height of the canvas to later use a position
+        //just saving the initial height is also a good option 
+
+
+
         _cam = Camera.main;
-  
+<<<<<<< HEAD
+=======
+        //set the color of the walls to original transparency
+        Color c = _walls.color;
+        c.a = 1f;
+        _walls.color = c;
 
+>>>>>>> 44-material-alpha-change-bug-puase
     }
-
 
 
     public void ToggleMenu()
@@ -69,7 +88,7 @@ public class NewMenuManger : MonoBehaviour
 
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
         Color c = _walls.color;
         c.a = 1f;
@@ -110,8 +129,32 @@ public class NewMenuManger : MonoBehaviour
         _menuCanvas.SetActive(true);
     }
 
+    public void OpenSaves()
+    {
+        _savedStates.SetActive(true);
+        _menuCanvas.SetActive(false);
+        for (int i = 0; i < 5; i++)
+        {
+            if (_savedStates.transform.GetChild(i).gameObject.GetComponent<UnityEngine.UI.Text>().text != "")
+            {
+                _savedStates.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void CloseSaves()
+    {
+        _savedStates.SetActive(false);
+        _menuCanvas.SetActive(true);
+        for (int i = 0; i < 5; i++)
+        {
+            _savedStates.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
     public void ExitGame()
     {
+        stateSaverComponent.GetComponent<stateSaver>().saveObjects();
         Application.Quit();
     }
 
@@ -132,7 +175,7 @@ public class NewMenuManger : MonoBehaviour
        
     }
 
-
+    // Loading wheel to open the pause menu
     public IEnumerator HoldPause()
     {
 
