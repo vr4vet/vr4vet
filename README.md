@@ -49,13 +49,6 @@ All Experiences/Games should use: Player, Tablet and Menu prefabs. All included 
 Currently the player has the tablet under the left hand (and you can choose if you want it on your hand or floating in front of you )
 This prefab will be changed once we change platform (XRI toolkit -> VR Interaction Framework)
 
-## Branching 
-The main branch should not be updated directly. All feature branches should be merged into a develop branch and after each release, the release branch should be merged into both main and develop.
-
-The develop branch is where changes to the basic functionalities should be added. Branches with new Prefabs or functionalities should be forked from this Branch.
-
-New Games/Projects belong in a different repository
-
 ## Translation System
 The unity package 'Localization 1.4.2' is used for localization and translation (found under package manager > unity registry).\
 Documentation can be found at: https://docs.unity3d.com/Packages/com.unity.localization@1.4/manual/index.html
