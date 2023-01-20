@@ -19,7 +19,7 @@ public class NewMenuManger : MonoBehaviour
     [SerializeField] public Material SkyboxMat;
     [SerializeField] private LayerMask _menuLayers;  //layers mask to put on top when the game is paused
     [SerializeField] private InputActionAsset _actionAsset; //we need this to block certain actions
-    [SerializeField] private Material _walls;
+    [SerializeField] private Material _wallsMaterial;
     [SerializeField] private bool _holdToOpen;
 
 
@@ -46,20 +46,11 @@ public class NewMenuManger : MonoBehaviour
     {
                
         _cam = Camera.main;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 8af3bcb10406159d37000c520a27b5bdefc50b60
-        //set the color of the walls to original transparency
-        Color c = _walls.color;
-        c.a = 1f;
-        _walls.color = c;
-<<<<<<< HEAD
 
->>>>>>> 44-material-alpha-change-bug-puase
-=======
->>>>>>> 8af3bcb10406159d37000c520a27b5bdefc50b60
+        Color c = _wallsMaterial.color;
+        c.a = 1f;
+        _wallsMaterial.color = c;
+
     }
 
 
@@ -75,9 +66,9 @@ public class NewMenuManger : MonoBehaviour
 
      void PauseGame()
     {
-        Color c = _walls.color;
+        Color c = _wallsMaterial.color;
         c.a = 0.7f;
-        _walls.color = c;
+        _wallsMaterial.color = c;
         Time.timeScale = 0; // pauses time events
         RenderSettings.skybox = PauseSkyboxMat;
         _cam.cullingMask = _menuLayers; //show only the chosen menu layers
@@ -88,9 +79,9 @@ public class NewMenuManger : MonoBehaviour
 
     public void ResumeGame()
     {
-        Color c = _walls.color;
+        Color c = _wallsMaterial.color;
         c.a = 1f;
-        _walls.color = c;
+        _wallsMaterial.color = c;
         Time.timeScale = 1;
         RenderSettings.skybox = SkyboxMat ;
         _cam.cullingMask = -1; // -1 = "Everything"
