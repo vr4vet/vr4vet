@@ -80,11 +80,11 @@ namespace Tablet
             //if there is no ferdigheter yet, create a test one and send an error message
             if (skills.Length == 0)
             {
-                Debug.LogError("You have not created any ferdigheter yet. Create new ferdigheter under SkillManager gameobject");
+                Debug.LogError("You have not created any skill yet. Create new skill under SkillManager gameobject");
                 Array.Resize(ref skills, 1);
                 Array.Resize(ref descriptions, 1);
                 skills[0] = "Test Ferdighet";
-                descriptions[0] = "You have not created any ferdigheter yet. Create new ferdigheter under SkillManager gameobject";
+                descriptions[0] = "You have not created any skill yet. Create new skill under SkillManager gameobject";
             }
 
             Invoke("CreateFerdighetObjects", 0.1f);
