@@ -16,19 +16,19 @@ public class TaskEventCaller : MonoBehaviour
    
     public void HelmetGrabbed ()
     {
-        FerdighetManager.ferdighetManager.AddPoeng("Find the helmet", "Accuracy", 10);
+        SkillManager.skillManager.AddPoeng("Find the helmet", "Accuracy", 10);
         accuracy[0] = true;
     }
     public void HammperGrabbed()
     {
-        FerdighetManager.ferdighetManager.AddPoeng("Grab the hammer", "Accuracy", 10);
+        SkillManager.skillManager.AddPoeng("Grab the hammer", "Accuracy", 10);
         accuracy[1] = true;
        
     }
 
     public void VideoGrabbed()
     {
-        FerdighetManager.ferdighetManager.AddPoeng("Watch the 360 video", "Accuracy", 10);
+        SkillManager.skillManager.AddPoeng("Watch the 360 video", "Accuracy", 10);
         accuracy[3] = true;
     }
 
@@ -40,9 +40,9 @@ public class TaskEventCaller : MonoBehaviour
                 count++;
         }
         if (count == 3)
-            FerdighetManager.ferdighetManager.GiveFeedback("Accuracy", "Your accuracy has been great!");
+            SkillManager.skillManager.GiveFeedback("Accuracy", "Your accuracy has been great!");
         else
-            FerdighetManager.ferdighetManager.GiveFeedback("Accuracy", "You still have some task to finish");
+            SkillManager.skillManager.GiveFeedback("Accuracy", "You still have some task to finish");
     }
 
 }

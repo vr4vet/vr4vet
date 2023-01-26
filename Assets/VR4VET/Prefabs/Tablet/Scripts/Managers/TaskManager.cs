@@ -15,13 +15,13 @@ namespace Tablet
     /// <summary>
     /// This call will controll anything about the oppgaver and their relation with the ferdigheter
     /// </summary>
-    public class OppgaverManager : MonoBehaviour
+    public class TaskManager : MonoBehaviour
     {
-        public static OppgaverManager oppgaverManager;
+        public static TaskManager oppgaverManager;
 
-        [Header("ContentView til oppgave og aktivitet sider")]
-        public GameObject oppgaverContentView;
-        public GameObject AktiviteterContentView;
+        [Header("ContentView for task and activity pages")]
+        public GameObject tasksContentView;
+        public GameObject ActivitiesContentView;
 
         [HideInInspector]
         public Oppgave[] oppgaver;
@@ -46,7 +46,7 @@ namespace Tablet
             foreach (Oppgave oppgave in oppgaver)
             {
                 GameObject item = Instantiate((GameObject)Resources.Load("UI/OppgaveItem"), Vector3.zero, Quaternion.identity);
-                item.transform.SetParent(oppgaverContentView.transform);
+                item.transform.SetParent(tasksContentView.transform);
                 item.transform.localPosition = Vector3.zero;
                 item.transform.localScale = Vector3.one;
                 item.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -96,7 +96,7 @@ namespace Tablet
             {
                 //Create aktivitet in the list
                 GameObject aktivitet = Instantiate((GameObject)Resources.Load("UI/AktivitetItem"), Vector3.zero, Quaternion.identity);
-                aktivitet.transform.SetParent(AktiviteterContentView.transform);
+                aktivitet.transform.SetParent(ActivitiesContentView.transform);
                 aktivitet.transform.localPosition = Vector3.zero;
                 aktivitet.transform.localScale = Vector3.one;
                 aktivitet.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -107,7 +107,7 @@ namespace Tablet
                 int totalAchievedPoeng = 0;
 
                 //find out sum of all poeng that aktivitet hat fått from a ferdighet
-                foreach (Ferdighet ferdighet in FerdighetManager.ferdighetManager.ferdigheterList)
+                foreach (Ferdighet ferdighet in SkillManager.skillManager.ferdigheterList)
                 {
                     foreach (KeyValuePair<Aktivitet, int> aktivitetObj in ferdighet.GetFerdighetAktiviteter())
                     {
@@ -121,7 +121,7 @@ namespace Tablet
 
                 //calculate total poeng of each aktivitet
                 string ferdighetPoenText = LoadTextFile();
-                List<string> aktiviteter = FerdighetManager.ferdighetManager.ExtractFromBody(ferdighetPoenText, "<", ">");
+                List<string> aktiviteter = SkillManager.skillManager.ExtractFromBody(ferdighetPoenText, "<", ">");
                 int totalPoeng = 0;
 
                 foreach (string aktvitet in aktiviteter)

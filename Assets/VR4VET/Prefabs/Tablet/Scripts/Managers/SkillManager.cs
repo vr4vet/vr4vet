@@ -13,18 +13,18 @@ namespace Tablet
     /// <summary>
     /// This class will handle everything about ferdighet objects
     /// </summary>
-    public class FerdighetManager : MonoBehaviour
+    public class SkillManager : MonoBehaviour
     {
-        public static FerdighetManager ferdighetManager;
+        public static SkillManager skillManager;
 
-        [Tooltip("Hvormange ferdigheter har du?"), Range(0, 15)]
-        public int antallFerdigheter = 0;
+        [Tooltip("How many skills do you have?"), Range(0, 15)]
+        public int _skillQuantity = 0;
 
-        [Tooltip("Ferdigheter av denne yrke, ferdighet navn kan ikke være mer en 15 bokstaver")]
-        public string[] ferdighter = new string[0];
+        [Tooltip("Skills of this occupation, skill name can not be more than 15 letters")]
+        public string[] skills = new string[0];
 
-        [Tooltip("Beskrivelse av denne ferdighet"), TextArea(5, 20)]
-        public string[] beskrivelser;
+        [Tooltip("Description of this skill"), TextArea(5, 20)]
+        public string[] descriptions;
 
         //[Space(10)]
         //[Tooltip("Total poeng ferdigheter")]
@@ -47,21 +47,21 @@ namespace Tablet
         /// </summary>
         void OnValidate()
         {
-            //set the size of beskrivelser as same as ferdigheter amount
+            //set the size of descriptions as same as ferdigheter amount
 
-            if (ferdighter.Length != antallFerdigheter || beskrivelser.Length != antallFerdigheter)
+            if (skills.Length != _skillQuantity || descriptions.Length != _skillQuantity)
             {
-                Array.Resize(ref ferdighter, antallFerdigheter);
-                Array.Resize(ref beskrivelser, antallFerdigheter);
+                Array.Resize(ref skills, _skillQuantity);
+                Array.Resize(ref descriptions, _skillQuantity);
             }
 
 
             //not allow to be more that 15 char
-            for (int i = 0; i < ferdighter.Length; i++)
+            for (int i = 0; i < skills.Length; i++)
             {
-                if (ferdighter[i].Length > 15)
+                if (skills[i].Length > 15)
                 {
-                    ferdighter[i] = ferdighter[i].Substring(0, 14);
+                    skills[i] = skills[i].Substring(0, 14);
                 }
             }
 
@@ -72,19 +72,19 @@ namespace Tablet
         /// </summary>
         private void Start()
         {
-            if (ferdighetManager == null)
-                ferdighetManager = this;
-            else if (ferdighetManager != this)
+            if (skillManager == null)
+                skillManager = this;
+            else if (skillManager != this)
                 Destroy(gameObject);
 
             //if there is no ferdigheter yet, create a test one and send an error message
-            if (ferdighter.Length == 0)
+            if (skills.Length == 0)
             {
-                Debug.LogError("You have not created any ferdigheter yet. Create new ferdigheter under FerdighetManager gameobject");
-                Array.Resize(ref ferdighter, 1);
-                Array.Resize(ref beskrivelser, 1);
-                ferdighter[0] = "Test Ferdighet";
-                beskrivelser[0] = "You have not created any ferdigheter yet. Create new ferdigheter under FerdighetManager gameobject";
+                Debug.LogError("You have not created any ferdigheter yet. Create new ferdigheter under SkillManager gameobject");
+                Array.Resize(ref skills, 1);
+                Array.Resize(ref descriptions, 1);
+                skills[0] = "Test Ferdighet";
+                descriptions[0] = "You have not created any ferdigheter yet. Create new ferdigheter under SkillManager gameobject";
             }
 
             Invoke("CreateFerdighetObjects", 0.1f);
@@ -99,14 +99,14 @@ namespace Tablet
         private void CreateFerdighetObjects()
         {
             int i = 0;
-            foreach (string ferfighet in ferdighter)
+            foreach (string ferfighet in skills)
             {
                 Ferdighet f = new GameObject(ferfighet).AddComponent<Ferdighet>();
                 f.transform.SetParent(gameObject.transform);
                 f.SetTotalPoeng(GetFerdighetTotalPoeng(ferfighet));
                 f.SetAchievedPoeng(0);
                 f.SetFerdighetName(ferfighet);
-                f.SetFerdighetBeskrivelse(beskrivelser[i]);
+                f.SetFerdighetBeskrivelse(descriptions[i]);
                 ferdigheterList.Add(f);
                 i++;
             }
@@ -120,7 +120,7 @@ namespace Tablet
         private int GetFerdighetTotalPoeng(string ferdighet)
         {
 
-            List<string> ferdighetPart = ExtractFromBody(OppgaverManager.oppgaverManager.LoadTextFile(), "{", "}");
+            List<string> ferdighetPart = ExtractFromBody(TaskManager.oppgaverManager.LoadTextFile(), "{", "}");
             int poeng = 0;
             foreach (string part in ferdighetPart)
             {
@@ -158,7 +158,7 @@ namespace Tablet
         {
             foreach (Ferdighet ferdighet in ferdigheterList)
             {
-                foreach (Oppgave oppgave in OppgaverManager.oppgaverManager.oppgaver)
+                foreach (Oppgave oppgave in TaskManager.oppgaverManager.oppgaver)
                 {
                     foreach (Aktivitet aktivitet in oppgave.GetAktivitetList())
                     {
@@ -174,7 +174,7 @@ namespace Tablet
                             //mark this aktivitet as compeleted
                             aktivitet.AktivitetIsDone(true);
 
-                            //add the aktivitet to ferdighter dic som holds aktiviteter that need this ferdighet and its poeng
+                            //add the aktivitet to skills dic som holds aktiviteter that need this ferdighet and its poeng
                             ferdighet.AddToFerdighetAktiviteter(aktivitet, poeng);
                         }
                     }
@@ -254,7 +254,7 @@ namespace Tablet
 
 
             //get every ferdighet and its oppgaver and aktiviteter
-            List<string> ferdighetPart = ExtractFromBody(OppgaverManager.oppgaverManager.LoadTextFile(), "{", "}");
+            List<string> ferdighetPart = ExtractFromBody(TaskManager.oppgaverManager.LoadTextFile(), "{", "}");
             foreach (string part in ferdighetPart)
             {
                 //get ferdighet name
@@ -381,7 +381,7 @@ namespace Tablet
                 ferdighetItemsObj.Add(ferdighetItem);
 
                 int poeng = 0;
-                foreach (Oppgave oppgave in OppgaverManager.oppgaverManager.oppgaver)
+                foreach (Oppgave oppgave in TaskManager.oppgaverManager.oppgaver)
                 {
                     foreach (Aktivitet aktivitet in oppgave.GetAktivitetList())
                     {

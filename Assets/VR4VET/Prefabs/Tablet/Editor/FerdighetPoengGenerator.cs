@@ -42,7 +42,7 @@ namespace Tablet
                 if (File.Exists(path))
                     File.Delete(path);
 
-                foreach (string ferdighet in GameObject.Find("FerdighetManager").GetComponent<FerdighetManager>().ferdighter)
+                foreach (string ferdighet in GameObject.Find("SkillManager").GetComponent<SkillManager>().skills)
                 {
                     File.AppendAllLines(path, new string[] { "{" });
 

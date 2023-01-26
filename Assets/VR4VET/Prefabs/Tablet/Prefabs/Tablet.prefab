@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 2508374028224504930}
   - component: {fileID: 2508374028224504928}
   m_Layer: 30
-  m_Name: HjelpButton
+  m_Name: HelpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -752,7 +752,7 @@ MonoBehaviour:
   target: {fileID: 0}
   player: {fileID: 0}
   Arrow: {fileID: 7187982016642669561, guid: f2826c85f7078aa4ca9a30a6161dc3fe, type: 3}
-  OppgaveListContentView: {fileID: 2508374028818846987}
+  TaskListContentView: {fileID: 2508374028818846987}
   activated: {fileID: 8300000, guid: e2ba1dcfc9b1e2e438acd009e17e1ea6, type: 3}
   deactivated: {fileID: 8300000, guid: 278d13f80955a2848a6b344690fdb57d, type: 3}
   prerequisites: {fileID: 8300000, guid: afae2ea0516cea342a4f16654d910c8e, type: 3}
@@ -1217,7 +1217,7 @@ GameObject:
   - component: {fileID: 2508374028332174223}
   - component: {fileID: 2508374028332174222}
   m_Layer: 30
-  m_Name: FerdigheterScrollListBG
+  m_Name: SkillsScrollListBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2404,7 +2404,7 @@ GameObject:
   - component: {fileID: 2508374028534941559}
   - component: {fileID: 2508374028534941558}
   m_Layer: 30
-  m_Name: PoengLabel
+  m_Name: PointLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2854,7 +2854,7 @@ GameObject:
   - component: {fileID: 2508374028612387643}
   - component: {fileID: 2508374028612387642}
   m_Layer: 30
-  m_Name: YrkesTitle
+  m_Name: OccupationalTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2936,7 +2936,7 @@ GameObject:
   - component: {fileID: 2508374028652596251}
   - component: {fileID: 2508374028652596250}
   m_Layer: 30
-  m_Name: YrkesTitle
+  m_Name: ProfessionTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3524,7 +3524,7 @@ GameObject:
   - component: {fileID: 2508374028779297410}
   - component: {fileID: 2508374028779297413}
   m_Layer: 30
-  m_Name: AktivitetScrollListViewport
+  m_Name: ActivitiesScrollListViewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3848,7 +3848,7 @@ GameObject:
   - component: {fileID: 2508374028883112646}
   - component: {fileID: 2508374028883112697}
   m_Layer: 30
-  m_Name: PoengLabel
+  m_Name: PointLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3929,7 +3929,7 @@ GameObject:
   - component: {fileID: 2508374028890535875}
   - component: {fileID: 2508374028890535873}
   m_Layer: 30
-  m_Name: OppgaverButton
+  m_Name: TasksButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4144,7 +4144,7 @@ GameObject:
   - component: {fileID: 2508374028889763276}
   - component: {fileID: 2508374028889763279}
   m_Layer: 30
-  m_Name: AktivitetPageCanvas
+  m_Name: ActivityPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4296,11 +4296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b5bbc1217661040bf319b005e75209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  antallFerdigheter: 1
-  ferdighter:
-  - Be happy
-  beskrivelser:
-  - "enjoy the game \nbest Jorge"
+  _skillQuantity: 0
+  skills: []
+  descriptions: []
   ferdigheterList: []
 --- !u!1 &2508374028919080833
 GameObject:
@@ -4633,7 +4631,7 @@ GameObject:
   - component: {fileID: 2508374029020071830}
   - component: {fileID: 2508374029020071831}
   m_Layer: 30
-  m_Name: OppgaverScrollListBG
+  m_Name: TasksScrollListBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5422,7 +5420,7 @@ GameObject:
   - component: {fileID: 2508374029105207025}
   - component: {fileID: 2508374029105207027}
   m_Layer: 30
-  m_Name: PoengButton
+  m_Name: PointButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6236,7 +6234,7 @@ GameObject:
   - component: {fileID: 2508374029197104359}
   - component: {fileID: 2508374029197104358}
   m_Layer: 30
-  m_Name: YrkesTitle
+  m_Name: OccupationTitle
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6357,7 +6355,7 @@ GameObject:
   - component: {fileID: 2508374029210061621}
   - component: {fileID: 2508374029210061620}
   m_Layer: 30
-  m_Name: FerdigheterPageCanvas
+  m_Name: SkillsPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7184,7 +7182,7 @@ GameObject:
   - component: {fileID: 2508374029348888557}
   - component: {fileID: 2508374029348888556}
   m_Layer: 30
-  m_Name: AktivitetLabel
+  m_Name: ActivityLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7677,7 +7675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e9443e780440a41b87c1c90689efd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YrkesNavn: Demo Scene
+  OccupationName: Demo Occupation
   mainPageCanvas: {fileID: 2508374029462862932}
   oppgaverPageCanvas: {fileID: 2508374030258667197}
   aktiviteterPageCanvas: {fileID: 2508374028889763274}
@@ -7825,7 +7823,7 @@ GameObject:
   - component: {fileID: 2508374029437825504}
   - component: {fileID: 2508374029437825519}
   m_Layer: 30
-  m_Name: AktiviteterScrollView
+  m_Name: ActivitiesScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8026,7 +8024,7 @@ GameObject:
   - component: {fileID: 2508374029456677645}
   - component: {fileID: 2508374029456677644}
   m_Layer: 30
-  m_Name: YrkesTitle
+  m_Name: Occupational Title
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8314,7 +8312,7 @@ GameObject:
   - component: {fileID: 2508374029482027218}
   - component: {fileID: 2508374029482027217}
   m_Layer: 30
-  m_Name: BeskrivelseScrollView
+  m_Name: DescriptionScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8467,8 +8465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc9c11a8589b714f938b45cf63d4c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oppgaverContentView: {fileID: 2508374028818846987}
-  AktiviteterContentView: {fileID: 2508374028605609082}
+  tasksContentView: {fileID: 2508374028818846987}
+  ActivitiesContentView: {fileID: 2508374028605609082}
   oppgaver: []
 --- !u!1 &2508374029509628748
 GameObject:
@@ -9127,7 +9125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2508374029675925947}
   m_Layer: 30
-  m_Name: BeskrivelseContent
+  m_Name: DescriptionContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9246,7 +9244,7 @@ GameObject:
   - component: {fileID: 2508374029732809746}
   - component: {fileID: 2508374029732809749}
   m_Layer: 30
-  m_Name: BeskrivelseText
+  m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9652,7 +9650,7 @@ GameObject:
   - component: {fileID: 2508374029805674303}
   - component: {fileID: 2508374029805674302}
   m_Layer: 30
-  m_Name: FerdighetPageCanvas
+  m_Name: SkillPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10631,7 +10629,7 @@ GameObject:
   - component: {fileID: 2508374030068664349}
   - component: {fileID: 2508374030068664348}
   m_Layer: 30
-  m_Name: OppgaveNameLabel
+  m_Name: TaskNameLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11237,7 +11235,7 @@ GameObject:
   - component: {fileID: 2508374030258667199}
   - component: {fileID: 2508374030258667198}
   m_Layer: 30
-  m_Name: OppgavePageCanvas
+  m_Name: TaskPageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
