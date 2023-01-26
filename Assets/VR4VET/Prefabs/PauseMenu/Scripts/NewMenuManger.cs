@@ -19,7 +19,7 @@ public class NewMenuManger : MonoBehaviour
     [SerializeField] public Material SkyboxMat;
     [SerializeField] private LayerMask _menuLayers;  //layers mask to put on top when the game is paused
     [SerializeField] private InputActionAsset _actionAsset; //we need this to block certain actions
-    [SerializeField] private Material _walls;
+    [SerializeField] private Material _wallsMaterial;
     [SerializeField] private bool _holdToOpen;
 
 
@@ -29,21 +29,29 @@ public class NewMenuManger : MonoBehaviour
     private Camera _cam;
     [SerializeField] private GameObject _aboutCanvas;
     [SerializeField] private GameObject _menuCanvas;
+    public GameObject stateSaverComponent;
+
+    private GameObject _savedStates;
     private bool _menuOpen = false;
     private float _holdtime = 1.5f;
 
 
-
-  
+    /// <summary>
+    /// This Script manages all aspects of the Pause Menu:
+    /// Toggle, or Hold to Pause
+    /// Change transparency of material while pausing
+    /// </summary>
 
     void Start()
     {
                
         _cam = Camera.main;
-  
+
+        Color c = _wallsMaterial.color;
+        c.a = 1f;
+        _wallsMaterial.color = c;
 
     }
-
 
 
     public void ToggleMenu()
@@ -58,9 +66,9 @@ public class NewMenuManger : MonoBehaviour
 
      void PauseGame()
     {
-        Color c = _walls.color;
+        Color c = _wallsMaterial.color;
         c.a = 0.7f;
-        _walls.color = c;
+        _wallsMaterial.color = c;
         Time.timeScale = 0; // pauses time events
         RenderSettings.skybox = PauseSkyboxMat;
         _cam.cullingMask = _menuLayers; //show only the chosen menu layers
@@ -69,11 +77,11 @@ public class NewMenuManger : MonoBehaviour
 
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
-        Color c = _walls.color;
+        Color c = _wallsMaterial.color;
         c.a = 1f;
-        _walls.color = c;
+        _wallsMaterial.color = c;
         Time.timeScale = 1;
         RenderSettings.skybox = SkyboxMat ;
         _cam.cullingMask = -1; // -1 = "Everything"
@@ -110,8 +118,32 @@ public class NewMenuManger : MonoBehaviour
         _menuCanvas.SetActive(true);
     }
 
+    public void OpenSaves()
+    {
+        _savedStates.SetActive(true);
+        _menuCanvas.SetActive(false);
+        for (int i = 0; i < 5; i++)
+        {
+            if (_savedStates.transform.GetChild(i).gameObject.GetComponent<UnityEngine.UI.Text>().text != "")
+            {
+                _savedStates.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void CloseSaves()
+    {
+        _savedStates.SetActive(false);
+        _menuCanvas.SetActive(true);
+        for (int i = 0; i < 5; i++)
+        {
+            _savedStates.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
     public void ExitGame()
     {
+        stateSaverComponent.GetComponent<stateSaver>().saveObjects();
         Application.Quit();
     }
 
@@ -132,7 +164,7 @@ public class NewMenuManger : MonoBehaviour
        
     }
 
-
+    // Loading wheel to open the pause menu
     public IEnumerator HoldPause()
     {
 
