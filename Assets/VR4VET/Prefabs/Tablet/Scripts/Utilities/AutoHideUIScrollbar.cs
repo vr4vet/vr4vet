@@ -57,7 +57,7 @@ namespace Tablet
 
             if (!scrollbar.active)
             {
-                RectTransform ContentView = OppgaverManager.oppgaverManager.FindDeepChild(gameObject, "Content").GetComponent<RectTransform>();
+                RectTransform ContentView = TaskManager.oppgaverManager.FindDeepChild(gameObject, "Content").GetComponent<RectTransform>();
                 ContentView.anchoredPosition = new Vector2(0, ContentView.anchoredPosition.y);
                 ContentView.sizeDelta = new Vector2(100, ContentView.sizeDelta.y);
             }
@@ -69,7 +69,7 @@ namespace Tablet
 
             if (!scrollbar.active)
             {
-                RectTransform ContentView = OppgaverManager.oppgaverManager.FindDeepChild(gameObject, "Content").GetComponent<RectTransform>();
+                RectTransform ContentView = TaskManager.oppgaverManager.FindDeepChild(gameObject, "Content").GetComponent<RectTransform>();
                 ContentView.anchoredPosition = new Vector2(-3.65f, ContentView.anchoredPosition.y);
                 ContentView.sizeDelta = new Vector2(90, ContentView.sizeDelta.y);
             }

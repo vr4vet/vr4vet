@@ -181,6 +181,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1887969066}
+    - target: {fileID: 2508374028245130183, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: TaskListContentView
+      value: 
+      objectReference: {fileID: 267091407}
     - target: {fileID: 2508374028339719813, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_RootOrder
@@ -251,6 +256,31 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: _skillQuantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: skills.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: skills.Array.data[0]
+      value: be nice
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: descriptions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: descriptions.Array.data[0]
+      value: be nice and compleate the task to get niceness
+      objectReference: {fileID: 0}
     - target: {fileID: 2508374028919080846, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -275,6 +305,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508374029395503700, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: OccupationName
+      value: Demo Occupation
       objectReference: {fileID: 0}
     - target: {fileID: 2508374029659667902, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
@@ -328,6 +363,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0b981dad04cca44fb78e43964a00816, type: 3}
+--- !u!1 &267091407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2508374028818846987, guid: d0b981dad04cca44fb78e43964a00816,
+    type: 3}
+  m_PrefabInstance: {fileID: 267091406}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &278101137
 GameObject:
   m_ObjectHideFlags: 0

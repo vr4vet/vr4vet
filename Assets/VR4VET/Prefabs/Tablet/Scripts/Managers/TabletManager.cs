@@ -16,7 +16,7 @@ namespace Tablet
         private TabletPosition tabletPos;
 
         [Header("strings")]
-        public string YrkesNavn = "Change this";
+        public string OccupationName = "Demo Occupation";
 
         #region Public Variables
         [Header("Canvases")]
@@ -77,7 +77,7 @@ namespace Tablet
             //Find all yerkesTitles gameobjects in the scene and set it up
             yrkesTitles = GameObject.FindGameObjectsWithTag("YrkesTitle");
             foreach (GameObject text in yrkesTitles)
-                text.GetComponent<Text>().text = YrkesNavn;
+                text.GetComponent<Text>().text = OccupationName;
 
             //restart the tablet
             ShowCanvas(mainPageCanvas);
@@ -124,9 +124,9 @@ namespace Tablet
         public void CloseTablet()
         {
             ShowCanvas(mainPageCanvas);
-            OppgaverManager.oppgaverManager.DestroyAktiviterList();
-            FerdighetManager.ferdighetManager.DestroyTheFerdigheterList();
-            FerdighetManager.ferdighetManager.DestroyTheOppgaveInFerdighetList();
+            TaskManager.oppgaverManager.DestroyAktiviterList();
+            SkillManager.skillManager.DestroyTheFerdigheterList();
+            SkillManager.skillManager.DestroyTheOppgaveInFerdighetList();
             OpenTablet(false);
 
         }
@@ -138,8 +138,8 @@ namespace Tablet
         /// </summary>
         public void TestMethod1(GameObject testObject)
         {
-            //FerdighetManager.ferdighetManager.GiveFeedback("Accuracy", "Good Job!");
-            FerdighetManager.ferdighetManager.AddPoeng("Find the helmet", "Accuracy", 20);
+            //FerdighetManager.skillManager.GiveFeedback("Accuracy", "Good Job!");
+            SkillManager.skillManager.AddPoeng("Find the helmet", "Accuracy", 20);
             testObject.GetComponentInChildren<Text>().text = "Done";
             testObject.GetComponent<Collider>().enabled = false;
             testObject.GetComponent<Renderer>().material.color = Color.green;
@@ -153,8 +153,8 @@ namespace Tablet
         /// </summary>
         public void TestMethod2(GameObject testObject)
         {
-            //FerdighetManager.ferdighetManager.GiveFeedback("Utholdenhet", "Good Job!");
-            FerdighetManager.ferdighetManager.AddPoeng("Hit the pointer to the hammer", "Speed", 10);
+            //FerdighetManager.skillManager.GiveFeedback("Utholdenhet", "Good Job!");
+            SkillManager.skillManager.AddPoeng("Hit the pointer to the hammer", "Speed", 10);
             testObject.GetComponentInChildren<Text>().text = "Done";
             testObject.GetComponent<Collider>().enabled = false;
             testObject.GetComponent<Renderer>().material.color = Color.green;
