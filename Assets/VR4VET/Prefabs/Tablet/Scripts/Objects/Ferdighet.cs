@@ -20,14 +20,14 @@ namespace Tablet
         private string ferdighetBeskrivelse;
 
         //hvor mye til hver aktivitet har gitt denne ferdighet (aktivitet,poeng)
-        private Dictionary<Aktivitet, int> ferdighetAktiviteter = new Dictionary<Aktivitet, int>();
+        private Dictionary<Activity, int> ferdighetAktiviteter = new Dictionary<Activity, int>();
 
 
         /// <summary>
         /// get the dictionary of all aktivitet that are testet by this ferdighet
         /// </summary>
         /// <returns></returns>
-        public Dictionary<Aktivitet, int> GetFerdighetAktiviteter()
+        public Dictionary<Activity, int> GetFerdighetAktiviteter()
         {
             return ferdighetAktiviteter;
         }
@@ -38,7 +38,7 @@ namespace Tablet
         /// </summary>
         /// <param name="aktivitet"></param>
         /// <param name="value"></param>
-        public void AddToFerdighetAktiviteter(Aktivitet aktivitet, int value)
+        public void AddToFerdighetAktiviteter(Activity aktivitet, int value)
         {
             if (!ferdighetAktiviteter.Keys.Contains(aktivitet))
             {
@@ -100,7 +100,7 @@ namespace Tablet
         public int GetAchievedPoeng()
         {
             achievedPoeng = 0;
-            foreach (KeyValuePair<Aktivitet, int> aktivitet in ferdighetAktiviteter)
+            foreach (KeyValuePair<Activity, int> aktivitet in ferdighetAktiviteter)
             {
                 achievedPoeng += aktivitet.Value;
             }
