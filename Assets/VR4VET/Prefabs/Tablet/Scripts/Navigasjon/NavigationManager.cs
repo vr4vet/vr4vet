@@ -114,7 +114,7 @@ namespace Tablet
         /// </summary>
         /// <param name="thisOppgave"></param>
         /// <param name="button"></param>
-        public void SetTarget(Oppgave thisOppgave, Button button)
+        public void SetTarget(Task thisOppgave, Button button)
         {
             //need to do other tasks first
             if (thisOppgave.prerequisite && !thisOppgave.prerequisite.IsTaskCompeleted())
@@ -137,7 +137,7 @@ namespace Tablet
             //****Task activating*****
 
             //if task need to active pathfinding
-            if (thisOppgave.oppgaveTarget && thisOppgave.oppgaveTarget.activeInHierarchy)
+            if (thisOppgave.taskTarget && thisOppgave.taskTarget.activeInHierarchy)
             {
                 activeButton = button;
 
@@ -175,7 +175,7 @@ namespace Tablet
                     else
                     {
                         PlayAudio(activated);
-                        target = thisOppgave.oppgaveTarget;
+                        target = thisOppgave.taskTarget;
                         ResetNavigation(); // this will make TaskIsActive false, so change it to true again if needed
                         TaskIsActive = true;
 

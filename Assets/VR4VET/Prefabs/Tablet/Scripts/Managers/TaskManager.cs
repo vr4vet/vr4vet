@@ -24,7 +24,7 @@ namespace Tablet
         public GameObject ActivitiesContentView;
 
         [HideInInspector]
-        public Oppgave[] oppgaver;
+        public Task[] oppgaver;
 
         //uses to destroy the created elements each time we close the ferdighet page
         private List<GameObject> aktivitetItems = new List<GameObject>();
@@ -40,10 +40,10 @@ namespace Tablet
             else if (oppgaverManager != this)
                 Destroy(gameObject);
 
-            oppgaver = GameObject.FindObjectsOfType<Oppgave>();
+            oppgaver = GameObject.FindObjectsOfType<Task>();
 
             //create oppgaver list
-            foreach (Oppgave oppgave in oppgaver)
+            foreach (Task oppgave in oppgaver)
             {
                 GameObject item = Instantiate((GameObject)Resources.Load("UI/OppgaveItem"), Vector3.zero, Quaternion.identity);
                 item.transform.SetParent(tasksContentView.transform);
@@ -64,7 +64,7 @@ namespace Tablet
                     oppgave.button.interactable = false; //deactive the button
                 //
 
-                string oppgaveName = oppgave.oppgaveName;
+                string oppgaveName = oppgave._taskName;
 
                 if (oppgaveName.Length > 25)
                 {
@@ -86,13 +86,13 @@ namespace Tablet
         /// Create the aktivitet page for hver oppgave
         /// </summary>
         /// <param name="oppgave"></param>
-        private void CreateOppgavePage(Oppgave oppgave)
+        private void CreateOppgavePage(Task oppgave)
         {
             TabletManager.tabletManager.ShowCanvas(TabletManager.tabletManager.aktiviteterPageCanvas);
-            FindDeepChild(TabletManager.tabletManager.aktiviteterPageCanvas.gameObject, "OppgaveNameLabel").GetComponent<Text>().text = oppgave.oppgaveName;
-            FindDeepChild(TabletManager.tabletManager.aktiviteterPageCanvas.gameObject, "BeskrivelseText").GetComponent<Text>().text = oppgave.beskrivelse;
+            FindDeepChild(TabletManager.tabletManager.aktiviteterPageCanvas.gameObject, "OppgaveNameLabel").GetComponent<Text>().text = oppgave._taskName;
+            FindDeepChild(TabletManager.tabletManager.aktiviteterPageCanvas.gameObject, "BeskrivelseText").GetComponent<Text>().text = oppgave.description;
 
-            foreach (Aktivitet aktivitetObject in oppgave.GetAktivitetList())
+            foreach (Activity aktivitetObject in oppgave.GetAktivitetList())
             {
                 //Create aktivitet in the list
                 GameObject aktivitet = Instantiate((GameObject)Resources.Load("UI/AktivitetItem"), Vector3.zero, Quaternion.identity);
@@ -107,9 +107,9 @@ namespace Tablet
                 int totalAchievedPoeng = 0;
 
                 //find out sum of all poeng that aktivitet hat fått from a ferdighet
-                foreach (Ferdighet ferdighet in SkillManager.skillManager.ferdigheterList)
+                foreach (Skill ferdighet in SkillManager.skillManager._skillList)
                 {
-                    foreach (KeyValuePair<Aktivitet, int> aktivitetObj in ferdighet.GetFerdighetAktiviteter())
+                    foreach (KeyValuePair<Activity, int> aktivitetObj in ferdighet.GetFerdighetAktiviteter())
                     {
                         if (aktivitetObj.Key.GetAktivitetName() == aktivitetObject.GetAktivitetName())
                         {

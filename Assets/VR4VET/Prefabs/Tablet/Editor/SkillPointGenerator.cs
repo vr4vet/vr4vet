@@ -42,6 +42,7 @@ namespace Tablet
                 if (File.Exists(path))
                     File.Delete(path);
 
+                /*
                 foreach (string ferdighet in GameObject.Find("SkillManager").GetComponent<SkillManager>().skills)
                 {
                     File.AppendAllLines(path, new string[] { "{" });
@@ -54,17 +55,14 @@ namespace Tablet
                     {
                         File.AppendAllLines(path, new string[] { "  (" });
                         File.AppendAllLines(path, new string[] { "  --." + oppgave._taskName + ".--" });
-                        foreach (string aktivitet in oppgave.activities)
-                        {
-                            if (aktivitet != "")
-                                File.AppendAllLines(path, new string[] { "      <" + aktivitet + ":>" });
-                        }
-                        File.AppendAllLines(path, new string[] { "  )" });
+                   
                     }
 
                     File.AppendAllLines(path, new string[] { "}" });
                     File.AppendAllLines(path, new string[] { "" });
                 }
+
+                */
 
                 EditorUtility.DisplayDialog("Done", "The text file is created in Assets/Resources/FerdighetPoenger.txt", "Ok");
             }

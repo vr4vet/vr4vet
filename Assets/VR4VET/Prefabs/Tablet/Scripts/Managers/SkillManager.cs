@@ -17,22 +17,18 @@ namespace Tablet
     {
         public static SkillManager skillManager;
 
-        [Tooltip("How many skills do you have?"), Range(0, 15)]
-        public int _skillQuantity = 0;
+      //  [Tooltip("How many skills do you have?"), Range(0, 15)]
+       // public int _skillQuantity = 0;
 
-        [Tooltip("Skills of this occupation, skill name can not be more than 15 letters")]
-        public string[] skills = new string[0];
-
-        [Tooltip("Description of this skill"), TextArea(5, 20)]
-        public string[] descriptions;
+        
+       // public string[] descriptions;
 
         //[Space(10)]
         //[Tooltip("Total poeng ferdigheter")]
         //public int totalPoeng = 100; 
 
         //all ferdigheter will save in this list
-        [HideInInspector]
-        public List<Ferdighet> ferdigheterList = new List<Ferdighet>();
+        public List<Skill> _skillList = new List<Skill>();
 
         //This list holds list rows of ferdighet page.
         //uses to destroy the created elements every time we close the ferdigheter page
@@ -47,23 +43,7 @@ namespace Tablet
         /// </summary>
         void OnValidate()
         {
-            //set the size of descriptions as same as ferdigheter amount
-
-            if (skills.Length != _skillQuantity || descriptions.Length != _skillQuantity)
-            {
-                Array.Resize(ref skills, _skillQuantity);
-                Array.Resize(ref descriptions, _skillQuantity);
-            }
-
-
-            //not allow to be more that 15 char
-            for (int i = 0; i < skills.Length; i++)
-            {
-                if (skills[i].Length > 15)
-                {
-                    skills[i] = skills[i].Substring(0, 14);
-                }
-            }
+            
 
         }
 
@@ -78,14 +58,7 @@ namespace Tablet
                 Destroy(gameObject);
 
             //if there is no ferdigheter yet, create a test one and send an error message
-            if (skills.Length == 0)
-            {
-                Debug.LogError("You have not created any skill yet. Create new skill under SkillManager gameobject");
-                Array.Resize(ref skills, 1);
-                Array.Resize(ref descriptions, 1);
-                skills[0] = "Test Ferdighet";
-                descriptions[0] = "You have not created any skill yet. Create new skill under SkillManager gameobject";
-            }
+            
 
             Invoke("CreateFerdighetObjects", 0.1f);
         }
@@ -96,12 +69,14 @@ namespace Tablet
         /// <summary>
         /// Create the detail page for this ferdighet
         /// </summary>
+        /// 
+        /**
         private void CreateFerdighetObjects()
         {
             int i = 0;
             foreach (string ferfighet in skills)
             {
-                Ferdighet f = new GameObject(ferfighet).AddComponent<Ferdighet>();
+                Skill f = new GameObject(ferfighet).AddComponent<Skill>();
                 f.transform.SetParent(gameObject.transform);
                 f.SetTotalPoeng(GetFerdighetTotalPoeng(ferfighet));
                 f.SetAchievedPoeng(0);
@@ -111,6 +86,7 @@ namespace Tablet
                 i++;
             }
         }
+        **/
 
         /// <summary>
         /// this will calculate the maz poeng each ferdighet can take using the text file
@@ -156,11 +132,11 @@ namespace Tablet
         /// <param name="poeng"></param>
         public void AddPoeng(string aktivitetName, string ferdighetName,int poeng)
         {
-            foreach (Ferdighet ferdighet in ferdigheterList)
+            foreach (Skill ferdighet in _skillList)
             {
-                foreach (Oppgave oppgave in TaskManager.oppgaverManager.oppgaver)
+                foreach (Task oppgave in TaskManager.oppgaverManager.oppgaver)
                 {
-                    foreach (Aktivitet aktivitet in oppgave.GetAktivitetList())
+                    foreach (Activity aktivitet in oppgave.GetAktivitetList())
                     {
                         //add poeng to aktivitet
                         if (aktivitet.GetAktivitetName() == aktivitetName && ferdighet.GetFerdighetName() == ferdighetName)
@@ -192,7 +168,7 @@ namespace Tablet
         /// <param name="tilbakeMelding"></param>
         public void GiveFeedback(string ferdighetName, string tilbakeMelding)
         {
-            foreach (Ferdighet ferdighet in ferdigheterList)
+            foreach (Skill ferdighet in _skillList)
             {
                 if (ferdighet.GetFerdighetName() == ferdighetName)
                 {
@@ -242,7 +218,7 @@ namespace Tablet
         /// Create the ferdighet detail page
         /// </summary>
         /// <param name="ferdighet"></param>
-        private void GenerateFerdighetPage(Ferdighet ferdighet)
+        private void GenerateFerdighetPage(Skill ferdighet)
         {
 
             FindDeepChild(TabletManager.tabletManager.ferdighetPageCanvas.gameObject, "FerdighetNameLabel").GetComponent<Text>().text = ferdighet.GetFerdighetName();
@@ -294,7 +270,7 @@ namespace Tablet
 
                         int totalAchievedPoeng = 0;
                         //calcaulate achived poeng
-                        foreach (KeyValuePair<Aktivitet, int> ferdighetAktiviteter in ferdighet.GetFerdighetAktiviteter())
+                        foreach (KeyValuePair<Activity, int> ferdighetAktiviteter in ferdighet.GetFerdighetAktiviteter())
                         {
                             //same ferdighet
                             if(ferdighet.GetFerdighetName() == ferdighetName)
@@ -368,7 +344,7 @@ namespace Tablet
         /// <param name="FerdigheterListContent"></param>
         public void CreateFerdigheterPage(Canvas FerdigheterListContent)
         {
-            foreach (Ferdighet ferdighet in ferdigheterList)
+            foreach (Skill ferdighet in _skillList)
             {
                 //Create aktivitet in the list
                 GameObject ferdighetItem = Instantiate((GameObject)Resources.Load("UI/FerdighetItem"), Vector3.zero, Quaternion.identity);
@@ -381,15 +357,15 @@ namespace Tablet
                 ferdighetItemsObj.Add(ferdighetItem);
 
                 int poeng = 0;
-                foreach (Oppgave oppgave in TaskManager.oppgaverManager.oppgaver)
+                foreach (Task oppgave in TaskManager.oppgaverManager.oppgaver)
                 {
-                    foreach (Aktivitet aktivitet in oppgave.GetAktivitetList())
+                    foreach (Activity aktivitet in oppgave.GetAktivitetList())
                     {
-                        foreach (Ferdighet ferdighetObj in aktivitet.GetAktivitetFerdigheter())
+                        foreach (Skill ferdighetObj in aktivitet.GetAktivitetFerdigheter())
                         {
                             if (ferdighetObj.GetFerdighetName() == ferdighet.GetFerdighetName())
                             {
-                                foreach (KeyValuePair<Aktivitet, int> item in ferdighetObj.GetFerdighetAktiviteter())
+                                foreach (KeyValuePair<Activity, int> item in ferdighetObj.GetFerdighetAktiviteter())
                                 {
                                     if(item.Key.GetAktivitetName() == aktivitet.GetAktivitetName())
                                         poeng += item.Value;
