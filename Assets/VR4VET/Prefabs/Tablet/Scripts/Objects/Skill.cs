@@ -12,22 +12,24 @@ namespace Tablet
     /// <summary>
     /// ferdighet object
     /// </summary>
-    public class Skill : MonoBehaviour
+    [CreateAssetMenu(fileName = "New Skill", menuName = "Tablet/Skill")]
+    public class Skill : ScriptableObject
     {
-        private int totalPoints;
+        public int totalPoints;
         private int achievedPoints;
-        private string skillName;
-        private string skillDescription;
+        public string skillName;
+        [Tooltip("Description of this skill"), TextArea(5, 20)]
+        public string skillDescription;
 
         //hvor mye til hver aktivitet har gitt denne ferdighet (aktivitet,poeng)
-        private Dictionary<Aktivitet, int> ferdighetAktiviteter = new Dictionary<Aktivitet, int>();
+        private Dictionary<Activity, int> ferdighetAktiviteter = new Dictionary<Activity, int>();
 
 
         /// <summary>
         /// get the dictionary of all aktivitet that are testet by this ferdighet
         /// </summary>
         /// <returns></returns>
-        public Dictionary<Aktivitet, int> GetFerdighetAktiviteter()
+        public Dictionary<Activity, int> GetFerdighetAktiviteter()
         {
             return ferdighetAktiviteter;
         }
@@ -38,7 +40,7 @@ namespace Tablet
         /// </summary>
         /// <param name="aktivitet"></param>
         /// <param name="value"></param>
-        public void AddToFerdighetAktiviteter(Aktivitet aktivitet, int value)
+        public void AddToFerdighetAktiviteter(Activity aktivitet, int value)
         {
             if (!ferdighetAktiviteter.Keys.Contains(aktivitet))
             {
@@ -100,7 +102,7 @@ namespace Tablet
         public int GetAchievedPoeng()
         {
             achievedPoints = 0;
-            foreach (KeyValuePair<Aktivitet, int> aktivitet in ferdighetAktiviteter)
+            foreach (KeyValuePair<Activity, int> aktivitet in ferdighetAktiviteter)
             {
                 achievedPoints += aktivitet.Value;
             }

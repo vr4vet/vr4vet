@@ -10,21 +10,22 @@ using UnityEngine;
 namespace Tablet
 {
     /// <summary>
-    /// Aktivitet object
+    /// Activity object
     /// </summary>
-    public class Aktivitet : MonoBehaviour
+    [System.Serializable]
+    public class Activity 
     {
-        private int achievedPoeng;
-        private string aktivitetName;
-        private bool AktivitetIsCompeleted;
-        private List<Ferdighet> aktivitetFerdigheter = new List<Ferdighet>();
+        public int achievedPoeng;
+        public string aktivitetName;
+        public bool AktivitetIsCompeleted;
+        public List<Skill> aktivitetFerdigheter = new List<Skill>();
 
 
         /// <summary>
         /// Get the list of all ferdigheter that this aktivitet has gotten
         /// </summary>
         /// <returns></returns>
-        public List<Ferdighet> GetAktivitetFerdigheter()
+        public List<Skill> GetAktivitetFerdigheter()
         {
             return aktivitetFerdigheter;
         }
@@ -53,11 +54,11 @@ namespace Tablet
         /// <summary>
         /// This will add a ferdighet to this aktivitet
         /// </summary>
-        /// <param name="ferdighet"></param>
-        public void AddToAktivitetFerdigheter(Ferdighet ferdighet)
+        /// <param name="skill"></param>
+        public void AddToAktivitetFerdigheter(Skill skill)
         {
-            if (!aktivitetFerdigheter.Contains(ferdighet))
-                aktivitetFerdigheter.Add(ferdighet);
+            if (!aktivitetFerdigheter.Contains(skill))
+                aktivitetFerdigheter.Add(skill);
         }
 
 
@@ -107,9 +108,9 @@ namespace Tablet
         /// <param name="value"></param>
         public void AddToAchievedPoeng(int value)
         {
-            foreach (Ferdighet ferdighet in aktivitetFerdigheter)
+            foreach (Skill ferdighet in aktivitetFerdigheter)
             {
-                foreach (Aktivitet aktivitet in ferdighet.GetFerdighetAktiviteter().Keys.ToList())
+                foreach (Activity aktivitet in ferdighet.GetFerdighetAktiviteter().Keys.ToList())
                 {
                     if (aktivitet.GetAktivitetName() == aktivitetName)
                     {

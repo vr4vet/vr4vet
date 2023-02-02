@@ -13,22 +13,21 @@ namespace Tablet
     /// <summary>
     /// Task object
     /// </summary>
-    public class Task : MonoBehaviour
+    [CreateAssetMenu(fileName ="New Task", menuName ="Tablet/Task" )]
+    public class Task : ScriptableObject
     {
+
+        private Transform taskPosition;
+
 
         [Tooltip("Task Name")]
         public string _taskName;
 
         [Tooltip("Description of this assignment"), TextArea(5, 20)]
         public string description;
-
-        [Tooltip("How many tasks do you have?"), Range(0, 15)]
-        [SerializeField]
-        public int totalActivities = 0;
-
         [Tooltip("Activities List")]
         [SerializeField]
-        public string[] activities = new string[0];
+        public List<Activity> activities = new List<Activity>();
 
         [Header("Navigation")]
         public GameObject taskTarget;
@@ -42,7 +41,7 @@ namespace Tablet
         [HideInInspector]
         public Image unCheckedIcon;
 
-        private List<Aktivitet> aktivitetList = new List<Aktivitet>();
+        private List<Activity> aktivitetList = new List<Activity>();
 
 
         [HideInInspector] private bool is_task_Completed;
@@ -75,6 +74,8 @@ namespace Tablet
         /// </summary>
         void OnValidate()
         {
+         
+            /**
             //set the size of activities and poeng as same as totalAktiviter amount
             Array.Resize(ref activities, totalActivities);
 
@@ -93,6 +94,8 @@ namespace Tablet
                     activities[i] = activities[i].Substring(0, 29);
                 }
             }
+        
+        **/
         }
 
 
@@ -102,7 +105,7 @@ namespace Tablet
         public void CheckTaskCompeletion()
         {
             //the task is not completed if even one aktivitet is not done
-            foreach (Aktivitet aktivitet in aktivitetList)
+            foreach (Activity aktivitet in aktivitetList)
             {
                 if (aktivitet.IsAktivitetCompeleted() == false)
                 {
@@ -128,15 +131,7 @@ namespace Tablet
         /// </summary>
         private void Start()
         {
-            foreach (string aktivitet in activities)
-            {
-                Aktivitet a = new GameObject(aktivitet).AddComponent<Aktivitet>();
-                a.transform.SetParent(gameObject.transform);
-                a.SetAktivitetName(aktivitet);
-                a.SetAchievedPoeng(0);
-                a.AktivitetIsDone(false);//not completed at the start
-                aktivitetList.Add(a); // fill the dictionary with activities and poenger
-            }
+            
         }
 
 
@@ -144,7 +139,7 @@ namespace Tablet
         /// Get the list of all aktivitet that this oppgave has
         /// </summary>
         /// <returns></returns>
-        public List<Aktivitet> GetAktivitetList()
+        public List<Activity> GetAktivitetList()
         {
             return aktivitetList;
         }
