@@ -224,6 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 235089819}
+  - component: {fileID: 235089820}
   m_Layer: 0
   m_Name: Tasks
   m_TagString: Untagged
@@ -242,13 +243,25 @@ Transform:
   m_LocalPosition: {x: -0.04220432, y: 1.4330474, z: -1.9048306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1140398279}
-  - {fileID: 1341993564}
-  - {fileID: 1550128927}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &235089820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235089818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae5105792e7c4042871fe5abafd7420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _taskAndTargerts:
+  - task: {fileID: 11400000, guid: 1a7de18e1b008644c87b4283ce9888b7, type: 2}
+    target: {fileID: 0}
 --- !u!1001 &267091406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -321,6 +334,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tablet Advanced
       objectReference: {fileID: 0}
+    - target: {fileID: 2508374028818846987, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: m_Name
+      value: Task Content
+      objectReference: {fileID: 0}
     - target: {fileID: 2508374028861649731, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -331,6 +349,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: _skillList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508374028898906885, guid: d0b981dad04cca44fb78e43964a00816,
+        type: 3}
+      propertyPath: _skillList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3453ab20f5d0be644b39446960ecaedd,
+        type: 2}
     - target: {fileID: 2508374028919080846, guid: d0b981dad04cca44fb78e43964a00816,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -12173,12 +12202,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.04, y: 0.10930477, z: 0.030000025}
   m_Center: {x: 0.13, y: 0, z: 0}
---- !u!4 &1140398279 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-    type: 3}
-  m_PrefabInstance: {fileID: 6413459756060212273}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1180788096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16088,196 +16111,6 @@ MonoBehaviour:
   m_ActionAssets:
   - {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   - {fileID: -944628639613478452, guid: e39f4b35a6db18348b41eb0262520e69, type: 3}
---- !u!1001 &1341993563
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 235089819}
-    m_Modifications:
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572727, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_Name
-      value: Task2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: beskrivelse
-      value: Its HAMMER TIME ! Grab the hammer to finish this task
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: oppgaveName
-      value: Find Hammer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: prerequisite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: oppgaveTarget
-      value: 
-      objectReference: {fileID: 511556963}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: totalAktiviteter
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.data[0]
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.data[1]
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.data[2]
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.data[3]
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[0]
-      value: 'Grab the hammer '
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[1]
-      value: Aktivitet 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[2]
-      value: Finn boot
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[3]
-      value: "Finn h\xE5nske"
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poeng.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: totalFerdigheter
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poeng.Array.data[0]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poeng.Array.data[1]
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: ferdighter.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: ferdighter.Array.data[0]
-      value: Utholdenhet
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: ferdighter.Array.data[1]
-      value: Fleksibilitet
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 158915a19211812488ca69e198bdd65c, type: 3}
---- !u!4 &1341993564 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1341993563}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1384452678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16748,112 +16581,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92afbc4d9bafa95428a9081fbdb93c2c, type: 3}
---- !u!1001 &1550128926
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 235089819}
-    m_Modifications:
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572727, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_Name
-      value: Task3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: beskrivelse
-      value: 'After this tasks you are probably bored. Your last task is to grab
-        the vr headset to see an NBA game. '
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: oppgaveName
-      value: 360 video Watch
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: oppgaveTarget
-      value: 
-      objectReference: {fileID: 367282792}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: totalAktiviteter
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[0]
-      value: Watch the 360 video
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 158915a19211812488ca69e198bdd65c, type: 3}
---- !u!4 &1550128927 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1550128926}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1568718170
 GameObject:
   m_ObjectHideFlags: 0
@@ -18102,6 +17829,75 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 375934024}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1895089871
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1181794879123886186, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_Name
+      value: VolumeManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.119914174
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.034325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.765864
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181794879123886188, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 09f8ffdf75e77ce4ab1d6687e86dbfa5, type: 3}
 --- !u!1 &1908184877
 GameObject:
   m_ObjectHideFlags: 0
@@ -18421,222 +18217,3 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
---- !u!1001 &6413459756060212273
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 235089819}
-    m_Modifications:
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572726, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572727, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: m_Name
-      value: Task1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: beskrivelse
-      value: 'Good work environment work is about reducing the risk of dangers and
-        accidents and actively focusing on the positive and health-promoting factors
-        in the work environment.
-
-
-        Find and grab the Helmet in order to                                              '
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: oppgaveName
-      value: Find the helmet
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: oppgaveTarget
-      value: 
-      objectReference: {fileID: 1975661337}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: totalAktiviteter
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.data[0]
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.data[1]
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.data[2]
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poenger.Array.data[3]
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[0]
-      value: Find the helmet
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[4]
-      value: jh
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[5]
-      value: hgh
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[6]
-      value: TFYTRIR
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[7]
-      value: YYT1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[8]
-      value: jgj
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[9]
-      value: uytuyt
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[10]
-      value: tyt
-      objectReference: {fileID: 0}
-    - target: {fileID: 6413459757159572729, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: aktiviteter.Array.data[11]
-      value: jhj
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poeng.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: totalFerdigheter
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poeng.Array.data[0]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: poeng.Array.data[1]
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: ferdighter.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: ferdighter.Array.data[0]
-      value: Utholdenhet
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854240781495616936, guid: 158915a19211812488ca69e198bdd65c,
-        type: 3}
-      propertyPath: ferdighter.Array.data[1]
-      value: Fleksibilitet
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 158915a19211812488ca69e198bdd65c, type: 3}

@@ -24,7 +24,7 @@ namespace Tablet
         public GameObject ActivitiesContentView;
 
         [HideInInspector]
-        public Task[] oppgaver;
+        public List<Task> tasks= new List<Task>();
 
         //uses to destroy the created elements each time we close the ferdighet page
         private List<GameObject> aktivitetItems = new List<GameObject>();
@@ -40,10 +40,10 @@ namespace Tablet
             else if (oppgaverManager != this)
                 Destroy(gameObject);
 
-            oppgaver = GameObject.FindObjectsOfType<Task>();
-
+            TaskHolder th = GameObject.FindObjectsOfType<TaskHolder>()[0];
+            tasks = th.GetTasks();
             //create oppgaver list
-            foreach (Task oppgave in oppgaver)
+            foreach (Task oppgave in tasks)
             {
                 GameObject item = Instantiate((GameObject)Resources.Load("UI/OppgaveItem"), Vector3.zero, Quaternion.identity);
                 item.transform.SetParent(tasksContentView.transform);

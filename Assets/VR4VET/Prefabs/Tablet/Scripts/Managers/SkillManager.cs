@@ -134,7 +134,7 @@ namespace Tablet
         {
             foreach (Skill ferdighet in _skillList)
             {
-                foreach (Task oppgave in TaskManager.oppgaverManager.oppgaver)
+                foreach (Task oppgave in TaskManager.oppgaverManager.tasks)
                 {
                     foreach (Activity aktivitet in oppgave.GetAktivitetList())
                     {
@@ -357,7 +357,7 @@ namespace Tablet
                 ferdighetItemsObj.Add(ferdighetItem);
 
                 int poeng = 0;
-                foreach (Task oppgave in TaskManager.oppgaverManager.oppgaver)
+                foreach (Task oppgave in TaskManager.oppgaverManager.tasks)
                 {
                     foreach (Activity aktivitet in oppgave.GetAktivitetList())
                     {
