@@ -1,7 +1,9 @@
-﻿/* Copyright (C) 2020 IMTEL NTNU - All Rights Reserved
- * Developer: Abbas Jafari
- * Ask your questions by email: a85jafari@gmail.com
+﻿/* Copyright (C) 2023 IMTEL NTNU - All Rights Reserved
+ * Developer: Jorge Garcia
+ * Ask your questions by email: jorgeega@ntnu.no
  */
+
+
 
 using System.Collections.Generic;
 using System.Linq;
