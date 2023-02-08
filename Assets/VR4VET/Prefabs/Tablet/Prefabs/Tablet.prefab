@@ -720,7 +720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2508374028245130182
 Transform:
   m_ObjectHideFlags: 0
@@ -2386,7 +2386,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8625787806344444789}
   m_HandleRect: {fileID: 8625787806344444788}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3653,7 +3653,7 @@ GameObject:
   - component: {fileID: 2508374028818846998}
   - component: {fileID: 2508374028818846985}
   m_Layer: 30
-  m_Name: Content
+  m_Name: Task Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4296,10 +4296,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b5bbc1217661040bf319b005e75209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillQuantity: 0
-  skills: []
-  descriptions: []
-  ferdigheterList: []
+  _tabletManager: {fileID: 2508374029395503700}
+  _taskmanager: {fileID: 2508374029496156193}
+  _skillList:
+  - {fileID: 11400000, guid: 3453ab20f5d0be644b39446960ecaedd, type: 2}
 --- !u!1 &2508374028919080833
 GameObject:
   m_ObjectHideFlags: 0
@@ -6089,7 +6089,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2508374029176431344}
   m_HandleRect: {fileID: 2508374029226701211}
   m_Direction: 2
-  m_Value: 0.9999987
+  m_Value: 1.0000002
   m_Size: 0.45829493
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6216,7 +6216,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2508374028861649728}
   m_HandleRect: {fileID: 2508374028861649731}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7675,6 +7675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e9443e780440a41b87c1c90689efd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillManager: {fileID: 2508374028898906885}
+  _taskmanager: {fileID: 2508374029496156193}
   OccupationName: Demo Occupation
   mainPageCanvas: {fileID: 2508374029462862932}
   oppgaverPageCanvas: {fileID: 2508374030258667197}
@@ -8465,9 +8467,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc9c11a8589b714f938b45cf63d4c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tabletManager: {fileID: 2508374029395503700}
+  _skillManager: {fileID: 2508374028898906885}
   tasksContentView: {fileID: 2508374028818846987}
   ActivitiesContentView: {fileID: 2508374028605609082}
-  oppgaver: []
+  tasks: []
 --- !u!1 &2508374029509628748
 GameObject:
   m_ObjectHideFlags: 0
@@ -9879,7 +9883,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2508374029953729534}
   m_HandleRect: {fileID: 2508374029659667902}
   m_Direction: 2
-  m_Value: 0.9999987
+  m_Value: 1.0000002
   m_Size: 0.45829493
   m_NumberOfSteps: 0
   m_OnValueChanged:
