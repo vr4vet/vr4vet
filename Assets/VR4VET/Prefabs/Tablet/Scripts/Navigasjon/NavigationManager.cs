@@ -25,7 +25,7 @@ namespace Tablet
         public GameObject player;
         [Space(4)]
         public GameObject Arrow;
-        public GameObject TaskListContentView;
+   //     public GameObject TaskListContentView;
 
         [Header("Sounds")]
         public AudioClip activated;
@@ -214,12 +214,13 @@ namespace Tablet
             TaskIsActive = false;
 
             //reset all buttons color
+          /*(
             foreach (Button btn in TaskListContentView.GetComponentsInChildren<Button>())
             {
                 Color btnWhite = new Color(20,80,140,100);
                 btn.GetComponent<Image>().color = btnWhite;
             }
-
+          */
             foreach (GameObject arrow in CurrentArrows)
                 Destroy(arrow);
 
