@@ -17,7 +17,10 @@ namespace Tablet
     /// </summary>
     public class TaskManager : MonoBehaviour
     {
-        public static TaskManager oppgaverManager;
+        public TabletManager _tabletManager;
+        public SkillManager _skillManager;
+        
+   
 
         [Header("ContentView for task and activity pages")]
         public GameObject tasksContentView;
@@ -33,15 +36,15 @@ namespace Tablet
         /// <summary>
         /// Unity start method
         /// </summary>
+
+
+
+
         private void Start()
         {
-            if (oppgaverManager == null)
-                oppgaverManager = this;
-            else if (oppgaverManager != this)
-                Destroy(gameObject);
-
+            
             TaskHolder th = GameObject.FindObjectsOfType<TaskHolder>()[0];
-            tasks = th.GetTasks();
+            tasks = th.GetTaskList();
             //create oppgaver list
             foreach (Task oppgave in tasks)
             {
@@ -88,9 +91,9 @@ namespace Tablet
         /// <param name="oppgave"></param>
         private void CreateOppgavePage(Task oppgave)
         {
-            TabletManager.tabletManager.ShowCanvas(TabletManager.tabletManager.aktiviteterPageCanvas);
-            FindDeepChild(TabletManager.tabletManager.aktiviteterPageCanvas.gameObject, "OppgaveNameLabel").GetComponent<Text>().text = oppgave._taskName;
-            FindDeepChild(TabletManager.tabletManager.aktiviteterPageCanvas.gameObject, "BeskrivelseText").GetComponent<Text>().text = oppgave.description;
+            _tabletManager.ShowCanvas(_tabletManager.aktiviteterPageCanvas);
+            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "OppgaveNameLabel").GetComponent<Text>().text = oppgave._taskName;
+            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "BeskrivelseText").GetComponent<Text>().text = oppgave.description;
 
             foreach (Activity aktivitetObject in oppgave.GetAktivitetList())
             {
@@ -107,7 +110,7 @@ namespace Tablet
                 int totalAchievedPoeng = 0;
 
                 //find out sum of all poeng that aktivitet hat fått from a ferdighet
-                foreach (Skill ferdighet in SkillManager.skillManager._skillList)
+                foreach (Skill ferdighet in _skillManager._skillList)
                 {
                     foreach (KeyValuePair<Activity, int> aktivitetObj in ferdighet.GetFerdighetAktiviteter())
                     {
@@ -121,7 +124,7 @@ namespace Tablet
 
                 //calculate total poeng of each aktivitet
                 string ferdighetPoenText = LoadTextFile();
-                List<string> aktiviteter = SkillManager.skillManager.ExtractFromBody(ferdighetPoenText, "<", ">");
+                List<string> aktiviteter = _skillManager.ExtractFromBody(ferdighetPoenText, "<", ">");
                 int totalPoeng = 0;
 
                 foreach (string aktvitet in aktiviteter)
@@ -213,6 +216,10 @@ namespace Tablet
             }
             return null;
         }
+
+
+
+
 
 
     }

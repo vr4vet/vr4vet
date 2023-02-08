@@ -14,6 +14,8 @@ namespace Tablet
     public class AutoHideUIScrollbar : MonoBehaviour
     {
 
+
+
         public bool alsoDisableScrolling;
 
         private float disableRange = 0.99f;
@@ -57,7 +59,7 @@ namespace Tablet
 
             if (!scrollbar.active)
             {
-                RectTransform ContentView = TaskManager.oppgaverManager.FindDeepChild(gameObject, "Content").GetComponent<RectTransform>();
+                RectTransform ContentView = FindDeepChild(gameObject, "*Content").GetComponent<RectTransform>();
                 ContentView.anchoredPosition = new Vector2(0, ContentView.anchoredPosition.y);
                 ContentView.sizeDelta = new Vector2(100, ContentView.sizeDelta.y);
             }
@@ -69,7 +71,7 @@ namespace Tablet
 
             if (!scrollbar.active)
             {
-                RectTransform ContentView = TaskManager.oppgaverManager.FindDeepChild(gameObject, "Content").GetComponent<RectTransform>();
+                RectTransform ContentView = FindDeepChild(gameObject, "*Content").GetComponent<RectTransform>();
                 ContentView.anchoredPosition = new Vector2(-3.65f, ContentView.anchoredPosition.y);
                 ContentView.sizeDelta = new Vector2(90, ContentView.sizeDelta.y);
             }
@@ -105,5 +107,18 @@ namespace Tablet
                     scrollRect.horizontal = active;
             }
         }
+
+        public GameObject FindDeepChild(GameObject parent, string childName)
+        {
+            foreach (Transform myChild in parent.GetComponentsInChildren<Transform>())
+            {
+                if (myChild.name == childName)
+                    return myChild.gameObject;
+            }
+            return null;
+        }
+
+
+
     }
 }

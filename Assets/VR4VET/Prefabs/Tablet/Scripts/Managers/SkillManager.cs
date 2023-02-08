@@ -15,8 +15,8 @@ namespace Tablet
     /// </summary>
     public class SkillManager : MonoBehaviour
     {
-        public static SkillManager skillManager;
-
+        public TabletManager _tabletManager;
+        public TaskManager _taskmanager;
       //  [Tooltip("How many skills do you have?"), Range(0, 15)]
        // public int _skillQuantity = 0;
 
@@ -28,6 +28,7 @@ namespace Tablet
         //public int totalPoeng = 100; 
 
         //all ferdigheter will save in this list
+        [HideInInspector]
         public List<Skill> _skillList = new List<Skill>();
 
         //This list holds list rows of ferdighet page.
@@ -52,15 +53,14 @@ namespace Tablet
         /// </summary>
         private void Start()
         {
-            if (skillManager == null)
-                skillManager = this;
-            else if (skillManager != this)
-                Destroy(gameObject);
+            TaskHolder th = GameObject.FindObjectsOfType<TaskHolder>()[0];
+            _skillList = th.getSkillList();
+
 
             //if there is no ferdigheter yet, create a test one and send an error message
-            
 
-            Invoke("CreateFerdighetObjects", 0.1f);
+
+            // Invoke("CreateFerdighetObjects", 0.1f);
         }
 
 
@@ -93,6 +93,8 @@ namespace Tablet
         /// </summary>
         /// <param name="ferdighet"></param>
         /// <returns></returns>
+       
+        /*
         private int GetFerdighetTotalPoeng(string ferdighet)
         {
 
@@ -122,7 +124,7 @@ namespace Tablet
             return poeng;
         }
 
-
+        */
 
         /// <summary>
         /// This method will add poeng to ferdigheter
@@ -130,6 +132,8 @@ namespace Tablet
         /// <param name="oppgaveName"></param>
         /// <param name="ferdighetName"></param>
         /// <param name="poeng"></param>
+        
+        /*
         public void AddPoeng(string aktivitetName, string ferdighetName,int poeng)
         {
             foreach (Skill ferdighet in _skillList)
@@ -159,7 +163,7 @@ namespace Tablet
 
         }
     
-
+        */
 
         /// <summary>
         /// This method will change the ferdighet beskrivelse and will use to giving feedback to the user
@@ -221,16 +225,16 @@ namespace Tablet
         private void GenerateFerdighetPage(Skill ferdighet)
         {
 
-            FindDeepChild(TabletManager.tabletManager.ferdighetPageCanvas.gameObject, "FerdighetNameLabel").GetComponent<Text>().text = ferdighet.GetFerdighetName();
-            FindDeepChild(TabletManager.tabletManager.ferdighetPageCanvas.gameObject, "BeskrivelseText").GetComponent<Text>().text = ferdighet.GetFerdighetBeskrivelse();
-            FindDeepChild(TabletManager.tabletManager.ferdighetPageCanvas.gameObject, "OppgaverLabel").GetComponent<Text>().text = ferdighet.GetFerdighetName() + " testes i disse oppgavene";
+            FindDeepChild(_tabletManager.ferdighetPageCanvas.gameObject, "FerdighetNameLabel").GetComponent<Text>().text = ferdighet.GetFerdighetName();
+            FindDeepChild(_tabletManager.ferdighetPageCanvas.gameObject, "BeskrivelseText").GetComponent<Text>().text = ferdighet.GetFerdighetBeskrivelse();
+            FindDeepChild(_tabletManager.ferdighetPageCanvas.gameObject, "OppgaverLabel").GetComponent<Text>().text = ferdighet.GetFerdighetName() + " testes i disse oppgavene";
 
             Dictionary<string, List<string>> oppgaverTotalPoengDic = new Dictionary<string, List<string>>();
 
 
 
             //get every ferdighet and its oppgaver and aktiviteter
-            List<string> ferdighetPart = ExtractFromBody(TaskManager.oppgaverManager.LoadTextFile(), "{", "}");
+            List<string> ferdighetPart = ExtractFromBody(_taskmanager.LoadTextFile(), "{", "}");
             foreach (string part in ferdighetPart)
             {
                 //get ferdighet name
@@ -286,7 +290,7 @@ namespace Tablet
 
                         //create the list item
                         GameObject ferdighetItem = Instantiate((GameObject)Resources.Load("UI/FerdighetPageItem"), Vector3.zero, Quaternion.identity);
-                        ferdighetItem.transform.SetParent(FindDeepChild(TabletManager.tabletManager.ferdighetPageCanvas.gameObject, "Content").transform);
+                        ferdighetItem.transform.SetParent(FindDeepChild(_tabletManager.ferdighetPageCanvas.gameObject, "Content").transform);
                         ferdighetItem.transform.localPosition = Vector3.zero;
                         ferdighetItem.transform.localScale = Vector3.one;
                         ferdighetItem.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -307,7 +311,7 @@ namespace Tablet
 
             }
 
-            TabletManager.tabletManager.ShowCanvas(TabletManager.tabletManager.ferdighetPageCanvas);
+            _tabletManager.ShowCanvas(_tabletManager.ferdighetPageCanvas);
         }
 
 
@@ -342,6 +346,8 @@ namespace Tablet
         ///  this method will create the ferdighet page with the last information and show the page
         /// </summary>
         /// <param name="FerdigheterListContent"></param>
+        /// 
+        
         public void CreateFerdigheterPage(Canvas FerdigheterListContent)
         {
             foreach (Skill ferdighet in _skillList)
@@ -357,7 +363,7 @@ namespace Tablet
                 ferdighetItemsObj.Add(ferdighetItem);
 
                 int poeng = 0;
-                foreach (Task oppgave in TaskManager.oppgaverManager.tasks)
+                foreach (Task oppgave in _taskmanager.tasks)
                 {
                     foreach (Activity aktivitet in oppgave.GetAktivitetList())
                     {
@@ -383,9 +389,9 @@ namespace Tablet
                 ferdighetItem.transform.Find("Poeng").GetComponent<Text>().text = myPoeng + "/" + totalPoeng; //aktivitet name
 
             }
-            TabletManager.tabletManager.ShowCanvas(FerdigheterListContent);
+            _tabletManager.ShowCanvas(FerdigheterListContent);
         }
-
+        
 
         /// <summary>
         /// Find Grandchild of an gameobject

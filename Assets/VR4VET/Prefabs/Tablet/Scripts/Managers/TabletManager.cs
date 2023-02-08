@@ -15,6 +15,10 @@ namespace Tablet
     {
         private TabletPosition tabletPos;
 
+        public SkillManager _skillManager;
+        public TaskManager _taskmanager;
+
+
         [Header("strings")]
         public string OccupationName = "Demo Occupation";
 
@@ -29,7 +33,7 @@ namespace Tablet
         #endregion
 
         private GameObject[] yrkesTitles;
-        public static TabletManager tabletManager;
+     
 
 
         Camera cam;
@@ -39,10 +43,7 @@ namespace Tablet
         /// </summary>
         private void Start()
         {
-            if (tabletManager == null)
-                tabletManager = this;
-            else if (tabletManager != this)
-                Destroy(gameObject);
+            
 
             if (!Camera.main)
                 cam = GameObject.FindObjectOfType<Camera>();
@@ -124,9 +125,9 @@ namespace Tablet
         public void CloseTablet()
         {
             ShowCanvas(mainPageCanvas);
-            TaskManager.oppgaverManager.DestroyAktiviterList();
-            SkillManager.skillManager.DestroyTheFerdigheterList();
-            SkillManager.skillManager.DestroyTheOppgaveInFerdighetList();
+            _taskmanager.DestroyAktiviterList();
+            _skillManager.DestroyTheFerdigheterList();
+            _skillManager.DestroyTheOppgaveInFerdighetList();
             OpenTablet(false);
 
         }
@@ -136,34 +137,7 @@ namespace Tablet
         /// <summary>
         /// this methid is only for testing and uses in  the test scene
         /// </summary>
-        public void TestMethod1(GameObject testObject)
-        {
-            //FerdighetManager.skillManager.GiveFeedback("Accuracy", "Good Job!");
-            SkillManager.skillManager.AddPoeng("Find the helmet", "Accuracy", 20);
-            testObject.GetComponentInChildren<Text>().text = "Done";
-            testObject.GetComponent<Collider>().enabled = false;
-            testObject.GetComponent<Renderer>().material.color = Color.green;
-            testObject.GetComponent<Rigidbody>().isKinematic = true;
-            ;
-        }
-
-
-        /// <summary>
-        /// this methid is only for testing and uses in  the test scene
-        /// </summary>
-        public void TestMethod2(GameObject testObject)
-        {
-            //FerdighetManager.skillManager.GiveFeedback("Utholdenhet", "Good Job!");
-            SkillManager.skillManager.AddPoeng("Hit the pointer to the hammer", "Speed", 10);
-            testObject.GetComponentInChildren<Text>().text = "Done";
-            testObject.GetComponent<Collider>().enabled = false;
-            testObject.GetComponent<Renderer>().material.color = Color.green;
-            testObject.GetComponent<Rigidbody>().isKinematic = true;
-
-            //do this only when all aktivitet of this oppgave is done
-            Destroy(testObject.transform.Find("target").gameObject); //or inactive in scenet
-            NavigationManager.navigationManager.ResetNavigation();
-        }
+       
 
     }
 }
