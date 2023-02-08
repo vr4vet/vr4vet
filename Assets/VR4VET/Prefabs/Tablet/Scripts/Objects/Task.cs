@@ -30,6 +30,7 @@ namespace Tablet
         public List<Activity> activities = new List<Activity>();
 
         [Header("Navigation")]
+        [HideInInspector]
         public GameObject taskTarget;
         public Task prerequisite;
 
