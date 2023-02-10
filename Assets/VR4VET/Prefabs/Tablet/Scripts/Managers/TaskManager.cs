@@ -19,15 +19,15 @@ namespace Tablet
     {
         public TabletManager _tabletManager;
         public SkillManager _skillManager;
-        
-   
+
+
 
         [Header("ContentView for task and activity pages")]
         public GameObject tasksContentView;
         public GameObject ActivitiesContentView;
 
         [HideInInspector]
-        public List<Task> tasks= new List<Task>();
+        public List<Task> tasks = new List<Task>();
 
         //uses to destroy the created elements each time we close the ferdighet page
         private List<GameObject> aktivitetItems = new List<GameObject>();
@@ -42,7 +42,7 @@ namespace Tablet
 
         private void Start()
         {
-            
+
             TaskHolder th = GameObject.FindObjectsOfType<TaskHolder>()[0];
             tasks = th.GetTaskList();
             //create oppgaver list
@@ -53,7 +53,7 @@ namespace Tablet
                 item.transform.localPosition = Vector3.zero;
                 item.transform.localScale = Vector3.one;
                 item.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                
+
                 oppgave.unCheckedIcon = FindDeepChild(item, "unchecked").GetComponent<Image>();
                 oppgave.unCheckedIcon.enabled = true; //show uncheck
                 oppgave.checkedIcon = FindDeepChild(item, "checked").GetComponent<Image>();
@@ -91,9 +91,12 @@ namespace Tablet
         /// <param name="oppgave"></param>
         private void CreateOppgavePage(Task oppgave)
         {
+
             _tabletManager.ShowCanvas(_tabletManager.aktiviteterPageCanvas);
             FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "TaskNameLabel").GetComponent<Text>().text = oppgave._taskName;
             FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "DescriptionText").GetComponent<Text>().text = oppgave.description;
+
+            Debug.Log(oppgave.GetAktivitetList());
 
             foreach (Activity aktivitetObject in oppgave.GetAktivitetList())
             {
@@ -139,8 +142,8 @@ namespace Tablet
                 }
 
 
-                string myPoeng = totalAchievedPoeng.ToString();
-                string totalPoengStr = totalPoeng.ToString();
+                string myPoeng =  aktivitetObject.achievedPoeng.ToString() ;    //totalAchievedPoeng.ToString();
+                string totalPoengStr = aktivitetObject.maxPosiblePoints.ToString();
 
                 aktivitet.transform.Find("Poeng").GetComponent<Text>().text = myPoeng + "/" + totalPoengStr; //aktivitet name
 
