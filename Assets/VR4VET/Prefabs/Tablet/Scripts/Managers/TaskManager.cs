@@ -92,8 +92,8 @@ namespace Tablet
         private void CreateOppgavePage(Task oppgave)
         {
             _tabletManager.ShowCanvas(_tabletManager.aktiviteterPageCanvas);
-            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "OppgaveNameLabel").GetComponent<Text>().text = oppgave._taskName;
-            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "BeskrivelseText").GetComponent<Text>().text = oppgave.description;
+            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "TaskNameLabel").GetComponent<Text>().text = oppgave._taskName;
+            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "DescriptionText").GetComponent<Text>().text = oppgave.description;
 
             foreach (Activity aktivitetObject in oppgave.GetAktivitetList())
             {
