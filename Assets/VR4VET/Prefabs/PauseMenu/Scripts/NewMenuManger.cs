@@ -56,6 +56,7 @@ public class NewMenuManger : MonoBehaviour
 
     public void ToggleMenu()
     {
+        Debug.Log("norsk");
         _menuOpen = !_menuOpen;
 
         if (_menuOpen)

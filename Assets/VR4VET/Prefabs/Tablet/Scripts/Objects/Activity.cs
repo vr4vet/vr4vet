@@ -15,9 +15,10 @@ namespace Tablet
     /// Activity object
     /// </summary>
     [System.Serializable]
-    public class Activity 
+    public class Activity
     {
         public int achievedPoeng;
+        public int maxPosiblePoints;
         public string aktivitetName;
         public bool AktivitetIsCompeleted;
         public List<Skill> aktivitetFerdigheter = new List<Skill>();
