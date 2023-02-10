@@ -279,7 +279,19 @@ MonoBehaviour:
     m_ActionId: 33754c03-48ec-46ef-9bc6-22ed6bfdd8e8
     m_ActionName: XR LeftHand/Grab
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1691667283}
+        m_TargetAssemblyTypeName: Tablet.TaskHolder, Assembly-CSharp
+        m_MethodName: TestMethod
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 0c0991c5-d329-4afc-8892-1076b440477c
     m_ActionName: XR LeftHand/Activate
   - m_PersistentCalls:
@@ -379,6 +391,18 @@ MonoBehaviour:
     m_ActionId: 9b5d8312-f609-4895-b70f-81a722b2ae11
     m_ActionName: XR RightHand/Rotate Teleport Destination
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b313bf22-cfa1-4bf3-bec1-360bbe62e540
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 29841cad-8ff7-49a7-b85a-d6f7d6192a87
+    m_ActionName: UI/PointerPosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9be57c84-b560-4424-909a-e6809801304b
+    m_ActionName: UI/PointerRotation
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 100618750}
         m_TargetAssemblyTypeName: NewMenuManger, Assembly-CSharp
@@ -392,20 +416,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 6bf173f9-8c23-4472-99e8-fce9ea74d114
-    m_ActionName: XR RightHand/Primary Input
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b313bf22-cfa1-4bf3-bec1-360bbe62e540
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 29841cad-8ff7-49a7-b85a-d6f7d6192a87
-    m_ActionName: UI/PointerPosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9be57c84-b560-4424-909a-e6809801304b
-    m_ActionName: UI/PointerRotation
+    m_ActionId: e0c0da4e-c85f-467d-ad67-d184c3ee5f61
+    m_ActionName: XR RightHand/MenuOpen
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: XR HMD
@@ -424,7 +436,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &278730943
 GameObject:
@@ -3853,7 +3865,7 @@ PrefabInstance:
     - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2683195716791022646, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
@@ -6589,6 +6601,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113734815100483973, guid: 4ac7df741a9c0a2418ec19477729ee3d,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5118453899154641866, guid: 4ac7df741a9c0a2418ec19477729ee3d,
         type: 3}
@@ -11176,7 +11193,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &596123777
 MonoBehaviour:
@@ -11736,7 +11753,7 @@ PrefabInstance:
     - target: {fileID: 8751655888749084021, guid: 2ed7b7c5d7faa5b409bb115ae36faeef,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8751655888749084021, guid: 2ed7b7c5d7faa5b409bb115ae36faeef,
         type: 3}
@@ -15906,6 +15923,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 516990183}
     - target: {fileID: 68791125, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
+      propertyPath: _holdToOpen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 68791125, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
       propertyPath: _wallsMaterial
       value: 
       objectReference: {fileID: -978160288850237216, guid: 7d4e0691a98d51842b2712afd3a48f39,
@@ -16711,6 +16732,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1739672881}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1691667283 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2281686386275440643, guid: f590497235ba9ad4280987c205335075,
+    type: 3}
+  m_PrefabInstance: {fileID: 2281686386040502175}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae5105792e7c4042871fe5abafd7420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1731816420
 GameObject:
   m_ObjectHideFlags: 0

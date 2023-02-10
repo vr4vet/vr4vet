@@ -16,7 +16,15 @@ MonoBehaviour:
   description: first task description
   activities:
   - achievedPoeng: 0
-    aktivitetName: Do something
+    maxPosiblePoints: 10
+    aktivitetName: Grab Helmet
+    AktivitetIsCompeleted: 1
+    aktivitetFerdigheter:
+    - {fileID: 11400000, guid: 3453ab20f5d0be644b39446960ecaedd, type: 2}
+    - {fileID: 11400000, guid: 9ccb7f3cd724fdf4b9f747a365c501be, type: 2}
+  - achievedPoeng: 0
+    maxPosiblePoints: 10
+    aktivitetName: Grab Hammer
     AktivitetIsCompeleted: 0
     aktivitetFerdigheter:
     - {fileID: 11400000, guid: 3453ab20f5d0be644b39446960ecaedd, type: 2}

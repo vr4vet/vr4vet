@@ -42,8 +42,6 @@ namespace Tablet
         [HideInInspector]
         public Image unCheckedIcon;
 
-        private List<Activity> aktivitetList = new List<Activity>();
-
 
         [HideInInspector] private bool is_task_Completed;
 
@@ -106,7 +104,7 @@ namespace Tablet
         public void CheckTaskCompeletion()
         {
             //the task is not completed if even one aktivitet is not done
-            foreach (Activity aktivitet in aktivitetList)
+            foreach (Activity aktivitet in activities)
             {
                 if (aktivitet.IsAktivitetCompeleted() == false)
                 {
@@ -142,7 +140,8 @@ namespace Tablet
         /// <returns></returns>
         public List<Activity> GetAktivitetList()
         {
-            return aktivitetList;
+
+            return activities;
         }
     }
 }
