@@ -12,7 +12,7 @@ namespace Tablet
     /// <summary>
     /// ferdighet object
     /// </summary>
-    [CreateAssetMenu(fileName = "New Skill", menuName = "Tablet/Skill")]
+    [CreateAssetMenu(fileName = "New Skill", menuName = "Tasks/Skill")]
     public class Skill : ScriptableObject
     {
         public int totalPoints;
