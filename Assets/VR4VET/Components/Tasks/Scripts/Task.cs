@@ -1,6 +1,6 @@
-﻿/* Copyright (C) 2020 IMTEL NTNU - All Rights Reserved
- * Developer: Abbas Jafari
- * Ask your questions by email: a85jafari@gmail.com
+﻿/* Copyright (C) 2022 IMTEL NTNU - All Rights Reserved
+ * Developer: Jorge Garcia, Abbas Jafari
+ * Ask your questions by email: jorgeega@ntnu.no
  */
 
 using System;
