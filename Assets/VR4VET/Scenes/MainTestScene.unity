@@ -416,8 +416,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: e0c0da4e-c85f-467d-ad67-d184c3ee5f61
-    m_ActionName: XR RightHand/MenuOpen
+    m_ActionId: 6bf173f9-8c23-4472-99e8-fce9ea74d114
+    m_ActionName: XR RightHand/Primary Button[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: XR HMD
@@ -18289,11 +18289,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1887969066}
-    - target: {fileID: 2281686385991302121, guid: f590497235ba9ad4280987c205335075,
-        type: 3}
-      propertyPath: TaskListContentView
-      value: 
-      objectReference: {fileID: 2508374028834269381}
     - target: {fileID: 2281686386275440643, guid: f590497235ba9ad4280987c205335075,
         type: 3}
       propertyPath: _taskAndTargerts.Array.data[0].target
@@ -18359,11 +18354,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DataHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 7270759399954471322, guid: f590497235ba9ad4280987c205335075,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1887969066}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f590497235ba9ad4280987c205335075, type: 3}
---- !u!1 &2508374028834269381 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4165421598445284101, guid: b1a16633da5e8c844a7d1af34372156d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1945841171681592256}
-  m_PrefabAsset: {fileID: 0}
