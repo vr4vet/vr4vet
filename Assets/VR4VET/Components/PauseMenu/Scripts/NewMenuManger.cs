@@ -18,7 +18,6 @@ public class NewMenuManger : MonoBehaviour
     [SerializeField] public Material PauseSkyboxMat;
     [SerializeField] public Material SkyboxMat;
     [SerializeField] private LayerMask _menuLayers;  //layers mask to put on top when the game is paused
-    [SerializeField] private InputActionAsset _actionAsset; //we need this to block certain actions
     [SerializeField] private Material _wallsMaterial;
     [SerializeField] private bool _holdToOpen;
 
@@ -27,7 +26,6 @@ public class NewMenuManger : MonoBehaviour
     [SerializeField] private Image LoadingWheel;
 
     private Camera _cam;
-    [SerializeField] private GameObject _aboutCanvas;
     [SerializeField] private GameObject _menuCanvas;
     public GameObject stateSaverComponent;
 
@@ -54,9 +52,8 @@ public class NewMenuManger : MonoBehaviour
     }
 
 
-    public void ToggleMenu()
+    private void ToggleMenu()
     {
-        Debug.Log("norsk");
         _menuOpen = !_menuOpen;
 
         if (_menuOpen)
@@ -68,7 +65,7 @@ public class NewMenuManger : MonoBehaviour
      void PauseGame()
     {
         Color c = _wallsMaterial.color;
-        c.a = 0.7f;
+        c.a = 0.8f;
         _wallsMaterial.color = c;
         Time.timeScale = 0; // pauses time events
         RenderSettings.skybox = PauseSkyboxMat;
@@ -87,7 +84,7 @@ public class NewMenuManger : MonoBehaviour
         RenderSettings.skybox = SkyboxMat ;
         _cam.cullingMask = -1; // -1 = "Everything"
         _menuCanvas.SetActive(false);
-        _aboutCanvas.SetActive(false);
+
 
 
     }
@@ -106,18 +103,7 @@ public class NewMenuManger : MonoBehaviour
 
     }
 
-    public void OpenAbout()
-    {
-        _aboutCanvas.SetActive(true);
-        _menuCanvas.SetActive(false);
-    }
 
-
-    public void CloseAbout()
-    {
-        _aboutCanvas.SetActive(false);
-        _menuCanvas.SetActive(true);
-    }
 
     public void OpenSaves()
     {
