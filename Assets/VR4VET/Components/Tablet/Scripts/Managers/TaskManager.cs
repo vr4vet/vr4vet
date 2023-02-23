@@ -125,22 +125,7 @@ namespace Tablet
                 }
 
 
-                //calculate total poeng of each aktivitet
-                string ferdighetPoenText = LoadTextFile();
-                List<string> aktiviteter = _skillManager.ExtractFromBody(ferdighetPoenText, "<", ">");
-                int totalPoeng = 0;
-
-                foreach (string aktvitet in aktiviteter)
-                {
-                    string[] aktivitetWord = aktvitet.Split(':');
-                    if (aktivitetWord[0] == aktivitetObject.GetAktivitetName())
-                    {
-                        int num = 0;
-                        if (Int32.TryParse(aktivitetWord[1], out num))
-                            totalPoeng += num;
-                    }
-                }
-
+           
 
                 string myPoeng =  aktivitetObject.achievedPoeng.ToString() ;    //totalAchievedPoeng.ToString();
                 string totalPoengStr = aktivitetObject.maxPosiblePoints.ToString();
@@ -180,28 +165,7 @@ namespace Tablet
         }
 
 
-        /// <summary>
-        /// Load the generated text file as a string
-        /// </summary>
-        /// <returns></returns>
-        public string LoadTextFile()
-        {
-            string text = "";
-            string line = "";
-            TextAsset theList = (TextAsset)Resources.Load("FerdighetPoenger", typeof(TextAsset));
-            if (theList != null)
-            {
-                using (StreamReader sr = new StreamReader(new MemoryStream(theList.bytes)))
-                {
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        text += line;
-                    }
-                }
-            }
-            return text;
-        }
-
+        
 
 
         /// <summary>
