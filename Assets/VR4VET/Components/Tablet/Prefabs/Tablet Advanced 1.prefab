@@ -182,7 +182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4165421596949070015
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1625,8 +1625,8 @@ RectTransform:
   m_Father: {fileID: 4165421597738858773}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.0000005364418}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: -0.15002441}
   m_SizeDelta: {x: 0, y: 0.30001068}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2071,7 +2071,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2805,8 +2805,8 @@ RectTransform:
   m_Father: {fileID: 4165421598026790689}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5417051}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3014,7 +3014,7 @@ GameObject:
   - component: {fileID: 4165421597659671877}
   - component: {fileID: 4165421597659671876}
   m_Layer: 30
-  m_Name: YrkesTitle
+  m_Name: ProfessionName
   m_TagString: YrkesTitle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3675,7 +3675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4165421597746840135
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5558,7 +5558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4165421598031197496
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7268,7 +7268,7 @@ GameObject:
   - component: {fileID: 4165421598250411606}
   - component: {fileID: 4165421598250411605}
   m_Layer: 30
-  m_Name: FerdighetNameLabel
+  m_Name: SkillNameLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7382,6 +7382,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tabletManager: {fileID: 4165421597813707866}
   _taskmanager: {fileID: 4165421597780164143}
+  _skillNameLabel: {fileID: 4165421598250411603}
+  _descriptionText: {fileID: 4165421598402815639}
+  _skillTaskLabel: {fileID: 4165421599052779461}
+  _parentContainer: {fileID: 4165421598134076031}
   _skillList:
   - {fileID: 11400000, guid: 3453ab20f5d0be644b39446960ecaedd, type: 2}
 --- !u!1 &4165421598277089679
@@ -7421,7 +7425,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7561,7 +7565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4165421598381708224
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7970,7 +7974,7 @@ GameObject:
   - component: {fileID: 4165421598402814314}
   - component: {fileID: 4165421598402814313}
   m_Layer: 30
-  m_Name: BeskrivelseText
+  m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8888,7 +8892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4165421598608524894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11473,7 +11477,7 @@ GameObject:
   - component: {fileID: 4165421599052779480}
   - component: {fileID: 4165421599052779463}
   m_Layer: 30
-  m_Name: OppgaverLabel
+  m_Name: TasksLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11578,7 +11582,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
