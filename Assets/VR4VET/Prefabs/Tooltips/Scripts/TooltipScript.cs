@@ -7,6 +7,7 @@ public class TooltipScript : MonoBehaviour
     public Transform Player;
     Transform Parent;
     LineRenderer Line;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,14 @@ public class TooltipScript : MonoBehaviour
         Line.widthMultiplier = 0.005f;
         Line.SetPosition(1, Parent.position);
         Line.SetPosition(0, transform.position);
+        if(!Player)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player").transform;
+            if (!Player)
+            {
+                Debug.LogError("Assign the player under the tooltip or with Player tag");
+            }
+        }
     }
 
     // Update is called once per frame
