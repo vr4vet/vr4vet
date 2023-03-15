@@ -17,8 +17,9 @@ namespace Tablet
     /// </summary>
     public class TaskManager : MonoBehaviour
     {
-        public TabletManager _tabletManager;
-        public SkillManager _skillManager;
+
+        [SerializeField] private TabletManager _tabletManager;
+        [SerializeField] private SkillManager _skillManager;
 
 
 
@@ -79,26 +80,24 @@ namespace Tablet
                     item.transform.Find("OppgaveButton").GetComponentInChildren<Text>().text = oppgaveName;
                 }
 
-                item.transform.Find("LesButton").GetComponent<Button>().onClick.AddListener(() => CreateOppgavePage(oppgave));
+                item.transform.Find("LesButton").GetComponent<Button>().onClick.AddListener(() => CreateTaskPage(oppgave));
             }
         }
 
 
 
-        /// <summary>
-        /// Create the aktivitet page for hver oppgave
-        /// </summary>
-        /// <param name="oppgave"></param>
-        private void CreateOppgavePage(Task oppgave)
+       
+        
+        private void CreateTaskPage(Task task)
         {
 
             _tabletManager.ShowCanvas(_tabletManager.aktiviteterPageCanvas);
-            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "TaskNameLabel").GetComponent<Text>().text = oppgave._taskName;
-            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "DescriptionText").GetComponent<Text>().text = oppgave.description;
+            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "TaskNameLabel").GetComponent<Text>().text = task._taskName;
+            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "DescriptionText").GetComponent<Text>().text = task.description;
 
-            Debug.Log(oppgave.GetAktivitetList());
+            Debug.Log(task.GetAktivitetList());
 
-            foreach (Activity aktivitetObject in oppgave.GetAktivitetList())
+            foreach (Activity aktivitetObject in task.GetAktivitetList())
             {
                 //Create aktivitet in the list
                 GameObject aktivitet = Instantiate((GameObject)Resources.Load("UI/AktivitetItem"), Vector3.zero, Quaternion.identity);
