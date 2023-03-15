@@ -8,33 +8,39 @@ using UnityEngine.UI;
 public class SceneTransitionManager : MonoBehaviour
 {
     //Setting up needed variables and displays them for debugging
-    [SerializeField] private bool IsFaded;
-    //The build index of the scene to be loaded
-    [SerializeField] private int NextScene;
+    private bool _isFaded;
+    //The build index of the scene to be loaded (Only sed for debugging with 'space')
+    private int _nextScene = 0;
     //The overlay image that will be used for the fade
     [SerializeField] private RawImage _rawImage;
 
     // Just a checking if 'space' is pressed and runs the function if it is (to test the script without needing to put on the VR headset)
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {   
-            StartCoroutine(TransitionMethod());
+            StartCoroutine(TransitionMethod(_nextScene));
         }
     }
+    //Call this method to start the transition
+    public void TransitionScene(int nextSceneIndex)
+    {
+     StartCoroutine(TransitionMethod(nextSceneIndex));
+    }
 
-     IEnumerator TransitionMethod()
+
+     IEnumerator TransitionMethod(int nextSceneIndex)
     {
         //Makes it so the transitionManager doesn't unload along with the rest of the scene
         DontDestroyOnLoad(gameObject);
         //Starts the actual screen fade
         StartCoroutine(TransitionFade());
         //Loads the new scene without unloading the current scene
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(NextScene);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneIndex);
         //prevents the new scene from fully loading
         asyncLoad.allowSceneActivation = false;
         // Wait until the asynchronous scene fully loads and the screen is fully faded before proceeding with the code
-        while (!asyncLoad.isDone && !IsFaded)
+        while (!asyncLoad.isDone && !_isFaded)
         {
         yield return null;
         }
@@ -48,7 +54,7 @@ public class SceneTransitionManager : MonoBehaviour
         IEnumerator TransitionFade(){
         Color c = _rawImage.color;
        //Fades the screen in or out across 1 second
-       if (IsFaded){
+       if (_isFaded){
         for (float alpha = 1f; alpha >= 0; alpha -= 0.01f)
     {
         c.a = alpha;
@@ -57,7 +63,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     }
     c.a -= 0.1f;
-    IsFaded = false;
+    _isFaded = false;
     //Destroys the manager after loading the screen back in
     Destroy(gameObject);
     
@@ -69,7 +75,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     }
     c.a += 0.1f;
-    IsFaded = true;
+    _isFaded = true;
     }
             yield return null;
         }
