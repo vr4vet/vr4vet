@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Tablet
+namespace Task
 {
     /// <summary>
     /// ferdighet object
@@ -22,14 +22,14 @@ namespace Tablet
         public string skillDescription;
 
         //hvor mye til hver aktivitet har gitt denne ferdighet (aktivitet,poeng)
-        private Dictionary<Activity, int> ferdighetAktiviteter = new Dictionary<Activity, int>();
+        private Dictionary<Step, int> ferdighetAktiviteter = new Dictionary<Step, int>();
 
 
         /// <summary>
         /// get the dictionary of all aktivitet that are testet by this ferdighet
         /// </summary>
         /// <returns></returns>
-        public Dictionary<Activity, int> GetFerdighetAktiviteter()
+        public Dictionary<Step, int> GetFerdighetAktiviteter()
         {
             return ferdighetAktiviteter;
         }
@@ -40,7 +40,7 @@ namespace Tablet
         /// </summary>
         /// <param name="aktivitet"></param>
         /// <param name="value"></param>
-        public void AddToFerdighetAktiviteter(Activity aktivitet, int value)
+        public void AddToFerdighetAktiviteter(Step aktivitet, int value)
         {
             if (!ferdighetAktiviteter.Keys.Contains(aktivitet))
             {
@@ -102,7 +102,7 @@ namespace Tablet
         public int GetAchievedPoeng()
         {
             achievedPoints = 0;
-            foreach (KeyValuePair<Activity, int> aktivitet in ferdighetAktiviteter)
+            foreach (KeyValuePair<Step, int> aktivitet in ferdighetAktiviteter)
             {
                 achievedPoints += aktivitet.Value;
             }

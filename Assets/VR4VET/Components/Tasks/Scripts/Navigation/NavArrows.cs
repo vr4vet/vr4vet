@@ -6,7 +6,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Tablet
+namespace Task
 {
     /// <summary>
     /// This will control every single arrow that will be created in navigation system

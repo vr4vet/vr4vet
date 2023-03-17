@@ -29,7 +29,7 @@ namespace Tablet
 
         //all ferdigheter will save in this list
         [HideInInspector]
-        public List<Skill> _skillList = new List<Skill>();
+        public List<Task.Skill> _skillList = new List<Task.Skill>();
 
         //This list holds list rows of ferdighet page.
         //uses to destroy the created elements every time we close the ferdigheter page
@@ -39,7 +39,7 @@ namespace Tablet
 
         private void Start()
         {
-            TaskHolder th = GameObject.FindObjectsOfType<TaskHolder>()[0];
+            Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
             _skillList = th.getSkillList();
 
 
@@ -56,7 +56,7 @@ namespace Tablet
       
         public void GiveFeedback(string skillName, string feedback)
         {
-            foreach (Skill ferdighet in _skillList)
+            foreach (Task.Skill ferdighet in _skillList)
             {
                 if (ferdighet.GetFerdighetName() == skillName)
                 {
@@ -98,7 +98,7 @@ namespace Tablet
 
         /// Create the ferdighet detail page
       
-        private void GenerateFerdighetPage(Skill skill)
+        private void GenerateFerdighetPage(Task.Skill skill)
         {
 
             _skillNameLabel.GetComponent<Text>().text = skill.GetFerdighetName();
@@ -135,7 +135,7 @@ namespace Tablet
          
         public void CreateFerdigheterPage(Canvas skillListName)
         {
-            foreach (Skill ferdighet in _skillList)
+            foreach (Task.Skill ferdighet in _skillList)
             {
                 //Create aktivitet in the list
                 GameObject ferdighetItem = Instantiate((GameObject)Resources.Load("UI/FerdighetItem"), Vector3.zero, Quaternion.identity);
@@ -148,17 +148,17 @@ namespace Tablet
                 ferdighetItemsObj.Add(ferdighetItem);
 
                 int poeng = 0;
-                foreach (Task oppgave in _taskmanager.tasks)
+                foreach (Task.Task oppgave in _taskmanager.tasks)
                 {
-                    foreach (Activity aktivitet in oppgave.GetAktivitetList())
+                    foreach (Task.Step aktivitet in oppgave.GetAktivitetList())
                     {
-                        foreach (Skill ferdighetObj in aktivitet.GetAktivitetFerdigheter())
+                        foreach (Task.Skill ferdighetObj in aktivitet.getRelatedSkills())
                         {
                             if (ferdighetObj.GetFerdighetName() == ferdighet.GetFerdighetName())
                             {
-                                foreach (KeyValuePair<Activity, int> item in ferdighetObj.GetFerdighetAktiviteter())
+                                foreach (KeyValuePair<Task.Step, int> item in ferdighetObj.GetFerdighetAktiviteter())
                                 {
-                                    if(item.Key.GetAktivitetName() == aktivitet.GetAktivitetName())
+                                    if(item.Key.GetName() == aktivitet.GetName())
                                         poeng += item.Value;
                                 }
                             }

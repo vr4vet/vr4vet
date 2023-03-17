@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-namespace Tablet
+namespace Task
 {
     /// <summary>
     /// This class will control the navigation system and Navmesh
