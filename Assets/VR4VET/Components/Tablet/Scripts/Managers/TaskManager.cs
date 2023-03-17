@@ -28,7 +28,7 @@ namespace Tablet
         public GameObject ActivitiesContentView;
 
         [HideInInspector]
-        public List<Task> tasks = new List<Task>();
+        public List<Task.Task> tasks = new List<Task.Task>();
 
         //uses to destroy the created elements each time we close the ferdighet page
         private List<GameObject> aktivitetItems = new List<GameObject>();
@@ -44,10 +44,10 @@ namespace Tablet
         private void Start()
         {
 
-            TaskHolder th = GameObject.FindObjectsOfType<TaskHolder>()[0];
+            Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
             tasks = th.GetTaskList();
             //create oppgaver list
-            foreach (Task oppgave in tasks)
+            foreach (Task.Task oppgave in tasks)
             {
                 GameObject item = Instantiate((GameObject)Resources.Load("UI/OppgaveItem"), Vector3.zero, Quaternion.identity);
                 item.transform.SetParent(tasksContentView.transform);
@@ -60,7 +60,7 @@ namespace Tablet
                 oppgave.checkedIcon = FindDeepChild(item, "checked").GetComponent<Image>();
                 oppgave.checkedIcon.enabled = false; //Hide check
                 oppgave.button = item.transform.Find("OppgaveButton").GetComponent<Button>();
-                oppgave.button.onClick.AddListener(() => NavigationManager.navigationManager.SetTarget(oppgave, oppgave.button));
+                oppgave.button.onClick.AddListener(() => Task.NavigationManager.navigationManager.SetTarget(oppgave, oppgave.button));
 
 
                 //if this oppgave is already done
@@ -68,7 +68,7 @@ namespace Tablet
                     oppgave.button.interactable = false; //deactive the button
                 //
 
-                string oppgaveName = oppgave._taskName;
+                string oppgaveName = oppgave.taskName;
 
                 if (oppgaveName.Length > 25)
                 {
@@ -88,16 +88,16 @@ namespace Tablet
 
        
         
-        private void CreateTaskPage(Task task)
+        private void CreateTaskPage(Task.Task task)
         {
 
             _tabletManager.ShowCanvas(_tabletManager.aktiviteterPageCanvas);
-            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "TaskNameLabel").GetComponent<Text>().text = task._taskName;
+            FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "TaskNameLabel").GetComponent<Text>().text = task.taskName;
             FindDeepChild(_tabletManager.aktiviteterPageCanvas.gameObject, "DescriptionText").GetComponent<Text>().text = task.description;
 
             Debug.Log(task.GetAktivitetList());
 
-            foreach (Activity aktivitetObject in task.GetAktivitetList())
+            foreach (Task.Step aktivitetObject in task.GetAktivitetList())
             {
                 //Create aktivitet in the list
                 GameObject aktivitet = Instantiate((GameObject)Resources.Load("UI/AktivitetItem"), Vector3.zero, Quaternion.identity);
@@ -105,18 +105,18 @@ namespace Tablet
                 aktivitet.transform.localPosition = Vector3.zero;
                 aktivitet.transform.localScale = Vector3.one;
                 aktivitet.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                aktivitet.transform.Find("AktivitetButton").GetComponentInChildren<Text>().text = aktivitetObject.GetAktivitetName(); //aktivitet name
+                aktivitet.transform.Find("AktivitetButton").GetComponentInChildren<Text>().text = aktivitetObject.GetName(); //aktivitet name
                 aktivitetItems.Add(aktivitet);
 
                 //Show poeng line 5/10
                 int totalAchievedPoeng = 0;
 
                 //find out sum of all poeng that aktivitet hat fått from a ferdighet
-                foreach (Skill ferdighet in _skillManager._skillList)
+                foreach (Task.Skill ferdighet in _skillManager._skillList)
                 {
-                    foreach (KeyValuePair<Activity, int> aktivitetObj in ferdighet.GetFerdighetAktiviteter())
+                    foreach (KeyValuePair<Task.Step, int> aktivitetObj in ferdighet.GetFerdighetAktiviteter())
                     {
-                        if (aktivitetObj.Key.GetAktivitetName() == aktivitetObject.GetAktivitetName())
+                        if (aktivitetObj.Key.GetName() == aktivitetObject.GetName())
                         {
                             totalAchievedPoeng += aktivitetObj.Value;
                         }
@@ -126,7 +126,7 @@ namespace Tablet
 
            
 
-                string myPoeng =  aktivitetObject.achievedPoeng.ToString() ;    //totalAchievedPoeng.ToString();
+                string myPoeng =  aktivitetObject.archivedPoints.ToString() ;    //totalAchievedPoeng.ToString();
                 string totalPoengStr = aktivitetObject.maxPosiblePoints.ToString();
 
                 aktivitet.transform.Find("Poeng").GetComponent<Text>().text = myPoeng + "/" + totalPoengStr; //aktivitet name
