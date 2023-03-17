@@ -10,7 +10,7 @@ namespace Tablet
     public class SkillPage : MonoBehaviour
     {
 
-            private void GenerateFerdighetPage(Skill skill)
+            private void GenerateFerdighetPage(Task.Skill skill)
         {
 
 

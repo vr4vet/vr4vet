@@ -10,7 +10,7 @@ using UnityEngine;
 
 
 
-namespace Tablet
+namespace Task
 {
     public class TaskHolder : MonoBehaviour
     {
@@ -72,19 +72,19 @@ namespace Tablet
             {
                 foreach (Task task in _tasks)
                 {
-                    foreach (Activity aktivitet in task.GetAktivitetList())
+                    foreach (Step aktivitet in task.GetAktivitetList())
                     {
                         //add poeng to aktivitet
-                        if (aktivitet.GetAktivitetName() == activityName && ferdighet.GetFerdighetName() == skillName)
+                        if (aktivitet.GetName() == activityName && ferdighet.GetFerdighetName() == skillName)
                         {
                             //add ferdighet to this aktivitet
-                            aktivitet.AddToAktivitetFerdigheter(ferdighet);
+                           
 
                             //add poeng to aktivitet object
                             aktivitet.AddToAchievedPoeng(points);
 
                             //mark this aktivitet as compeleted
-                            aktivitet.AktivitetIsDone(true);
+                            aktivitet.SetCompleated(true);
 
                             //add the aktivitet to skills dic som holds aktiviteter that need this ferdighet and its poeng
                             ferdighet.AddToFerdighetAktiviteter(aktivitet, points);
