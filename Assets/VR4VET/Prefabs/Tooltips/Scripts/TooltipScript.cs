@@ -5,6 +5,10 @@ using UnityEngine;
 public class TooltipScript : MonoBehaviour
 {
     public Transform Player;
+    public bool FacePlayer = true;
+    public bool AlwaysAboveParent = true;
+    public bool CloseWhenDistant = false;
+    public float CloseThreshold = 10;
     Transform Parent;
     LineRenderer Line;
 
@@ -12,6 +16,10 @@ public class TooltipScript : MonoBehaviour
     void Start()
     {
         Parent = transform.parent;
+        if(AlwaysAboveParent)
+        {
+            transform.position = Parent.position + new Vector3(0, 0.5f, 0);
+        }
         Line = gameObject.GetComponent<LineRenderer>();
         Line.widthMultiplier = 0.005f;
         Line.SetPosition(1, Parent.position);
@@ -21,15 +29,30 @@ public class TooltipScript : MonoBehaviour
             Player = GameObject.FindGameObjectWithTag("Player").transform;
             if (!Player)
             {
-                Debug.LogError("Assign the player under the tooltip or with Player tag");
+                Debug.LogError("Assign the player under the tooltip or with a Player tag");
             }
         }
+        Player = Player.Find("HeadCollision");
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(Player);
+        if(Vector3.Distance(transform.position, Player.position) >= CloseThreshold && CloseWhenDistant)
+        {
+            Deactivate();
+        }
+        if(AlwaysAboveParent)
+        {
+            transform.position = Parent.position + new Vector3(0, 0.5f, 0);
+        }
+        if(FacePlayer)
+        {
+            transform.LookAt(Player);
+            Debug.Log("Looking At Player");
+        }
+        Line.SetPosition(1, Parent.position);
+        Line.SetPosition(0, transform.position);
     }
     public void Activate()
     {
