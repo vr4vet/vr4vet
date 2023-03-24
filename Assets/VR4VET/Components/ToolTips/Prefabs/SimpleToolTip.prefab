@@ -345,7 +345,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &5360422001454874245
 MonoBehaviour:
@@ -402,6 +402,8 @@ MonoBehaviour:
   Player: {fileID: 0}
   FacePlayer: 1
   AlwaysAboveParent: 1
+  StartOpen: 1
+  StartMinimized: 1
   CloseWhenDistant: 0
   CloseThreshold: 10
   Header: Tooltip header goes here!
@@ -411,6 +413,9 @@ MonoBehaviour:
     clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\r\r\n\nConsetetur
     sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
     magna aliquyam erat, sed diam voluptua."
+  ActivationEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!120 &5851040214325668674
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
+[System.Serializable]
+public class TTActivationEvent : UnityEvent<GameObject>
+{
+}
 public class TooltipScript : MonoBehaviour, IPointerClickHandler
 {
     public Transform Player;
@@ -22,10 +27,16 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
     Button CloseButton;
     Animator animator;
     bool isOpen;
+    public TTActivationEvent ActivationEvent;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (ActivationEvent == null)
+        {
+            ActivationEvent = new TTActivationEvent();
+        }
+
         Parent = transform.parent;
         if(AlwaysAboveParent)
         {
@@ -79,6 +90,7 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
     }
     public void Activate()
     {
+        ActivationEvent.Invoke(gameObject);
         gameObject.SetActive(true);
     }
 
