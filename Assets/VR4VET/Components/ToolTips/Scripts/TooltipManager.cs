@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class TooltipManager : MonoBehaviour
 {
+    public bool CloseTooltipsOnNewActivation = true;
     TooltipScript[] Tooltips;
 
     void Start()
@@ -24,7 +25,7 @@ public class TooltipManager : MonoBehaviour
     {
         foreach (TooltipScript Tooltip in Tooltips)
         {
-            if(Tooltip.gameObject != CurrentTooltip)
+            if(Tooltip.gameObject != CurrentTooltip && CloseTooltipsOnNewActivation)
             {
                 Tooltip.Deactivate();
             }
