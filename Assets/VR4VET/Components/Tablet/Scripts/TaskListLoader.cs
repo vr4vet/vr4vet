@@ -7,7 +7,7 @@ namespace Tablet {
     public class TaskListLoader : MonoBehaviour
     {
 
-        private List<Task.Task> _tasks = new List<Task.Task>();
+        private List<Task.BTask> _tasks = new List<Task.BTask>();
 
         public GameObject contentViewParent;
         private List<Task.Subtask> _subtasklist;
@@ -27,7 +27,7 @@ namespace Tablet {
             Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
             _tasks = th.GetTaskList();
             //create oppgaver list
-            foreach (Task.Task task in _tasks)
+            foreach (Task.BTask task in _tasks)
             {
                 //task for the list
                 GameObject item = Instantiate((GameObject)Resources.Load("UI/TaskItem"), Vector3.zero, Quaternion.identity);
