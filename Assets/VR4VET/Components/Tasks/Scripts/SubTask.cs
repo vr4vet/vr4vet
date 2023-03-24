@@ -5,8 +5,7 @@ using UnityEngine;
 namespace Task
 {
 
-    [CreateAssetMenu(fileName = "New Subtask", menuName = "Tasks/SubTask")]
-
+    [CreateAssetMenu(fileName = "NewSubtask", menuName = "Tasks/SubTask")]
     public class Subtask : ScriptableObject
     {
 
@@ -17,8 +16,6 @@ namespace Task
 
         private int _pointValue=0;
 
-        [Tooltip("Select None if you don't need it ")] [SerializeField]
-        public GameObject target;
 
         [Header("Repetions")]
         [Tooltip("Select Same value for no randomization")]
@@ -28,9 +25,8 @@ namespace Task
         private int _repetitions=1;
 
 
-        [SerializeField]
-        private List<Step> _stepList = new List<Step>();
-
+        [SerializeField] private List<Step> _stepList = new List<Step>();
+        [SerializeField] private List<Skill> _relatedSkills = new List<Skill>();
 
 
         private int _points;
@@ -46,12 +42,9 @@ namespace Task
 
         [Header("Navigation")]
         [HideInInspector]
-        public GameObject taskTarget;
-        [HideInInspector]
+       
         public Subtask prerequisite;
 
-
-        [HideInInspector] private bool is_task_Completed;
 
 
 
