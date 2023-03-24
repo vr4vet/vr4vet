@@ -21,7 +21,7 @@ namespace Task
         private List<Skill> _relatedSkills = new List<Skill>();
         private int _repetionsCompleated = 0;
         [SerializeField]
-        private int _points;
+        private int _pointValue;
 
 
         public int _maxPsiblePoint { get; set; }

@@ -13,7 +13,7 @@ namespace Task
     /// <summary>
     /// Task object
     /// </summary>
-    [CreateAssetMenu(fileName ="New Task", menuName = "Tasks/Task")]
+    [CreateAssetMenu(fileName ="Old Task", menuName = "Tasks/OldTask")]
     public class Task : ScriptableObject
     {
 
