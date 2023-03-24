@@ -9,17 +9,16 @@ using UnityEngine;
 
 namespace Task
 {
-    /// <summary>
-    /// ferdighet object
-    /// </summary>
+    
     [CreateAssetMenu(fileName = "New Skill", menuName = "Tasks/Skill")]
     public class Skill : ScriptableObject
     {
-        public int totalPoints;
+        [HideInInspector]public int totalPoints;
         private int achievedPoints;
         public string skillName;
         [Tooltip("Description of this skill"), TextArea(5, 20)]
         public string skillDescription;
+
 
         //hvor mye til hver aktivitet har gitt denne ferdighet (aktivitet,poeng)
         private Dictionary<Step, int> ferdighetAktiviteter = new Dictionary<Step, int>();

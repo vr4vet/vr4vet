@@ -114,22 +114,19 @@ namespace Task
         /// </summary>
         /// <param name="thisOppgave"></param>
         /// <param name="button"></param>
-        public void SetTarget(Subtask thisOppgave)
+        public void SetTarget(BTask thisOppgave)
         {
-            //need to do other tasks first
-            if (thisOppgave.prerequisite && !thisOppgave.prerequisite.IsCompeleted())
-            {
-                PlayAudio(prerequisites);
-                ResetNavigation();
-                SetTarget(thisOppgave.prerequisite);
-                return;
-            }
-
+           
             //task is allready done
-            if (thisOppgave.IsCompeleted() )
+            if (thisOppgave.IsTaskCompeleted())
             {
                 //taskState.PlayAudio(TaskIsDoneAllredy);
                 target = null;
+                ResetNavigation();
+                return;
+            }else
+            {
+                PlayAudio(prerequisites);
                 ResetNavigation();
                 return;
             }
@@ -137,7 +134,7 @@ namespace Task
             //****Task activating*****
 
             //if task need to active pathfinding
-            if (thisOppgave.taskTarget && thisOppgave.taskTarget.activeInHierarchy)
+            if (thisOppgave.target && thisOppgave.target.activeInHierarchy)
             {
                 
 
@@ -151,7 +148,7 @@ namespace Task
                 }
 
                 //if task is not don yet
-                if (!thisOppgave.IsCompeleted())
+                if (!thisOppgave.IsTaskCompeleted())
                 {
                     //deactive
                     if (TaskIsActive)
@@ -175,7 +172,7 @@ namespace Task
                     else
                     {
                         PlayAudio(activated);
-                        target = thisOppgave.taskTarget;
+                        target = thisOppgave.target;
                         ResetNavigation(); // this will make TaskIsActive false, so change it to true again if needed
                         TaskIsActive = true;
 

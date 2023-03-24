@@ -13,7 +13,7 @@ namespace Task
     /// <summary>
     /// Task object
     /// </summary>
-    [CreateAssetMenu(fileName ="New Task", menuName = "Tasks/BTask")]
+    [CreateAssetMenu(fileName ="New Task", menuName = "Tasks/Task")]
     public class BTask : ScriptableObject
     {
 
@@ -23,18 +23,19 @@ namespace Task
 
         [Tooltip("Description of this assignment"), TextArea(5, 20)]
         [SerializeField] private string _description;
-        [SerializeField] private List<Subtask> _subTasks = new List<Subtask>();
+        [SerializeField] public List<Subtask> _subtasks = new List<Subtask>();
         [SerializeField] private int _repetitions = 1;
-
+        [Tooltip("Select None if you don't need it ")]
+        public GameObject target;
 
         private int  _numberComplated;
-
+        [HideInInspector]public GameObject prerequisite;
 
         /// Mark this task as compeleted if its all activities are done
         public bool CheckTaskCompeletion()
         {
             bool val = true;
-            foreach (Subtask sub in _subTasks)
+            foreach (Subtask sub in _subtasks)
             {
                 if (sub.IsCompeleted() == false)
                 {
