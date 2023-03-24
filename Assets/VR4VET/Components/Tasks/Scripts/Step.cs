@@ -10,13 +10,8 @@ namespace Task
     {
         [HideInInspector]
         public int archivedPoints;
-        [HideInInspector]
-        public int maxPosiblePoints;
-
-
-
-
-
+ 
+        private int _maxPosiblePoints;
     
         [SerializeField]
         private string _StepName;
@@ -25,15 +20,11 @@ namespace Task
         private bool _compleated;
         private List<Skill> _relatedSkills = new List<Skill>();
         private int _repetionsCompleated = 0;
-       
+        [SerializeField]
+        private int _points;
 
-        public enum myEnum // your custom enumeration
-        {
-            needed = 0,
-            optional = 1,
-        };
-        public myEnum type;
 
+        public int _maxPsiblePoint { get; set; }
 
         public void CompleateStep()
         {

@@ -45,7 +45,7 @@ namespace Tablet
         {
 
             Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
-            tasks = th.GetTaskList();
+            tasks = th.GetRetroTaskList();
             //create oppgaver list
             foreach (Task.Task oppgave in tasks)
             {
@@ -60,7 +60,7 @@ namespace Tablet
                 oppgave.checkedIcon = FindDeepChild(item, "checked").GetComponent<Image>();
                 oppgave.checkedIcon.enabled = false; //Hide check
                 oppgave.button = item.transform.Find("OppgaveButton").GetComponent<Button>();
-                oppgave.button.onClick.AddListener(() => Task.NavigationManager.navigationManager.SetTarget(oppgave, oppgave.button));
+              //  oppgave.button.onClick.AddListener(() => Task.NavigationManager.navigationManager.SetTarget(oppgave));
 
 
                 //if this oppgave is already done
@@ -127,7 +127,7 @@ namespace Tablet
            
 
                 string myPoeng =  aktivitetObject.archivedPoints.ToString() ;    //totalAchievedPoeng.ToString();
-                string totalPoengStr = aktivitetObject.maxPosiblePoints.ToString();
+                string totalPoengStr = aktivitetObject._maxPsiblePoint.ToString();
 
                 aktivitet.transform.Find("Poeng").GetComponent<Text>().text = myPoeng + "/" + totalPoengStr; //aktivitet name
 

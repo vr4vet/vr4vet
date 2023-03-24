@@ -17,7 +17,7 @@ namespace Task
     {
         public static NavigationManager navigationManager;
 
-        [HideInInspector] public Button activeButton;
+        [HideInInspector] private Button activeButton;
         [HideInInspector] public GameObject target = null;
 
 
@@ -114,19 +114,19 @@ namespace Task
         /// </summary>
         /// <param name="thisOppgave"></param>
         /// <param name="button"></param>
-        public void SetTarget(Task thisOppgave, Button button)
+        public void SetTarget(Subtask thisOppgave)
         {
             //need to do other tasks first
-            if (thisOppgave.prerequisite && !thisOppgave.prerequisite.IsTaskCompeleted())
+            if (thisOppgave.prerequisite && !thisOppgave.prerequisite.IsCompeleted())
             {
                 PlayAudio(prerequisites);
                 ResetNavigation();
-                SetTarget(thisOppgave.prerequisite, thisOppgave.prerequisite.button);
+                SetTarget(thisOppgave.prerequisite);
                 return;
             }
 
             //task is allready done
-            if (thisOppgave.IsTaskCompeleted() )
+            if (thisOppgave.IsCompeleted() )
             {
                 //taskState.PlayAudio(TaskIsDoneAllredy);
                 target = null;
@@ -139,7 +139,7 @@ namespace Task
             //if task need to active pathfinding
             if (thisOppgave.taskTarget && thisOppgave.taskTarget.activeInHierarchy)
             {
-                activeButton = button;
+                
 
                 /*if the button is not assigned and you set the target with code,
                  just set null for last parameter in SetTarget method. a fake button will 
@@ -151,7 +151,7 @@ namespace Task
                 }
 
                 //if task is not don yet
-                if (!thisOppgave.IsTaskCompeleted())
+                if (!thisOppgave.IsCompeleted())
                 {
                     //deactive
                     if (TaskIsActive)
@@ -167,7 +167,7 @@ namespace Task
                         {
                             //If a task is active and another task will be activated by script
                             ResetNavigation();
-                            SetTarget(thisOppgave, activeButton);
+                            SetTarget(thisOppgave);
                             return;
                         }
                     }

@@ -12,10 +12,13 @@ namespace Task
 
         [SerializeField]
         private string _subtaskName;
+        [Tooltip("Description of this SubTask"), TextArea(5, 20)]
+        [SerializeField] private string _description;
 
-        [SerializeField]
-        private int _pointValue;
+        private int _pointValue=0;
 
+        [Tooltip("Select None if you don't need it ")] [SerializeField]
+        public GameObject target;
 
         [Header("Repetions")]
         [Tooltip("Select Same value for no randomization")]
@@ -44,6 +47,8 @@ namespace Task
         [Header("Navigation")]
         [HideInInspector]
         public GameObject taskTarget;
+        [HideInInspector]
+        public Subtask prerequisite;
 
 
         [HideInInspector] private bool is_task_Completed;
@@ -63,11 +68,24 @@ namespace Task
                 RandomizeReps();
             }
 
+            foreach (Step stepi in _stepList)
+            {
+                _pointValue += stepi._maxPsiblePoint ;
+            }
+
+
         }
 
         public void RandomizeReps()
         {
             _repetitions = (Random.Range(_repetitionMin, _repetitionMax));
+        }
+
+
+        public bool IsCompeleted()
+        {
+            return (_repetionsCompleated >= _repetitions);
+         
         }
 
         public void CompleateSubTask()
