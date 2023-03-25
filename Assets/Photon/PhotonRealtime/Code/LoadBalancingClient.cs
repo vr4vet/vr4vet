@@ -3253,7 +3253,6 @@ namespace Photon.Realtime
                         if (isInactive)
                         {
                             originatingPlayer.IsInactive = true;
-                            originatingPlayer.HasRejoined = false;
                         }
                         else
                         {
