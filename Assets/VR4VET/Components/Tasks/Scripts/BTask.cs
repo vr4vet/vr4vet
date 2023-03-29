@@ -23,7 +23,7 @@ namespace Task
 
         [Tooltip("Description of this assignment"), TextArea(5, 20)]
         [SerializeField] private string _description;
-        [SerializeField] public List<Subtask> _subtasks = new List<Subtask>();
+        public List<Subtask> _subtasks = new();
         [SerializeField] private int _repetitions = 1;
         [Tooltip("Select None if you don't need it ")]
         public GameObject target;

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Task
 {
 
-    [CreateAssetMenu(fileName = "NewSubtask", menuName = "Tasks/SubTask")]
+    [CreateAssetMenu(fileName = "New Subtask", menuName = "Tasks/Subtask")]
     public class Subtask : ScriptableObject
     {
 
@@ -14,15 +14,15 @@ namespace Task
         [Tooltip("Description of this SubTask"), TextArea(5, 20)]
         [SerializeField] private string _description;
 
-        private int _pointValue=0;
+        private int _pointValue = 0;
 
 
         [Header("Repetions")]
         [Tooltip("Select Same value for no randomization")]
         [SerializeField] private int _repetitionMin = 1;
         [SerializeField] private int _repetitionMax = 1;
-    
-        private int _repetitions=1;
+
+        private int _repetitions = 1;
 
 
         [SerializeField] private List<Step> _stepList = new List<Step>();
@@ -42,7 +42,6 @@ namespace Task
 
         [Header("Navigation")]
         [HideInInspector]
-       
         public Subtask prerequisite;
 
 
@@ -63,7 +62,7 @@ namespace Task
 
             foreach (Step stepi in _stepList)
             {
-                _pointValue += stepi._maxPsiblePoint ;
+                _pointValue += stepi._maxPsiblePoint;
             }
 
 
@@ -78,7 +77,7 @@ namespace Task
         public bool IsCompeleted()
         {
             return (_repetionsCompleated >= _repetitions);
-         
+
         }
 
         public void CompleateSubTask()
