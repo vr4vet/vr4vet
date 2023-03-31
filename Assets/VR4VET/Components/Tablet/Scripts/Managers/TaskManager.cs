@@ -127,7 +127,7 @@ namespace Tablet
            
 
                 string myPoeng =  aktivitetObject.archivedPoints.ToString() ;    //totalAchievedPoeng.ToString();
-                string totalPoengStr = aktivitetObject._maxPsiblePoint.ToString();
+                string totalPoengStr = aktivitetObject.ValuePerRep.ToString();
 
                 aktivitet.transform.Find("Poeng").GetComponent<Text>().text = myPoeng + "/" + totalPoengStr; //aktivitet name
 

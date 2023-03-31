@@ -1,4 +1,8 @@
-using System.Collections;
+/*
+ * Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
+ */
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +13,10 @@ namespace Task
     public class Subtask : ScriptableObject
     {
 
-        [SerializeField]
-        private string _subtaskName;
+        [SerializeField] private string _name;
         [Tooltip("Description of this SubTask"), TextArea(5, 20)]
         [SerializeField] private string _description;
 
-        private int _pointValue = 0;
 
 
         [Header("Repetions")]
@@ -28,15 +30,12 @@ namespace Task
         [SerializeField] private List<Step> _stepList = new List<Step>();
         [SerializeField] private List<Skill> _relatedSkills = new List<Skill>();
 
-
-        private int _points;
+        private int _maxPoints = 0;
+        private int _points=0;
         private Transform _taskPosition;
         private int _repetionsCompleated = 0;
 
-
-        [Tooltip("Description of this assignment"), TextArea(5, 20)]
-        private string description;
-        [Tooltip("Activities List")]
+      
 
 
 
@@ -44,16 +43,37 @@ namespace Task
         [HideInInspector]
         public Subtask prerequisite;
 
-
-
+        public string Description { get => _description; set => _description = value; }
+        public int MaxPoints { get => _maxPoints; set => _maxPoints = value; }
+        public List<Step> StepList { get => _stepList; set => _stepList = value; }
+        public string Name { get => _name; set => _name = value; }
 
         public void AddPoints(int value)
         {
             _points += value;
         }
 
+        public void SetMaxPoints()
+        {
+            _maxPoints = 0;
+            foreach (Step step in _stepList)
+            {
+                _maxPoints += step.MaxPoints();
+            }
+        }
 
-        public void Start()
+        public int Points()
+        {
+            int val = 0;
+            foreach (Step step in _stepList)
+            {
+                val += step.Points();
+            }
+            return val;
+        }
+
+        /**
+         void Start()
         {
             if (_repetitionMin != _repetitionMax)
             {
@@ -62,15 +82,18 @@ namespace Task
 
             foreach (Step stepi in _stepList)
             {
-                _pointValue += stepi._maxPsiblePoint;
+                _pointValue += stepi.PointValue;
             }
-
-
         }
-
+        **/
         public void RandomizeReps()
         {
-            _repetitions = (Random.Range(_repetitionMin, _repetitionMax));
+            if (_repetitionMin != _repetitionMax)
+            {
+                _repetitions = (Random.Range(_repetitionMin, _repetitionMax));
+            }
+            else _repetitions = _repetitionMax;
+                
         }
 
 
@@ -88,7 +111,7 @@ namespace Task
             }
             else
             {
-                Debug.Log("all " + _subtaskName + " already compleated");
+                Debug.Log("all " + _name + " already compleated");
             }
         }
 
