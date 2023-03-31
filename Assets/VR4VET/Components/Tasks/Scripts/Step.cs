@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
+ */
+
+
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,29 +16,36 @@ namespace Task
     {
         [HideInInspector]
         public int archivedPoints;
- 
-        private int _maxPosiblePoints;
-    
-        [SerializeField]
-        private string _StepName;
-        [SerializeField]   [Range(1, 20)]
-        private int _repetionNumber = 1;
+
+        [SerializeField]   private string _StepName;
+        [SerializeField]   [Range(1, 20)] private int _repetionNumber = 1;    
+        [SerializeField] private int _valuePerRep;
+
         private bool _compleated;
         private List<Skill> _relatedSkills = new List<Skill>();
         private int _repetionsCompleated = 0;
-        [SerializeField]
-        private int _pointValue;
 
+        public int ValuePerRep { get => _valuePerRep; set => _valuePerRep = value; }
+        public int RepetionNumber { get => _repetionNumber; set => _repetionNumber = value; }
+        public int RepetionsCompleated { get => _repetionsCompleated; set => _repetionsCompleated = value; }
 
-        public int _maxPsiblePoint { get; set; }
-
-        public void CompleateStep()
+        public void CompleateRep()
         {
             if (_repetionsCompleated < _repetionNumber)
             {
                 _repetionsCompleated++;
             }
 
+        }
+
+        public int MaxPoints()
+        {
+            return _repetionNumber * _valuePerRep;
+        }
+
+        public int Points()
+        {
+            return _repetionsCompleated * _valuePerRep;
         }
 
         public void CompleateAll()
@@ -92,7 +105,7 @@ namespace Task
 
 
 
-        public void AddToAchievedPoeng(int value)
+        public void AddArchivedPoints(int value)
         {
             foreach (Skill ferdighet in _relatedSkills)
             {

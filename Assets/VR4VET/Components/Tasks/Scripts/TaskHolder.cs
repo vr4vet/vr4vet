@@ -1,9 +1,7 @@
-/* Copyright (C) 2023 IMTEL NTNU - All Rights Reserved
+/*
  * Developer: Jorge Garcia
- * Ask your questions by email: jorgeega@ntnu.no
+ * Ask your questions on github: https://github.com/Jorest
  */
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +22,27 @@ namespace Task
         private List<BTask> _tasks = new List<BTask>();
         private List<Task> _taskRetro = new List<Task>();
 
+
+
+
+         void Awake()
+        {
+            SetValues();
+        }
+
+
+     
+
+        public void SetValues()
+        {
+            foreach (BTask task in _tasks)
+            {
+                foreach (Subtask sub in task.Subtasks)
+                {
+                    sub.SetMaxPoints();
+                }
+            }
+        }
 
         public List<Skill> getSkillList()
         {
