@@ -1,6 +1,6 @@
-﻿/* Copyright (C) 2022 IMTEL NTNU - All Rights Reserved
- * Developer: Jorge Garcia, Abbas Jafari
- * Ask your questions by email: jorgeega@ntnu.no
+﻿/*
+ * Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
  */
 
 using System;
@@ -10,9 +10,7 @@ using UnityEngine.UI;
 
 namespace Task
 {
-    /// <summary>
-    /// Task object
-    /// </summary>
+   
     [CreateAssetMenu(fileName ="New Task", menuName = "Tasks/Task")]
     public class BTask : ScriptableObject
     {
@@ -23,13 +21,17 @@ namespace Task
 
         [Tooltip("Description of this assignment"), TextArea(5, 20)]
         [SerializeField] private string _description;
-        public List<Subtask> _subtasks = new();
+        [SerializeField] private List<Subtask> _subtasks = new();
         [SerializeField] private int _repetitions = 1;
         [Tooltip("Select None if you don't need it ")]
         public GameObject target;
 
-        private int  _numberComplated;
+    
+        private int  _numberComplated =0;
         [HideInInspector]public GameObject prerequisite;
+
+        public string Description { get => _description; set => _description = value; }
+        public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
 
         /// Mark this task as compeleted if its all activities are done
         public bool CheckTaskCompeletion()
@@ -50,9 +52,7 @@ namespace Task
         {
             return (_numberComplated>= _repetitions);
         }
-
-
-     
+ 
   
     }
 }
