@@ -2,7 +2,7 @@
 A prefab used to display tooltips with various contents.
 
 # Importing the prefab
-1. Download the [TooltipPrefab.unitypackage file](/TooltipPrefab.unitypackage).
+1. Download the prefab and export as a unitypackage.
 2. Open the project you want to import to.
 3. Right click in the project panel and select "Import Packages" -> "Custom Package"
 4. Select the TooltipPrefab.unitypackage file.
