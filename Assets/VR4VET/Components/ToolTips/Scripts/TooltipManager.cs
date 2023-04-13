@@ -4,16 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+// Main class.
 public class TooltipManager : MonoBehaviour
 {
+    // Option to toggle whether opening a tooltip should close all others.
     public bool CloseTooltipsOnNewActivation = true;
+
+    // Array of all tooltips.
     TooltipScript[] Tooltips;
 
+    // Start is called before the first frame update.
     void Start()
     {
-        Debug.Log("Start");
+        // Assign all tooltip objects to the tooltips array.
         Tooltips = FindObjectsOfType<TooltipScript>();
-        Debug.Log("Found " + Tooltips.Length + " tooltips.");
+        
+        // Write how many tooltips were found to Debug console.
+        Debug.Log($"Found {Tooltips.Length} tooltips.");
+
+        // Add a listener to each tooltip that listens for tooltip activation.
         foreach (TooltipScript Tooltip in Tooltips)
         {
             Tooltip.ActivationEvent.AddListener(TooltipActivationListener);
@@ -21,13 +30,14 @@ public class TooltipManager : MonoBehaviour
         
     }
 
-    void TooltipActivationListener(GameObject CurrentTooltip)
+    // Function that deactivates all tooltips except the newly opened tooltip.
+    void TooltipActivationListener(GameObject currentTooltip)
     {
-        foreach (TooltipScript Tooltip in Tooltips)
+        foreach (TooltipScript tooltip in Tooltips)
         {
-            if(Tooltip.gameObject != CurrentTooltip && CloseTooltipsOnNewActivation)
+            if (tooltip.gameObject != currentTooltip && CloseTooltipsOnNewActivation)
             {
-                Tooltip.Deactivate();
+                tooltip.Deactivate();
             }
         }
     }
