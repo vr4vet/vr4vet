@@ -39,7 +39,7 @@ namespace Task
             {
                 foreach (Subtask sub in task.Subtasks)
                 {
-                    sub.SetMaxPoints();
+                    sub.UpdateMaxPoints();
                 }
             }
         }

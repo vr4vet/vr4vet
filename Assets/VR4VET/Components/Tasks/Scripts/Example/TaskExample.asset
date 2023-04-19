@@ -10,13 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 705f4386a305db6418e497c853a31df0, type: 3}
-  m_Name: Order66(Task)
+  m_Name: TaskExample
   m_EditorClassIdentifier: 
-  _taskName: Order 66
-  _description: "\rIn the event of Jedi officers acting against the interests of
-    the Republic, and after receiving specific orders verified as coming directly
-    from the Supreme Commander (Chancellor), GAR commanders will remove those officers
-    by lethal force, and command of the GAR will revert to the Supreme Commander."
+  _taskName: Task1
+  _description: this is actually a task
   _subtasks:
   - {fileID: 11400000, guid: e6eb8cdca3e5c084eaf861a498d1ab93, type: 2}
   _repetitions: 1
