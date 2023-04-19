@@ -53,7 +53,7 @@ namespace Task
             _points += value;
         }
 
-        public void SetMaxPoints()
+        public void UpdateMaxPoints()
         {
             _maxPoints = 0;
             foreach (Step step in _stepList)
@@ -72,20 +72,7 @@ namespace Task
             return val;
         }
 
-        /**
-         void Start()
-        {
-            if (_repetitionMin != _repetitionMax)
-            {
-                RandomizeReps();
-            }
 
-            foreach (Step stepi in _stepList)
-            {
-                _pointValue += stepi.PointValue;
-            }
-        }
-        **/
         public void RandomizeReps()
         {
             if (_repetitionMin != _repetitionMax)
