@@ -53,6 +53,14 @@ namespace Task
             _points += value;
         }
 
+        public void addSubToSkill()
+        {
+            foreach (Skill skill in _relatedSkills)
+            {
+                skill.AddSubtask(this);
+            }
+        }
+
         public void UpdateMaxPoints()
         {
             _maxPoints = 0;

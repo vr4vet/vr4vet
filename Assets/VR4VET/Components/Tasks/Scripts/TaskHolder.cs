@@ -12,7 +12,7 @@ namespace Task
 {
     public class TaskHolder : MonoBehaviour
     {
-       
+        public static TaskHolder Instance;
         private List<TaskxTarget> _taskAndTargerts = new List<TaskxTarget>();
 
         [SerializeField]
@@ -24,14 +24,21 @@ namespace Task
 
 
 
-
-         void Awake()
+        //making the task holder a singleton
+        void Awake()
         {
             SetValues();
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
-
-     
 
         public void SetValues()
         {
@@ -39,6 +46,7 @@ namespace Task
             {
                 foreach (Subtask sub in task.Subtasks)
                 {
+                    sub.addSubToSkill();
                     sub.UpdateMaxPoints();
                 }
             }
