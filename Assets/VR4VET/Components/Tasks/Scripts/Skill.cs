@@ -13,91 +13,35 @@ namespace Task
     [CreateAssetMenu(fileName = "New Skill", menuName = "Tasks/Skill")]
     public class Skill : ScriptableObject
     {
-        [HideInInspector]public int totalPoints;
+        private int _totalPoints;
         private int achievedPoints;
-        public string skillName;
+        [SerializeField] private string _name;
         [Tooltip("Description of this skill"), TextArea(5, 20)]
-        public string skillDescription;
-
-
-        //hvor mye til hver aktivitet har gitt denne ferdighet (aktivitet,poeng)
+        [SerializeField] private string _description;
+        private List<Subtask> _subtasks = new List<Subtask>();
         private Dictionary<Step, int> ferdighetAktiviteter = new Dictionary<Step, int>();
 
+        public string Name { get => _name; set => _name = value; }
+        public string Description { get => _description; set => _description = value; }
+        public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
+        public int TotalPoints { get => _totalPoints; set => _totalPoints = value; }
 
-        /// <summary>
-        /// get the dictionary of all aktivitet that are testet by this ferdighet
-        /// </summary>
-        /// <returns></returns>
-        public Dictionary<Step, int> GetFerdighetAktiviteter()
+        public void AddSubtask(Subtask sub)
         {
-            return ferdighetAktiviteter;
-        }
-
-
-        /// <summary>
-        /// Add an aktivitet to this ferdighet
-        /// </summary>
-        /// <param name="aktivitet"></param>
-        /// <param name="value"></param>
-        public void AddToFerdighetAktiviteter(Step aktivitet, int value)
-        {
-            if (!ferdighetAktiviteter.Keys.Contains(aktivitet))
+             if (! _subtasks.Contains(sub))
             {
-                if (achievedPoints + value < totalPoints)
-                {
-                    ferdighetAktiviteter.Add(aktivitet, achievedPoints + value);
-                }
-                else
-                {
-                    ferdighetAktiviteter.Add(aktivitet, value);
-                }
+                _subtasks.Add(sub);
             }
         }
 
 
-        /// <summary>
-        /// Get the name of this ferdighet
-        /// </summary>
-        /// <returns></returns>
-        public string GetFerdighetName()
-        {
-            return skillName;
-        }
+   
+  
+     
 
 
-        /// <summary>
-        /// Set the name of this ferdighet
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetFerdighetName(string value)
-        {
-            skillName = value;
-        }
-
-        /// <summary>
-        /// Get the total poeng that this ferdighet has gotten by all activities
-        /// </summary>
-        /// <returns></returns>
-        public int GetTotalPoeng()
-        {
-            return totalPoints;
-        }
-
-
-        /// <summary>
-        /// set the total poeng that this ferdighet can achieved to
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetTotalPoeng(int value)
-        {
-            totalPoints = value;
-        }
-
-
-        /// <summary>
         /// Get the poeng that the player has gotten from this ferdighet
-        /// </summary>
-        /// <returns></returns>
+   
         public int GetAchievedPoeng()
         {
             achievedPoints = 0;
@@ -109,46 +53,43 @@ namespace Task
         }
 
 
-        /// <summary>
+     
         /// set the poeng to this ferdighet
-        /// </summary>
-        /// <param name="value"></param>
+ 
         public void SetAchievedPoeng(int value)
         {
             achievedPoints = value;
         }
 
 
-        /// <summary>
+        
         /// Change the description of this ferdighet. can be used for feedback
-        /// </summary>
-        /// <param name="value"></param>
+       
         public void SetFerdighetBeskrivelse(string value)
         {
-            skillDescription = value;
+            _description = value;
         }
         
 
-        /// <summary>
+      
         ///Get the ferdighet description 
-        /// </summary>
-        /// <returns></returns>
+        
         public string GetFerdighetBeskrivelse()
         {
-            return skillDescription;
+            return _description;
         }
 
 
-        /// <summary>
         /// Add more poneg to this ferdighet
-        /// </summary>
-        /// <param name="value"></param>
-        public void AddAchievedPoeng(int value)
+    
+
+
+        public void AddArchivedPoints(int value)
         {
-            if (achievedPoints + value < totalPoints)
+            if (achievedPoints + value < _totalPoints)
                 achievedPoints += value;
             else
-                achievedPoints = totalPoints;
+                achievedPoints = _totalPoints;
         }
 
     }
