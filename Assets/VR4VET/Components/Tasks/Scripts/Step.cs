@@ -104,7 +104,7 @@ namespace Task
         }
 
 
-
+        /*
         public void AddArchivedPoints(int value)
         {
             foreach (Skill ferdighet in _relatedSkills)
@@ -122,6 +122,9 @@ namespace Task
                 }
             }
         }
+
+
+        */
 
     }
 }
