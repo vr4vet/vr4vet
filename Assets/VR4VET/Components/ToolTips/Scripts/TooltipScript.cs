@@ -20,11 +20,20 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
     // The player transform.
     public Transform Player;
 
+    
+    // The different states the tooltip might be in.
+    public enum StateOptions
+    {
+        Open,
+        Minimized,
+        Closed
+    }
+
+    public StateOptions StartingState = StateOptions.Open;
+
     // Settings on how the tooltip should behave.
     public bool FacePlayer = true;
     public bool AlwaysAboveParent = true;
-    public bool StartOpen = true;
-    public bool StartMinimized = true;
     public bool CloseWhenDistant = false;
     public float CloseThreshold = 10;
 
@@ -95,10 +104,10 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
         _closeButton = _panel.Find("Button").GetComponent<Button>();
         _closeButton.onClick.AddListener(Deactivate);
         _animator = _panel.GetComponent<Animator>();
-        _animator.SetBool("open", !StartMinimized);
+        _animator.SetBool("open", (StartingState == StateOptions.Minimized)? false:true);
 
         // Deactivate the tooltip if it should not start opened.
-        if (!StartOpen)
+        if (StartingState == StateOptions.Closed)
         {
             Deactivate();
         }
@@ -108,6 +117,7 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame.
     void Update()
     {
+
         // If the player is too far away, and the tooltip is set to close when the player is too far away, close the tooltip.
         if(Vector3.Distance(transform.position, Player.position) >= CloseThreshold && CloseWhenDistant)
         {
