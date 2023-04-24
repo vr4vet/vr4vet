@@ -48,4 +48,5 @@ All Experiences/Games should use: Player, Tablet and Menu prefabs. All included 
 * XR Player:
 Currently the player has the tablet under the left hand (and you can choose if you want it on your hand or floating in front of you )
 This prefab will be changed once we change platform (XRI toolkit -> VR Interaction Framework)
+  - Tooltips: https://github.com/vr4vet/vr4vet/blob/features/add-customizable-tooltips/Assets/VR4VET/Components/ToolTips/Readme.md
 
