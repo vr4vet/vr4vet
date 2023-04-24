@@ -18,7 +18,7 @@ A prefab used to display tooltips with various contents.
 
 # Using the tooltips through scripts (dynamic tooltips)
 1. Get a reference to the tooltip. This is usually done through `TooltipScript tooltip = ObjectWithTooltip.Find("SimpleToolTip");`
-2. To activate the tooltip, use `tooltip.Activate()`. Note that unless it is disabeled in the tooltip manager, this will also close all other tooltips.
+2. To activate the tooltip, use `tooltip.Activate()`. Note that unless it is disabled in the tooltip manager, this will also close all other tooltips.
 3. To disable a tooltip, use `tooltip.Deactivate()`.
 4. To alter the contents of a tooltip, assign a string value to the header or text content. Examples: `tooltip.TextContent = "New Tooltip Content"` `tooltip.Header = "New Tooltip Header"`.
 5. Any alterations to content, position, or activation status will update dynamically while running.

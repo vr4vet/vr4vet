@@ -313,7 +313,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5360422001454874250}
   m_LocalRotation: {x: -0.038627148, y: 0.053570516, z: -0.006266422, w: 0.9977971}
-  m_LocalPosition: {x: 0, y: 0, z: -0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.009999997}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -325,7 +325,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 130}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!223 &5360422001454874246
 Canvas:
   m_ObjectHideFlags: 0
@@ -400,10 +400,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  StartingState: 0
   FacePlayer: 1
   AlwaysAboveParent: 1
-  StartOpen: 1
-  StartMinimized: 1
   CloseWhenDistant: 0
   CloseThreshold: 10
   Header: Tooltip header goes here!
