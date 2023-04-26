@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Tutorial : MonoBehaviour, ITutorial
 {
-    public TooltipScript[] Items = Array.Empty<TooltipScript>();
+    public GameObject[] Items = Array.Empty<GameObject>();
     public GameObject PopupHint;
 
     /// <summary>
@@ -19,16 +19,17 @@ public class Tutorial : MonoBehaviour, ITutorial
     /// </summary>
     public UnityEvent OnTriggered;
 
-    private int indexOfCurrentItem = -1;
+    private int indexOfCurrentItem = 0;
     private bool triggered;
     private bool dismissed;
 
+    //Setting the necessary values and variables needed
     public GameObject Current
         => IndexOfCurrentItem >= 0 && IndexOfCurrentItem < Items.Length
-        ? Items[IndexOfCurrentItem].gameObject
+        ? Items[IndexOfCurrentItem]
         : null;
 
-    private int IndexOfCurrentItem
+   private int IndexOfCurrentItem
     {
         get => indexOfCurrentItem;
         set
@@ -38,18 +39,17 @@ public class Tutorial : MonoBehaviour, ITutorial
 
             if (Current != null)
             {
-                Current.SetActive(false);
+                Current.SetActive(true);
             }
 
             indexOfCurrentItem = value;
 
-            if (Current != null)
+            if (Current == null)
             {
-                Current.SetActive(false);
+                Dismiss();
             }
         }
     }
-
     public bool Triggered
     {
         get => triggered;
@@ -75,7 +75,7 @@ public class Tutorial : MonoBehaviour, ITutorial
     }
 
     /// <summary>
-    /// Dismisses the tutorial, removing all UI elements from the scene.
+    /// Dismisses the tutorial, removing deactivates all tutorial elements in the scene
     /// </summary>
     public void Dismiss()
     {
@@ -89,9 +89,11 @@ public class Tutorial : MonoBehaviour, ITutorial
     public void MoveNext()
     {
         IndexOfCurrentItem = Math.Min(IndexOfCurrentItem, Items.Length) + 1;
+        Debug.Log(IndexOfCurrentItem);
         foreach (var entry in Items)
         {
             if(entry != Current) entry.gameObject.SetActive(false);
+            if(entry == Current) entry.gameObject.SetActive(true);
         }
 
         if (IndexOfCurrentItem == Items.Length && Items.Length > 0)
@@ -111,12 +113,20 @@ public class Tutorial : MonoBehaviour, ITutorial
         return IndexOfCurrentItem >= 0;
     }
 
-    // Start is called before the first frame update
+    //Deactivates all but the starting entry
     private void Start()
     {
         foreach (var entry in Items)
         {
             if(entry != Current) entry.gameObject.SetActive(false);
+            if(entry == Current) entry.gameObject.SetActive(true);
+        }
+
+    }   //For debugging purposes, proceeds to the next tutorial step when the spacebar is pressed
+    private void Update(){
+        if (Input.GetKeyDown("space"))
+        {
+            MoveNext();
         }
     }
 }

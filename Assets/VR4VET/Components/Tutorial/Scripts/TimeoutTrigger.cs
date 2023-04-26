@@ -21,12 +21,12 @@ public class TimeoutTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (tutorialEntry.IsActive && triggeredAt == default)
+        if (tutorialEntry.gameObject.activeSelf && triggeredAt == default)
         {
             triggeredAt = DateTime.Now;
         }
 
-        if (tutorialEntry.IsActive && (DateTime.Now - triggeredAt) > TimeSpan.FromSeconds(TimeoutSeconds))
+        if (tutorialEntry.gameObject.activeSelf && (DateTime.Now - triggeredAt) > TimeSpan.FromSeconds(TimeoutSeconds))
         {
             OnTriggered.Invoke();
             triggeredAt = DateTime.Now;

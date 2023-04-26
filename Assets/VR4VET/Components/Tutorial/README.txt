@@ -10,9 +10,8 @@ Tutorial:
 	MoveBack()
 
 // Something which requires user interaction to be marked as completed.
-// Once complete, the popup hint will be dismissed, and the tutorial will advance.
-TutorialItem:
-	Dismiss() // Some action/interaction/area of effect -> dismiss this item -> move next in tutorial
-	// A UI element, illustrating/documenting something to the user
-	PopupHint:
-		Text
+// Give and object the TutorialEntry.cs component
+TutorialEntry:
+	SetCompleted()
+
+// the SetCompleted() method of the TutorialEntry.cs component should always be used over the MoveNext()
