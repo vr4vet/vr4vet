@@ -1,7 +1,7 @@
 # VR4VET Core
 This repository holds a Unity project with demo Scenes and the core Prefabs to create VR experiences for the VR4VET project. The goal is to standardize all the experiences(games) and make the development of new ones easier and faster.
 
-(Note: Both Game and Experience are used in this documentation to describe a VR experience where the user will try a profession)
+(Note: for a detail explanation on how to use each of the components check our Wiki)
 
 ## Instalation/Requirements
 
