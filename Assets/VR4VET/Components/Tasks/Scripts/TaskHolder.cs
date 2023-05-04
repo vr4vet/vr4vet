@@ -27,7 +27,7 @@ namespace Task
         //making the task holder a singleton
         void Awake()
         {
-            SetValues();
+            SetMaxValues();
             if (Instance == null)
             {
                 Instance = this;
@@ -40,14 +40,14 @@ namespace Task
         }
 
 
-        public void SetValues()
+        public void SetMaxValues()
         {
             foreach (BTask task in _tasks)
             {
                 foreach (Subtask sub in task.Subtasks)
                 {
                     sub.addSubToSkill();
-                    sub.UpdateMaxPoints();
+                    sub.UpdateStepsReps();
                 }
             }
         }
@@ -68,7 +68,6 @@ namespace Task
         public List<BTask> GetTaskList()
         {
            
-
             return _tasks;
         }
 
@@ -79,9 +78,37 @@ namespace Task
             return _taskRetro;
         }
 
+        // to think the points should just be a multiplier of the points. 
 
 
-        public void AddPoints(string stepName, string skillName, int points)
+
+
+
+
+        public void CompleateSubtask(string taskName, string SubtaskName, bool compleateStepReps)
+        {
+            foreach (BTask task in _tasks)
+            {
+                if (task.TaskName == taskName)
+                {
+                    foreach (Subtask subtask in task.Subtasks)
+                    {
+                        if (subtask.SubtaskName == SubtaskName)
+                        {
+                            foreach (Step step in subtask.StepList)
+                            {
+                               step.SetCompleated(true);                                                           
+                            }
+                            Debug.LogError("Step not found in Subtask");
+                        }
+                    }
+                    Debug.LogError("Subtask not found in Tasks");
+                }
+            }
+        }
+
+
+        public void AddPointsToSkill(string stepName, string skillName, int points)
         {
 
 
