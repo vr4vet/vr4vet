@@ -19,15 +19,12 @@ namespace Task
         [SerializeField] private string _description;
 
 
-
         [Header("Repetions")]
         [Tooltip("Select Same value for no randomization")]
         [SerializeField] private int _repetitionMin = 1;
         [SerializeField] private int _repetitionMax = 1;
         [Tooltip("0 means no timer")]
         [SerializeField] private float _timerSecods = 0.0f;
-
-
 
         private int _repetitions = 1;
 
