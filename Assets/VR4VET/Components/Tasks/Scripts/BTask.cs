@@ -17,7 +17,7 @@ namespace Task
 
         private bool _compleated;
 
-        public string _taskName;
+        [SerializeField] private string _taskName;
 
         [Tooltip("Description of this assignment"), TextArea(5, 20)]
         [SerializeField] private string _description;
@@ -32,6 +32,7 @@ namespace Task
 
         public string Description { get => _description; set => _description = value; }
         public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
+        public string TaskName { get => _taskName; set => _taskName = value; }
 
         /// Mark this task as compeleted if its all activities are done
         public bool CheckTaskCompeletion()

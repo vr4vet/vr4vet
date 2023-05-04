@@ -12,9 +12,10 @@ namespace Task
     [CreateAssetMenu(fileName = "New Subtask", menuName = "Tasks/Subtask")]
     public class Subtask : ScriptableObject
     {
-
-        [SerializeField] private string _name;
+        [Header("General information")]
+        [SerializeField] private string _subtaskName;
         [Tooltip("Description of this SubTask"), TextArea(5, 20)]
+
         [SerializeField] private string _description;
 
 
@@ -23,6 +24,10 @@ namespace Task
         [Tooltip("Select Same value for no randomization")]
         [SerializeField] private int _repetitionMin = 1;
         [SerializeField] private int _repetitionMax = 1;
+        [Tooltip("0 means no timer")]
+        [SerializeField] private float _timerSecods = 0.0f;
+
+
 
         private int _repetitions = 1;
 
@@ -30,13 +35,10 @@ namespace Task
         [SerializeField] private List<Step> _stepList = new List<Step>();
         [SerializeField] private List<Skill> _relatedSkills = new List<Skill>();
 
-        private int _maxPoints = 0;
+        private int _stepsreps = 0;
         private int _points=0;
         private Transform _taskPosition;
         private int _repetionsCompleated = 0;
-
-      
-
 
 
         [Header("Navigation")]
@@ -44,13 +46,28 @@ namespace Task
         public Subtask prerequisite;
 
         public string Description { get => _description; set => _description = value; }
-        public int MaxPoints { get => _maxPoints; set => _maxPoints = value; }
+        public int StepsReps { get => _stepsreps; set => _stepsreps = value; }
         public List<Step> StepList { get => _stepList; set => _stepList = value; }
-        public string Name { get => _name; set => _name = value; }
+        public string SubtaskName { get => _subtaskName; set => _subtaskName = value; }
+        public int Points { get => _points; set => _points = value; }
 
         public void AddPoints(int value)
         {
             _points += value;
+        }
+
+
+        public Step GetStep(string stepname)
+        {
+            Step returnStep = null;
+            foreach ( Step step in _stepList)
+            {
+                if (step.StepName== stepname)
+                {
+                    return step;
+                }
+            }
+            return returnStep;
         }
 
         public void addSubToSkill()
@@ -61,23 +78,14 @@ namespace Task
             }
         }
 
-        public void UpdateMaxPoints()
+        //update the value of max ammount of points from the steps
+        public void UpdateStepsReps()
         {
-            _maxPoints = 0;
+            _stepsreps = 0;
             foreach (Step step in _stepList)
             {
-                _maxPoints += step.MaxPoints();
+                _stepsreps += step.RepetionNumber;
             }
-        }
-
-        public int Points()
-        {
-            int val = 0;
-            foreach (Step step in _stepList)
-            {
-                val += step.Points();
-            }
-            return val;
         }
 
 
@@ -106,7 +114,7 @@ namespace Task
             }
             else
             {
-                Debug.Log("all " + _name + " already compleated");
+                Debug.Log("all " + _subtaskName + " already compleated");
             }
         }
 

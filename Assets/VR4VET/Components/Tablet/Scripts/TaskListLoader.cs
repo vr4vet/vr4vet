@@ -65,6 +65,7 @@ namespace Tablet {
             }
         }
 
+
         public void SkillPageLoader(Task.Skill skill)
         {
             //hide previos pagee
@@ -95,8 +96,8 @@ namespace Tablet {
 
                 Text caption = item.transform.Find("Text").gameObject.GetComponent<Text>();
                 Text reps = item.transform.Find("RepText").gameObject.GetComponent<Text>();
-                caption.text = sub.Name;
-                reps.text = sub.Points() + "/" + sub.MaxPoints;
+                caption.text = sub.SubtaskName;
+                reps.text = sub.Points + "/" + sub.StepsReps;
 
             }
 
@@ -135,7 +136,7 @@ namespace Tablet {
             tasksListCanvas.SetActive(false);
             GameObject name = TaskPageCanvas.transform.Find("ListView/Labels/TaskNameLabel").gameObject;
             GameObject descrption = TaskPageCanvas.transform.Find("ListView/DescriptionScrollView/Viewport/DescriptionText").gameObject;
-            name.GetComponent<Text>().text = task._taskName;
+            name.GetComponent<Text>().text = task.TaskName;
             descrption.GetComponent<Text>().text = task.Description;
 
 
@@ -157,8 +158,8 @@ namespace Tablet {
 
                 Text caption = item.GetComponentInChildren<Text>(true);
                 GameObject points = item.transform.Find("PointText").gameObject;
-                points.GetComponent<Text>().text =sub.Points() + "/" + sub.MaxPoints ; 
-                caption.text = sub.Name;
+                points.GetComponent<Text>().text =sub.Points + "/" + sub.StepsReps ; 
+                caption.text = sub.SubtaskName;
 
                 Button button = item.transform.Find("Button").GetComponent<Button>();                              
                 button.onClick.AddListener(() => SubTaskPageLoader(sub));
@@ -176,7 +177,7 @@ namespace Tablet {
             GameObject name = subtaskPageCanvas.transform.Find("ListView/Labels/SubtaskNameLabel").gameObject;
             GameObject descrption = subtaskPageCanvas.transform.Find("ListView/DescriptionScrollView/Viewport/DescriptionText").gameObject;
             GameObject content = subtaskPageCanvas.transform.Find("ListView/StepsScrollView/StepViewport/ContentSteps").gameObject;
-            name.GetComponent<Text>().text = subtask.Name;
+            name.GetComponent<Text>().text = subtask.SubtaskName;
             descrption.GetComponent<Text>().text = subtask.Description;
 
 
@@ -197,7 +198,7 @@ namespace Tablet {
 
                 Text caption = item.transform.Find("Text").gameObject.GetComponent<Text>();
                 Text reps = item.transform.Find("RepText").gameObject.GetComponent<Text>();
-                caption.text = step.GetName();
+                caption.text = step.StepName;
                 reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
 
             }
