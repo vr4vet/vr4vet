@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f1915370dd901e4e87c278563b54540, type: 3}
+  m_Name: TaskMega
+  m_EditorClassIdentifier: 
+  _taskName: First Task
+  description: first task description
+  activities:
+  - achievedPoeng: 0
+    maxPosiblePoints: 10
+    aktivitetName: Grab Helmet
+    AktivitetIsCompeleted: 1
+    aktivitetFerdigheter:
+    - {fileID: 11400000, guid: 3453ab20f5d0be644b39446960ecaedd, type: 2}
+    - {fileID: 11400000, guid: 9ccb7f3cd724fdf4b9f747a365c501be, type: 2}
+  - achievedPoeng: 0
+    maxPosiblePoints: 10
+    aktivitetName: Grab Hammer
+    AktivitetIsCompeleted: 0
+    aktivitetFerdigheter:
+    - {fileID: 11400000, guid: 3453ab20f5d0be644b39446960ecaedd, type: 2}
+  taskTarget: {fileID: 0}
+  prerequisite: {fileID: 0}
+  button: {fileID: 0}
+  checkedIcon: {fileID: 0}
+  unCheckedIcon: {fileID: 0}
