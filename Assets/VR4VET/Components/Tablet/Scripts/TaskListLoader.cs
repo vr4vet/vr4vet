@@ -3,9 +3,11 @@
  * Ask your questions on github: https://github.com/Jorest
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Tablet {
@@ -16,19 +18,30 @@ namespace Tablet {
         private List<Task.Skill> _skills = new List<Task.Skill>();
 
         //main pages
+        [Header("Main Page Canvas")]
         public GameObject tasksListCanvas;
         public GameObject subtaskPageCanvas;
         public GameObject TaskPageCanvas;
         public GameObject skillsListPageCanvas;
         public GameObject skillPageCanvas;
-        
-        
+
         //parents objects to load the buttons in
+        [Header("Content Spaces")]
         public GameObject taskContent;
         public GameObject TaskSubtaskContent;
 
+        [Header("Aditional Events")]
+        [SerializeField] private UnityEvent _skillPageOpen;
+        [SerializeField] private UnityEvent _tasksListOpen;
+        [SerializeField] private UnityEvent _taskPageOpen;
+        [SerializeField] private UnityEvent _subtaskPageOpen;
+
         void Start()
         {
+
+           
+
+
             //setting loading the scriptable objects 
             Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
             _tasks = th.GetTaskList();
@@ -37,12 +50,10 @@ namespace Tablet {
             //load info in the tablet
             LoadTaskPage();
             LoadSkillsPage();
-
-
         }
 
         public void LoadSkillsPage()
-        {   
+        {
 
             GameObject content = skillsListPageCanvas.transform.Find("TasksScrollListBG/ScrollListViewport/TaksContent").gameObject;
 
@@ -51,7 +62,7 @@ namespace Tablet {
             {
                 //task for the list
                 GameObject item = Instantiate((GameObject)Resources.Load("UI/SkillItem"), Vector3.zero, Quaternion.identity);
-                
+
                 item.transform.SetParent(content.transform);
                 item.transform.localPosition = Vector3.zero;
                 item.transform.localScale = Vector3.one;
@@ -68,6 +79,8 @@ namespace Tablet {
 
         public void SkillPageLoader(Task.Skill skill)
         {
+            if (_skillPageOpen!= null) _skillPageOpen.Invoke();
+            
             //hide previos pagee
             skillsListPageCanvas.SetActive(false);
             skillPageCanvas.SetActive(true);
@@ -78,7 +91,7 @@ namespace Tablet {
             name.GetComponent<Text>().text = skill.Name;
             descrption.GetComponent<Text>().text = skill.Description;
 
-
+            
             //cleaning list before loading the new subtasks
             foreach (Transform child in content.transform)
             {
@@ -108,6 +121,9 @@ namespace Tablet {
         //gets called on Start since the list of task is always the same
         public void LoadTaskPage()
         {
+            if (_tasksListOpen != null) _tasksListOpen.Invoke();
+
+
             Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
             _tasks = th.GetTaskList();
 
@@ -132,6 +148,9 @@ namespace Tablet {
 
         public void TaskPageLoader(Task.BTask task)
         {
+
+            if (_taskPageOpen != null) _taskPageOpen.Invoke();
+
             //hide previos pagee
             tasksListCanvas.SetActive(false);
             GameObject name = TaskPageCanvas.transform.Find("ListView/Labels/TaskNameLabel").gameObject;
@@ -158,10 +177,10 @@ namespace Tablet {
 
                 Text caption = item.GetComponentInChildren<Text>(true);
                 GameObject points = item.transform.Find("PointText").gameObject;
-                points.GetComponent<Text>().text =sub.Points + "/" + sub.StepsReps ; 
+                points.GetComponent<Text>().text = sub.Points + "/" + sub.StepsReps;
                 caption.text = sub.SubtaskName;
 
-                Button button = item.transform.Find("Button").GetComponent<Button>();                              
+                Button button = item.transform.Find("Button").GetComponent<Button>();
                 button.onClick.AddListener(() => SubTaskPageLoader(sub));
             }
 
@@ -170,6 +189,10 @@ namespace Tablet {
 
         public void SubTaskPageLoader(Task.Subtask subtask)
         {
+
+            if (_subtaskPageOpen != null) _subtaskPageOpen.Invoke();
+
+
             //hide previos pagee
             TaskPageCanvas.SetActive(false);
             subtaskPageCanvas.SetActive(true);
@@ -206,6 +229,11 @@ namespace Tablet {
 
         }
 
+        public string TabletPressed(string som)
+        {
+            return som;
+        }
+        
 
     }
 }
