@@ -3,7 +3,6 @@
  * Ask your questions on github: https://github.com/Jorest
  */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +35,7 @@ namespace Tablet {
         [SerializeField] private UnityEvent _taskPageOpen;
         [SerializeField] private UnityEvent _subtaskPageOpen;
 
+        
         void Start()
         {
 
