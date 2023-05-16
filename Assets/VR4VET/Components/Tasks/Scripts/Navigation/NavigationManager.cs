@@ -1,5 +1,4 @@
-﻿/* Copyright (C) 2020 IMTEL NTNU - All Rights Reserved
- * Developer: Abbas Jafari
+﻿/* Developer: Abbas Jafari
  * Ask your questions by email: a85jafari@gmail.com
  */
 
@@ -20,15 +19,17 @@ namespace Task
         [HideInInspector] private Button activeButton;
         [HideInInspector] public GameObject target = null;
 
-
         [Header("GameObjects")]
         public GameObject player;
+
         [Space(4)]
         public GameObject Arrow;
-   //     public GameObject TaskListContentView;
+
+        //     public GameObject TaskListContentView;
 
         [Header("Sounds")]
         public AudioClip activated;
+
         public AudioClip deactivated;
         public AudioClip prerequisites;
 
@@ -36,18 +37,16 @@ namespace Task
         [Range(0f, 1f)]
         public float navArrowSpeed = 0.7f;
 
-
-        Vector3 curPos;
-        Vector3 lastPos;
+        private Vector3 curPos;
+        private Vector3 lastPos;
 
         private GameObject newArrow;
 
-        bool TaskIsActive;
+        private bool TaskIsActive;
 
-        List<GameObject> CurrentArrows = new List<GameObject>();
+        private List<GameObject> CurrentArrows = new List<GameObject>();
 
-
-        void Start()
+        private void Start()
         {
             if (navigationManager == null)
                 navigationManager = this;
@@ -59,26 +58,26 @@ namespace Task
             {
                 player = GameObject.FindGameObjectWithTag("Player");
                 if (!player)
-                    {
-                        Debug.LogError("Assign the player under NavigationManager or with Player tag, " +
-                            "otherwise navigation system will not working");
-                    }else
-                    {
-                        createNavigation();
-                    }
-
+                {
+                    Debug.LogError("Assign the player under NavigationManager or with Player tag, " +
+                        "otherwise navigation system will not working");
+                }
+                else
+                {
+                    createNavigation();
+                }
             }
         }
 
         /// <summary>
         /// Start createing the navigation and the arrows
         /// </summary>
-        void createNavigation()
+        private void createNavigation()
         {
             if (target && target.activeInHierarchy)
             {
                 //modified the script so it won't foolow the Y axis
-                newArrow = Instantiate(Arrow, new Vector3 (player.transform.position.x, 0, player.transform.position.z) , player.transform.rotation);
+                newArrow = Instantiate(Arrow, new Vector3(player.transform.position.x, 0, player.transform.position.z), player.transform.rotation);
                 if (newArrow.GetComponent<NavMeshAgent>().velocity != Vector3.zero)
                     newArrow.transform.rotation = Quaternion.LookRotation(newArrow.GetComponent<NavMeshAgent>().velocity, Vector3.up);
                 CurrentArrows.Add(newArrow);
@@ -86,7 +85,6 @@ namespace Task
 
             Invoke("createNavigation", 1 - navArrowSpeed);
         }
-
 
         private void LateUpdate()
         {
@@ -104,27 +102,24 @@ namespace Task
                 CurrentArrows.Clear();
             }
             lastPos = curPos;
-
         }
-
-
 
         /// <summary>
         /// Set a new target for navigation system
         /// </summary>
         /// <param name="thisOppgave"></param>
         /// <param name="button"></param>
-        public void SetTarget(BTask thisOppgave)
+        public void SetTarget(Task thisOppgave)
         {
-           
             //task is allready done
-            if (thisOppgave.IsTaskCompeleted())
+            if (thisOppgave.Compleated)
             {
                 //taskState.PlayAudio(TaskIsDoneAllredy);
                 target = null;
                 ResetNavigation();
                 return;
-            }else
+            }
+            else
             {
                 PlayAudio(prerequisites);
                 ResetNavigation();
@@ -136,10 +131,8 @@ namespace Task
             //if task need to active pathfinding
             if (thisOppgave.target && thisOppgave.target.activeInHierarchy)
             {
-                
-
                 /*if the button is not assigned and you set the target with code,
-                 just set null for last parameter in SetTarget method. a fake button will 
+                 just set null for last parameter in SetTarget method. a fake button will
                  prevent nullreference error*/
                 if (!activeButton)
                 {
@@ -148,7 +141,7 @@ namespace Task
                 }
 
                 //if task is not don yet
-                if (!thisOppgave.IsTaskCompeleted())
+                if (!thisOppgave.Compleated)
                 {
                     //deactive
                     if (TaskIsActive)
@@ -179,7 +172,6 @@ namespace Task
                         //should be after ResetNavigation()
                         activeButton.GetComponent<Image>().color = Color.yellow;
                     }
-
                 }
             }
             else
@@ -188,10 +180,7 @@ namespace Task
                 ResetNavigation();
                 return;
             }
-
         }
-
-
 
         /// <summary>
         /// REmove all arrows that are created
@@ -202,7 +191,6 @@ namespace Task
             CurrentArrows.Remove(arrow);
         }
 
-
         /// <summary>
         /// Reset navigation system
         /// </summary>
@@ -211,20 +199,19 @@ namespace Task
             TaskIsActive = false;
 
             //reset all buttons color
-          /*(
-            foreach (Button btn in TaskListContentView.GetComponentsInChildren<Button>())
-            {
-                Color btnWhite = new Color(20,80,140,100);
-                btn.GetComponent<Image>().color = btnWhite;
-            }
-          */
+            /*(
+              foreach (Button btn in TaskListContentView.GetComponentsInChildren<Button>())
+              {
+                  Color btnWhite = new Color(20,80,140,100);
+                  btn.GetComponent<Image>().color = btnWhite;
+              }
+            */
             foreach (GameObject arrow in CurrentArrows)
                 Destroy(arrow);
 
             //clear the list of all arrows
             CurrentArrows.Clear();
         }
-
 
         /// <summary>
         /// Play a sound clip
@@ -243,7 +230,6 @@ namespace Task
             //otherwise create audiosource
             AudioSource newAudioSource = gameObject.AddComponent<AudioSource>();
             newAudioSource.PlayOneShot(clipp);
-
         }
     }
 }

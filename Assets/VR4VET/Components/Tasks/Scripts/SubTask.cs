@@ -1,5 +1,4 @@
-/*
- * Developer: Jorge Garcia
+/* Developer: Jorge Garcia
  * Ask your questions on github: https://github.com/Jorest
  */
 
@@ -8,83 +7,91 @@ using UnityEngine;
 
 namespace Task
 {
-
     [CreateAssetMenu(fileName = "New Subtask", menuName = "Tasks/Subtask")]
     public class Subtask : ScriptableObject
     {
         [Header("General information")]
         [SerializeField] private string _subtaskName;
-        [Tooltip("Description of this SubTask"), TextArea(5, 20)]
 
+        [Tooltip("Description of this SubTask"), TextArea(5, 20)]
         [SerializeField] private string _description;
 
+        //Randomizer needs to better define
 
-        [Header("Repetions")]
-        [Tooltip("Select Same value for no randomization")]
-        [SerializeField] private int _repetitionMin = 1;
-        [SerializeField] private int _repetitionMax = 1;
-        [Tooltip("0 means no timer")]
-        [SerializeField] private float _timerSecods = 0.0f;
-
+        private int _repetitionMin = 1;
+        private int _repetitionMax = 1;
         private int _repetitions = 1;
 
+        //timers functions need to be better define
+        private float _timerSecods = 0.0f;
+
+        [Header("Steps")]
+        [SerializeField]
+        [Tooltip("Mark Subtask as compleate if all step's repetions are compleated")]
+        private bool _autocompleate = false;
 
         [SerializeField] private List<Step> _stepList = new List<Step>();
-        [SerializeField] private List<Skill> _relatedSkills = new List<Skill>();
 
-        private int _stepsreps = 0;
-        private int _points=0;
+        private List<Skill> _relatedSkills = new List<Skill>();
+        private int _points = 0;
+        private bool _compleated = false;
+
+        //for navigation system
         private Transform _taskPosition;
-        private int _repetionsCompleated = 0;
-
-
-        [Header("Navigation")]
-        [HideInInspector]
-        public Subtask prerequisite;
 
         public string Description { get => _description; set => _description = value; }
-        public int StepsReps { get => _stepsreps; set => _stepsreps = value; }
         public List<Step> StepList { get => _stepList; set => _stepList = value; }
         public string SubtaskName { get => _subtaskName; set => _subtaskName = value; }
         public int Points { get => _points; set => _points = value; }
+
+        public bool Compleated()
+        {
+            if (_autocompleate)
+            {
+                foreach (Step step in StepList)
+                {
+                    if (step.IsCompeleted())
+                    {
+                        _compleated = false;
+                        break;
+                    }
+                }
+            }
+            return _compleated;
+        }
+
+        public void SetCompleated(bool isCompleated)
+        {
+            _compleated = isCompleated;
+        }
+
+        public float GeneralPercent()
+        {
+            float percent = 0;
+            foreach (Step step in StepList)
+            {
+                percent += step.CompleatedPercent();
+            }
+            return percent / StepList.Count;
+        }
 
         public void AddPoints(int value)
         {
             _points += value;
         }
 
-
         public Step GetStep(string stepname)
         {
             Step returnStep = null;
-            foreach ( Step step in _stepList)
+            foreach (Step step in _stepList)
             {
-                if (step.StepName== stepname)
+                if (step.StepName == stepname)
                 {
                     return step;
                 }
             }
             return returnStep;
         }
-
-        public void addSubToSkill()
-        {
-            foreach (Skill skill in _relatedSkills)
-            {
-                skill.AddSubtask(this);
-            }
-        }
-
-        //update the value of max ammount of points from the steps
-        public void UpdateStepsReps()
-        {
-            _stepsreps = 0;
-            foreach (Step step in _stepList)
-            {
-                _stepsreps += step.RepetionNumber;
-            }
-        }
-
 
         public void RandomizeReps()
         {
@@ -93,28 +100,6 @@ namespace Task
                 _repetitions = (Random.Range(_repetitionMin, _repetitionMax));
             }
             else _repetitions = _repetitionMax;
-                
         }
-
-
-        public bool IsCompeleted()
-        {
-            return (_repetionsCompleated >= _repetitions);
-
-        }
-
-        public void CompleateSubTask()
-        {
-            if (_repetionsCompleated < _repetitions)
-            {
-                _repetionsCompleated++;
-            }
-            else
-            {
-                Debug.Log("all " + _subtaskName + " already compleated");
-            }
-        }
-
-
     }
 }

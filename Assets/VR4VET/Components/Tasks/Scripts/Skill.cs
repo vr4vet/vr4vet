@@ -1,96 +1,47 @@
-﻿/* Copyright (C) 2020 IMTEL NTNU - All Rights Reserved
- * Developer: Abbas Jafari
+﻿/* Developer: Abbas Jafari
  * Ask your questions by email: a85jafari@gmail.com
  */
 
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Task
 {
-    
     [CreateAssetMenu(fileName = "New Skill", menuName = "Tasks/Skill")]
     public class Skill : ScriptableObject
     {
         private int _totalPoints;
         private int achievedPoints;
         [SerializeField] private string _name;
+
         [Tooltip("Description of this skill"), TextArea(5, 20)]
         [SerializeField] private string _description;
-        private List<Subtask> _subtasks = new List<Subtask>();
-        private Dictionary<Step, int> ferdighetAktiviteter = new Dictionary<Step, int>();
+
+        [SerializeField] private List<Subtask> _subtasks = new List<Subtask>();
+        public Dictionary<Subtask, int> _pointsPerSubtask = new Dictionary<Subtask, int>();
 
         public string Name { get => _name; set => _name = value; }
         public string Description { get => _description; set => _description = value; }
         public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
         public int TotalPoints { get => _totalPoints; set => _totalPoints = value; }
+        public int AchievedPoints { get => achievedPoints; set => achievedPoints = value; }
 
-        public void AddSubtask(Subtask sub)
+        public void Awake()
         {
-             if (! _subtasks.Contains(sub))
+            foreach (Subtask sub in _subtasks)
             {
-                _subtasks.Add(sub);
+                _pointsPerSubtask.Add(sub, 0);
             }
         }
 
-
-   
-  
-     
-
-
-        /// Get the poeng that the player has gotten from this ferdighet
-   
-        public int GetAchievedPoeng()
+        private int GetArchivedPoints()
         {
             achievedPoints = 0;
-            foreach (KeyValuePair<Step, int> aktivitet in ferdighetAktiviteter)
+            foreach (KeyValuePair<Subtask, int> dic in _pointsPerSubtask)
             {
-                achievedPoints += aktivitet.Value;
+                achievedPoints += dic.Value;
             }
             return achievedPoints;
         }
-
-
-     
-        /// set the poeng to this ferdighet
- 
-        public void SetAchievedPoeng(int value)
-        {
-            achievedPoints = value;
-        }
-
-
-        
-        /// Change the description of this ferdighet. can be used for feedback
-       
-        public void SetFerdighetBeskrivelse(string value)
-        {
-            _description = value;
-        }
-        
-
-      
-        ///Get the ferdighet description 
-        
-        public string GetFerdighetBeskrivelse()
-        {
-            return _description;
-        }
-
-
-        /// Add more poneg to this ferdighet
-    
-
-
-        public void AddArchivedPoints(int value)
-        {
-            if (achievedPoints + value < _totalPoints)
-                achievedPoints += value;
-            else
-                achievedPoints = _totalPoints;
-        }
-
     }
 }

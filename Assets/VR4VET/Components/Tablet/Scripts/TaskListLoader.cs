@@ -3,22 +3,22 @@
  * Ask your questions on github: https://github.com/Jorest
  */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Tablet {
+namespace Tablet
+{
     public class TaskListLoader : MonoBehaviour
     {
-
-        private List<Task.BTask> _tasks = new List<Task.BTask>();
+        private List<Task.Task> _tasks = new List<Task.Task>();
         private List<Task.Skill> _skills = new List<Task.Skill>();
 
         //main pages
         [Header("Main Page Canvas")]
         public GameObject tasksListCanvas;
+
         public GameObject subtaskPageCanvas;
         public GameObject TaskPageCanvas;
         public GameObject skillsListPageCanvas;
@@ -27,25 +27,22 @@ namespace Tablet {
         //parents objects to load the buttons in
         [Header("Content Spaces")]
         public GameObject taskContent;
+
         public GameObject TaskSubtaskContent;
 
         [Header("Aditional Events")]
         [SerializeField] private UnityEvent _skillPageOpen;
+
         [SerializeField] private UnityEvent _tasksListOpen;
         [SerializeField] private UnityEvent _taskPageOpen;
         [SerializeField] private UnityEvent _subtaskPageOpen;
 
-        
-        void Start()
+        private void Start()
         {
-
-           
-
-
-            //setting loading the scriptable objects 
+            //setting loading the scriptable objects
             Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
-            _tasks = th.GetTaskList();
-            _skills = th.getSkillList();
+            _tasks = th.taskList;
+            _skills = th.skillList;
 
             //load info in the tablet
             LoadTaskPage();
@@ -54,7 +51,6 @@ namespace Tablet {
 
         public void LoadSkillsPage()
         {
-
             GameObject content = skillsListPageCanvas.transform.Find("TasksScrollListBG/ScrollListViewport/TaksContent").gameObject;
 
             //loads each task on the parent object
@@ -76,11 +72,10 @@ namespace Tablet {
             }
         }
 
-
         public void SkillPageLoader(Task.Skill skill)
         {
-            if (_skillPageOpen!= null) _skillPageOpen.Invoke();
-            
+            if (_skillPageOpen != null) _skillPageOpen.Invoke();
+
             //hide previos pagee
             skillsListPageCanvas.SetActive(false);
             skillPageCanvas.SetActive(true);
@@ -91,13 +86,11 @@ namespace Tablet {
             name.GetComponent<Text>().text = skill.Name;
             descrption.GetComponent<Text>().text = skill.Description;
 
-            
             //cleaning list before loading the new subtasks
             foreach (Transform child in content.transform)
             {
                 GameObject.Destroy(child.gameObject);
             }
-
 
             foreach (Task.Subtask sub in skill.Subtasks)
             {
@@ -110,25 +103,20 @@ namespace Tablet {
                 Text caption = item.transform.Find("Text").gameObject.GetComponent<Text>();
                 Text reps = item.transform.Find("RepText").gameObject.GetComponent<Text>();
                 caption.text = sub.SubtaskName;
-                reps.text = sub.Points + "/" + sub.StepsReps;
-
+                reps.text = skill._pointsPerSubtask[sub] + "100";
             }
-
-
         }
-
 
         //gets called on Start since the list of task is always the same
         public void LoadTaskPage()
         {
             if (_tasksListOpen != null) _tasksListOpen.Invoke();
 
-
             Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
-            _tasks = th.GetTaskList();
+            _tasks = th.taskList;
 
             //loads each task on the parent object
-            foreach (Task.BTask task in _tasks)
+            foreach (Task.Task task in _tasks)
             {
                 //task for the list
                 GameObject item = Instantiate((GameObject)Resources.Load("UI/TaskItem"), Vector3.zero, Quaternion.identity);
@@ -146,9 +134,8 @@ namespace Tablet {
             }
         }
 
-        public void TaskPageLoader(Task.BTask task)
+        public void TaskPageLoader(Task.Task task)
         {
-
             if (_taskPageOpen != null) _taskPageOpen.Invoke();
 
             //hide previos pagee
@@ -158,13 +145,11 @@ namespace Tablet {
             name.GetComponent<Text>().text = task.TaskName;
             descrption.GetComponent<Text>().text = task.Description;
 
-
             //cleaning list before loading the new subtasks
             foreach (Transform child in TaskSubtaskContent.transform)
             {
                 GameObject.Destroy(child.gameObject);
             }
-
 
             foreach (Task.Subtask sub in task.Subtasks)
             {
@@ -177,21 +162,17 @@ namespace Tablet {
 
                 Text caption = item.GetComponentInChildren<Text>(true);
                 GameObject points = item.transform.Find("PointText").gameObject;
-                points.GetComponent<Text>().text = sub.Points + "/" + sub.StepsReps;
+                points.GetComponent<Text>().text = sub.GeneralPercent() + "/100";
                 caption.text = sub.SubtaskName;
 
                 Button button = item.transform.Find("Button").GetComponent<Button>();
                 button.onClick.AddListener(() => SubTaskPageLoader(sub));
             }
-
         }
-
 
         public void SubTaskPageLoader(Task.Subtask subtask)
         {
-
             if (_subtaskPageOpen != null) _subtaskPageOpen.Invoke();
-
 
             //hide previos pagee
             TaskPageCanvas.SetActive(false);
@@ -203,13 +184,11 @@ namespace Tablet {
             name.GetComponent<Text>().text = subtask.SubtaskName;
             descrption.GetComponent<Text>().text = subtask.Description;
 
-
             //cleaning list before loading the new subtasks
             foreach (Transform child in content.transform)
             {
                 GameObject.Destroy(child.gameObject);
             }
-
 
             foreach (Task.Step step in subtask.StepList)
             {
@@ -223,17 +202,12 @@ namespace Tablet {
                 Text reps = item.transform.Find("RepText").gameObject.GetComponent<Text>();
                 caption.text = step.StepName;
                 reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
-
             }
-
-
         }
 
         public string TabletPressed(string som)
         {
             return som;
         }
-        
-
     }
 }
