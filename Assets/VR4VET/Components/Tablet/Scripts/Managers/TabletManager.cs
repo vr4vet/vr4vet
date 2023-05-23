@@ -15,7 +15,8 @@ namespace Tablet
     {
         private TabletPosition tabletPos;
 
-
+        public SkillManager _skillManager;
+        public TaskManager _taskmanager;
 
 
         [Header("strings")]
@@ -88,7 +89,11 @@ namespace Tablet
         /// Open the tablet
         /// </summary>
         /// <param name="status"></param>
-    
+        public void OpenTablet(bool status)
+        {
+          //  tabletPos.SelectTablet(status);
+            tabletPos.ToggleTablet();
+        }
 
         /// <summary>
         /// Deactive all canvases
@@ -117,7 +122,17 @@ namespace Tablet
         /// <summary>
         /// This method vil close the tablet
         /// </summary>
-   
+        public void CloseTablet()
+        {
+            ShowCanvas(mainPageCanvas);
+            _taskmanager.DestroyAktiviterList();
+            _skillManager.DestroyTheFerdigheterList();
+            _skillManager.DestroyTheOppgaveInFerdighetList();
+            OpenTablet(false);
+
+        }
+
+
 
         /// <summary>
         /// this methid is only for testing and uses in  the test scene

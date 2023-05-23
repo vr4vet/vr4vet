@@ -46,7 +46,8 @@ public class TabletPosition : MonoBehaviour
     //Sets active all the objects in the tablet
     //No change of position since is assumed that is a child of one of the hands
     public void ToggleTablet()
-    {        
+    {
+        
         _tabletIsOpened = !_tabletIsOpened;
         foreach (Transform child in GetComponentInChildren<Transform>())
         {
@@ -54,6 +55,7 @@ public class TabletPosition : MonoBehaviour
             {
                 child.gameObject.SetActive(_tabletIsOpened);
             }
+
         }
     }
 

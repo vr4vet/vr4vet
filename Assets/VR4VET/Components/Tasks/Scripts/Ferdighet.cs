@@ -12,14 +12,12 @@ namespace Tablet
     /// <summary>
     /// ferdighet object
     /// </summary>
-    [CreateAssetMenu(fileName = "New Skill", menuName = "Tasks/Skill")]
-    public class Skill : ScriptableObject
+    public class Ferdighet : MonoBehaviour
     {
-        public int totalPoints;
-        private int achievedPoints;
-        public string skillName;
-        [Tooltip("Description of this skill"), TextArea(5, 20)]
-        public string skillDescription;
+        private int totalPoeng;
+        private int achievedPoeng;
+        private string ferdighetName;
+        private string ferdighetBeskrivelse;
 
         //hvor mye til hver aktivitet har gitt denne ferdighet (aktivitet,poeng)
         private Dictionary<Activity, int> ferdighetAktiviteter = new Dictionary<Activity, int>();
@@ -44,9 +42,9 @@ namespace Tablet
         {
             if (!ferdighetAktiviteter.Keys.Contains(aktivitet))
             {
-                if (achievedPoints + value < totalPoints)
+                if (achievedPoeng + value < totalPoeng)
                 {
-                    ferdighetAktiviteter.Add(aktivitet, achievedPoints + value);
+                    ferdighetAktiviteter.Add(aktivitet, achievedPoeng + value);
                 }
                 else
                 {
@@ -62,7 +60,7 @@ namespace Tablet
         /// <returns></returns>
         public string GetFerdighetName()
         {
-            return skillName;
+            return ferdighetName;
         }
 
 
@@ -72,16 +70,16 @@ namespace Tablet
         /// <param name="value"></param>
         public void SetFerdighetName(string value)
         {
-            skillName = value;
+            ferdighetName = value;
         }
 
         /// <summary>
-        /// Get the total poeng that this ferdighet has gotten by all activities
+        /// Get the total poeng that this ferdighet has gotten by all aktiviteter
         /// </summary>
         /// <returns></returns>
         public int GetTotalPoeng()
         {
-            return totalPoints;
+            return totalPoeng;
         }
 
 
@@ -91,7 +89,7 @@ namespace Tablet
         /// <param name="value"></param>
         public void SetTotalPoeng(int value)
         {
-            totalPoints = value;
+            totalPoeng = value;
         }
 
 
@@ -101,12 +99,12 @@ namespace Tablet
         /// <returns></returns>
         public int GetAchievedPoeng()
         {
-            achievedPoints = 0;
+            achievedPoeng = 0;
             foreach (KeyValuePair<Activity, int> aktivitet in ferdighetAktiviteter)
             {
-                achievedPoints += aktivitet.Value;
+                achievedPoeng += aktivitet.Value;
             }
-            return achievedPoints;
+            return achievedPoeng;
         }
 
 
@@ -116,27 +114,27 @@ namespace Tablet
         /// <param name="value"></param>
         public void SetAchievedPoeng(int value)
         {
-            achievedPoints = value;
+            achievedPoeng = value;
         }
 
 
         /// <summary>
-        /// Change the description of this ferdighet. can be used for feedback
+        /// Change the beskrivelse of this ferdighet. can be used for feedback
         /// </summary>
         /// <param name="value"></param>
         public void SetFerdighetBeskrivelse(string value)
         {
-            skillDescription = value;
+            ferdighetBeskrivelse = value;
         }
         
 
         /// <summary>
-        ///Get the ferdighet description 
+        ///Get the ferdighet beskrivelse 
         /// </summary>
         /// <returns></returns>
         public string GetFerdighetBeskrivelse()
         {
-            return skillDescription;
+            return ferdighetBeskrivelse;
         }
 
 
@@ -146,10 +144,10 @@ namespace Tablet
         /// <param name="value"></param>
         public void AddAchievedPoeng(int value)
         {
-            if (achievedPoints + value < totalPoints)
-                achievedPoints += value;
+            if (achievedPoeng + value < totalPoeng)
+                achievedPoeng += value;
             else
-                achievedPoints = totalPoints;
+                achievedPoeng = totalPoeng;
         }
 
     }
