@@ -427,6 +427,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4951666920832616542, guid: 0f2bcfe3b2900db469a02abdad5e5fc7,
+        type: 3}
+      propertyPath: HidePointerIfNoObjectsFound
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7028846462367453588, guid: 0f2bcfe3b2900db469a02abdad5e5fc7,
         type: 3}
       propertyPath: m_Name
@@ -1343,6 +1348,14 @@ PrefabInstance:
       propertyPath: _wallsMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 9a09a2a02c52428479ff7bd35c15ab85, type: 2}
+    - target: {fileID: 68791125, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
+      propertyPath: connecterCanvas
+      value: 
+      objectReference: {fileID: 1734986591}
+    - target: {fileID: 68791125, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
+      propertyPath: stateSaverComponent
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 302857831, guid: bcd73c4201a58384d84d73ed781cf7d1, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1624,7 +1637,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1703044886}
   - component: {fileID: 1703044885}
-  - component: {fileID: 1703044884}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1632,33 +1644,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1703044884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703044883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab68ce6587aab0146b8dabefbd806791, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ClickSpeed: 0.3
-  m_MoveDeadzone: 0.6
-  m_RepeatDelay: 0.5
-  m_RepeatRate: 0.1
-  m_TrackedDeviceDragThresholdMultiplier: 1.4
-  m_MaxTrackedDeviceRaycastDistance: 1000
-  m_EnableXRInput: 1
-  m_EnableMouseInput: 1
-  m_EnableTouchInput: 1
-  m_EnableGamepadInput: 1
-  m_EnableJoystickInput: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
 --- !u!114 &1703044885
 MonoBehaviour:
   m_ObjectHideFlags: 0
