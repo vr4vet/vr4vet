@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+
+[System.Serializable]
+public class DefaultRoom
+{
+    public string Name;
+    public int sceneIndex;
+    public int maxPlayer;
+}
+
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public List<DefaultRoom> defaultRooms;
+    public GameObject roomUI;
 
     // Update is called once per frame
     public void ConnectToServer()
@@ -20,19 +31,25 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
 
-    public override void onJoinedLobby()
+    public override void OnJoinedLobby()
     {
-        base.onJoinedLobby();
+        base.OnJoinedLobby();
         Debug.Log("Joined Lobby");
+        roomUI.SetActive(true);
     }
 
-    public void initializeRoom()
+    public void initializeRoom(int defaultRoomIndex)
     {
+        DefaultRoom roomSettings = defaultRooms[defaultRoomIndex];
+        // Load scene
+        PhotonNetwork.LoadLevel(roomSettings.sceneIndex);
+
+        // Create room
         RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 4;
+        roomOptions.MaxPlayers = (byte) roomSettings.maxPlayer;
         roomOptions.IsVisible = true;
         roomOptions.IsOpen = true;
-        PhotonNetwork.JoinOrCreateRoom("Room 1", roomOptions, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(roomSettings.Name, roomOptions, TypedLobby.Default);
     }
 
     public override void OnJoinedRoom()

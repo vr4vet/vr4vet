@@ -20,6 +20,7 @@ public class NewMenuManger : MonoBehaviour
     [SerializeField] private LayerMask _menuLayers;  //layers mask to put on top when the game is paused
     [SerializeField] private Material _wallsMaterial;
     [SerializeField] private bool _holdToOpen;
+    [SerializeField] public GameObject connecterCanvas;
 
 
     // Defined in Unity, refers to image used in loading animation.
@@ -71,7 +72,7 @@ public class NewMenuManger : MonoBehaviour
         RenderSettings.skybox = PauseSkyboxMat;
         _cam.cullingMask = _menuLayers; //show only the chosen menu layers
         _menuCanvas.SetActive(true);
-     
+        connecterCanvas.SetActive(false);
 
     }
 
@@ -84,13 +85,13 @@ public class NewMenuManger : MonoBehaviour
         RenderSettings.skybox = SkyboxMat ;
         _cam.cullingMask = -1; // -1 = "Everything"
         _menuCanvas.SetActive(false);
-
+        connecterCanvas.SetActive(true);
 
 
     }
 
 
-  
+
 
     public void Restart()
     {
