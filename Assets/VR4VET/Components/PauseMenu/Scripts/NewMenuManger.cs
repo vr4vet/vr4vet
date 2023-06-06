@@ -27,7 +27,7 @@ public class NewMenuManger : MonoBehaviour
 
     private Camera _cam;
     [SerializeField] private GameObject _menuCanvas;
-    public GameObject stateSaverComponent;
+    // public GameObject stateSaverComponent;
 
     private GameObject _savedStates;
     private bool _menuOpen = false;
@@ -130,7 +130,7 @@ public class NewMenuManger : MonoBehaviour
 
     public void ExitGame()
     {
-        stateSaverComponent.GetComponent<stateSaver>().saveObjects();
+        // stateSaverComponent.GetComponent<stateSaver>().saveObjects();
         Application.Quit();
     }
 

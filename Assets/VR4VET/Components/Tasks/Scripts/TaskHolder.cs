@@ -1,63 +1,116 @@
-/* Developer: Jorge Garcia
- * Ask your questions on github: https://github.com/Jorest
+/* Copyright (C) 2023 IMTEL NTNU - All Rights Reserved
+ * Developer: Jorge Garcia
+ * Ask your questions by email: jorgeega@ntnu.no
  */
 
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Task
+
+
+namespace Tablet
 {
     public class TaskHolder : MonoBehaviour
     {
-        public static TaskHolder Instance;
-        private List<TaskxTarget> _taskAndTargerts = new List<TaskxTarget>();
+        [SerializeField]
+        public List<TaskxTarget> _taskAndTargerts = new List<TaskxTarget>();
 
-        [Header("Profession Tasks")]
-        [SerializeField] public List<Skill> skillList = new List<Skill>();
+        [SerializeField]
+        private List<Skill> _skillList = new List<Skill>();
 
-        [SerializeField] public List<Task> taskList = new List<Task>();
+        private List<Task> _tasks = new List<Task>();
 
-        //making the task holder a singleton
-        private void Awake()
+        void Start()
         {
-            if (Instance == null)
+            //asing the target value to each task ( the targets exist only on the scene 
+            //when no target is elected the value is just None
+            foreach (TaskxTarget convo in _taskAndTargerts)
             {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
+
+                convo.task.taskTarget = convo.target;
+                _tasks.Add(convo.task);
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+
+
+
         }
 
-        public void CompleateSubtask(string taskName, string SubtaskName, bool compleateStepReps)
+        public List<Skill> getSkillList()
         {
-            foreach (Task task in taskList)
+            List<Skill> returnskills = new List<Skill>();
+            foreach (Skill skill in _skillList)
             {
-                if (task.TaskName == taskName)
+
+                returnskills.Add(skill);
+            }
+
+            return returnskills;
+        }
+
+
+        public List<Task> GetTaskList()
+        {
+            List<Task> returntasks = new List<Task>();
+            foreach (TaskxTarget convo in _taskAndTargerts)
+            {
+
+                returntasks.Add(convo.task);
+            }
+
+            return returntasks;
+        }
+
+
+
+        public void AddPoints(string activityName, string skillName, int points)
+        {
+
+
+            foreach (Skill ferdighet in _skillList)
+            {
+                foreach (Task task in _tasks)
                 {
-                    foreach (Subtask subtask in task.Subtasks)
+                    foreach (Activity aktivitet in task.GetAktivitetList())
                     {
-                        if (subtask.SubtaskName == SubtaskName)
+                        //add poeng to aktivitet
+                        if (aktivitet.GetAktivitetName() == activityName && ferdighet.GetFerdighetName() == skillName)
                         {
-                            foreach (Step step in subtask.StepList)
-                            {
-                                step.SetCompleated(true);
-                            }
-                            Debug.LogError("Step not found in Subtask");
+                            //add ferdighet to this aktivitet
+                            aktivitet.AddToAktivitetFerdigheter(ferdighet);
+
+                            //add poeng to aktivitet object
+                            aktivitet.AddToAchievedPoeng(points);
+
+                            //mark this aktivitet as compeleted
+                            aktivitet.AktivitetIsDone(true);
+
+                            //add the aktivitet to skills dic som holds aktiviteter that need this ferdighet and its poeng
+                            ferdighet.AddToFerdighetAktiviteter(aktivitet, points);
                         }
                     }
-                    Debug.LogError("Subtask not found in Tasks");
                 }
             }
+
         }
+
+
+     
+
     }
+
+
+
+
+
 
     [System.Serializable]
     public class TaskxTarget
     {
-        public Subtask subtask;
+        public Task task;
         public GameObject target;
+
     }
+
 }
