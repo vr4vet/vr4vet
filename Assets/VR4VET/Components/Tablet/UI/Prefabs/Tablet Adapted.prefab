@@ -3212,7 +3212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &491754325400953990
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7436,7 +7436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &491754326840790938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8650,8 +8650,9 @@ GameObject:
   - component: {fileID: 491754327088367305}
   - component: {fileID: 5811214697652651163}
   - component: {fileID: 7144340965128953268}
+  - component: {fileID: 7451681280845059624}
   m_Layer: 5
-  m_Name: Tablet
+  m_Name: Tablet Adapted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8806,6 +8807,41 @@ MonoBehaviour:
   subtaskPaginator: {fileID: 1733435092223986372}
   skillPaginator: {fileID: 7296831236538730347}
   stepPaginator: {fileID: 260644950026415545}
+--- !u!114 &7451681280845059624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491754327088367306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a02836d63e29a4bbfea92e349bc5b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tasksListCanvas: {fileID: 491754326897251116}
+  subtaskPageCanvas: {fileID: 5628201618756422614}
+  TaskPageCanvas: {fileID: 491754326840790939}
+  skillsListPageCanvas: {fileID: 491754326265212895}
+  skillPageCanvas: {fileID: 491754325540133839}
+  taskContent: {fileID: 4955804755525569958}
+  TaskSubtaskContent: {fileID: 2487562096523935385}
+  _skillEntryList: {fileID: 0}
+  _stepListEntry: {fileID: 0}
+  _subtaskListEntry: {fileID: 0}
+  _taskListEntry: {fileID: 0}
+  _skillPageOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  _tasksListOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  _taskPageOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  _subtaskPageOpen:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &516659314513682964
 GameObject:
   m_ObjectHideFlags: 0
@@ -10983,7 +11019,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1117767549354738624
@@ -13150,7 +13186,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2081227069185440455
@@ -17056,7 +17092,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3182264487264295128
@@ -30416,7 +30452,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7290472309057181965
@@ -31345,7 +31381,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7518181479825415562
@@ -37368,7 +37404,7 @@ PrefabInstance:
     - target: {fileID: 2827171410916124009, guid: 69ce13cca69927642a45bfb3fa2cea70,
         type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2827171411520846104, guid: 69ce13cca69927642a45bfb3fa2cea70,
         type: 3}
@@ -37846,7 +37882,7 @@ PrefabInstance:
     - target: {fileID: 2827171410916124009, guid: 69ce13cca69927642a45bfb3fa2cea70,
         type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2827171411520846104, guid: 69ce13cca69927642a45bfb3fa2cea70,
         type: 3}
@@ -38128,7 +38164,7 @@ PrefabInstance:
     - target: {fileID: 2827171410916124009, guid: 13940a2630ef5614aa5baaf806cb6587,
         type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2827171411520846104, guid: 13940a2630ef5614aa5baaf806cb6587,
         type: 3}
@@ -38280,7 +38316,7 @@ PrefabInstance:
     - target: {fileID: 2827171410916124009, guid: 69ce13cca69927642a45bfb3fa2cea70,
         type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2827171411520846104, guid: 69ce13cca69927642a45bfb3fa2cea70,
         type: 3}
@@ -39651,7 +39687,7 @@ PrefabInstance:
     - target: {fileID: 2827171410916124009, guid: 69ce13cca69927642a45bfb3fa2cea70,
         type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2827171411520846104, guid: 69ce13cca69927642a45bfb3fa2cea70,
         type: 3}
