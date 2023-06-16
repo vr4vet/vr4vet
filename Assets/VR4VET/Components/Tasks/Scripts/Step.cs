@@ -1,25 +1,18 @@
-﻿/*
- * Developer: Jorge Garcia
+﻿/* Developer: Jorge Garcia
  * Ask your questions on github: https://github.com/Jorest
  */
 
-
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Task
 {
-
     [System.Serializable]
-    public class Step 
+    public class Step
     {
+        [SerializeField] private string _stepName;
+        [SerializeField] [Range(1, 20)] private int _repetionNumber = 1;
 
-        [SerializeField]   private string _stepName;
-        [SerializeField]   [Range(1, 20)] private int _repetionNumber = 1;    
-
-        private bool _compleated=false;
+        private bool _compleated = false;
         private int _repetionsCompleated = 0;
 
         public int RepetionNumber { get => _repetionNumber; set => _repetionNumber = value; }
@@ -32,12 +25,11 @@ namespace Task
             {
                 _repetionsCompleated++;
             }
-
         }
 
-        public int CompleatedPercent()
+        public float CompleatedPercent()
         {
-            int porcent = _repetionsCompleated * 100 / _repetionNumber;
+            float porcent = _repetionsCompleated * 100 / _repetionNumber;
             return porcent;
         }
 
@@ -46,33 +38,34 @@ namespace Task
             _repetionsCompleated = _repetionNumber;
         }
 
-     
-
-
         public bool IsCompeleted()
         {
             if (_repetionNumber == _repetionsCompleated) _compleated = true;
             return _compleated;
         }
 
-     
         /// Mark this step as done
-       
+
         public void SetCompleated(bool value)
         {
             _compleated = value;
         }
 
-  
+        //overload to compleate reps
+        public void SetCompleated(bool value, bool compleateReps)
+        {
+            _compleated = value;
+            if (compleateReps)
+            {
+                RepetionsCompleated = RepetionNumber;
+            }
+        }
 
         /// Set the name of this aktivitet
-  
+
         public void SetAktivitetName(string value)
         {
             _stepName = value;
         }
-
-
-
     }
 }
