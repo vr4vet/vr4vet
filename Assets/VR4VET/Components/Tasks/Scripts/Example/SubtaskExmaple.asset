@@ -10,18 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 694b8dd6ca4134b4d82fc6b2dc8d2848, type: 3}
-  m_Name: AnakinSubtask
+  m_Name: SubtaskExmaple
   m_EditorClassIdentifier: 
-  _subtaskName: first subtask for anakin
-  _description: do the thing anaking
-  _repetitionMin: 1
-  _repetitionMax: 2
-  _timerSecods: 0
+  _subtaskName: example sub
+  _description: hello reader
+  _autocompleate: 0
   _stepList:
-  - _stepName: something
-    _repetionNumber: 1
-  - _stepName: otherthing
-    _repetionNumber: 6
-  _relatedSkills:
-  - {fileID: 11400000, guid: 89d8e1b0f5541964b852213c9b900c7e, type: 2}
-  prerequisite: {fileID: 0}
+  - _stepName: pet a dog
+    _repetionNumber: 2
+  - _stepName: pet a cat
+    _repetionNumber: 3
