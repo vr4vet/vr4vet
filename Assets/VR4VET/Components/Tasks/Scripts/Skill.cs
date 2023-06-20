@@ -34,6 +34,14 @@ namespace Task
             }
         }
 
+        void awake ()
+        {
+            foreach (Subtask sub in Subtasks)
+            {
+                sub.RelatedSkills.Add(this);
+            }
+        }
+
         private int GetArchivedPoints()
         {
             achievedPoints = 0;

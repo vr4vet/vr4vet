@@ -90,6 +90,12 @@ public class StaticPanelManager : MonoBehaviour
         Debug.LogWarning("TestFunction got run.");
     }
 
+
+    public void OnClickToAboutSkill()
+    {
+        SwitchMenuTo(SkillAboutMenu);
+    }
+
     public void OnClickBackToWorkplace()
     {
         SwitchMenuTo(MainMenu);
