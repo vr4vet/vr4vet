@@ -9,8 +9,8 @@ public class TaskUI : MonoBehaviour
 
     [SerializeField] Color completedColor;
     //ui counterpart for Task class
-    TaskData _task; //the task
-    public TaskData Task
+    Task.Task _task; //the task
+    public Task.Task Task
     {
         get
         {
@@ -24,11 +24,11 @@ public class TaskUI : MonoBehaviour
 
     List<SubTaskUI> _subtasks; //this is so we can check for completion and open these
 
-    public void InitializeInterface(TaskData t)
+    public void InitializeInterface(Task.Task t)
     {
         _task = t;
         Refresh();
-        Debug.Log("Initialized task " + t.Name);
+        Debug.Log("Initialized task " + t.TaskName);
 
     }
 
@@ -52,7 +52,7 @@ public class TaskUI : MonoBehaviour
 
     public void Refresh()
     {
-        ToggleCheck(_task.IsFulfilled());
+        ToggleCheck(_task.Compleated);
     }
 
 

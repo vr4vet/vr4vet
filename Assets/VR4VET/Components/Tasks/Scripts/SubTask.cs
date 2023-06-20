@@ -43,6 +43,7 @@ namespace Task
         public List<Step> StepList { get => _stepList; set => _stepList = value; }
         public string SubtaskName { get => _subtaskName; set => _subtaskName = value; }
         public int Points { get => _points; set => _points = value; }
+        public List<Skill> RelatedSkills { get => _relatedSkills; set => _relatedSkills = value; }
 
         public bool Compleated()
         {
