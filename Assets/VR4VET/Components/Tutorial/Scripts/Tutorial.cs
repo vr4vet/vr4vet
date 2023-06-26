@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEditor;
 
-public class Tutorial : MonoBehaviour, ITutorial
+public class Tutorial : MonoBehaviour
 {
-    public GameObject[] Items = Array.Empty<GameObject>();
-    public GameObject PopupHint;
-
+    public TutorialEntry[] Items = Array.Empty<TutorialEntry>();
     /// <summary>
     /// Gets an event which is fired when all the tutorial entires have been completed.
     /// </summary>
@@ -24,7 +23,7 @@ public class Tutorial : MonoBehaviour, ITutorial
     private bool dismissed;
 
     //Setting the necessary values and variables needed
-    public GameObject Current
+    public TutorialEntry Current
         => IndexOfCurrentItem >= 0 && IndexOfCurrentItem < Items.Length
         ? Items[IndexOfCurrentItem]
         : null;
@@ -39,7 +38,7 @@ public class Tutorial : MonoBehaviour, ITutorial
 
             if (Current != null)
             {
-                Current.SetActive(true);
+                Current.gameObject.SetActive(true);
             }
 
             indexOfCurrentItem = value;
@@ -95,11 +94,6 @@ public class Tutorial : MonoBehaviour, ITutorial
             if(entry != Current) entry.gameObject.SetActive(false);
             if(entry == Current) entry.gameObject.SetActive(true);
         }
-
-        if (IndexOfCurrentItem == Items.Length && Items.Length > 0)
-        {
-            OnCompleted.Invoke();
-        }
     }
 
     /// <summary>
@@ -120,11 +114,13 @@ public class Tutorial : MonoBehaviour, ITutorial
         {
             if(entry != Current) entry.gameObject.SetActive(false);
             if(entry == Current) entry.gameObject.SetActive(true);
+            if(entry.GetComponents<TutorialEntry>().Length<=0) ArrayUtility.Remove(ref Items, entry);
+            entry.Tutorial = this;
         }
 
     }   //For debugging purposes, proceeds to the next tutorial step when the spacebar is pressed
     private void Update(){
-        if (Input.GetKeyDown("space"))
+        if (Application.isEditor && Input.GetKeyDown("space"))
         {
             MoveNext();
         }

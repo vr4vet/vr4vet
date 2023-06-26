@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TutorialEntry : MonoBehaviour, ITutorial
+public class TutorialEntry : MonoBehaviour
 {
     internal Tutorial Tutorial { get; set; }
     public void SetCompleted()
