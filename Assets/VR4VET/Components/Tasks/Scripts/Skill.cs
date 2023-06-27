@@ -10,44 +10,43 @@ namespace Task
     [CreateAssetMenu(fileName = "New Skill", menuName = "Tasks/Skill")]
     public class Skill : ScriptableObject
     {
-        private int _totalPoints;
+        private int _maxPoints = 100;
         private int achievedPoints;
         [SerializeField] private string _name;
 
         [Tooltip("Description of this skill"), TextArea(5, 20)]
         [SerializeField] private string _description;
+        [ TextArea(5, 20)]
+        [SerializeField] private string _feedback;
 
+
+        [Header("Related Subtask")]
         [SerializeField] private List<Subtask> _subtasks = new List<Subtask>();
-        public Dictionary<Subtask, int> _pointsPerSubtask = new Dictionary<Subtask, int>();
+        //public Dictionary<Subtask, int> _pointsPerSubtask = new Dictionary<Subtask, int>();
 
         public string Name { get => _name; set => _name = value; }
         public string Description { get => _description; set => _description = value; }
         public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
-        public int TotalPoints { get => _totalPoints; set => _totalPoints = value; }
-        public int AchievedPoints { get => achievedPoints; set => achievedPoints = value; }
+        public int TotalPoints { get => _maxPoints; set => _maxPoints = value; }
+        public int MaxPoints { get => achievedPoints; set => achievedPoints = value; }
+        public string Feedback { get => _feedback; set => _feedback = value; }
 
-        public void Awake()
+        void Awake()
         {
             foreach (Subtask sub in _subtasks)
             {
-                _pointsPerSubtask.Add(sub, 0);
-            }
-        }
-
-        void awake ()
-        {
-            foreach (Subtask sub in Subtasks)
-            {
+             //   _pointsPerSubtask.Add(sub, 0);
                 sub.RelatedSkills.Add(this);
             }
         }
 
+
         private int GetArchivedPoints()
         {
             achievedPoints = 0;
-            foreach (KeyValuePair<Subtask, int> dic in _pointsPerSubtask)
+            foreach ( Subtask sub in _subtasks )
             {
-                achievedPoints += dic.Value;
+                achievedPoints += sub.Points;
             }
             return achievedPoints;
         }

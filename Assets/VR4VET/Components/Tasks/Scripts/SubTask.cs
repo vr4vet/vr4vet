@@ -80,7 +80,7 @@ namespace Task
         {
             _points += value;
         }
-
+        
         public Step GetStep(string stepname)
         {
             Step returnStep = null;
