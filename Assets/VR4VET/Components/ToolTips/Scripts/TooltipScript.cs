@@ -32,6 +32,9 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
     public StateOptions StartingState = StateOptions.Open;
 
     // Settings on how the tooltip should behave.
+    public bool RemoveHeader = false;
+    public bool Unclosable = false;
+    public bool Minimizable = true;
     public bool FacePlayer = true;
     public bool AlwaysAboveParent = true;
     public bool CloseWhenDistant = false;
@@ -97,7 +100,7 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
         }
 
         // Get the location of the players head, and use that for player location moving forward.
-        Player = Player.Find("HeadCollision");
+        Player = Player.Find("PlayerController/CameraRig/TrackingSpace/CenterEyeAnchor");
 
         // Initialize animator.
         _panel = transform.Find("Card");
@@ -110,6 +113,15 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
         if (StartingState == StateOptions.Closed)
         {
             Deactivate();
+        }
+        if(Unclosable)
+        {
+            _closeButton.gameObject.SetActive(false);
+        }
+        if(RemoveHeader)
+        {
+            _panel.Find("header").gameObject.SetActive(false);
+            _closeButton.gameObject.SetActive(false);
         }
 
     }
@@ -141,7 +153,10 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
         _line.SetPosition(0, transform.position);
 
         // Dynamically update the contents of the tooltip.
-        _panel.Find("header").Find("Text").GetComponent<Text>().text = Header;
+        if(!RemoveHeader)
+        {
+            _panel.Find("header").Find("Text").GetComponent<Text>().text = Header;
+        }
         _panel.Find("TextField").Find("Text").GetComponent<Text>().text = TextContent;
     }
 
@@ -163,7 +178,7 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
     // Activates the animation of the animation handler.
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (_panel != null || _animator != null)
+        if ((_panel != null || _animator != null) && Minimizable)
         {
         _isOpen = _animator.GetBool("open");
         _animator.SetBool("open", !_isOpen);
