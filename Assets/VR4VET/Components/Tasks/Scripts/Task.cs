@@ -20,6 +20,7 @@ namespace Task
         [SerializeField] private List<Subtask> _subtasks;
 
         private bool _compleated = false;
+        private string _feedback = "";
         [HideInInspector] public GameObject prerequisite;
         [HideInInspector] public GameObject target;
 
@@ -27,6 +28,7 @@ namespace Task
         public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
         public string TaskName { get => _taskName; set => _taskName = value; }
         public bool Compleated { get => _compleated; set => _compleated = value; }
+        public string Feedback { get => _feedback; set => _feedback = value; }
 
         public bool CheckSubtaksCompleated()
         {
@@ -40,6 +42,23 @@ namespace Task
                 }
             }
             return val;
+        }
+
+        [Tooltip("look for a subtask given its name (NOT the file name)")]
+        public Subtask GetSubtask(string name)
+        {
+            Subtask returnSub = null;
+
+            foreach (Subtask sub in _subtasks)
+            {
+                if (sub.SubtaskName == name)
+                {
+                    returnSub = sub;
+                    break;
+                }
+            }
+
+            return returnSub;
         }
     }
 }

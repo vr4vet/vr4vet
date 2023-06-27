@@ -103,7 +103,7 @@ namespace Tablet
                 Text caption = item.transform.Find("Text").gameObject.GetComponent<Text>();
                 Text reps = item.transform.Find("RepText").gameObject.GetComponent<Text>();
                 caption.text = sub.SubtaskName;
-                reps.text = skill._pointsPerSubtask[sub] + "100";
+              //  reps.text = skill._pointsPerSubtask[sub] + "100";
             }
         }
 
