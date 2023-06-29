@@ -31,7 +31,41 @@ namespace Task
             }
         }
 
-        public void CompleateSubtask(string taskName, string SubtaskName, bool compleateStepReps)
+        public Task GetTask(string taskName)
+        {
+            Task returnTask = null;
+
+            foreach (Task task in taskList)
+            {
+                if (task.TaskName == taskName)
+                {
+                    returnTask =task;
+                    break;
+                }
+            }
+
+            return returnTask;
+        }
+
+        public Skill GetSkill(string skillName)
+        {
+            Skill returnSkill = null;
+
+
+            foreach (Skill task in skillList)
+            {
+                if (task.Name == skillName)
+                {
+                    returnSkill = task;
+                    break;
+                }
+            }
+
+            return returnSkill;
+        }
+
+
+        private void CompleateSubtask(string taskName, string SubtaskName, bool compleateStepReps)
         {
             foreach (Task task in taskList)
             {

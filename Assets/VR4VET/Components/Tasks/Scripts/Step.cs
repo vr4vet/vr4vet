@@ -61,7 +61,7 @@ namespace Task
             }
         }
 
-        /// Set the name of this aktivitet
+        /// Set the name of this aktivitet (Legacy)
 
         public void SetAktivitetName(string value)
         {
