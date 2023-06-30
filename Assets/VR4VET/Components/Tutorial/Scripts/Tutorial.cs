@@ -6,8 +6,10 @@ using UnityEngine.Events;
 using UnityEditor;
 
 public class Tutorial : MonoBehaviour
-{
-    public TutorialEntry[] Items = Array.Empty<TutorialEntry>();
+{   
+    [SerializeField]private bool StartOnStartup;
+    [SerializeField] private int indexOfCurrentItem = -1;
+    public GameObject[] Items = Array.Empty<GameObject>();
     /// <summary>
     /// Gets an event which is fired when all the tutorial entires have been completed.
     /// </summary>
@@ -18,12 +20,11 @@ public class Tutorial : MonoBehaviour
     /// </summary>
     public UnityEvent OnTriggered;
 
-    private int indexOfCurrentItem = 0;
     private bool triggered;
     private bool dismissed;
 
     //Setting the necessary values and variables needed
-    public TutorialEntry Current
+    public GameObject Current
         => IndexOfCurrentItem >= 0 && IndexOfCurrentItem < Items.Length
         ? Items[IndexOfCurrentItem]
         : null;
@@ -38,7 +39,7 @@ public class Tutorial : MonoBehaviour
 
             if (Current != null)
             {
-                Current.gameObject.SetActive(true);
+                Current.SetActive(true);
             }
 
             indexOfCurrentItem = value;
@@ -58,9 +59,9 @@ public class Tutorial : MonoBehaviour
                 return;
 
             triggered = value;
-            if (value && !dismissed)
+            if (value && !dismissed && IndexOfCurrentItem < 0)
             {
-                IndexOfCurrentItem = 0;
+                MoveNext();
             }
         }
     }
@@ -88,11 +89,15 @@ public class Tutorial : MonoBehaviour
     public void MoveNext()
     {
         IndexOfCurrentItem = Math.Min(IndexOfCurrentItem, Items.Length) + 1;
-        Debug.Log(IndexOfCurrentItem);
         foreach (var entry in Items)
         {
             if(entry != Current) entry.gameObject.SetActive(false);
             if(entry == Current) entry.gameObject.SetActive(true);
+        }
+
+        if (IndexOfCurrentItem == Items.Length && Items.Length > 0)
+        {
+            OnCompleted.Invoke();
         }
     }
 
@@ -109,13 +114,15 @@ public class Tutorial : MonoBehaviour
 
     //Deactivates all but the starting entry
     private void Start()
-    {
+    {   
+        if(StartOnStartup)IndexOfCurrentItem = 0;
         foreach (var entry in Items)
         {
+            if(entry.GetComponentsInChildren<TutorialEntry>().Length == 0){
+                 ArrayUtility.Remove(ref Items, entry);
+            }
             if(entry != Current) entry.gameObject.SetActive(false);
             if(entry == Current) entry.gameObject.SetActive(true);
-            if(entry.GetComponents<TutorialEntry>().Length<=0) ArrayUtility.Remove(ref Items, entry);
-            entry.Tutorial = this;
         }
 
     }   //For debugging purposes, proceeds to the next tutorial step when the spacebar is pressed
