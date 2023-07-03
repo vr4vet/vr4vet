@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Order66
   m_EditorClassIdentifier: 
   _taskName: Order66
-  _description: Destroy the jedi
+  _description: Under this directive, any and all Jedi leadership must be executed
+    for treason against the Republic. Any soldier that does not comply with the order
+    will also be executed for treason
   _subtasks:
+  - {fileID: 11400000, guid: f2e6e17d3bdb8f843b6744721f61c156, type: 2}
   - {fileID: 11400000, guid: 4091fff0c8ffbc645a36e994e61e7bc0, type: 2}
   prerequisite: {fileID: 0}
   target: {fileID: 0}

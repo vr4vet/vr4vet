@@ -14,7 +14,6 @@ using UnityEngine.XR;
 public class NewMenuManger : MonoBehaviour
 {
 
-    [SerializeField]public GameObject player;
     [SerializeField] public Material PauseSkyboxMat;
     [SerializeField] public Material SkyboxMat;
     [SerializeField] private LayerMask _menuLayers;  //layers mask to put on top when the game is paused
@@ -62,7 +61,7 @@ public class NewMenuManger : MonoBehaviour
             ResumeGame();
     }
 
-     void PauseGame()
+     private void PauseGame()
     {
         Color c = _wallsMaterial.color;
         c.a = 0.8f;
@@ -152,7 +151,7 @@ public class NewMenuManger : MonoBehaviour
     }
 
     // Loading wheel to open the pause menu
-    public IEnumerator HoldPause()
+    private IEnumerator HoldPause()
     {
 
         for (float I = 0f; I < _holdtime; I += Time.deltaTime)
