@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5137fab5f9bc0a6498d86bd9aed4e383, type: 3}
-  m_Name: TwoHandedWeapon
+  m_Script: {fileID: 11500000, guid: 694b8dd6ca4134b4d82fc6b2dc8d2848, type: 3}
+  m_Name: lObiwan
   m_EditorClassIdentifier: 
-  _name: Two Handed Weapon
-  _description: 'usea weapons like swords and riffle '
-  _feedback: 
-  _subtasks:
-  - {fileID: 11400000, guid: f2e6e17d3bdb8f843b6744721f61c156, type: 2}
+  _subtaskName: Obiwan
+  _description: Shoot Obiwan
+  _autocompleate: 0
+  _stepList:
+  - _stepName: Charge gun
+    _repetionNumber: 1
+  - _stepName: Shoot
+    _repetionNumber: 4
