@@ -6525,7 +6525,7 @@ GameObject:
   - component: {fileID: 646092131686923437}
   - component: {fileID: 646092131686923426}
   m_Layer: 0
-  m_Name: Volume Slider
+  m_Name: Master Volume Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7293,6 +7293,7 @@ GameObject:
   - component: {fileID: 646092131832998729}
   - component: {fileID: 646092131832998728}
   - component: {fileID: 646092131832998731}
+  - component: {fileID: 8686228321667314936}
   m_Layer: 0
   m_Name: Element Parent
   m_TagString: Untagged
@@ -7387,6 +7388,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8686228321667314936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646092131832998709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828e9c9ffd8ccd441996f202d749ee25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sliderMaster: {fileID: 646092131686923426}
+  _sliderMusic: {fileID: 0}
+  _sliderEffects: {fileID: 646092131625013010}
+  _sliderVoice: {fileID: 646092131605473068}
 --- !u!1 &646092131834313201
 GameObject:
   m_ObjectHideFlags: 0
