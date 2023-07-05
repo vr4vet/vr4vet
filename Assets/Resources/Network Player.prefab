@@ -49,7 +49,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!1 &1110055139052364739
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!1 &2436985600152309691
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,8 +186,11 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 0
-  ObservedComponents: []
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 863372016616319377}
+  - {fileID: 1019359156897320921}
+  - {fileID: 5494397399270628458}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -271,7 +274,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!1 &4804901216088713905
 GameObject:
   m_ObjectHideFlags: 0
