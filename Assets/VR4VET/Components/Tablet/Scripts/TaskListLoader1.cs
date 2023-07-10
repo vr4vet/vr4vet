@@ -122,7 +122,7 @@ namespace Tablet
             _skillTab.text = skill.Name;
             _skillabout.text = skill.Description;
             _skillFeedback.text = skill.Feedback;
-            _skillPoints.text = skill.TotalPoints + "/" + skill.MaxPoints;
+            _skillPoints.text = skill.GetArchivedPoints() + "/" + skill.MaxPossiblePoints;
 
             //cleaning list before loading the new subtasks
             foreach (Transform child in _skillSubtaskContent.transform)
