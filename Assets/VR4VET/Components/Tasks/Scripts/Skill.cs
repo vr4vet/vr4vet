@@ -1,5 +1,6 @@
-﻿/* Developer: Abbas Jafari
- * Ask your questions by email: a85jafari@gmail.com
+﻿/*
+ * Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
  */
 
 using System.Collections.Generic;
@@ -27,8 +28,7 @@ namespace Task
         public string Name { get => _name; set => _name = value; }
         public string Description { get => _description; set => _description = value; }
         public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
-        public int TotalPoints { get => _maxPoints; set => _maxPoints = value; }
-        public int MaxPoints { get => achievedPoints; set => achievedPoints = value; }
+        public int MaxPossiblePoints { get => _maxPoints; set => _maxPoints = value; }
         public string Feedback { get => _feedback; set => _feedback = value; }
 
         void Awake()
@@ -41,7 +41,7 @@ namespace Task
         }
 
 
-        private int GetArchivedPoints()
+        public int GetArchivedPoints()
         {
             achievedPoints = 0;
             foreach ( Subtask sub in _subtasks )
