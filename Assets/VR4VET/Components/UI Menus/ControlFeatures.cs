@@ -1,36 +1,41 @@
-/* Copyright (C) 2022 IMTEL NTNU - All Rights Reserved
- * Developer: Jorge Garcia
- * Ask your questions by email: jorgeega@ntnu.no
+/* Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
  */
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using BNG;
+using UnityEngine;
+
+
+/// <summary>
+/// This script allows changing multiple settings of : teleportation, rotation, and movement on runtime
+/// This is script was made, so the player can change this control settings from a menu, but could be used elsewhere
+/// </summary>
 
 public class ControlFeatures : MonoBehaviour
 {
     [SerializeField] private GameObject PlayerController;
     private PlayerTeleport _pt;
     private PlayerRotation _pr;
-    //using boolean variables to store the settings value, making it easier to work with toggles 
+
+    //using boolean variables to store the settings value, making it easier to work with toggles
     private bool _flipModeB = false;
-    private bool _snapRotationB= true;
+
+    private bool _snapRotationB = true;
     private bool _teleportRotationB = true;
     private bool _teleportPressB = false;
-    void Start()
+
+    private void Start()
     {
         _pt = (PlayerTeleport)PlayerController.GetComponent("PlayerTeleport");
         _pr = (PlayerRotation)PlayerController.GetComponent("PlayerRotation");
-        
-
     }
 
-    //switiching the teleport and roation hand 
+    //switiching the teleport and roation hand
     public void InverertedMode()
     {
         _flipModeB = !_flipModeB;
-        
-        if(_flipModeB)
+
+        if (_flipModeB)
         {
             //lefty mode
             _pt.HandSide = ControllerHand.Right;
@@ -46,7 +51,6 @@ public class ControlFeatures : MonoBehaviour
             _pr.inputAxis.Clear();
             _pr.inputAxis.Add(InputAxis.RightThumbStickAxis);
         }
-
     }
 
     //snaprotation on/off
@@ -62,7 +66,6 @@ public class ControlFeatures : MonoBehaviour
         {
             _pr.AllowInput = false;
         }
-
     }
 
     //directional deleportaiton on/off
@@ -78,9 +81,8 @@ public class ControlFeatures : MonoBehaviour
         {
             _pt.AllowTeleportRotation = false;
         }
-
     }
-
+    //changes the teleport button from the moving the thumstick to -> pressing down the thumbsting
     public void TeleportInput()
     {
         _teleportPressB = !_teleportPressB;
@@ -93,7 +95,5 @@ public class ControlFeatures : MonoBehaviour
         {
             _pt.ControlType = TeleportControls.ThumbstickRotate;
         }
-
     }
-
 }

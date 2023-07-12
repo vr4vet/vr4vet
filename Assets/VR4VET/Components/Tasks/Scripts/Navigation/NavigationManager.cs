@@ -112,7 +112,7 @@ namespace Task
         public void SetTarget(Task thisOppgave)
         {
             //task is allready done
-            if (thisOppgave.Compleated)
+            if (thisOppgave.Compleated())
             {
                 //taskState.PlayAudio(TaskIsDoneAllredy);
                 target = null;
@@ -141,7 +141,7 @@ namespace Task
                 }
 
                 //if task is not don yet
-                if (!thisOppgave.Compleated)
+                if (!thisOppgave.Compleated())
                 {
                     //deactive
                     if (TaskIsActive)
