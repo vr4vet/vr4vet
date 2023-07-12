@@ -17,12 +17,13 @@ namespace Task
 
         [Tooltip("Description of this skill"), TextArea(5, 20)]
         [SerializeField] private string _description;
-        [ TextArea(5, 20)]
-        [SerializeField] private string _feedback;
 
+        [TextArea(5, 20)]
+        [SerializeField] private string _feedback;
 
         [Header("Related Subtask")]
         [SerializeField] private List<Subtask> _subtasks = new List<Subtask>();
+
         //public Dictionary<Subtask, int> _pointsPerSubtask = new Dictionary<Subtask, int>();
 
         public string Name { get => _name; set => _name = value; }
@@ -31,20 +32,19 @@ namespace Task
         public int MaxPossiblePoints { get => _maxPoints; set => _maxPoints = value; }
         public string Feedback { get => _feedback; set => _feedback = value; }
 
-        void Awake()
+        private void Awake()
         {
             foreach (Subtask sub in _subtasks)
             {
-             //   _pointsPerSubtask.Add(sub, 0);
+                //   _pointsPerSubtask.Add(sub, 0);
                 sub.RelatedSkills.Add(this);
             }
         }
 
-
         public int GetArchivedPoints()
         {
             achievedPoints = 0;
-            foreach ( Subtask sub in _subtasks )
+            foreach (Subtask sub in _subtasks)
             {
                 achievedPoints += sub.Points;
             }

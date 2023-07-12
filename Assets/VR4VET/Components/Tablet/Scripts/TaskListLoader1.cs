@@ -40,12 +40,14 @@ namespace Tablet
 
         [Header("skill other")]
         [SerializeField] private TMP_Text _skillTab;
+
         [SerializeField] private TMP_Text _skillFeedback;
         [SerializeField] private TMP_Text _skillabout;
         [SerializeField] private TMP_Text _skillPoints;
 
         [Header("task other")]
         [SerializeField] private TMP_Text _taskNameTab;
+
         [SerializeField] private TMP_Text _taskFeedback;
         [SerializeField] private TMP_Text _taskAboutTab;
 
@@ -173,7 +175,7 @@ namespace Tablet
                 caption.text = task.TaskName;
                 Button button = item.transform.Find("btn_Task").GetComponent<Button>();
                 GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
-                if (task.Compleated) checkmark.SetActive(true);
+                if (task.Compleated()) checkmark.SetActive(true);
 
                 button.onClick.AddListener(() => panelManager.OnClickBackToAboutTask());
                 button.onClick.AddListener(() => TaskPageLoader(task));

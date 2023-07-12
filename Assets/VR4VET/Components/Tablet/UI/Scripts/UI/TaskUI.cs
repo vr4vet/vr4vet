@@ -52,7 +52,7 @@ public class TaskUI : MonoBehaviour
 
     public void Refresh()
     {
-        ToggleCheck(_task.Compleated);
+        ToggleCheck(_task.Compleated());
     }
 
 

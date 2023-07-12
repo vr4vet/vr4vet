@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Task
 {
+
+    /// <summary>
+    /// This script is meant to hold the relevant task data (task and skills) 
+    /// this works an interface for the data to be modified on runtime
+    /// </summary>
     public class TaskHolder : MonoBehaviour
     {
         public static TaskHolder Instance;
@@ -39,7 +44,7 @@ namespace Task
             {
                 if (task.TaskName == taskName)
                 {
-                    returnTask =task;
+                    returnTask = task;
                     break;
                 }
             }
@@ -50,7 +55,6 @@ namespace Task
         public Skill GetSkill(string skillName)
         {
             Skill returnSkill = null;
-
 
             foreach (Skill task in skillList)
             {
@@ -64,30 +68,8 @@ namespace Task
             return returnSkill;
         }
 
-
-        private void CompleateSubtask(string taskName, string SubtaskName, bool compleateStepReps)
-        {
-            foreach (Task task in taskList)
-            {
-                if (task.TaskName == taskName)
-                {
-                    foreach (Subtask subtask in task.Subtasks)
-                    {
-                        if (subtask.SubtaskName == SubtaskName)
-                        {
-                            foreach (Step step in subtask.StepList)
-                            {
-                                step.SetCompleated(true);
-                            }
-                            Debug.LogError("Step not found in Subtask");
-                        }
-                    }
-                    Debug.LogError("Subtask not found in Tasks");
-                }
-            }
-        }
     }
-
+    //this sub-class can be usefull in the future to set targets 
     [System.Serializable]
     public class TaskxTarget
     {

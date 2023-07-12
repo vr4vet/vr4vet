@@ -22,9 +22,6 @@ namespace Task
         private int _repetitionMax = 1;
         private int _repetitions = 1;
 
-        //timers functions need to be better define
-        private float _timerSecods = 0.0f;
-
         [Header("Steps")]
         [SerializeField]
         [Tooltip("Mark Subtask as compleate if all step's repetions are compleated")]
@@ -45,13 +42,15 @@ namespace Task
         public int Points { get => _points; set => _points = value; }
         public List<Skill> RelatedSkills { get => _relatedSkills; set => _relatedSkills = value; }
 
+        //it returns the completed status, if the autocomplete box is selected it will return true when all its steps are completed
         public bool Compleated()
         {
             if (_autocompleate)
             {
+                _compleated = true;
                 foreach (Step step in StepList)
                 {
-                    if (step.IsCompeleted())
+                    if (! step.IsCompeleted())
                     {
                         _compleated = false;
                         break;
@@ -80,7 +79,7 @@ namespace Task
         {
             _points += value;
         }
-        
+
         public Step GetStep(string stepname)
         {
             Step returnStep = null;
