@@ -9,7 +9,7 @@ public class SubTaskUI : MonoBehaviour
 {
     //this exists so we can store tasks, subtasks and skills without having to attach them to an object
 
-    [SerializeField] Image checkmark;
+    [SerializeField] GameObject checkmark;
     [SerializeField] TextMeshProUGUI texty;
     [SerializeField] Button btn;
 
@@ -47,19 +47,13 @@ public class SubTaskUI : MonoBehaviour
 
     public void Refresh()
     {
-        if (!_subTask.Compleated() )
-        {
-            checkmark.color = Color.white;
-
-        }
-        else
-        {
-            checkmark.color = Color.green;
-
-        }
+        ToggleCheck(_subTask.Compleated());
     }
 
-
+    void ToggleCheck(bool b)
+    {
+        checkmark.SetActive(b);
+    }
 
     public void Fulfill()
     {

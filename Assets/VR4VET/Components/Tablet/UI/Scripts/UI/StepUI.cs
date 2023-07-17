@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class StepUI : MonoBehaviour
 {
 
-    [SerializeField] Image checkmark;
+    [SerializeField] GameObject checkmark;
     [SerializeField] TextMeshProUGUI txt_name;
     [SerializeField] TextMeshProUGUI txt_description;
 
@@ -40,7 +40,11 @@ public class StepUI : MonoBehaviour
 
     public void RefreshCompletion()
     {
-        bool b = associatedSubTask.CheckStepCompletion(_name);
-        checkmark.color = (b ? Color.green : Color.white);
+        ToggleCheck(associatedSubTask.CheckStepCompletion(_name));
+    }
+
+    void ToggleCheck(bool b)
+    {
+        checkmark.SetActive(b);
     }
 }
