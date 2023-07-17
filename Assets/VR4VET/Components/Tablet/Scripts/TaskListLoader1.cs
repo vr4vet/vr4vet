@@ -56,6 +56,9 @@ namespace Tablet
 
         [SerializeField] private TMP_Text _subtaskAboutTab;
 
+        [Header("Experience Name")]
+        [SerializeField] private string Exp_Name;
+
         [Header("UI Prefabs")]
         [SerializeField] private GameObject _skillEntryList;
 

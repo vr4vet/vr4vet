@@ -38,16 +38,17 @@ public class StaticPanelManager : MonoBehaviour
     [SerializeReference] GameObject PANEL_TASK_ABOUT;
     [SerializeReference] TextMeshProUGUI TXT_TASK; //is the current task
     [SerializeReference] GameObject PANEL_TASK_FEEDBACK;
-    [SerializeReference] GameObject PANEL_TASK_SUBTASKLIST; 
-
+    [SerializeReference] GameObject PANEL_TASK_SUBTASKLIST;
+    [SerializeReference] TextMeshProUGUI TXT_Task_Exp;
+    [SerializeReference] TextMeshProUGUI TXT_TaskAbout_Exp;
 
     [Header("subtask")]
     [SerializeReference] TextMeshProUGUI TXT_Subtask_task; //is the current task shown for the current subtask, as shown in the title
 
     [SerializeReference] TextMeshProUGUI TXT_Subtask; //is the current Subtask
     [SerializeReference] GameObject PANEL_Subtask_Description; 
-    [SerializeReference] GameObject PANEL_Subtask_Steps; 
-
+    [SerializeReference] GameObject PANEL_Subtask_Steps;
+    [SerializeReference] TextMeshProUGUI TXT_Subtask_Exp;
 
 
     [Header("skill")]
@@ -55,15 +56,21 @@ public class StaticPanelManager : MonoBehaviour
     [SerializeReference] GameObject PANEL_SKILL_ABOUT_SUBTASKLIST;
     [SerializeReference] GameObject PANEL_Skill_FEEDBACK;
     [SerializeReference] GameObject PANEL_Skill_ABOUT_SKILL;
+    [SerializeReference] TextMeshProUGUI TXT_SkillAbout_Exp;
 
     [SerializeReference] TextMeshProUGUI TXT_Skill; //is the current Skill
-    [SerializeReference] TextMeshProUGUI TXT_Skill_Proficiency; 
-
+    [SerializeReference] TextMeshProUGUI TXT_Skill_Proficiency;
+    [SerializeReference] TextMeshProUGUI TXT_Skill_Exp;
 
 
     [Header("score")]
 
     [SerializeReference] TextMeshProUGUI TXT_Score; //is the current score
+    [SerializeReference] TextMeshProUGUI TXT_Score_Exp;
+    [SerializeReference] TextMeshProUGUI TXT_ScoreInfo_Exp;
+
+    [Header("help")]
+    [SerializeReference] TextMeshProUGUI TXT_Help_Exp;
 
     //methods below, categorized by the screen they are relevant to
     #region UnityMethods
@@ -142,6 +149,18 @@ public class StaticPanelManager : MonoBehaviour
         TXT_Score.text = b;
 
     }
+
+    public void SetExperienceName(string b)
+    {
+        TXT_Task_Exp.text = "Task - " + b;
+        TXT_TaskAbout_Exp.text = "Task - " + b;
+        TXT_Subtask_Exp.text = "Task - " + b;
+        TXT_Skill_Exp.text = "Skills - " + b;
+        TXT_SkillAbout_Exp.text = "Skills - " + b;
+        TXT_Score_Exp.text = "Score - " + b;
+        TXT_Help_Exp.text = "Help - " + b;
+    }
+
     void SwitchMenuTo(GameObject b)
     {
         foreach (var item in allMenus)
