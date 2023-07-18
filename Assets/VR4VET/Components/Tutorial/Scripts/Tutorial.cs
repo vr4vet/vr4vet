@@ -127,7 +127,7 @@ public class Tutorial : MonoBehaviour
 
     }   //For debugging purposes, proceeds to the next tutorial step when the spacebar is pressed
     private void Update(){
-        if (Input.GetKeyDown("space"))
+        if (Application.isEditor && Input.GetKeyDown("space"))
         {
             MoveNext();
         }
