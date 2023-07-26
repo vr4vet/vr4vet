@@ -18,7 +18,7 @@ public class TaskUI : MonoBehaviour
         }
     } 
 
-    [SerializeField] Image checkmark;
+    [SerializeField] GameObject checkmark;
     [SerializeField] TextMeshProUGUI textBox;
     [SerializeField] Button btn;
 
@@ -58,16 +58,7 @@ public class TaskUI : MonoBehaviour
 
     void ToggleCheck(bool b)
     {
-        if (!b)
-        {
-            checkmark.color = Color.white;
-
-        }
-        else
-        {
-            checkmark.color = completedColor;
-
-        }
+        checkmark.SetActive(b);
     }
 
 

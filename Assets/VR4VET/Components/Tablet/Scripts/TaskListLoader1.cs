@@ -56,6 +56,9 @@ namespace Tablet
 
         [SerializeField] private TMP_Text _subtaskAboutTab;
 
+        [Header("Experience Name")]
+        [SerializeField] private string Exp_Name;
+
         [Header("UI Prefabs")]
         [SerializeField] private GameObject _skillEntryList;
 
@@ -80,6 +83,7 @@ namespace Tablet
             panelManager = this.gameObject.GetComponent<StaticPanelManager>();
             //load info in the tablet
             StartCoroutine(LoadTabletInfo());
+            panelManager.SetExperienceName(Exp_Name);
         }
 
         //since task and skill won't change in the experience we can load them from the beginning
