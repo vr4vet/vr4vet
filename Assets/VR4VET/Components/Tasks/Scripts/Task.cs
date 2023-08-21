@@ -1,147 +1,89 @@
-﻿/* Copyright (C) 2022 IMTEL NTNU - All Rights Reserved
- * Developer: Jorge Garcia, Abbas Jafari
- * Ask your questions by email: jorgeega@ntnu.no
+﻿/* Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
  */
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Tablet
+namespace Task
 {
-    /// <summary>
-    /// Task object
-    /// </summary>
-    [CreateAssetMenu(fileName ="New Task", menuName = "Tasks/Task")]
+    [CreateAssetMenu(fileName = "New Task", menuName = "Tasks/Task")]
     public class Task : ScriptableObject
     {
-
-        private Transform taskPosition;
-
-
-        [Tooltip("Task Name")]
-        public string _taskName;
+        [Header("General information")]
+        [SerializeField] private string _taskName;
 
         [Tooltip("Description of this assignment"), TextArea(5, 20)]
-        public string description;
-        [Tooltip("Activities List")]
-        [SerializeField]
-        public List<Activity> activities = new List<Activity>();
+        [SerializeField] private string _description;
 
-        [Header("Navigation")]
-        [HideInInspector]
-        public GameObject taskTarget;
-        public Task prerequisite;
+        [Tooltip("Mark Subtask as compleate if all its Subtasks are compleated")]
+        [SerializeField] private bool _autocompleate = false;
 
-        [HideInInspector]
-        public Button button;
+        [Header("Subtask List")]
+        [SerializeField] private List<Subtask> _subtasks;
 
-        [HideInInspector]
-        public Image checkedIcon;
-        [HideInInspector]
-        public Image unCheckedIcon;
+        private bool _compleated = false;
+        private string _feedback = "";
+        //both should be deleted once the navigation script gets updated or deleted
+        [HideInInspector] public GameObject prerequisite;
+        [HideInInspector] public GameObject target;
 
+        public string Description { get => _description; set => _description = value; }
+        public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
+        public string TaskName { get => _taskName; set => _taskName = value; }
+        public string Feedback { get => _feedback; set => _feedback = value; }
 
-        [HideInInspector] private bool is_task_Completed;
-
-
-        /// <summary>
-        /// Unity Update method
-        /// </summary>
-        private void Update()
+        public void Compleated(bool value)
         {
-            CheckTaskCompeletion();
-            if (is_task_Completed)
-            {
-                if (button)
-                    button.interactable = false;
+            _compleated = value;
+        }
 
-                if (checkedIcon && checkedIcon)
+        public bool Compleated()
+        {
+            if (_autocompleate)
+            {
+                _compleated = true;
+                foreach (Subtask sub in Subtasks)
                 {
-                    checkedIcon.enabled = true;
-                    unCheckedIcon.enabled = false;
+                    if (!sub.Compleated())
+                    {
+                        _compleated = false;
+                        break;
+                    }
+                }
+            }
+            return _compleated;
+        }
+
+        public bool CheckSubtaksCompleated()
+        {
+            bool val = true;
+            foreach (Subtask sub in _subtasks)
+            {
+                if (sub.Compleated() == false)
+                {
+                    val = false;
+                    break;
+                }
+            }
+            return val;
+        }
+
+        [Tooltip("look for a subtask given its name (NOT the file name)")]
+        public Subtask GetSubtask(string name)
+        {
+            Subtask returnSub = null;
+
+            foreach (Subtask sub in _subtasks)
+            {
+                if (sub.SubtaskName == name)
+                {
+                    returnSub = sub;
+                    break;
                 }
             }
 
-        }
-
-
-
-        /// <summary>
-        /// This method calls in editor
-        /// </summary>
-        void OnValidate()
-        {
-         
-            /**
-            //set the size of activities and poeng as same as totalAktiviter amount
-            Array.Resize(ref activities, totalActivities);
-
-
-            //not allow to be more that 15 char
-            if (_taskName.Length > 15)
-                _taskName = _taskName.Substring(0,14);
-
-
-
-            //not allow to be more that 30 char
-            for (int i = 0; i < activities.Length; i++)
-            {
-                if (activities[i].Length > 30)
-                {
-                    activities[i] = activities[i].Substring(0, 29);
-                }
-            }
-        
-        **/
-        }
-
-
-        /// <summary>
-        /// Mark this task as compeleted if its all activities are done
-        /// </summary>
-        public void CheckTaskCompeletion()
-        {
-            //the task is not completed if even one aktivitet is not done
-            foreach (Activity aktivitet in activities)
-            {
-                if (aktivitet.IsAktivitetCompeleted() == false)
-                {
-                    is_task_Completed = false;
-                    return;
-                }
-            }
-            is_task_Completed = true;
-        }
-
-        /// <summary>
-        /// Ask about this task is compeletet or not
-        /// </summary>
-        /// <returns></returns>
-        public bool IsTaskCompeleted()
-        {
-            return is_task_Completed;
-        }
-
-
-        /// <summary>
-        /// Unity Start method
-        /// </summary>
-        private void Start()
-        {
-            
-        }
-
-
-        /// <summary>
-        /// Get the list of all aktivitet that this oppgave has
-        /// </summary>
-        /// <returns></returns>
-        public List<Activity> GetAktivitetList()
-        {
-
-            return activities;
+            return returnSub;
         }
     }
 }

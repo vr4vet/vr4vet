@@ -35,15 +35,15 @@ public class DynamicDataDisplayer : MonoBehaviour
 
     #endregion
     #region Variables
-    List<TaskData> _tasks = new(); //all tasks.
+    List<Task.Task> _tasks = new(); //all tasks.
     List<TaskData> _subTasks = new(); //all subtasks.
     Dictionary<string, Skill> _skills; //all skills.
 
 
 
 
-    TaskData CurrentTask;
-    SubTask CurrentSubTask;
+    Task.Task CurrentTask;
+    Task.Subtask CurrentSubTask;
     #endregion
     #region Unity Methods
     void Awake()
@@ -107,7 +107,7 @@ public class DynamicDataDisplayer : MonoBehaviour
 
         for (int i = 0; i < 9; i++)
         {
-            AddTask(d1);
+        //    AddTask(d1);
         }
     }
 
@@ -115,7 +115,7 @@ public class DynamicDataDisplayer : MonoBehaviour
     ///  Adds the Task, as well as the entirety of the data related to the task. However not sure if this matches the existing VR4VET Task data structure perfectly.
     /// </summary>
     /// <param name="desiredTask">Task to be added to the tablet task list.</param>
-    void AddTask(TaskData desiredTask)
+    void AddTask(Task.Task desiredTask)
     {
         _tasks.Add(desiredTask);
         TaskUI t = Instantiate(prefabTask, taskPaginator.transform).GetComponent<TaskUI>(); //
@@ -132,7 +132,7 @@ public class DynamicDataDisplayer : MonoBehaviour
     {//shows the subtasks for current task
 
         subtaskPaginator.Clear();
-        List<SubTask> newSubTasks = CurrentTask.SubTasks;
+        List<Task.Subtask> newSubTasks = CurrentTask.Subtasks;
         if (newSubTasks.Count > 0)
         {
             for (int i = 0; i < newSubTasks.Count; i++)
@@ -167,7 +167,7 @@ public class DynamicDataDisplayer : MonoBehaviour
 
 
 
-        List<string> newSkills = CurrentTask.GetRelevantSkills();
+        List<Task.Skill> newSkills = CurrentSubTask.RelatedSkills;
 
         if (newSkills != null)
         {
@@ -175,7 +175,7 @@ public class DynamicDataDisplayer : MonoBehaviour
             {
                 SkillUI skillInterface = Instantiate(prefabSkill, skillPaginator.transform).GetComponent<SkillUI>();
 
-                skillInterface.InitializeButton(newSkills[i]);
+                skillInterface.InitializeButton(newSkills[i].Name);
 
 
             }
@@ -190,14 +190,14 @@ public class DynamicDataDisplayer : MonoBehaviour
         StepUI b = Instantiate(prefabStep, skillPaginator.transform).GetComponent<StepUI>();
         stepPaginator.AddChild(b.gameObject); //initialize new skills UI.
         //add the given Task's skills we do this on subtask selection
-        List<string> newSkills = CurrentTask.GetRelevantSkills();
+        List<Task.Skill> newSkills = CurrentSubTask.RelatedSkills;
 
         if (newSkills != null)
         {
             for (int i = 0; i < newSkills.Count; i++)
             {
                 SkillUI skillUI = Instantiate(prefabSkill, skillPaginator.transform).GetComponent<SkillUI>();
-                skillUI.InitializeButton(newSkills[i]);
+                skillUI.InitializeButton(newSkills[i].Name);
             }
         }
 
@@ -216,7 +216,7 @@ public class DynamicDataDisplayer : MonoBehaviour
         RefreshSubtasks();
         StaticPanelManager.Instance.OnClickTask();
     }
-    public void OnClickSubTask(SubTask subtask)
+    public void OnClickSubTask(Task.Subtask subtask)
     {
 
 

@@ -29,7 +29,7 @@ public class ContentPageChanger : MonoBehaviour
         {
             // Get the i-th child transform
             Transform childTransform = transform.GetChild(i);
-            Destroy(childTransform.gameObject);
+            //Destroy(childTransform.gameObject);
         }
     }
 
@@ -82,7 +82,7 @@ public class ContentPageChanger : MonoBehaviour
         else currentPage = Mathf.Clamp(currentPage + 1, 1, pageCount);
         VieWCurrentPage();
     }
-    void VieWCurrentPage()
+    public void VieWCurrentPage()
     {
         foreach (var item in content)
         {

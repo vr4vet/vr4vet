@@ -1,156 +1,54 @@
-﻿/* Copyright (C) 2020 IMTEL NTNU - All Rights Reserved
- * Developer: Abbas Jafari
- * Ask your questions by email: a85jafari@gmail.com
+﻿/*
+ * Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
  */
 
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace Tablet
+namespace Task
 {
-    /// <summary>
-    /// ferdighet object
-    /// </summary>
     [CreateAssetMenu(fileName = "New Skill", menuName = "Tasks/Skill")]
     public class Skill : ScriptableObject
     {
-        public int totalPoints;
+        private int _maxPoints = 100;
         private int achievedPoints;
-        public string skillName;
+        [SerializeField] private string _name;
+
         [Tooltip("Description of this skill"), TextArea(5, 20)]
-        public string skillDescription;
+        [SerializeField] private string _description;
 
-        //hvor mye til hver aktivitet har gitt denne ferdighet (aktivitet,poeng)
-        private Dictionary<Activity, int> ferdighetAktiviteter = new Dictionary<Activity, int>();
+        [TextArea(5, 20)]
+        [SerializeField] private string _feedback;
 
+        [Header("Related Subtask")]
+        [SerializeField] private List<Subtask> _subtasks = new List<Subtask>();
 
-        /// <summary>
-        /// get the dictionary of all aktivitet that are testet by this ferdighet
-        /// </summary>
-        /// <returns></returns>
-        public Dictionary<Activity, int> GetFerdighetAktiviteter()
+        //public Dictionary<Subtask, int> _pointsPerSubtask = new Dictionary<Subtask, int>();
+
+        public string Name { get => _name; set => _name = value; }
+        public string Description { get => _description; set => _description = value; }
+        public List<Subtask> Subtasks { get => _subtasks; set => _subtasks = value; }
+        public int MaxPossiblePoints { get => _maxPoints; set => _maxPoints = value; }
+        public string Feedback { get => _feedback; set => _feedback = value; }
+
+        private void Awake()
         {
-            return ferdighetAktiviteter;
-        }
-
-
-        /// <summary>
-        /// Add an aktivitet to this ferdighet
-        /// </summary>
-        /// <param name="aktivitet"></param>
-        /// <param name="value"></param>
-        public void AddToFerdighetAktiviteter(Activity aktivitet, int value)
-        {
-            if (!ferdighetAktiviteter.Keys.Contains(aktivitet))
+            foreach (Subtask sub in _subtasks)
             {
-                if (achievedPoints + value < totalPoints)
-                {
-                    ferdighetAktiviteter.Add(aktivitet, achievedPoints + value);
-                }
-                else
-                {
-                    ferdighetAktiviteter.Add(aktivitet, value);
-                }
+                //   _pointsPerSubtask.Add(sub, 0);
+                sub.RelatedSkills.Add(this);
             }
         }
 
-
-        /// <summary>
-        /// Get the name of this ferdighet
-        /// </summary>
-        /// <returns></returns>
-        public string GetFerdighetName()
-        {
-            return skillName;
-        }
-
-
-        /// <summary>
-        /// Set the name of this ferdighet
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetFerdighetName(string value)
-        {
-            skillName = value;
-        }
-
-        /// <summary>
-        /// Get the total poeng that this ferdighet has gotten by all activities
-        /// </summary>
-        /// <returns></returns>
-        public int GetTotalPoeng()
-        {
-            return totalPoints;
-        }
-
-
-        /// <summary>
-        /// set the total poeng that this ferdighet can achieved to
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetTotalPoeng(int value)
-        {
-            totalPoints = value;
-        }
-
-
-        /// <summary>
-        /// Get the poeng that the player has gotten from this ferdighet
-        /// </summary>
-        /// <returns></returns>
-        public int GetAchievedPoeng()
+        public int GetArchivedPoints()
         {
             achievedPoints = 0;
-            foreach (KeyValuePair<Activity, int> aktivitet in ferdighetAktiviteter)
+            foreach (Subtask sub in _subtasks)
             {
-                achievedPoints += aktivitet.Value;
+                achievedPoints += sub.Points;
             }
             return achievedPoints;
         }
-
-
-        /// <summary>
-        /// set the poeng to this ferdighet
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetAchievedPoeng(int value)
-        {
-            achievedPoints = value;
-        }
-
-
-        /// <summary>
-        /// Change the description of this ferdighet. can be used for feedback
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetFerdighetBeskrivelse(string value)
-        {
-            skillDescription = value;
-        }
-        
-
-        /// <summary>
-        ///Get the ferdighet description 
-        /// </summary>
-        /// <returns></returns>
-        public string GetFerdighetBeskrivelse()
-        {
-            return skillDescription;
-        }
-
-
-        /// <summary>
-        /// Add more poneg to this ferdighet
-        /// </summary>
-        /// <param name="value"></param>
-        public void AddAchievedPoeng(int value)
-        {
-            if (achievedPoints + value < totalPoints)
-                achievedPoints += value;
-            else
-                achievedPoints = totalPoints;
-        }
-
     }
 }
