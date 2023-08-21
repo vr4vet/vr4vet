@@ -22,6 +22,13 @@ public class requestOwnership : MonoBehaviourPun
 
     void LateUpdate()
     {
+
+        if (!PhotonNetwork.IsConnected)
+        {
+            // Do something if not connected
+            return;
+        }
+
         if (BNGG.BeingHeld)
         {
             if (!beingHold)
