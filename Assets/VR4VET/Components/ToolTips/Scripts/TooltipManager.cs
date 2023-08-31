@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEditor;
+using System;
 
 // Main class.
 public class TooltipManager : MonoBehaviour
 {
     // Option to toggle whether opening a tooltip should close all others.
     public bool CloseTooltipsOnNewActivation = true;
+    public GameObject TooltipPrefab;
 
     // Array of all tooltips.
     [SerializeField]
@@ -35,6 +38,7 @@ public class TooltipManager : MonoBehaviour
     public void AddNewTooltip(TooltipScript newTooltip)
     {
         Tooltips.Add(newTooltip);
+        
         newTooltip.ActivationEvent.AddListener(TooltipActivationListener);
     }
 
@@ -48,5 +52,33 @@ public class TooltipManager : MonoBehaviour
                 tooltip.Deactivate();
             }
         }
+    }
+
+    public TooltipScript InstantiateTooltip(Transform Parent, string Header, string Content, string StartState = "Open", bool RemoveHeader = false, bool Unclosable = false, bool Minimizable = true, bool FacePlayer = true, bool AlwaysAboveParent = true, bool CloseWhenDistant = false, float CloseThreshold = 10f)
+    {
+        GameObject instTooltip = PrefabUtility.InstantiatePrefab(TooltipPrefab, Parent) as GameObject;
+        TooltipScript InstTooltip = instTooltip.GetComponent<TooltipScript>();
+        Debug.Log(InstTooltip);
+        AddNewTooltip(InstTooltip);
+        InstTooltip.Header = Header;
+        InstTooltip.TextContent = Content;
+        InstTooltip.RemoveHeader = RemoveHeader;
+        InstTooltip.Unclosable = Unclosable;
+        InstTooltip.Minimizable = Minimizable;
+        InstTooltip.FacePlayer = FacePlayer;
+        InstTooltip.AlwaysAboveParent = AlwaysAboveParent;
+        InstTooltip.CloseWhenDistant = CloseWhenDistant;
+        InstTooltip.CloseThreshold = CloseThreshold;
+        Debug.Log(StartState);
+        switch (StartState.ToLower())
+        {
+            case("closed"):
+                InstTooltip.Deactivate();
+                break;
+            case("minimized"):
+                InstTooltip.Minimize();
+                break;
+        }
+        return InstTooltip;
     }
 }

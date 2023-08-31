@@ -59,7 +59,7 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
     public TTActivationEvent ActivationEvent;
 
     // Start is called before the first frame update.
-    void Start()
+    void Awake()
     {
         // If there is not already an activation event, create a new one.
         if (ActivationEvent == null)
@@ -159,9 +159,7 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
         gameObject.SetActive(false);
     }
 
-    // Function called when the tooltip is interacted with through the pointer.
-    // Activates the animation of the animation handler.
-    public void OnPointerClick(PointerEventData eventData)
+    public void Minimize()
     {
         if (_panel != null || _animator != null)
         {
@@ -169,5 +167,11 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
         _animator.SetBool("open", !_isOpen);
         Debug.Log("The animation is " + _animator.GetBool("open"));
         }
+    }
+    // Function called when the tooltip is interacted with through the pointer.
+    // Activates the animation of the animation handler.
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Minimize();
     }
 }
