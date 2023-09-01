@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 [System.Serializable]
 public class DefaultRoom
@@ -16,6 +17,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public List<DefaultRoom> defaultRooms;
     public GameObject roomUI;
+    public GameObject joinOrCreateUI;
 
     // Update is called once per frame
     public void ConnectToServer()
@@ -35,6 +37,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         Debug.Log("Joined Lobby");
+        joinOrCreateUI.SetActive(true);
+    }
+
+    public void createRoomChosen()
+    {
+        joinOrCreateUI.SetActive(false);
         roomUI.SetActive(true);
     }
 
@@ -62,5 +70,44 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Player entered the room");
         base.OnPlayerEnteredRoom(newPlayer);
+    }
+
+    public void CreateRoom(string scenarioNumber)
+    {
+        System.Random random = new System.Random();
+        // number of digits of the code - 1 (scenario number is first digit)
+        int numberOfNumbers = 3;
+        string roomName = scenarioNumber;
+
+        for (int i = 0; i < numberOfNumbers; i++)
+        {
+            // Generate a random number between 0 and 9
+            int randomNumber = random.Next(0, 10);
+            // Concatenate the random number as a string
+            roomName += randomNumber.ToString();
+        }
+
+        // Load scene
+        PhotonNetwork.LoadLevel(int.Parse(scenarioNumber));
+
+        // Create room
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = (byte) 4;
+        roomOptions.IsVisible = true;
+        roomOptions.IsOpen = true;
+        PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+
+        // TODO: Display the roomName/code. Maybe put it somewhere in the tablet?
+        Debug.Log("Room name: ");
+        Debug.Log(roomName);
+    }
+
+    public void JoinRoom(string roomName)
+    {
+        // Load scene
+        PhotonNetwork.LoadLevel(int.Parse(roomName.Substring(0, 1)));
+
+        // Join room
+        PhotonNetwork.JoinRoom(roomName);
     }
 }
