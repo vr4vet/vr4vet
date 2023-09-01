@@ -1252,16 +1252,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6626254837434382284}
         m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
-        m_MethodName: initializeRoom
-        m_Mode: 3
+        m_MethodName: CreateRoom
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &667776638
@@ -1615,16 +1615,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6626254837434382284}
         m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
-        m_MethodName: initializeRoom
-        m_Mode: 3
+        m_MethodName: JoinRoom
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 1234
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1047306534
@@ -1832,7 +1832,7 @@ RectTransform:
   - {fileID: 1047306532}
   - {fileID: 657110037}
   m_Father: {fileID: 1734986595}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1923,10 +1923,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6626254837434382284}
         m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
-        m_MethodName: initializeRoom
-        m_Mode: 3
+        m_MethodName: createRoomChosen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2057,7 +2057,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6626254837434382284}
         m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
         m_MethodName: ConnectToServer
         m_Mode: 1
@@ -2384,16 +2384,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 6626254837434382284}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: CreateRoom
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1590333324
@@ -2466,7 +2466,7 @@ RectTransform:
   - {fileID: 667776636}
   - {fileID: 1850904629}
   m_Father: {fileID: 1734986595}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2748,8 +2748,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1313956686}
-  - {fileID: 1679253246}
   - {fileID: 1141122316}
+  - {fileID: 1679253246}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2842,16 +2842,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6626254837434382284}
         m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
-        m_MethodName: initializeRoom
-        m_Mode: 3
+        m_MethodName: CreateRoom
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1850904631
@@ -3189,7 +3189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultRooms: []
-  roomUI: {fileID: 0}
+  roomUI: {fileID: 1679253245}
+  joinOrCreateUI: {fileID: 1141122315}
 --- !u!33 &7309287602010635342
 MeshFilter:
   m_ObjectHideFlags: 0
