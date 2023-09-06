@@ -1,35 +1,31 @@
 # VR4VET Core
 This repository holds a Unity project with demo Scenes and the core Prefabs to create VR experiences for the VR4VET project. The goal is to standardize all the experiences(games) and make the development of new ones easier and faster.
 
-(Note: Both Game and Experience are used in this documentation to describe a VR experience where the user will try a profession)
+(Note: for a detail explanation on how to use each of the components check our Wiki)
 
 ## Instalation/Requirements
 
-1. First you need to download Unity **2021.3.5f1** (this was the latest LTS at the time the project was started )
+1. First you need to download Unity **2021.3.5f1** (this was the latest LTS at the time the project was started ).
 
-2. Clone the Develop branch using git clone 
+2.Get a copy of VRI framework https://wiki.beardedninjagames.com/  (BNG Folder).
 
-3. Go to ‘Window’ -> ‘Package manage’ and make sure **Open XR Plugin** is installed. If  already there ignore this step
+3. Clone the Develop branch using git clone. 
 
+4. Populate "Assets/BNG Framework" with the conetent you downloaded.
+
+5. After populating the BNG folder you may have to pull again.
 
 ## Using the Demo Scene
 
-Under the VR4VET/Scenes you should see a scene called ‘Template 1’. This the existing Prefabs (more about them in the later section). 
-
-This Scenes demos 3 simple tasks that you can check using your tablet. If you click on the task it will also show you the way towards that task with green arrows(unless you are already too close). 
+Under the VR4VET/Scenes you should see a scene called ‘MainTestScene’. This the existing Prefabs (more about them in the later section). 
 
 #### Controls
 
-* Primary button right hand: Tablet
-* Secondary button right hand: Main Menu
+* Primary button right hand: Main Menu
 * Trigger right hand: UI Press
 * Thumbstick left hand: teleportation
 * Grip Button both hands: grab
  
-
-This Scene is going to get a lot of changes after transitioning to VR Interaction Framework
-
-
 
 ## New Experience/Game instructions
 
@@ -39,13 +35,4 @@ All Experiences/Games should use: Player, Tablet and Menu prefabs. All included 
 
 
 ## Prefabs
-* Pause Menu
-* 360 Video Player: https://github.com/vr4vet/vr4vet/blob/main/360VideoREADME.md
-* Tablet: https://github.com/vr4vet/vr4vet/blob/main/TabletREADME.md
-  - Navigation manager
-  - Skill Manager
-  - Task and Activities
-* XR Player:
-Currently the player has the tablet under the left hand (and you can choose if you want it on your hand or floating in front of you )
-This prefab will be changed once we change platform (XRI toolkit -> VR Interaction Framework)
-
+Currently the detail explaination of how to use all the prefabs exist on the Wiki

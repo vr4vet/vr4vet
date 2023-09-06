@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2020 IMTEL NTNU - All Rights Reserved
+﻿/*
  * AutoHideUIScroller base code is made by Essential on https://forum.unity.com/threads/hide-scrollbar.285929/
  * Code edited By Abbas Jafari
  * Ask your questions by email: a85jafari@gmail.com
@@ -34,6 +34,7 @@ namespace Tablet
 
         void Start()
         {
+            /*
             scrollRect = gameObject.GetComponent<ScrollRect>();
             if (scrollRect.verticalScrollbar != null)
                 scrollbarVertical = new ScrollbarClass() { bar = scrollRect.verticalScrollbar, active = true };
@@ -42,8 +43,9 @@ namespace Tablet
 
             if (scrollbarVertical == null && scrollbarHorizontal == null)
                 Debug.LogWarning("Must have a horizontal or vertical scrollbar attached to the Scroll Rect for AutoHideUIScrollbar to work");
+            */
         }
-
+        /*
         void Update()
         {
             if (scrollbarVertical != null)
@@ -52,7 +54,7 @@ namespace Tablet
                 SetScrollBar(scrollbarHorizontal, false);
 
         }
-
+        */
 
         void StretchUIItems(ScrollbarClass scrollbar)
         {
@@ -64,7 +66,7 @@ namespace Tablet
                 ContentView.sizeDelta = new Vector2(100, ContentView.sizeDelta.y);
             }
         }
-
+        
 
         void ResizeUIItemsToOrigin(ScrollbarClass scrollbar)
         {

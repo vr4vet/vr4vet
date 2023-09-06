@@ -1,7 +1,16 @@
+/*
+ * Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Gives functions to interact with the 3 different audio (music, effects, and voices)
+/// all public methods are self-explanatory
+/// </summary>
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bde12d0a8b818546a8e6a31e7c4d19f, type: 3}
+  m_Name: Order66
+  m_EditorClassIdentifier: 
+  _taskName: Order66
+  _description: Under this directive, any and all Jedi leadership must be executed
+    for treason against the Republic. Any soldier that does not comply with the order
+    will also be executed for treason
+  _subtasks:
+  - {fileID: 11400000, guid: f2e6e17d3bdb8f843b6744721f61c156, type: 2}
+  - {fileID: 11400000, guid: 4091fff0c8ffbc645a36e994e61e7bc0, type: 2}
+  prerequisite: {fileID: 0}
+  target: {fileID: 0}

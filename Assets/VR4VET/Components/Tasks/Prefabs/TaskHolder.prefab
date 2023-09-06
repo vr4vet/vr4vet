@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2281686386275440645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2281686386275440644}
+  - component: {fileID: 2281686386275440643}
+  - component: {fileID: 7270759399954471322}
+  m_Layer: 0
+  m_Name: TaskHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2281686386275440644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281686386275440645}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.04220432, y: 1.4330474, z: -1.9048306}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2281686386275440643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281686386275440645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae5105792e7c4042871fe5abafd7420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _taskAndTargerts:
+  - task: {fileID: 11400000, guid: 1a7de18e1b008644c87b4283ce9888b7, type: 2}
+    target: {fileID: 0}
+  _skillList:
+  - {fileID: 11400000, guid: 3453ab20f5d0be644b39446960ecaedd, type: 2}
+--- !u!114 &7270759399954471322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281686386275440645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6938bc17bcf57344cb1a9e43af8e0f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeButton: {fileID: 0}
+  target: {fileID: 0}
+  player: {fileID: 0}
+  Arrow: {fileID: 7187982016642669561, guid: f2826c85f7078aa4ca9a30a6161dc3fe, type: 3}
+  activated: {fileID: 8300000, guid: e2ba1dcfc9b1e2e438acd009e17e1ea6, type: 3}
+  deactivated: {fileID: 8300000, guid: 278d13f80955a2848a6b344690fdb57d, type: 3}
+  prerequisites: {fileID: 8300000, guid: afae2ea0516cea342a4f16654d910c8e, type: 3}
+  navArrowSpeed: 0.7

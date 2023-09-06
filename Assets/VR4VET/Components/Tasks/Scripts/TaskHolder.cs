@@ -1,116 +1,79 @@
-/* Copyright (C) 2023 IMTEL NTNU - All Rights Reserved
- * Developer: Jorge Garcia
- * Ask your questions by email: jorgeega@ntnu.no
+/* Developer: Jorge Garcia
+ * Ask your questions on github: https://github.com/Jorest
  */
 
-
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-namespace Tablet
+namespace Task
 {
+
+    /// <summary>
+    /// This script is meant to hold the relevant task data (task and skills) 
+    /// this works an interface for the data to be modified on runtime
+    /// </summary>
     public class TaskHolder : MonoBehaviour
     {
-        [SerializeField]
-        public List<TaskxTarget> _taskAndTargerts = new List<TaskxTarget>();
+        public static TaskHolder Instance;
+        private List<TaskxTarget> _taskAndTargerts = new List<TaskxTarget>();
 
-        [SerializeField]
-        private List<Skill> _skillList = new List<Skill>();
+        [Header("Profession Tasks")]
+        [SerializeField] public List<Skill> skillList = new List<Skill>();
 
-        private List<Task> _tasks = new List<Task>();
+        [SerializeField] public List<Task> taskList = new List<Task>();
 
-        void Start()
+        //making the task holder a singleton
+        private void Awake()
         {
-            //asing the target value to each task ( the targets exist only on the scene 
-            //when no target is elected the value is just None
-            foreach (TaskxTarget convo in _taskAndTargerts)
+            if (Instance == null)
             {
-
-                convo.task.taskTarget = convo.target;
-                _tasks.Add(convo.task);
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
-
-
-
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
-        public List<Skill> getSkillList()
+        public Task GetTask(string taskName)
         {
-            List<Skill> returnskills = new List<Skill>();
-            foreach (Skill skill in _skillList)
+            Task returnTask = null;
+
+            foreach (Task task in taskList)
             {
-
-                returnskills.Add(skill);
-            }
-
-            return returnskills;
-        }
-
-
-        public List<Task> GetTaskList()
-        {
-            List<Task> returntasks = new List<Task>();
-            foreach (TaskxTarget convo in _taskAndTargerts)
-            {
-
-                returntasks.Add(convo.task);
-            }
-
-            return returntasks;
-        }
-
-
-
-        public void AddPoints(string activityName, string skillName, int points)
-        {
-
-
-            foreach (Skill ferdighet in _skillList)
-            {
-                foreach (Task task in _tasks)
+                if (task.TaskName == taskName)
                 {
-                    foreach (Activity aktivitet in task.GetAktivitetList())
-                    {
-                        //add poeng to aktivitet
-                        if (aktivitet.GetAktivitetName() == activityName && ferdighet.GetFerdighetName() == skillName)
-                        {
-                            //add ferdighet to this aktivitet
-                            aktivitet.AddToAktivitetFerdigheter(ferdighet);
-
-                            //add poeng to aktivitet object
-                            aktivitet.AddToAchievedPoeng(points);
-
-                            //mark this aktivitet as compeleted
-                            aktivitet.AktivitetIsDone(true);
-
-                            //add the aktivitet to skills dic som holds aktiviteter that need this ferdighet and its poeng
-                            ferdighet.AddToFerdighetAktiviteter(aktivitet, points);
-                        }
-                    }
+                    returnTask = task;
+                    break;
                 }
             }
 
+            return returnTask;
         }
 
+        public Skill GetSkill(string skillName)
+        {
+            Skill returnSkill = null;
 
-     
+            foreach (Skill task in skillList)
+            {
+                if (task.Name == skillName)
+                {
+                    returnSkill = task;
+                    break;
+                }
+            }
+
+            return returnSkill;
+        }
 
     }
-
-
-
-
-
-
+    //this sub-class can be usefull in the future to set targets 
     [System.Serializable]
     public class TaskxTarget
     {
-        public Task task;
+        public Subtask subtask;
         public GameObject target;
-
     }
-
 }
