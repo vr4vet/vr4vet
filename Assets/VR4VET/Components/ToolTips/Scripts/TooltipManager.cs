@@ -54,7 +54,7 @@ public class TooltipManager : MonoBehaviour
         }
     }
 
-    public TooltipScript InstantiateTooltip(Transform Parent, string Header, string Content, string StartState = "Open", bool RemoveHeader = false, bool Unclosable = false, bool Minimizable = true, bool FacePlayer = true, bool AlwaysAboveParent = true, bool CloseWhenDistant = false, float CloseThreshold = 10f)
+    public TooltipScript InstantiateTooltip(Transform Parent, string Header, string Content, string StartState = "Open", bool RemoveHeader = false, bool Unclosable = false, bool FacePlayer = true, bool AlwaysAboveParent = true, bool CloseWhenDistant = false, float CloseThreshold = 10f)
     {
         GameObject instTooltip = PrefabUtility.InstantiatePrefab(TooltipPrefab, Parent) as GameObject;
         TooltipScript InstTooltip = instTooltip.GetComponent<TooltipScript>();
@@ -64,7 +64,6 @@ public class TooltipManager : MonoBehaviour
         InstTooltip.TextContent = Content;
         InstTooltip.RemoveHeader = RemoveHeader;
         InstTooltip.Unclosable = Unclosable;
-        InstTooltip.Minimizable = Minimizable;
         InstTooltip.FacePlayer = FacePlayer;
         InstTooltip.AlwaysAboveParent = AlwaysAboveParent;
         InstTooltip.CloseWhenDistant = CloseWhenDistant;
