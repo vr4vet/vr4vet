@@ -9,8 +9,8 @@ public class SceneTransitionManager : MonoBehaviour
 {
     //Setting up needed variables and displays them for debugging
     private bool _isFaded;
-    //The build index of the scene to be loaded (Only sed for debugging with 'space')
-    private int _nextScene = 0;
+    //The build index of the scene to be loaded
+    [SerializeField] private int _nextScene = 0;
     //The overlay image that will be used for the fade
     [SerializeField] private RawImage _rawImage;
 
