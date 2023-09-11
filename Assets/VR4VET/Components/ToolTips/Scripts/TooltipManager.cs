@@ -76,6 +76,7 @@ public class TooltipManager : MonoBehaviour
                 break;
             case("minimized"):
                 InstTooltip.Minimize();
+                Debug.Log("Minimizing");
                 break;
         }
         return InstTooltip;

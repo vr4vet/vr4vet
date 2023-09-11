@@ -61,7 +61,7 @@ public class TooltipScript : MonoBehaviour, IPointerClickHandler
     public TTActivationEvent ActivationEvent;
 
     // Start is called before the first frame update.
-    void Start()
+    void Awake()
     {
         // If there is not already an activation event, create a new one.
         if (ActivationEvent == null)

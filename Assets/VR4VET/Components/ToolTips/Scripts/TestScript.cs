@@ -16,7 +16,7 @@ public class TestScript : MonoBehaviour
     {
        if (Input.GetKeyDown("space"))
         {
-            TTM.InstantiateTooltip(transform, "TestHeader", "TestContent", "CloSed");
+            TTM.InstantiateTooltip(transform, "TestHeader", "TestContent", "Minimized");
         }
     }
 }
