@@ -15,7 +15,10 @@ MonoBehaviour:
   sections:
   - dialogue:
     - 'Hello c:'
-    endAfterDialogue: 1
+    - My name is what
+    endAfterDialogue: 0
     branchPoint:
-      question: 
-      answers: []
+      question: Whats your name?
+      answers:
+      - answerLabel: 
+        nextElement: 0

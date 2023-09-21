@@ -1,25 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class NPCManager : MonoBehaviour
 {
     public DialogueTree dialogueTree;
-    public GameObject thisGameObject;
     public GameObject collidingObject;
-    private DialogueBoxController dialogueBoxController;
+    
+    private DialogueBoxController controller;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        controller = gameObject.AddComponent<DialogueBoxController>();
+        controller.StartDialogue(dialogueTree, 0, "NPC");
     }
 
     private void OnTriggerEnter(Collider other)
-    {
+    {   
+
+        
         if (other.gameObject.Equals(collidingObject)) 
         {
             Debug.Log(dialogueTree.sections[0].dialogue[0]);
-            Destroy(thisGameObject);
+            Destroy(gameObject);
         }
     }
 

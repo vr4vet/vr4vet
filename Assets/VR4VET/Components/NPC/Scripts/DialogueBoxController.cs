@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class DialogueBoxController : MonoBehaviour
 {
     public static DialogueBoxController instance;
-    [SerializeField] TextMeshProUGUI dialogueText;
-    [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] TextMesh dialogueText;
+    [SerializeField] TextMesh nameText;
     [SerializeField] GameObject dialogueBox;
     [SerializeField] GameObject answerBox;
     [SerializeField] Button[] answerObjects;
@@ -42,8 +42,9 @@ public class DialogueBoxController : MonoBehaviour
     IEnumerator RunDialogue(DialogueTree dialogueTree, int section)
     {
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++) 
-        {
+        {   
             dialogueText.text = dialogueTree.sections[section].dialogue[i];
+            Debug.Log(dialogueText.text);
             while (!skipLineTriggered)
             {
                 yield return null;
