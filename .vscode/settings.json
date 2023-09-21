@@ -1,4 +1,6 @@
-{
+{   
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
     "files.exclude": {
         "**/.DS_Store": true,
         "**/.git": true,
@@ -49,12 +51,12 @@
         "library/": true,
         "obj/": true,
         "Obj/": true,
+        "temp/": true,
+        "Temp/": true
         "Logs/": true,
         "logs/": true,
         "ProjectSettings/": true,
         "UserSettings/": true,
-        "temp/": true,
-        "Temp/": true
     },
     "dotnet.defaultSolution": "vr4vet.sln"
 }

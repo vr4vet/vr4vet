@@ -7,9 +7,7 @@ using UnityEngine;
 namespace Task
 {
     [System.Serializable]
-
-    [CreateAssetMenu(fileName = "New Step", menuName = "Tasks/Step")]
-    public class Step : ScriptableObject
+    public class Step
     {
         [SerializeField] private string _stepName;
         [SerializeField] [Range(1, 20)] private int _repetionNumber = 1;
