@@ -7,13 +7,10 @@ public class NPCManager : MonoBehaviour
     
     private DialogueBoxController controller;
 
-    float _time;
-
     // Start is called before the first frame update
     void Start()
     {   
         controller = gameObject.GetComponent<DialogueBoxController>();
-        _time = 0;
     }
 
     private void OnTriggerEnter(Collider other)
