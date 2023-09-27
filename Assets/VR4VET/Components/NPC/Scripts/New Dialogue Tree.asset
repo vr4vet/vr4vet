@@ -14,11 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sections:
   - dialogue:
-    - 'Hello c:'
-    - My name is what
+    - "Hello \U0001F448( \u2022\u0300 .\u032B \u2022\u0301 )\u2727"
     endAfterDialogue: 0
     branchPoint:
-      question: Whats your name?
+      question: How are you doing?
       answers:
-      - answerLabel: 
-        nextElement: 0
+      - answerLabel: Good
+        nextElement: 1
+      - answerLabel: Not good
+        nextElement: 2
+  - dialogue:
+    - "That's good! (\uFF5E\uFFE3\u25BD\uFFE3)\uFF5E"
+    endAfterDialogue: 1
+    branchPoint:
+      question: How are you doing?
+      answers:
+      - answerLabel: Good
+        nextElement: 1
+      - answerLabel: Not good
+        nextElement: 2
+  - dialogue:
+    - "That's not good \u0CA5_\u0CA5"
+    endAfterDialogue: 1
+    branchPoint:
+      question: How are you doing?
+      answers:
+      - answerLabel: Good
+        nextElement: 1
+      - answerLabel: Not good
+        nextElement: 2
