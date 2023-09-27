@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class DialogueBoxController : MonoBehaviour
 {
     public static DialogueBoxController instance;
-    [SerializeField] TextMesh dialogueText;
-    [SerializeField] TextMesh nameText;
+    [SerializeField] TextMeshProUGUI dialogueText;
+    [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] GameObject dialogueBox;
     [SerializeField] GameObject answerBox;
     [SerializeField] Button[] answerObjects;
@@ -33,7 +33,7 @@ public class DialogueBoxController : MonoBehaviour
     public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
     {
         ResetBox();
-        nameText.text = name + "...";
+        nameText.text = name;
         dialogueBox.SetActive(true);
         OnDialogueStarted?.Invoke();
         StartCoroutine(RunDialogue(dialogueTree, startSection));
@@ -81,7 +81,7 @@ public class DialogueBoxController : MonoBehaviour
     {
         // Reveals the aselectable answers and sets their text values
         answerBox.SetActive(true);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             if (i < branchPoint.answers.Length)
             {
