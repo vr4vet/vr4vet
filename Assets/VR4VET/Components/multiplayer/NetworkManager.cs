@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using TMPro;
+
 
 [System.Serializable]
 public class DefaultRoom
@@ -16,8 +18,14 @@ public class DefaultRoom
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public List<DefaultRoom> defaultRooms;
+
     public GameObject roomUI;
     public GameObject joinOrCreateUI;
+    public GameObject showCodeUI;
+    public List<GameObject> digits;
+
+    private string scenarioNumber;
+    private string roomName;
 
     // Update is called once per frame
     public void ConnectToServer()
@@ -72,34 +80,42 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnPlayerEnteredRoom(newPlayer);
     }
 
-    public void CreateRoom(string scenarioNumber)
+    public void CreateRoom(string scenarioNumberChosen)
     {
+        scenarioNumber = scenarioNumberChosen;
         System.Random random = new System.Random();
-        // number of digits of the code - 1 (scenario number is first digit)
-        int numberOfNumbers = 3;
-        string roomName = scenarioNumber;
-
-        for (int i = 0; i < numberOfNumbers; i++)
+        roomName = scenarioNumber;
+        for (int i = 0; i < digits.Count; i++)
         {
             // Generate a random number between 0 and 9
             int randomNumber = random.Next(0, 10);
             // Concatenate the random number as a string
             roomName += randomNumber.ToString();
+
+            digits[i].GetComponent<TextMeshProUGUI>().text = randomNumber.ToString();
         }
 
+        
+
+        // TODO: Display the roomName/code. Maybe put it somewhere in the tablet?
+        Debug.Log("Room name: ");
+        Debug.Log(roomName);
+
+        roomUI.SetActive(false);
+        showCodeUI.SetActive(true);
+    }
+
+    public void joinCreatedRoom()
+    {
         // Load scene
         PhotonNetwork.LoadLevel(int.Parse(scenarioNumber));
 
         // Create room
         RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = (byte) 4;
+        roomOptions.MaxPlayers = (byte)4;
         roomOptions.IsVisible = true;
         roomOptions.IsOpen = true;
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
-
-        // TODO: Display the roomName/code. Maybe put it somewhere in the tablet?
-        Debug.Log("Room name: ");
-        Debug.Log(roomName);
     }
 
     public void JoinRoom(string roomName)
