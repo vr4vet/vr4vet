@@ -4,14 +4,19 @@ public class NPCManager : MonoBehaviour
 {
     public DialogueTree dialogueTree;
     public GameObject collidingObject;
+    public TextAsset data;
     
     private DialogueBoxController controller;
 
     float _time;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {   
+        if (data != null) {
+            GetTreeFromJson(data);
+        }
+
         controller = gameObject.GetComponent<DialogueBoxController>();
         _time = 0;
     }
@@ -24,8 +29,8 @@ public class NPCManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void GetTreeFromJson(TextAsset data)
     {
+        JsonUtility.FromJsonOverwrite(data.text, dialogueTree);
     }
 }
