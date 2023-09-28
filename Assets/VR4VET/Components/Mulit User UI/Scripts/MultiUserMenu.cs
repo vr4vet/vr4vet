@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class MultiUserMenu : MonoBehaviour
 {
@@ -20,9 +22,9 @@ public class MultiUserMenu : MonoBehaviour
         MultiModeCanvas.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadSceneByIndex(int sceneIndexToLoad)
     {
-        
+        // Load the scene using the specified index.
+        SceneManager.LoadScene(sceneIndexToLoad);
     }
 }
