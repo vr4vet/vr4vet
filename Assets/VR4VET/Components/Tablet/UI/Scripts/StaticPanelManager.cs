@@ -204,7 +204,8 @@ public class StaticPanelManager : MonoBehaviour
 
     public void OnClickMenuScore()
     {
-        SwitchMenuTo(ScoreListMenu);
+        // SwitchMenuTo(ScoreListMenu);
+        SwitchMenuTo(ScoreMenu);
     }
 
 
