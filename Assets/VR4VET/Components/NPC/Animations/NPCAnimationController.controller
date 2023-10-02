@@ -37,15 +37,15 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -6584602384163720707}
-    m_Position: {x: 400, y: 10, z: 0}
+    m_Position: {x: -460, y: 160, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 230, y: 80, z: 0}
-  m_EntryPosition: {x: 420, y: 140, z: 0}
-  m_ExitPosition: {x: 610, y: 80, z: 0}
+  m_AnyStatePosition: {x: -650, y: 230, z: 0}
+  m_EntryPosition: {x: -440, y: 290, z: 0}
+  m_ExitPosition: {x: -250, y: 230, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -6584602384163720707}
 --- !u!206 &-3101568230664214290
@@ -75,7 +75,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 35862471bf464ff4f8ab17ce223198a2, type: 2}
     m_Threshold: 0.25
-    m_Position: {x: -0.5, y: 0}
+    m_Position: {x: -0.52, y: -0.01}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
@@ -149,19 +149,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: VelocityX
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: VelocityY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
+  - m_Name: isTalking
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 1
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
