@@ -105,6 +105,3 @@ public class DialogueBoxController : MonoBehaviour
         answerTriggered = true;
     }
 }
-
-
-
