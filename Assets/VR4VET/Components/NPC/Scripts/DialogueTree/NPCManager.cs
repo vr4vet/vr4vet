@@ -23,6 +23,8 @@ public class NPCManager : MonoBehaviour
         if (other.gameObject.Equals(collidingObject)) 
         {
             controller.StartDialogue(dialogueTree, 0, "NPC");
+            JsonUtility.ToJson(data, true);
+            Debug.Log(JsonUtility.ToJson(data, true).ToString());
         }
     }
 
@@ -30,4 +32,5 @@ public class NPCManager : MonoBehaviour
     {
         JsonUtility.FromJsonOverwrite(data.text, dialogueTree);
     }
+
 }

@@ -75,6 +75,7 @@ public class DialogueBoxController : MonoBehaviour
         answerBox.SetActive(false);
         skipLineTriggered = false;
         answerTriggered = false;
+        
     }
 
     void ShowAnswers(BranchPoint branchPoint)
