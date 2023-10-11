@@ -18,11 +18,18 @@ public class DialogueBoxController : MonoBehaviour
     bool answerTriggered;
     int answerIndex;
 
+    private GameObject skipLineButton;
+    private GameObject exitButton;
+
     private void Awake() 
     {
         if (instance == null)
         {
             instance = this;
+            skipLineButton = GameObject.Find("DialogueCanvas/SkipLineButton");
+            exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
+            skipLineButton.SetActive(false);
+            exitButton.SetActive(false);
         }
         else 
         {
@@ -37,6 +44,8 @@ public class DialogueBoxController : MonoBehaviour
         dialogueBox.SetActive(true);
         OnDialogueStarted?.Invoke();
         StartCoroutine(RunDialogue(dialogueTree, startSection));
+        exitButton.SetActive(true);
+
     }
 
     IEnumerator RunDialogue(DialogueTree dialogueTree, int section)
@@ -47,9 +56,11 @@ public class DialogueBoxController : MonoBehaviour
             Debug.Log(dialogueText.text);
             while (!skipLineTriggered)
             {
+                skipLineButton.SetActive(true);
                 yield return null;
             }
             skipLineTriggered = false;
+            skipLineButton.SetActive(false);
         }
         if (dialogueTree.sections[section].endAfterDialogue)
         {
@@ -65,6 +76,8 @@ public class DialogueBoxController : MonoBehaviour
         }
         answerBox.SetActive(false);
         answerTriggered = false;
+        exitButton.SetActive(false);
+        skipLineButton.SetActive(false);
         StartCoroutine(RunDialogue(dialogueTree, dialogueTree.sections[section].branchPoint.answers[answerIndex].nextElement));
     }
 
@@ -75,6 +88,8 @@ public class DialogueBoxController : MonoBehaviour
         answerBox.SetActive(false);
         skipLineTriggered = false;
         answerTriggered = false;
+        skipLineButton.SetActive(false);
+        exitButton.SetActive(false);
     }
 
     void ShowAnswers(BranchPoint branchPoint)
