@@ -13,7 +13,7 @@ public class NPCController: MonoBehaviour
     // https://www.youtube.com/watch?v=xppompv1DBg&list=PLPV2KyIb3jR4KLGCCAciWQ5qHudKtYeP7&index=11
     public float lookRadius = 4f;
 
-    float personalSpaceFactor = 2f;
+    public float personalSpaceFactor = 2f;
     Transform target;
     NavMeshAgent agent;
 

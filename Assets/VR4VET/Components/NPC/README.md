@@ -14,8 +14,15 @@
 
 ## Follow the Player
 
-- First create an empty game object and add the script component called PlayerManger. As player drag and drop the object you want the NPC to follow. There can only be one player in each scene (singleton). E.g. for the prefab called Player drag the CameraRig into the player-field of the script.
-- window -> panels -> 6 Navigation. In this window can you specify which areas of the map the NPC can walk on. So each time you make a change to the landscape of the map, you need to press bake here in the tab
+- Enable walking
+  - Find the navigation window by clicking: window -> panels -> 6 Navigation. In this window can you specify which areas of the map the NPC can walk on. So each time you make a change to the landscape of the map, you need to press bake here in the tab.
+  - Ensure that the ground is walkable. Click on the ground, in the navigation tab go to Object. Make sure "Navigation Static" is enabled, Navigation area is set to Walkable.
+
+
+- Who should the NPC follow?
+  - First ensure that the prefab called PlayerManager is in the scene
+  - Look at the script component called PlayerManager. Drag and drop the tracking target into the field called Player.There can only be one player in each scene (singleton). E.g. for the prefab called "XR Rig Advanced VR4VET" drag the CameraRig into the player-field of the script.
+
 
 Inspiration/tutorials:
 
