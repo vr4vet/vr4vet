@@ -104,4 +104,9 @@ public class DialogueBoxController : MonoBehaviour
         answerIndex = answer;
         answerTriggered = true;
     }
+
+    public void ExitConversation()
+    {
+        ResetBox();
+    }
 }
