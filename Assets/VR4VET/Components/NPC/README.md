@@ -11,6 +11,12 @@
 - In the DialogueBoxController script, the Dialogue Text, NPC Name Text, Dialogue Box, Answer Box and Answer Objects are assigned.
   - The boxes are containers for the text objects, and the Dialogue text value is sat depending on the dialogue written in the Dialogue Tree object.
   - The Answer Objects is defined by the Answers written in the Dialogue Tree.
+ 
+## Utilize NPC dialogue
+
+- To use the NPC dialogue there needs to be defined a *Colliding Object* for the NPC in the NPCManager script. (Currently we have been using the *HolsterRight* object from the XR Rig Advanced, which has worked well, but other objects can probably be used instead).
+  
+- At the time a default "dummy" dialogue tree with all the needed objects is included in the NPC prefab, but at a later stage this needs to be changed.
 
 ## Follow the Player
 
