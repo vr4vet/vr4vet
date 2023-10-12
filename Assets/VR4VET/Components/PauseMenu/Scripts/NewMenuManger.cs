@@ -3,6 +3,7 @@
  */
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -22,12 +23,18 @@ public class NewMenuManger : MonoBehaviour
 
     private Camera _cam;
     [SerializeField] private GameObject _menuCanvas;
+    [SerializeField] private GameObject _settingsCanvas;
+    [SerializeField] private GameObject _aboutCanvas;
+    [SerializeField] private GameObject _languagesCanvas;
+    [SerializeField] private GameObject _remapCanvas;
+    [SerializeField] private GameObject _audioCanvas;
     // public GameObject stateSaverComponent;
 
     private GameObject _savedStates;
     private bool _menuOpen = false;
     private float _holdtime = 1.5f;
 
+    private List<GameObject> allMenus = new();
     /// <summary>
     /// This Script manages all aspects of the Pause Menu:
     /// Toggle, or Hold to Pause
@@ -41,6 +48,14 @@ public class NewMenuManger : MonoBehaviour
         Color c = _wallsMaterial.color;
         c.a = 1f;
         _wallsMaterial.color = c;
+
+        allMenus.AddRange(new List<GameObject>() { _menuCanvas, _settingsCanvas, _aboutCanvas, _languagesCanvas, _remapCanvas, _audioCanvas });
+
+        foreach (var item in allMenus)
+        {
+            item.SetActive(false);
+        }
+        _menuCanvas.SetActive(true);
     }
 
     private void ToggleMenu()
@@ -158,6 +173,19 @@ public class NewMenuManger : MonoBehaviour
                 I = 1.6f;
             }
             yield return null;
+        }
+    }
+
+
+    public void SwitchMenuTo(GameObject panelToOpen)
+    {
+        foreach (var item in allMenus)
+        {
+            bool shouldSetActive = (item == panelToOpen);
+            if (item.activeSelf != shouldSetActive)
+            {
+                item.SetActive(shouldSetActive);
+            }
         }
     }
 }
