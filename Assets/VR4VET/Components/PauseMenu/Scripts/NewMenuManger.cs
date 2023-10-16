@@ -3,6 +3,7 @@
  */
 
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -31,6 +32,7 @@ public class NewMenuManger : MonoBehaviour
     // public GameObject stateSaverComponent;
 
     private GameObject _savedStates;
+    [SerializeField]
     private bool _menuOpen = false;
     private float _holdtime = 1.5f;
 
@@ -129,48 +131,45 @@ public class NewMenuManger : MonoBehaviour
 
     public void PressHoldMenu(InputAction.CallbackContext context)
     {
-        if (_holdToOpen)
+        if (_holdToOpen && !_menuOpen)
         {
             if (context.started)
             {
-                StartCoroutine(HoldPause());
+                StartCoroutine(HoldPause(context));
             }
         }
-        else
+        else if (context.performed)
         {
             ToggleMenu();
         }
     }
 
     // Loading wheel to open the pause menu
-    private IEnumerator HoldPause()
+    private IEnumerator HoldPause(InputAction.CallbackContext context)
     {
         for (float I = 0f; I < _holdtime; I += Time.deltaTime)
         {
-            // Get left-handed device and its current state (pressed or not).
-            UnityEngine.XR.InputDevice _rightDevice = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-            _rightDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out bool triggerValue);
-
-            // Fill LoadingWheel if trigger is pressed
-            if (triggerValue)
+            try
             {
-                LoadingWheel.fillAmount = I;
+                Debug.Log(context);
             }
+            catch(Exception e)
+            {
+                LoadingWheel.fillAmount = 0f;
+                I = 1.6f;
+                yield break;
+            }
+            
+            // Fill LoadingWheel if trigger is pressed
+            LoadingWheel.fillAmount = I;
+            
 
             // Open menu if it has been continuously pressed.
             if (I >= 1f)
             {
                 LoadingWheel.fillAmount = 0f;
-                I = _holdtime + 1;
-
-                PauseGame();
-            }
-
-            // If trigger is no longer pressed, reset the LoadingWheel.
-            if ((!triggerValue))
-            {
-                LoadingWheel.fillAmount = 0f;
-                I = 1.6f;
+                ToggleMenu();
+                yield break;
             }
             yield return null;
         }
