@@ -149,6 +149,10 @@ public class NewMenuManger : MonoBehaviour
     {
         for (float I = 0f; I < _holdtime; I += Time.deltaTime)
         {
+            // Yes, this is a try catch checking if it can log the context variable.
+            // Yes, this is to check if the user releases the button.
+            // Yes, this is extremely stupid.
+            // But, it's the only thing I got to work.
             try
             {
                 Debug.Log(context);
