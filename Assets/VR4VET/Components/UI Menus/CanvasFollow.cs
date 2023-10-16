@@ -72,4 +72,12 @@ public class CanvasFollow : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+    private void OnEnable()
+    {
+      _height+=player.transform.Find("PlayerController").transform.position.y;
+    }
+    private void OnDisable()
+    {
+        _height-=player.transform.Find("PlayerController").transform.position.y;
+    }
 }
