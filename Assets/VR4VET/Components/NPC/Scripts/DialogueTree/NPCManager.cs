@@ -19,21 +19,12 @@ public class NPCManager : MonoBehaviour
         Debug.Log(controller);
     }
 
-    // TODO: Clean up
     private void OnTriggerEnter(Collider other)
     {   
-        Debug.Log("We have entered the zone");
         if (other.gameObject.Equals(collidingObject)) 
         {
-            Debug.Log("The dialog should start now");
             controller.StartDialogue(dialogueTree, 0, "NPC");
         }
-    }
-
-    // TODO: Remove
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("We have left the zone");
     }
 
     private void GetTreeFromJson(TextAsset data)

@@ -65,11 +65,11 @@ public class NPCController: MonoBehaviour
     }
 
 
-    // // visulaization of personal space and lookRadius
-    // void OnDrawGizmosSelected() {
-    //     Gizmos.color = Color.red;
-    //     Gizmos.DrawWireSphere(transform.position, lookRadius);
-    //     Gizmos.color = Color.blue;
-    //     Gizmos.DrawWireSphere(target.position, 2f);
-    // }
+    // visulaization of personal space and lookRadius
+    void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(target.position, 2f);
+    }
 }
