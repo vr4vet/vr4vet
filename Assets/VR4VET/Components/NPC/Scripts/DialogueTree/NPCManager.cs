@@ -15,15 +15,23 @@ public class NPCManager : MonoBehaviour
             GetTreeFromJson(data);
         }
 
-        controller = gameObject.GetComponent<DialogueBoxController>();
+        controller = gameObject.GetComponentInParent<DialogueBoxController>();
+        Debug.Log(controller);
     }
 
     private void OnTriggerEnter(Collider other)
     {   
+        Debug.Log("We have entered the zone");
         if (other.gameObject.Equals(collidingObject)) 
         {
+            Debug.Log("The dialog should start now");
             controller.StartDialogue(dialogueTree, 0, "NPC");
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("We have left the zone");
     }
 
     private void GetTreeFromJson(TextAsset data)

@@ -11,9 +11,9 @@ public class NPCController: MonoBehaviour
     // https://www.youtube.com/watch?v=TpQbqRNCgM0
     // Video Brackeys + NavMeshAgent etc.
     // https://www.youtube.com/watch?v=xppompv1DBg&list=PLPV2KyIb3jR4KLGCCAciWQ5qHudKtYeP7&index=11
-    public float lookRadius = 4f;
+    public float lookRadius = 8f;
 
-    public float personalSpaceFactor = 2f;
+    public float personalSpaceFactor = 4f;
     Transform target;
     NavMeshAgent agent;
 
@@ -65,11 +65,11 @@ public class NPCController: MonoBehaviour
     }
 
 
-    // visulaization of personal space and lookRadius
-    void OnDrawGizmosSelected() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(target.position, 2f);
-    }
+    // // visulaization of personal space and lookRadius
+    // void OnDrawGizmosSelected() {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(transform.position, lookRadius);
+    //     Gizmos.color = Color.blue;
+    //     Gizmos.DrawWireSphere(target.position, 2f);
+    // }
 }

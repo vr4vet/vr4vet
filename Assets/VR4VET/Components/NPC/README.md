@@ -14,9 +14,14 @@
  
 ## Utilize NPC dialogue
 
-- To use the NPC dialogue there needs to be defined a *Colliding Object* for the NPC in the NPCManager script. (Currently we have been using the *HolsterRight* object from the XR Rig Advanced, which has worked well, but other objects can probably be used instead).
+- To use the NPC dialogue there needs to be defined a *Colliding Object* for the NPC in the NPCManager script. (Currently we have been using the *HolsterRight* object from the XR Rig Advanced, which has worked well, but other objects can probably be used instead). You can find the NPC script on the gameObject called CollisionTriggerHandler. 
   
 - At the time a default "dummy" dialogue tree with all the needed objects is included in the NPC prefab, but at a later stage this needs to be changed.
+
+### Modifactions
+
+- You can change (and should) the dialog tree
+- You can also adjust the radius for when the dialogue is triggered. We advise you to keep this radius less than the personal space factor for NPC following mentiond below.
 
 ## Follow the Player
 
@@ -24,11 +29,16 @@
   - Find the navigation window by clicking: window -> panels -> 6 Navigation. In this window can you specify which areas of the map the NPC can walk on. So each time you make a change to the landscape of the map, you need to press bake here in the tab.
   - Ensure that the ground is walkable. Click on the ground, in the navigation tab go to Object. Make sure "Navigation Static" is enabled, Navigation area is set to Walkable.
 
-
 - Who should the NPC follow?
   - First ensure that the prefab called PlayerManager is in the scene
   - Look at the script component called PlayerManager. Drag and drop the tracking target into the field called Player.There can only be one player in each scene (singleton). E.g. for the prefab called "XR Rig Advanced VR4VET" drag the CameraRig into the player-field of the script.
 
+### Modfications
+
+- You can change the personal space factor and the look radius
+  - If you leave the NPCs look radius they will start to follow you
+  - The NPC will stop follwing you if you with in the personal space factor - radius.
+- You can disable the follow-feature if you disable the NPC Controller script on the NPC (#TODO change the name of the script)
 
 Inspiration/tutorials:
 
