@@ -19,6 +19,7 @@ public class NPCManager : MonoBehaviour
         Debug.Log(controller);
     }
 
+    // TODO: Clean up
     private void OnTriggerEnter(Collider other)
     {   
         Debug.Log("We have entered the zone");
@@ -29,6 +30,7 @@ public class NPCManager : MonoBehaviour
         }
     }
 
+    // TODO: Remove
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("We have left the zone");
