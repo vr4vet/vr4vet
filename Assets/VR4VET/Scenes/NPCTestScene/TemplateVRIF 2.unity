@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.54914045, g: 0.7960089, b: 0.97293365, a: 1}
+  m_IndirectSpecularColor: {r: 0.5493609, g: 0.79545873, b: 0.9734807, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15667,10 +15667,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1376663320, guid: 267302cdf44b53c408dcca95da3d2c6f, type: 3}
-      propertyPath: collidingObject
-      value: 
-      objectReference: {fileID: 623765751}
     - target: {fileID: 2533000989534365106, guid: 267302cdf44b53c408dcca95da3d2c6f,
         type: 3}
       propertyPath: m_RootOrder
@@ -15679,17 +15675,17 @@ PrefabInstance:
     - target: {fileID: 2533000989534365106, guid: 267302cdf44b53c408dcca95da3d2c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.79
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2533000989534365106, guid: 267302cdf44b53c408dcca95da3d2c6f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.06349969
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2533000989534365106, guid: 267302cdf44b53c408dcca95da3d2c6f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.26
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2533000989534365106, guid: 267302cdf44b53c408dcca95da3d2c6f,
         type: 3}
@@ -15731,6 +15727,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 5427285428555562711, guid: 267302cdf44b53c408dcca95da3d2c6f,
+        type: 3}
+      propertyPath: collidingObject
+      value: 
+      objectReference: {fileID: 623765751}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 267302cdf44b53c408dcca95da3d2c6f, type: 3}
 --- !u!1 &1687998214 stripped
