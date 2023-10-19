@@ -33,4 +33,8 @@ public class NPCManager : MonoBehaviour
         JsonUtility.FromJsonOverwrite(data.text, dialogueTree);
     }
 
+    public void setDialogueTree(DialogueTree dialogueTree) {
+        this.dialogueTree = dialogueTree;
+    } 
+
 }
