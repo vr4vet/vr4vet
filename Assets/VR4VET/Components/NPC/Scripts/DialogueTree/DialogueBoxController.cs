@@ -39,6 +39,10 @@ public class DialogueBoxController : MonoBehaviour
 
     public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
     {
+        // stop I-have-something-to-tell-you-animation
+        instance.GetComponentInParent<Animator>().SetBool("hasNewDialogueOptions", false);
+        // start talk animation???
+        // Dialogue 
         ResetBox();
         nameText.text = name;
         dialogueBox.SetActive(true);
@@ -122,6 +126,7 @@ public class DialogueBoxController : MonoBehaviour
 
     public void ExitConversation()
     {
+        // stop talking animation??
         ResetBox();
     }
 }

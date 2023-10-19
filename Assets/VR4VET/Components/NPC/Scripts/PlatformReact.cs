@@ -10,12 +10,14 @@ public class PlatformReact : MonoBehaviour
     
     void Start() {
         //npc = GameObject.Find("NPC");
-        npcManager = npc.GetComponent<NPCManager>();
+        npcManager = npc.GetComponentInChildren<NPCManager>();
     }
 
     void OnTriggerEnter() {
         Debug.Log("You entered my zone");
         Debug.Log(npc);
+        Debug.Log(newDialogueTree);
+        Debug.Log(npcManager);
         npcManager.setDialogueTree(newDialogueTree);
         
     }

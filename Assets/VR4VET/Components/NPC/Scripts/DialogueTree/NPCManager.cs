@@ -36,6 +36,10 @@ public class NPCManager : MonoBehaviour
 
     public void setDialogueTree(DialogueTree dialogueTree) {
         this.dialogueTree = dialogueTree;
+        Debug.Log("Dialogue tree should have been changed");
+        // Start I-have-something-to-tell-you-animation
+        this.GetComponentInParent<Animator>().SetBool("hasNewDialogueOptions", true);
+
     } 
 
 }
