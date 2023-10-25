@@ -47,15 +47,21 @@ public class NPCController: MonoBehaviour
             // NPC should stand still
             animator.SetFloat("VelocityY", 0); // Set the animation state to idle
             agent.SetDestination(transform.position); // Stop the agent from moving
-        }
+        If the player is far away, go closer, but let them have some personal space. 
+       
+            // A failed attempt to get the npc to turn and look at the player
+            // looks weird with the current animations
+            // Vector3 whereToLook = new Vector3(target.transform.position.x, agent.transform.position.y, target.transform.position.z);
+            // Debug.Log("where to Loookk: " + whereToLook);
+            // agent.transform.LookAt(whereToLook);
     }
 
-    // Visualization of personal space and lookRadius
-    void OnDrawGizmosSelected() 
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(target.position, 2f);
-    }
+
+    // // visulaization of personal space and lookRadius
+    // void OnDrawGizmosSelected() {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(transform.position, lookRadius);
+    //     Gizmos.color = Color.blue;
+    //     Gizmos.DrawWireSphere(transform.position, personalSpaceFactor);
+    // }
 }

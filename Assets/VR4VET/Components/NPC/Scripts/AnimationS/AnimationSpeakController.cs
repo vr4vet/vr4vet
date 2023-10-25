@@ -66,20 +66,6 @@ public class AnimationSpeakController : MonoBehaviour
          bool isTalking = animator.GetBool(isTalkingHash);
          bool pressToTalk = Input.GetKey(KeyCode.T);
 
-        // if player presses t key
-        if (!isTalking && pressToTalk) 
-        {
-            // then set the isTalking boolean to be true
-            animator.SetBool(isTalkingHash, true);
-        }
-
-        // if player is not pressing t key
-        if (isTalking && !pressToTalk) 
-        {
-            // then set the isTalking boolean to be false
-            animator.SetBool(isTalkingHash, false);
-        }
-
          // Add the code to control the multi-aim constraint here
         if (isTalking)
         {
