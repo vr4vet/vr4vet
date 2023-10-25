@@ -21,7 +21,7 @@ public class DialogueBoxController : MonoBehaviour
     private GameObject skipLineButton;
     private GameObject exitButton;
 
-    private void Awake() 
+    private void Awake()
     {
         if (instance == null)
         {
@@ -31,13 +31,13 @@ public class DialogueBoxController : MonoBehaviour
             skipLineButton.SetActive(false);
             exitButton.SetActive(false);
         }
-        else 
+        else
         {
             Destroy(this);
         }
     }
 
-    public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
+    public void StartDialogue(DialogueTree dialogueTree, int startSection, string name)
     {
         ResetBox();
         nameText.text = name;
@@ -50,8 +50,8 @@ public class DialogueBoxController : MonoBehaviour
 
     IEnumerator RunDialogue(DialogueTree dialogueTree, int section)
     {
-        for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++) 
-        {   
+        for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++)
+        {
             dialogueText.text = dialogueTree.sections[section].dialogue[i];
             Debug.Log(dialogueText.text);
             while (!skipLineTriggered)
@@ -81,7 +81,7 @@ public class DialogueBoxController : MonoBehaviour
         StartCoroutine(RunDialogue(dialogueTree, dialogueTree.sections[section].branchPoint.answers[answerIndex].nextElement));
     }
 
-    void ResetBox() 
+    void ResetBox()
     {
         StopAllCoroutines();
         dialogueBox.SetActive(false);
@@ -103,7 +103,8 @@ public class DialogueBoxController : MonoBehaviour
                 answerObjects[i].GetComponentInChildren<TextMeshProUGUI>().text = branchPoint.answers[i].answerLabel;
                 answerObjects[i].gameObject.SetActive(true);
             }
-            else {
+            else
+            {
                 answerObjects[i].gameObject.SetActive(false);
             }
         }
@@ -123,5 +124,10 @@ public class DialogueBoxController : MonoBehaviour
     public void ExitConversation()
     {
         ResetBox();
+    }
+
+    public string GetNameText()
+    {
+        return nameText.text;
     }
 }
