@@ -10,34 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e00f7924afa24219a5197b2a8fa8d48, type: 3}
-  m_Name: New Dialogue Tree
+  m_Name: IntroductorySpeechTest
   m_EditorClassIdentifier: 
   sections:
   - dialogue:
-    - "Hello \U0001F448( \u2022\u0300 .\u032B \u2022\u0301 )\u2727"
+    - Welcome!
+    - This is an introductory speech
     endAfterDialogue: 0
     branchPoint:
-      question: How are you doing?
+      question: Are you ready to move on?
       answers:
-      - answerLabel: Good
+      - answerLabel: Yes
         nextElement: 1
-      - answerLabel: Not good
-        nextElement: 2
+      - answerLabel: No, repeat
+        nextElement: 0
   - dialogue:
-    - "That's good! (\uFF5E\uFFE3\u25BD\uFFE3)\uFF5E"
+    - Good, we are moving on
+    - This is section 2
     endAfterDialogue: 1
     branchPoint:
-      question: How are you doing?
-      answers:
-      - answerLabel: Good
-        nextElement: 1
-      - answerLabel: Not good
-        nextElement: 2
-  - dialogue:
-    - "That's not good \u0CA5_\u0CA5"
-    endAfterDialogue: 1
-    branchPoint:
-      question: How are you doing?
+      question: 
       answers:
       - answerLabel: Good
         nextElement: 1
