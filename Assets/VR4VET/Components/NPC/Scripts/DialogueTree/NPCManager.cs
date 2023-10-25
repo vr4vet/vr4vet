@@ -15,7 +15,8 @@ public class NPCManager : MonoBehaviour
             GetTreeFromJson(data);
         }
 
-        controller = gameObject.GetComponent<DialogueBoxController>();
+        controller = gameObject.GetComponentInParent<DialogueBoxController>();
+        Debug.Log(controller);
     }
 
     private void OnTriggerEnter(Collider other)
