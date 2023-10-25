@@ -126,6 +126,8 @@ public class DialogueBoxController : MonoBehaviour
         ResetBox();
     }
 
+    // methods that makes testing easier
+
     public string GetNameText()
     {
         return nameText.text;
