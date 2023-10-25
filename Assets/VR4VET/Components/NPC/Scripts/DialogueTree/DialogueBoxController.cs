@@ -20,6 +20,9 @@ public class DialogueBoxController : MonoBehaviour
 
     private GameObject skipLineButton;
     private GameObject exitButton;
+    private Animator animator;
+    private int isTalkingHash;
+    private int hasNewDialogueOptionsHash;
 
     private void Awake() 
     {
@@ -30,6 +33,10 @@ public class DialogueBoxController : MonoBehaviour
             exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
             skipLineButton.SetActive(false);
             exitButton.SetActive(false);
+            // Animation stuff
+            animator = instance.GetComponentInParent<Animator>();
+            isTalkingHash = Animator.StringToHash("isTalking");
+            hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
         }
         else 
         {
@@ -39,6 +46,10 @@ public class DialogueBoxController : MonoBehaviour
 
     public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
     {
+        // stop I-have-something-to-tell-you-animation and start talking
+        animator.SetBool(hasNewDialogueOptionsHash, false);
+        animator.SetBool(isTalkingHash, true);
+        // Dialogue 
         ResetBox();
         nameText.text = name;
         dialogueBox.SetActive(true);
@@ -122,6 +133,8 @@ public class DialogueBoxController : MonoBehaviour
 
     public void ExitConversation()
     {
+        // stop talk-animation
+        animator.SetBool(isTalkingHash, false);
         ResetBox();
     }
 }
