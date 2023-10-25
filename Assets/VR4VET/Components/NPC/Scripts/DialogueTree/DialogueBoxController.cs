@@ -3,6 +3,8 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+// Import of the TTS namespace
+using Meta.WitAi.TTS.Utilities;
 
 public class DialogueBoxController : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class DialogueBoxController : MonoBehaviour
     bool skipLineTriggered;
     bool answerTriggered;
     int answerIndex;
-
+    public GameObject TTSSpeaker;
     private GameObject skipLineButton;
     private GameObject exitButton;
 
@@ -53,7 +55,7 @@ public class DialogueBoxController : MonoBehaviour
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++) 
         {   
             dialogueText.text = dialogueTree.sections[section].dialogue[i];
-            
+            TTSSpeaker.GetComponent<TTSSpeaker>().Speak(dialogueText.text);
             Debug.Log(dialogueText.text);
             while (!skipLineTriggered)
             {
@@ -70,6 +72,7 @@ public class DialogueBoxController : MonoBehaviour
             yield break;
         }
         dialogueText.text = dialogueTree.sections[section].branchPoint.question;
+        TTSSpeaker.GetComponent<TTSSpeaker>().Speak(dialogueText.text);
         ShowAnswers(dialogueTree.sections[section].branchPoint);
         while (answerTriggered == false)
         {
