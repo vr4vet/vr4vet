@@ -37,39 +37,26 @@ public class NPCController: MonoBehaviour
         if (distance >= lookRadius) {
             Vector3 direction = (target.position - transform.position).normalized;
             agent.SetDestination(target.position - direction * personalSpaceFactor);
-            // print("destination: " + (target.position - personalSpaceCricle));
-            // when the navMeshAgent has angular speed 1200 (aka. turns instantly)
             // we only walk forward
             animator.SetFloat("VelocityY", agent.velocity.magnitude);
-
-            // when the navMeshAgent has angular speed 0 (aka. everything is controlled by the animation)
-            // We can walk backwards
-            // animator.SetFloat("VelocityX", agent.velocity.x);
-            // animator.SetFloat("VelocityY", agent.velocity.z);
-
-            // Debug stuff
-            // print("target.pos: " + target.position);
-            // print("mag: " + agent.velocity.magnitude);
-            // print("x: " + agent.velocity.x);
-            // print("z: " + agent.velocity.z);
         } else {
             // when the navMeshAgent has angular speed 1200 (aka. turns instantly)
             // we only walk forward
             animator.SetFloat("VelocityY", agent.velocity.magnitude);
-
-            // when the navMeshAgent has angular speed 0 (aka. everything is controlled by the animation)
-            // We can walk backwards
-            // animator.SetFloat("VelocityX", agent.velocity.x);
-            // animator.SetFloat("VelocityY", agent.velocity.z);
         }
+            // A failed attempt to get the npc to turn and look at the player
+            // looks weird with the current animations
+            // Vector3 whereToLook = new Vector3(target.transform.position.x, agent.transform.position.y, target.transform.position.z);
+            // Debug.Log("where to Loookk: " + whereToLook);
+            // agent.transform.LookAt(whereToLook);
     }
 
 
-    // visulaization of personal space and lookRadius
-    void OnDrawGizmosSelected() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(target.position, 2f);
-    }
+    // // visulaization of personal space and lookRadius
+    // void OnDrawGizmosSelected() {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(transform.position, lookRadius);
+    //     Gizmos.color = Color.blue;
+    //     Gizmos.DrawWireSphere(transform.position, personalSpaceFactor);
+    // }
 }
