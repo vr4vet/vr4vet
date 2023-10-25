@@ -53,6 +53,7 @@ public class DialogueBoxController : MonoBehaviour
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++) 
         {   
             dialogueText.text = dialogueTree.sections[section].dialogue[i];
+            
             Debug.Log(dialogueText.text);
             while (!skipLineTriggered)
             {
