@@ -430,7 +430,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249252295}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15269,14 +15269,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202704683}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1301987674}
-  m_Father: {fileID: 1846568181}
-  m_RootOrder: 1
+  m_Father: {fileID: 2015052454}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1202704685
 MonoBehaviour:
@@ -15402,7 +15402,7 @@ MonoBehaviour:
   PrependedText: 
   AppendedText: 
   _ttsService: {fileID: 249252296}
-  presetVoiceID: BRITISH BUTLER
+  presetVoiceID: CHARLIE
   customWitVoiceSettings:
     SettingsId: 
     PrependedText: 
@@ -15442,7 +15442,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301987673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.11, z: 0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15461,7 +15461,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.732
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -15505,7 +15505,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -16276,6 +16276,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1376663321, guid: 267302cdf44b53c408dcca95da3d2c6f, type: 3}
+      propertyPath: TTSSpeaker
+      value: 
+      objectReference: {fileID: 1202704683}
     - target: {fileID: 2533000989534365106, guid: 267302cdf44b53c408dcca95da3d2c6f,
         type: 3}
       propertyPath: m_RootOrder
@@ -17013,7 +17017,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 249252299}
-  - {fileID: 1202704684}
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17477,6 +17480,12 @@ Transform:
   m_Father: {fileID: 787477143}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2015052454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2533000989534365106, guid: 267302cdf44b53c408dcca95da3d2c6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1663138006}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1945841171681592256
 PrefabInstance:
   m_ObjectHideFlags: 0
