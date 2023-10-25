@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-<<<<<<< Updated upstream
-using Photon.Realtime;
-=======
->>>>>>> Stashed changes
 using UnityEngine;
 using UnityEngine.AI;
 
