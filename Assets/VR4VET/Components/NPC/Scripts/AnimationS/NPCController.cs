@@ -24,7 +24,6 @@ public class NPCController: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Should Follow: " + shouldFollow);
         float distance = Vector3.Distance(target.position, transform.position);
         
         if (shouldFollow)
@@ -47,7 +46,6 @@ public class NPCController: MonoBehaviour
             // NPC should stand still
             animator.SetFloat("VelocityY", 0); // Set the animation state to idle
             agent.SetDestination(transform.position); // Stop the agent from moving
-        If the player is far away, go closer, but let them have some personal space. 
        
             // A failed attempt to get the npc to turn and look at the player
             // looks weird with the current animations
@@ -63,5 +61,5 @@ public class NPCController: MonoBehaviour
     //     Gizmos.DrawWireSphere(transform.position, lookRadius);
     //     Gizmos.color = Color.blue;
     //     Gizmos.DrawWireSphere(transform.position, personalSpaceFactor);
-    // }
+    }
 }
