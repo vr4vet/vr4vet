@@ -45,3 +45,39 @@ Inspiration/tutorials:
 - [Creating your first animated AI Character! [AI #01] by TheKiwiCoder](https://www.youtube.com/watch?v=TpQbqRNCgM0)
 - [ENEMY AI - Making an RPG in Unity (E10) by Brackeys](https://www.youtube.com/watch?v=xppompv1DBg&list=PLPV2KyIb3jR4KLGCCAciWQ5qHudKtYeP7&index=11)
   - Youtube video explaining the NavMeshAgent and how to get an enemy to follow the player
+ 
+## Text-To-Speech
+
+- Text-To-Speech works through the Wit.ai SDK, which is designet for Quest XR
+  - In the Unity Navbar, under the Oculus tab, there is a tab for the Voice SDK.
+  - In here you will find guides for configuration and setup.
+- The VR4VET project uses one key for setup to the Wit.ai service, which determines which "configuration" we use.
+- To edit the configuration you will need the VR4VET Meta login and change it in Wit.ai
+
+### How to set up TTS
+
+- In the Oculus/Voice SDK tab, go to voice hub and then Configuration. 
+  - If needed enter the Wit.ai key to open the configuration.
+- When in your scene, right click in the assets area: Create/Voice SDK/TTS/Add Default TTS Setup
+- In the scene hierarchy you should now have a TTS object, which contains a TTSWitService object and a TTSSpeaker object.
+- The TTSWitService handles communication with the Wit.ai server, and local cache settings
+- The TTSSpeaker object is an object that outputs TTS
+  - The TTSSpeaker can be dragged out of the TTS object and onto whatever or whichever NPC you want it attached to
+  - The TTSSpeaker has a TTSservice reference that should always be connected to the TTSWitService
+  - You only need one TTSWitService but can have multiple TTSSpeakers. TO create more use Create/Voice SDK/TTS/Add TTS Speaker to Scene
+
+### Connect the TTS Speaker to an NPC
+
+- Drag a TTSSPeaker object into the NPC object
+- The NPC has a script for Dialogue Box Controller. Here all dialogue is sent before being shown to the player
+- Click on the NPC object and scroll down to Dialogue Box Controller
+  - There is an empty reference to a TTS Speaker
+  - Drag and drop the TTSSpeaker you want this NPC to use into this reference
+
+### Modifying the TTS output
+
+- Click on the relevant TTSSpeaker you want to modify
+- Choose the Voice Preset that you think fits most, these are premade by Wit.ai
+  - The TTSSpeaker object contains a TTSSpeaker Audio object.
+  - Here you can chose which priority the TTS audio has, the volume, the panning, spatial blend (2D and 3D audio) and reverb.
+    - The 3D sound settings can be used to modify how the audio reacts to the 3D space, volume distance etc...
