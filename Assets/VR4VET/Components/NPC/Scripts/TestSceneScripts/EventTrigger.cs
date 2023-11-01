@@ -18,10 +18,24 @@ public class EventTrigger : MonoBehaviour
         {
             Debug.LogError("No NPCSpawner found in the scene!");
         }
+        
+        if (PlayerManager.instance == null)
+        {
+            Debug.LogError("PlayerManager instance not set!");
+        }
+        else if (PlayerManager.instance.player == null)
+        {
+            Debug.LogError("PlayerManager's player GameObject not set!");
+        }
     }
 
     private void Update()
     {
+            if (PlayerManager.instance == null || PlayerManager.instance.player == null)
+        {
+            Debug.LogError("PlayerManager or player is not set.");
+            return;
+        }
         if (spawnedNPC == null)
         {
             float distanceToPlayer = Vector3.Distance(PlayerManager.instance.player.transform.position, npcSpawnPosition);

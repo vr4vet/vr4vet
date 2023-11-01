@@ -26,8 +26,10 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Awake() 
     {
+        Debug.Log("started dialogue box controller");
         if (instance == null)
         {
+            Debug.Log("instance is null");
             instance = this;
             skipLineButton = GameObject.Find("DialogueCanvas/SkipLineButton");
             exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
@@ -40,6 +42,7 @@ public class DialogueBoxController : MonoBehaviour
         }
         else 
         {
+            Debug.Log("instance is not null");
             Destroy(this);
         }
     }
@@ -47,6 +50,7 @@ public class DialogueBoxController : MonoBehaviour
     public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
     {
         // stop I-have-something-to-tell-you-animation and start talking
+        Debug.Log("StartDialogue");
         animator.SetBool(hasNewDialogueOptionsHash, false);
         animator.SetBool(isTalkingHash, true);
         // Dialogue 
