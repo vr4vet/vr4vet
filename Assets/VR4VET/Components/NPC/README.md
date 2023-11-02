@@ -1,5 +1,9 @@
 # NPC 👈(⌒▽⌒)👉
 
+## Usage of NPC prefab
+
+
+
 ## Dialogue tree
 
 - To use the dialogue tree on an NPC the DialogueBoxController and NPCManager scripts are added to the NPC object as components.
