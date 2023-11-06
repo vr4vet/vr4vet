@@ -111,6 +111,8 @@ namespace Tablet
                 Button button = item.transform.Find("btn_SubTask").GetComponent<Button>();
                 TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>(true);
                 buttonText.text = skill.Name;
+                item.GetComponentInChildren<TMP_Text>().text = 
+                    skill.GetArchivedPoints() + "/" + skill.MaxPossiblePoints;
 
                 button.onClick.AddListener(() => SkillPageLoader(skill));
             }
