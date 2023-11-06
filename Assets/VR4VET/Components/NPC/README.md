@@ -2,7 +2,9 @@
 
 ## Usage of NPC prefab
 
-
+- To use the prefab, you need two different files loaded in as Game Object in the scene: 
+  - NPCSpawner.cs: Script for spawning a NPC in a scene. Customizable with boolean value for shouldFollow (user) and a position where it should spawn. 
+  - EventTrigger.cs: Guidancee cript for triggering spawning and toggling shouldFollow for NPC. This must be loaded with the NPC-prefab located in /NPC folder. This is justan   exmple script which should be used as a skeleton for loading in NPC on specific cases. 
 
 ## Dialogue tree
 
