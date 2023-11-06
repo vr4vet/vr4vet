@@ -35,6 +35,34 @@ public class DialogueBoxController : MonoBehaviour
             exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
             skipLineButton.SetActive(false);
             exitButton.SetActive(false);
+
+            // Assign the event camera
+            Canvas dialogueCanvas = GameObject.Find("DialogueCanvas").GetComponent<Canvas>();
+            if (dialogueCanvas != null)
+            {
+                GameObject cameraCaster = GameObject.Find("CameraCaster");
+                if (cameraCaster != null)
+                {
+                    Camera eventCamera = cameraCaster.GetComponent<Camera>();
+                    if (eventCamera != null)
+                    {
+                        dialogueCanvas.worldCamera = eventCamera;
+                    }
+                    else
+                    {
+                        Debug.LogError("CameraCaster does not have a Camera component!");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("CameraCaster GameObject not found in the scene!");
+                }
+            }
+            else
+            {
+                Debug.LogError("DialogueCanvas not found or does not have a Canvas component!");
+            }
+
             // Animation stuff
             animator = instance.GetComponentInParent<Animator>();
             isTalkingHash = Animator.StringToHash("isTalking");
@@ -42,13 +70,15 @@ public class DialogueBoxController : MonoBehaviour
         }
         else 
         {
-            Destroy(this);
+            Destroy(gameObject); // Make sure to destroy the gameObject, not just the script component
         }
     }
+
 
     public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
     {
         // stop I-have-something-to-tell-you-animation and start talking
+        Debug.Log("StartDialogue");
         animator.SetBool(hasNewDialogueOptionsHash, false);
         animator.SetBool(isTalkingHash, true);
         // Dialogue 
