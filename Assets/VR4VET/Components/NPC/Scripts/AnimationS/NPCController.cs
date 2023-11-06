@@ -37,8 +37,7 @@ public class NPCController: MonoBehaviour
             }
             else 
             {
-                animator.SetFloat("VelocityY", 0); // Stop the NPC when close enough
-                agent.SetDestination(transform.position); // Stop the agent from moving
+                animator.SetFloat("VelocityY", agent.velocity.magnitude);
             }
         }
         else
