@@ -28,10 +28,8 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Awake() 
     {
-        Debug.Log("started dialogue box controller");
         if (instance == null)
         {
-            Debug.Log("instance is null");
             instance = this;
             skipLineButton = GameObject.Find("DialogueCanvas/SkipLineButton");
             exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
@@ -72,7 +70,6 @@ public class DialogueBoxController : MonoBehaviour
         }
         else 
         {
-            Debug.Log("instance is not null");
             Destroy(gameObject); // Make sure to destroy the gameObject, not just the script component
         }
     }
