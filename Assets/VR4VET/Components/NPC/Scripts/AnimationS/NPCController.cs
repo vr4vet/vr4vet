@@ -1,24 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class NPCController: MonoBehaviour
 {
-
-    // Video Animation + movement
-    // https://www.youtube.com/watch?v=TpQbqRNCgM0
-    // Video Brackeys + NavMeshAgent etc.
-    // https://www.youtube.com/watch?v=xppompv1DBg&list=PLPV2KyIb3jR4KLGCCAciWQ5qHudKtYeP7&index=11
     public float lookRadius = 8f;
-
     public float personalSpaceFactor = 4f;
+    public bool shouldFollow = false;  // New parameter to control NPC's behavior.
+
     Transform target;
     NavMeshAgent agent;
-
     Animator animator;
-
 
     // Start is called before the first frame update
     void Start()
@@ -33,17 +26,26 @@ public class NPCController: MonoBehaviour
     {
         float distance = Vector3.Distance(target.position, transform.position);
         
-        // If the player is far away, go closer, but let them have some personal space. 
-        if (distance >= lookRadius) {
-            Vector3 direction = (target.position - transform.position).normalized;
-            agent.SetDestination(target.position - direction * personalSpaceFactor);
-            // we only walk forward
-            animator.SetFloat("VelocityY", agent.velocity.magnitude);
-        } else {
-            // when the navMeshAgent has angular speed 1200 (aka. turns instantly)
-            // we only walk forward
-            animator.SetFloat("VelocityY", agent.velocity.magnitude);
+        if (shouldFollow)
+        {
+            // If the player is far away, go closer, but let them have some personal space. 
+            if (distance >= lookRadius) 
+            {
+                Vector3 direction = (target.position - transform.position).normalized;
+                agent.SetDestination(target.position - direction * personalSpaceFactor);
+                animator.SetFloat("VelocityY", agent.velocity.magnitude);
+            }
+            else 
+            {
+                animator.SetFloat("VelocityY", agent.velocity.magnitude);
+            }
         }
+        else
+        {
+            // NPC should stand still
+            animator.SetFloat("VelocityY", 0); // Set the animation state to idle
+            agent.SetDestination(transform.position); // Stop the agent from moving
+       
             // A failed attempt to get the npc to turn and look at the player
             // looks weird with the current animations
             // Vector3 whereToLook = new Vector3(target.transform.position.x, agent.transform.position.y, target.transform.position.z);
@@ -58,5 +60,5 @@ public class NPCController: MonoBehaviour
     //     Gizmos.DrawWireSphere(transform.position, lookRadius);
     //     Gizmos.color = Color.blue;
     //     Gizmos.DrawWireSphere(transform.position, personalSpaceFactor);
-    // }
+    }
 }

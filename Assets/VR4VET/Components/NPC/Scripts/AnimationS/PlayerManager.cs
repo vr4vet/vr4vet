@@ -8,8 +8,17 @@ public class PlayerManager : MonoBehaviour
 
     public static PlayerManager instance;
 
-    void Awake() {
-        instance = this;
+    void Awake() 
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // This keeps the instance alive across different scenes.
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject); // This destroys any duplicate instances that might arise.
+        }
     }
 
     #endregion
