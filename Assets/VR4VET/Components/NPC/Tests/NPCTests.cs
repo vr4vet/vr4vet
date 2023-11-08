@@ -15,7 +15,7 @@ namespace NPCTests
 		{
 			try
 			{
-				dialogueTreeUnderTest = JsonConvert.DeserializeObject<DialogueTree>(File.ReadAllText("../Resources/test.json"));
+				dialogueTreeUnderTest = JsonConvert.DeserializeObject<DialogueTree>(File.ReadAllText("VR4VET/Components/NPC/Resources/data.json"));
 			}
 			catch (Exception ex)
 			{
@@ -85,7 +85,7 @@ namespace NPCTests
 		[Test]
 		public void StartDialogueTest()
 		{
-			DialogueTree dialogueTree = JsonConvert.DeserializeObject<DialogueTree>(File.ReadAllText("../Resources/data.json"));
+			DialogueTree dialogueTree = JsonConvert.DeserializeObject<DialogueTree>(File.ReadAllText("VR4VET/Components/NPC/Resources/data.json"));
 			dialogueBoxControllerUnderTest.StartDialogue(dialogueTree, 0, "Test");
 
 			Assert.AreEqual(dialogueBoxControllerUnderTest.GetNameText(), "Test");
