@@ -8,7 +8,7 @@ public class NPCManager : MonoBehaviour
     public GameObject collidingObject;
 
     public TextAsset data;
-    
+
     private DialogueBoxController controller;
     // Remove this?
     public List<DialogueTree> dialogueTrees;
@@ -21,10 +21,13 @@ public class NPCManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake()
-    {   
-        if (data != null) {
+    {
+        if (data != null)
+        {
             GetTreeFromJson(data);
-        } else {
+        }
+        else
+        {
             dialogueTree = dialogueTrees.ElementAt(currentElement);
         }
         controller = gameObject.GetComponentInParent<DialogueBoxController>();
@@ -33,8 +36,8 @@ public class NPCManager : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {   
-        if (other.gameObject.Equals(collidingObject)) 
+    {
+        if (other.gameObject.Equals(collidingObject))
         {
             controller.StartDialogue(dialogueTree, 0, "NPC");
         }
@@ -45,35 +48,45 @@ public class NPCManager : MonoBehaviour
         JsonUtility.FromJsonOverwrite(data.text, dialogueTree);
     }
 
-    public void SetDialogueTreeList(List<DialogueTree> dialogueTrees) {
+    public void SetDialogueTreeList(List<DialogueTree> dialogueTrees)
+    {
         this.dialogueTrees = dialogueTrees;
         currentElement = 0;
         this.dialogueTree = dialogueTrees.ElementAt(currentElement);
         animator.SetBool(hasNewDialogueOptionsHash, true);
     }
 
-    public void insertDialogueTreeAndChange(DialogueTree dialogueTree) {
-        if (!dialogueTrees.Contains(dialogueTree)) {
+    public List<DialogueTree> GetDialogueTrees()
+    {
+        return this.dialogueTrees;
+    }
+
+    public void insertDialogueTreeAndChange(DialogueTree dialogueTree)
+    {
+        if (!dialogueTrees.Contains(dialogueTree))
+        {
             controller.ExitConversation();
             currentElement++;
             dialogueTrees.Insert(currentElement, dialogueTree);
             this.dialogueTree = dialogueTrees.ElementAt(currentElement);
             animator.SetBool(hasNewDialogueOptionsHash, true);
-        } 
+        }
     }
 
-    public void NextDialogueTree() {
+    public void NextDialogueTree()
+    {
         currentElement++;
         if (currentElement >= dialogueTrees.Count())
         {
             currentElement--;
-        } else {
+        }
+        else
+        {
             controller.ExitConversation();
             dialogueTree = dialogueTrees.ElementAt(currentElement);
             // Should the animation observe the dialgoue tree??? To decouple stuff and have the option to add more signals
             animator.SetBool(hasNewDialogueOptionsHash, true);
         }
-        
     }
 
 

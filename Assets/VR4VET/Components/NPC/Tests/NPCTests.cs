@@ -2,91 +2,113 @@ using NUnit.Framework;
 using Newtonsoft.Json;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 namespace NPCTests
 {
-    public class DialogueTreeTests
-    {
-        private DialogueTree dialogueTreeUnderTest;
+	public class DialogueTreeTests
+	{
+		private DialogueTree dialogueTreeUnderTest;
 
-        [SetUp]
-        public void Initialize()
-        {
-            try
-            {
-                dialogueTreeUnderTest = JsonConvert.DeserializeObject<DialogueTree>(File.ReadAllText("../Resources/data.json"));
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+		[SetUp]
+		public void Initialize()
+		{
+			try
+			{
+				dialogueTreeUnderTest = JsonConvert.DeserializeObject<DialogueTree>(File.ReadAllText("../Resources/test.json"));
+			}
+			catch (Exception ex)
+			{
+				Assert.Fail("Expected no exception, but got: " + ex.Message);
+			}
+		}
 
-        public void InstanceNotNullTest()
-        {
-            Assert.NotNull(dialogueTreeUnderTest);
-        }
+		public void InstanceNotNullTest()
+		{
+			Assert.NotNull(dialogueTreeUnderTest);
+		}
 
-        [Test]
-        public void StructureTest()
-        {
-            Assert.NotNull(dialogueTreeUnderTest.sections);
-            Assert.IsInstanceOf<DialogueSection[]>(dialogueTreeUnderTest.sections);
+		[Test]
+		public void TreeStructureTest()
+		{
+			Assert.NotNull(dialogueTreeUnderTest.sections);
+			Assert.IsInstanceOf<DialogueSection[]>(dialogueTreeUnderTest.sections);
 
-            foreach (DialogueSection section in dialogueTreeUnderTest.sections)
-            {
-                Assert.NotNull(section.dialogue);
-                Assert.IsInstanceOf<string[]>(section.dialogue);
+			foreach (DialogueSection section in dialogueTreeUnderTest.sections)
+			{
+				Assert.NotNull(section.dialogue);
+				Assert.IsInstanceOf<string[]>(section.dialogue);
 
-                Assert.NotNull(section.endAfterDialogue);
-                Assert.IsInstanceOf<bool>(section.endAfterDialogue);
+				Assert.NotNull(section.endAfterDialogue);
+				Assert.IsInstanceOf<bool>(section.endAfterDialogue);
 
-                Assert.NotNull(section.branchPoint);
-                Assert.IsInstanceOf<BranchPoint>(section.branchPoint);
+				Assert.NotNull(section.branchPoint);
+				Assert.IsInstanceOf<BranchPoint>(section.branchPoint);
 
-                Assert.NotNull(section.branchPoint.question);
-                Assert.IsInstanceOf<string>(section.branchPoint.question);
+				Assert.NotNull(section.branchPoint.question);
+				Assert.IsInstanceOf<string>(section.branchPoint.question);
 
 
-                Assert.NotNull(section.branchPoint.answers);
-                Assert.IsInstanceOf<Answer[]>(section.branchPoint.answers);
+				Assert.NotNull(section.branchPoint.answers);
+				Assert.IsInstanceOf<Answer[]>(section.branchPoint.answers);
 
-                foreach (Answer answer in section.branchPoint.answers)
-                {
-                    Assert.NotNull(answer);
 
-                    Assert.NotNull(answer.answerLabel);
-                    Assert.IsInstanceOf<string>(answer.answerLabel);
+				foreach (Answer answer in section.branchPoint.answers)
+				{
+					Assert.NotNull(answer);
 
-                    Assert.NotNull(answer.nextElement);
-                    Assert.IsInstanceOf<int>(answer.nextElement);
-                }
-            }
-        }
-    }
-    public class DialogueBoxControllerTests
-    {
-        private DialogueBoxController dialogueBoxControllerUnderTest;
+					Assert.NotNull(answer.answerLabel);
+					Assert.IsInstanceOf<string>(answer.answerLabel);
 
-        [SetUp]
-        public void Initialize()
-        {
-            dialogueBoxControllerUnderTest = new();
-        }
+					Assert.NotNull(answer.nextElement);
+					Assert.IsInstanceOf<int>(answer.nextElement);
+				}
+			}
+		}
+	}
+	public class DialogueBoxControllerTests
+	{
+		private DialogueBoxController dialogueBoxControllerUnderTest;
 
-        [Test]
-        public void InstanceNotNullTest()
-        {
-            Assert.NotNull(dialogueBoxControllerUnderTest);
-        }
+		[SetUp]
+		public void Initialize()
+		{
+			dialogueBoxControllerUnderTest = new();
+		}
 
-        [Test]
-        public void StartDialogueTest()
-        {
-            DialogueTree dialogueTree = JsonConvert.DeserializeObject<DialogueTree>(File.ReadAllText("../Resources/data.json"));
-            dialogueBoxControllerUnderTest.StartDialogue(dialogueTree, 0, "Test");
+		[Test]
+		public void InstanceNotNullTest()
+		{
+			Assert.NotNull(dialogueBoxControllerUnderTest);
+		}
 
-            Assert.AreEqual(dialogueBoxControllerUnderTest.GetNameText(), "Test");
-        }
-    }
+		[Test]
+		public void StartDialogueTest()
+		{
+			DialogueTree dialogueTree = JsonConvert.DeserializeObject<DialogueTree>(File.ReadAllText("../Resources/data.json"));
+			dialogueBoxControllerUnderTest.StartDialogue(dialogueTree, 0, "Test");
+
+			Assert.AreEqual(dialogueBoxControllerUnderTest.GetNameText(), "Test");
+		}
+	}
+
+	public class NPCManagerTests
+	{
+		private NPCManager npcManagerUnderTest;
+		[SetUp]
+		public void Initialize()
+		{
+			npcManagerUnderTest = new();
+		}
+
+
+		public void SetDialogueTreeListTest()
+		{
+			List<DialogueTree> dialogueTrees = new();
+			npcManagerUnderTest.SetDialogueTreeList(dialogueTrees);
+
+			Assert.AreEqual(dialogueTrees, npcManagerUnderTest.GetDialogueTrees());
+		}
+
+	}
 }
