@@ -1,32 +1,27 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 public class NPCTestScript
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void NPCTestScriptSimplePasses()
-    {
-        // Use the Assert class to test conditions
-    }
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator NPCTestScriptWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }
-
     [Test]
     public void DialogueTreeTest()
     {
-        var dialogueTreeUnderTest = ScriptableObject.CreateInstance<DialogueTree>();
+        try
+        {
+            var dialogueTreeUnderTest = ScriptableObject.CreateInstance<DialogueTree>();
+            dialogueTreeUnderTest.sections = new DialogueSection[1];
+            dialogueTreeUnderTest.sections[0] = new DialogueSection
+            {
+                dialogue = new string[1]
+            };
+            dialogueTreeUnderTest.sections[0].dialogue[0] = "This is a test";
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail("Expected no exception, but got: " + ex.Message);
+        }
+
     }
 }
