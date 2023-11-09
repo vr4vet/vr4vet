@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -11,7 +9,10 @@ public class AnimationSpeakController : MonoBehaviour
     RigBuilder rigBuilder; // Use RigBuilder instead of Rig
     MultiAimConstraint multiAimConstraint;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Check that every compontent need exists
+    /// Add contraints at run time, the NPC should look at the player (aka. CameraRig)
+    /// </summary>
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -26,7 +27,6 @@ public class AnimationSpeakController : MonoBehaviour
         if (rigBuilder != null && rigBuilder.layers.Count > 0)
         {
             // Check if a Rig Layer with the name "TargetTracking" exists
-            // TODO change
             RigLayer rigLayer = rigBuilder.layers.Find(layer => layer.name == "TargetTracking");
 
             if (rigLayer != null)
@@ -42,6 +42,22 @@ public class AnimationSpeakController : MonoBehaviour
                     if (multiAimConstraint == null)
                     {
                         Debug.LogError("MultiAimConstraint not found in the 'TargetTracking' Rig Layer.");
+                    } else {
+                        GameObject targetRef = GameObject.Find("XR Rig Advanced/PlayerController/CameraRig");
+                        if (targetRef != null)
+                        {
+                            // Adds contraints at runtime
+                            MultiAimConstraint[] constraints = rig.GetComponentsInChildren<MultiAimConstraint>();
+                            foreach (MultiAimConstraint con in constraints)
+                            {
+                                con.data.sourceObjects = new WeightedTransformArray{new WeightedTransform(targetRef.transform, 1)};
+                            }
+                            rigBuilder.Build();
+                        }
+                        else
+                        {
+                            Debug.LogError("Cannot find XR Rig Advanced/PlayerController/CameraRig in the scene");
+                        }
                     }
                 }
                 else
@@ -61,11 +77,12 @@ public class AnimationSpeakController : MonoBehaviour
     
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// The NPC should look at the player while talking
+    /// </summary>
     void Update()
     {
          bool isTalking = animator.GetBool(isTalkingHash);
-         bool pressToTalk = Input.GetKey(KeyCode.T);
 
          // Add the code to control the multi-aim constraint here
         if (isTalking)

@@ -5,13 +5,13 @@ using UnityEngine;
 public class BluePlatformReact : MonoBehaviour
 {
     public GameObject npc;
-    private NPCManager npcManager;
+    private ConversationController conversationController;
     
     void Start() {
-        npcManager = npc.GetComponentInChildren<NPCManager>();
+        conversationController = npc.GetComponentInChildren<ConversationController>();
     }
 
     void OnTriggerEnter() {
-        npcManager.NextDialogueTree();
+        conversationController.NextDialogueTree();
     }
 }

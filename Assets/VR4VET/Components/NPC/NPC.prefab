@@ -245,6 +245,7 @@ MonoBehaviour:
   answerObjects:
   - {fileID: 4707600065141198880}
   - {fileID: 4707600066134853412}
+  dialogueCanvas: {fileID: 4707600064795834233}
   TTSSpeaker: {fileID: 0}
   skipLineButton: {fileID: 4707600064768482366}
   exitButton: {fileID: 1202293228436424505}
@@ -261,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startFollowingRadius: 8
-  stopFollowingRadius: 4
+  personalSpaceFactor: 4
   shouldFollow: 0
 --- !u!1 &389399547921113031
 GameObject:

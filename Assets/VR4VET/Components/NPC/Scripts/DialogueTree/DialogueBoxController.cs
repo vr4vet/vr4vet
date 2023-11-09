@@ -8,12 +8,15 @@ using Meta.WitAi.TTS.Utilities;
 
 public class DialogueBoxController : MonoBehaviour
 {
-    public static DialogueBoxController instance;
+    // public static DialogueBoxController instance;
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] GameObject dialogueBox;
     [SerializeField] GameObject answerBox;
     [SerializeField] Button[] answerObjects;
+
+    [SerializeField] GameObject dialogueCanvas;
+
     public static event Action OnDialogueStarted;
     public static event Action OnDialogueEnded;
     bool skipLineTriggered;
@@ -28,19 +31,19 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Awake() 
     {
-        if (instance == null)
-        {
-            instance = this;
+        // Debug.Log("DialogueBoxController is awake with istance: " + instance);
+        // if (instance == null)
+        // {
+        //     instance = this;
             //skipLineButton = GameObject.Find("DialogueCanvas/SkipLineButton");
            // exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
             skipLineButton.SetActive(false);
             exitButton.SetActive(false);
 
             // Assign the event camera
-            Debug.Log("This is the canvas component: " + GetComponent<Canvas>());
             // TODO: change
-            Canvas dialogueCanvas = GameObject.Find("DialogueCanvas").GetComponent<Canvas>();
-            Debug.Log("here is dialogueCanvas:  " + dialogueCanvas);
+            // Canvas dialogueCanvas = GameObject.Find("DialogueCanvas").GetComponent<Canvas>();
+            // Debug.Log("here is dialogueCanvas:  " + dialogueCanvas);
             if (dialogueCanvas != null)
             {
                 GameObject cameraCaster = GameObject.Find("CameraCaster");
@@ -49,7 +52,7 @@ public class DialogueBoxController : MonoBehaviour
                     Camera eventCamera = cameraCaster.GetComponent<Camera>();
                     if (eventCamera != null)
                     {
-                        dialogueCanvas.worldCamera = eventCamera;
+                        dialogueCanvas.GetComponent<Canvas>().worldCamera = eventCamera;
                     }
                     else
                     {
@@ -67,14 +70,17 @@ public class DialogueBoxController : MonoBehaviour
             }
 
             // Animation stuff
-            animator = instance.GetComponentInParent<Animator>();
+            // Debug.Log("instance: " + instance);
+            // animator = instance.GetComponentInParent<Animator>();
+            animator = GetComponentInParent<Animator>();
+            Debug.Log("Animator" + animator);
             isTalkingHash = Animator.StringToHash("isTalking");
             hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
-        }
-        else 
-        {
-            //Destroy(gameObject); // Make sure to destroy the gameObject, not just the script component
-        }
+        // }
+        // else 
+        // {
+        //     //Destroy(gameObject); // Make sure to destroy the gameObject, not just the script component
+        // }
     }
 
 

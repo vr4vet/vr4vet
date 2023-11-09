@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class NPCManager : MonoBehaviour
+public class ConversationController : MonoBehaviour
 {
     //public DialogueTree dialogueTree;
     public GameObject collidingObject;

@@ -4,9 +4,7 @@ public class EventTriggerDemo : MonoBehaviour
 {
 
     // TODO: change from public to [SerializeField] private, and see what need to be public
-    public GameObject npcPrefab; // Assign your NPC prefab in the inspector.
-    public GameObject npcPrefab2; // Assign your NPC prefab in the inspector.
-
+    [SerializeField] private GameObject npcPrefab; // Assign your NPC prefab in the inspector.
     
     // Hardcoded spawn positions
     private Vector3 greetingNPCSpawnPosition = new Vector3(0, 0, 0);
@@ -35,7 +33,7 @@ public class EventTriggerDemo : MonoBehaviour
         // Configure the greeting NPC here with dialogue or other components.
 
         // Spawn the proximity NPC at the hardcoded position but deactivate it until the player is close enough
-        proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, true, npcPrefab2);
+        proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, true, npcPrefab);
         // Configure the proximity NPC here with dialogue or other components.
         proximityNPC.SetActive(true);
     }

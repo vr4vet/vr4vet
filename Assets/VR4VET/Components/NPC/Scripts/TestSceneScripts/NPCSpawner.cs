@@ -5,7 +5,7 @@ public class NPCSpawner : MonoBehaviour
     public GameObject SpawnNPC(Vector3 position, bool shouldFollow, GameObject npcPrefab)
     {
         // Instantiate the NPC prefab
-        Debug.Log("Spawning NPC at " + position);
+        // Debug.Log("Spawning NPC at " + position);
         GameObject newNPC = Instantiate(npcPrefab, position, Quaternion.identity);
 
         // Attach the TTS components
@@ -15,7 +15,7 @@ public class NPCSpawner : MonoBehaviour
         FollowThePlayerControllerV2 npcController = newNPC.GetComponent<FollowThePlayerControllerV2>();
         if (npcController != null)
         {
-            Debug.Log("Setting shouldFollow to " + shouldFollow);
+            // Debug.Log("Setting shouldFollow to " + shouldFollow);
             npcController.shouldFollow = shouldFollow;
         }
         else
