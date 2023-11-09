@@ -14,8 +14,28 @@ public class NPCController: MonoBehaviour
     Animator animator;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        Debug.Log("NPCController.Start() called");
+        if (PlayerManager.instance == null)
+        {
+            PlayerManager.instance = FindObjectOfType<PlayerManager>();
+            if (PlayerManager.instance == null)
+            {
+                Debug.LogError("PlayerManager instance was not found. Please ensure it exists in the scene.");
+                return;
+            }
+        }
+
+    // Check if the player is set in the PlayerManager instance
+    if (PlayerManager.instance.player == null)
+    {
+        Debug.LogError("The player is not set in the PlayerManager instance.");
+        return;
+    }
+
+        // find player manager object and get the player object
+
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -23,7 +43,7 @@ public class NPCController: MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         float distance = Vector3.Distance(target.position, transform.position);
         
         if (shouldFollow)
