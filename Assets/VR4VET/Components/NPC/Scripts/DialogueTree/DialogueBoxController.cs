@@ -29,6 +29,8 @@ public class DialogueBoxController : MonoBehaviour
     private int isTalkingHash;
     private int hasNewDialogueOptionsHash;
 
+    [HideInInspector] public bool dialogueIsActive;
+
     private void Awake() 
     {
         // Debug.Log("DialogueBoxController is awake with istance: " + instance);
@@ -39,6 +41,7 @@ public class DialogueBoxController : MonoBehaviour
            // exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
             skipLineButton.SetActive(false);
             exitButton.SetActive(false);
+            dialogueIsActive = false;
 
             // Assign the event camera
             // TODO: change
@@ -86,6 +89,7 @@ public class DialogueBoxController : MonoBehaviour
 
     public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
     {
+        dialogueIsActive = true;
         // stop I-have-something-to-tell-you-animation and start talking
         Debug.Log("StartDialogue");
         animator.SetBool(hasNewDialogueOptionsHash, false);
@@ -118,7 +122,8 @@ public class DialogueBoxController : MonoBehaviour
         if (dialogueTree.sections[section].endAfterDialogue)
         {
             OnDialogueEnded?.Invoke();
-            dialogueBox.SetActive(false);
+            //dialogueBox.SetActive(false);
+            ExitConversation();
             yield break;
         }
         dialogueText.text = dialogueTree.sections[section].branchPoint.question;
@@ -178,6 +183,7 @@ public class DialogueBoxController : MonoBehaviour
     {
         // stop talk-animation
         animator.SetBool(isTalkingHash, false);
+        dialogueIsActive = false;
         ResetBox();
     }
 }

@@ -57,7 +57,7 @@ public class ConversationController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {   
-        if (other.gameObject.Equals(collidingObject)) 
+        if (other.gameObject.Equals(collidingObject) && !controller.dialogueIsActive) 
         {
             controller.StartDialogue(dialogueTree, 0, "NPC");
         }
