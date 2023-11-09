@@ -80,7 +80,7 @@ public class EventTrigger : MonoBehaviour
     {
         if (spawnedNPC != null)
         {
-            NPCController npcController = spawnedNPC.GetComponent<NPCController>();
+            FollowThePlayerController npcController = spawnedNPC.GetComponent<FollowThePlayerController>();
             if (npcController != null)
             {
                 npcController.shouldFollow = !npcController.shouldFollow;

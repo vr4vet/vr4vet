@@ -18,6 +18,8 @@ public class PlayerManager : MonoBehaviour
             // Assign the player field if it's not set in the inspector.
             if (player == null)
             {
+                // TODO: Fix
+                // Dette blir feil.  Player er ikke XR Rig, men Camera Rig
                 player = GameObject.FindGameObjectWithTag("Player");
                 if (player == null)
                 {

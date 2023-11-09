@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 9206474622115649607}
   - component: {fileID: 2830288832321863613}
   - component: {fileID: 4707600065585342815}
+  - component: {fileID: -1508993140319366382}
   m_Layer: 0
   m_Name: NPC 1
   m_TagString: Untagged
@@ -189,13 +190,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142329030213301039}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8007d79856b5d6d42b0a46e80eed1a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookRadius: 8
-  personalSpaceFactor: 4
+  startFollowingRadius: 8
+  stopFollowingRadius: 4
   shouldFollow: 0
 --- !u!114 &9206474622115649607
 MonoBehaviour:
@@ -244,6 +245,24 @@ MonoBehaviour:
   answerObjects:
   - {fileID: 4707600065141198880}
   - {fileID: 4707600066134853412}
+  TTSSpeaker: {fileID: 0}
+  skipLineButton: {fileID: 0}
+  exitButton: {fileID: 0}
+--- !u!114 &-1508993140319366382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142329030213301039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31255f0e6a72de042ba44496fdf18bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startFollowingRadius: 8
+  stopFollowingRadius: 4
+  shouldFollow: 0
 --- !u!1 &389399547921113031
 GameObject:
   m_ObjectHideFlags: 0

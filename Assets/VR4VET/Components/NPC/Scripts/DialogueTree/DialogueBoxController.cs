@@ -20,8 +20,8 @@ public class DialogueBoxController : MonoBehaviour
     bool answerTriggered;
     int answerIndex;
     public GameObject TTSSpeaker;
-    private GameObject skipLineButton;
-    private GameObject exitButton;
+    public GameObject skipLineButton;
+    public GameObject exitButton;
     private Animator animator;
     private int isTalkingHash;
     private int hasNewDialogueOptionsHash;
@@ -31,13 +31,16 @@ public class DialogueBoxController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            skipLineButton = GameObject.Find("DialogueCanvas/SkipLineButton");
-            exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
+            //skipLineButton = GameObject.Find("DialogueCanvas/SkipLineButton");
+           // exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
             skipLineButton.SetActive(false);
             exitButton.SetActive(false);
 
             // Assign the event camera
+            Debug.Log("This is the canvas component: " + GetComponent<Canvas>());
+            // TODO: change
             Canvas dialogueCanvas = GameObject.Find("DialogueCanvas").GetComponent<Canvas>();
+            Debug.Log("here is dialogueCanvas:  " + dialogueCanvas);
             if (dialogueCanvas != null)
             {
                 GameObject cameraCaster = GameObject.Find("CameraCaster");
@@ -70,7 +73,7 @@ public class DialogueBoxController : MonoBehaviour
         }
         else 
         {
-            Destroy(gameObject); // Make sure to destroy the gameObject, not just the script component
+            //Destroy(gameObject); // Make sure to destroy the gameObject, not just the script component
         }
     }
 

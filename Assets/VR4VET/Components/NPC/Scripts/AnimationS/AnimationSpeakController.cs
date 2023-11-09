@@ -7,7 +7,7 @@ using UnityEngine.Animations.Rigging;
 public class AnimationSpeakController : MonoBehaviour
 {
     Animator animator;
-    int isTalkingHash;
+    private int isTalkingHash;
     RigBuilder rigBuilder; // Use RigBuilder instead of Rig
     MultiAimConstraint multiAimConstraint;
 
@@ -26,6 +26,7 @@ public class AnimationSpeakController : MonoBehaviour
         if (rigBuilder != null && rigBuilder.layers.Count > 0)
         {
             // Check if a Rig Layer with the name "TargetTracking" exists
+            // TODO change
             RigLayer rigLayer = rigBuilder.layers.Find(layer => layer.name == "TargetTracking");
 
             if (rigLayer != null)

@@ -12,7 +12,7 @@ public class NPCSpawner : MonoBehaviour
         AttachTTSComponents(newNPC);
 
         // Other NPC setup code (unchanged)
-        NPCController npcController = newNPC.GetComponent<NPCController>();
+        FollowThePlayerControllerV2 npcController = newNPC.GetComponent<FollowThePlayerControllerV2>();
         if (npcController != null)
         {
             Debug.Log("Setting shouldFollow to " + shouldFollow);

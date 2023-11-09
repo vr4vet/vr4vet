@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EventTriggerDemo : MonoBehaviour
 {
+
+    // TODO: change from public to [SerializeField] private, and see what need to be public
     public GameObject npcPrefab; // Assign your NPC prefab in the inspector.
     public GameObject npcPrefab2; // Assign your NPC prefab in the inspector.
 
@@ -60,7 +62,8 @@ public class EventTriggerDemo : MonoBehaviour
             {
                 // Activate the proximity NPC and make it follow the player
                 proximityNPC.SetActive(true);
-                NPCController proximityNPCController = proximityNPC.GetComponent<NPCController>();
+                FollowThePlayerControllerV2 proximityNPCController = proximityNPC.GetComponent<FollowThePlayerControllerV2>();
+                Debug.Log("proximityNPCController" + proximityNPCController); 
                 if (proximityNPCController != null)
                 {
                     proximityNPCController.shouldFollow = true;
