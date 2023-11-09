@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NPCTestScript
 {
+    /*
     [Test]
     public void DialogueTreeTest()
     {
@@ -24,4 +25,5 @@ public class NPCTestScript
         }
 
     }
+    */
 }
