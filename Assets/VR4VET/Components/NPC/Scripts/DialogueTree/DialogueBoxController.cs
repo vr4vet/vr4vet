@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 // Import of the TTS namespace
 using Meta.WitAi.TTS.Utilities;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 public class DialogueBoxController : MonoBehaviour
 {
@@ -29,10 +30,17 @@ public class DialogueBoxController : MonoBehaviour
     private int isTalkingHash;
     private int hasNewDialogueOptionsHash;
 
+    private ButtonSpawner buttonSpawner;
+
     [HideInInspector] public bool dialogueIsActive;
 
     private void Awake() 
     {
+        buttonSpawner = GetComponent<ButtonSpawner>();
+        if (buttonSpawner == null) 
+        {
+            Debug.LogError("The NPC missing the Button spawner script");
+        }
         // Debug.Log("DialogueBoxController is awake with istance: " + instance);
         // if (instance == null)
         // {
@@ -114,6 +122,7 @@ public class DialogueBoxController : MonoBehaviour
             while (!skipLineTriggered)
             {
                 skipLineButton.SetActive(true);
+                exitButton.SetActive(true);
                 yield return null;
             }
             skipLineTriggered = false;
@@ -133,7 +142,7 @@ public class DialogueBoxController : MonoBehaviour
         {
             yield return null;
         }
-        answerBox.SetActive(false);
+        // answerBox.SetActive(false);
         answerTriggered = false;
         exitButton.SetActive(false);
         skipLineButton.SetActive(false);
@@ -144,7 +153,8 @@ public class DialogueBoxController : MonoBehaviour
     {
         StopAllCoroutines();
         dialogueBox.SetActive(false);
-        answerBox.SetActive(false);
+        // answerBox.SetActive(false);
+        buttonSpawner.removeAllButtons();
         skipLineTriggered = false;
         answerTriggered = false;
         skipLineButton.SetActive(false);
@@ -154,18 +164,25 @@ public class DialogueBoxController : MonoBehaviour
     void ShowAnswers(BranchPoint branchPoint)
     {
         // Reveals the aselectable answers and sets their text values
-        answerBox.SetActive(true);
-        for (int i = 0; i < 2; i++)
+        Debug.Log("The answer options are:");
+        foreach (var answer in branchPoint.answers)
         {
-            if (i < branchPoint.answers.Length)
-            {
-                answerObjects[i].GetComponentInChildren<TextMeshProUGUI>().text = branchPoint.answers[i].answerLabel;
-                answerObjects[i].gameObject.SetActive(true);
-            }
-            else {
-                answerObjects[i].gameObject.SetActive(false);
-            }
+            Debug.Log("Answer: " + answer.answerLabel);
         }
+        buttonSpawner.spawnAnswerButtons(branchPoint.answers);
+    
+        // answerBox.SetActive(true);
+        // for (int i = 0; i < 2; i++)
+        // {
+        //     if (i < branchPoint.answers.Length)
+        //     {
+        //         answerObjects[i].GetComponentInChildren<TextMeshProUGUI>().text = branchPoint.answers[i].answerLabel;
+        //         answerObjects[i].gameObject.SetActive(true);
+        //     }
+        //     else {
+        //         answerObjects[i].gameObject.SetActive(false);
+        //     }
+        // }
     }
 
     public void SkipLine()
@@ -175,8 +192,11 @@ public class DialogueBoxController : MonoBehaviour
 
     public void AnswerQuestion(int answer)
     {
+        Debug.Log("Answer question: " + answer);
         answerIndex = answer;
         answerTriggered = true;
+        // remove the buttons
+        buttonSpawner.removeAllButtons();
     }
 
     public void ExitConversation()
