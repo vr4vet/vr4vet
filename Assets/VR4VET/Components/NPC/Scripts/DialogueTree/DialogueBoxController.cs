@@ -11,10 +11,10 @@ public class DialogueBoxController : MonoBehaviour
 {
     // public static DialogueBoxController instance;
     [SerializeField] TextMeshProUGUI dialogueText;
-    [SerializeField] TextMeshProUGUI nameText;
+    // [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] GameObject dialogueBox;
     [SerializeField] GameObject answerBox;
-    [SerializeField] Button[] answerObjects;
+    // [SerializeField] Button[] answerObjects;
 
     [SerializeField] GameObject dialogueCanvas;
 
@@ -47,8 +47,9 @@ public class DialogueBoxController : MonoBehaviour
         //     instance = this;
             //skipLineButton = GameObject.Find("DialogueCanvas/SkipLineButton");
            // exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
-            skipLineButton.SetActive(false);
-            exitButton.SetActive(false);
+            // skipLineButton.SetActive(false);
+            // exitButton.SetActive(false);
+            ResetBox();
             dialogueIsActive = false;
 
             // Assign the event camera
@@ -104,7 +105,7 @@ public class DialogueBoxController : MonoBehaviour
         animator.SetBool(isTalkingHash, true);
         // Dialogue 
         ResetBox();
-        nameText.text = name;
+        // nameText.text = name;
         dialogueBox.SetActive(true);
         OnDialogueStarted?.Invoke();
         StartCoroutine(RunDialogue(dialogueTree, startSection));
