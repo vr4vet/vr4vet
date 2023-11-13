@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e00f7924afa24219a5197b2a8fa8d48, type: 3}
+  m_Name: ButtonSpawnerScriptExplained
+  m_EditorClassIdentifier: 
+  sections:
+  - dialogue:
+    - Learn more about the Button spawner script here
+    - 'The script is located at the root element of the NPC prefab. '
+    - 'It generates buttons according to the answer options in the dialogue tree. '
+    endAfterDialogue: 0
+    branchPoint:
+      question: You can have 1 button
+      answers:
+      - answerLabel: OK
+        nextElement: 1
+  - dialogue:
+    - 'By having two buttons, we can add the option to repeat this portion of the
+      dialogue. '
+    - (You could go back to any portion of the dialogue, but let's not)
+    endAfterDialogue: 0
+    branchPoint:
+      question: Are you ready to proceed?
+      answers:
+      - answerLabel: No, repeat the info
+        nextElement: 1
+      - answerLabel: Yes, onwards!
+        nextElement: 2
+  - dialogue:
+    - The button text should scale pretty well depending on how much text there is
+      in the answer-options.
+    endAfterDialogue: 0
+    branchPoint:
+      question: Shall we move on?
+      answers:
+      - answerLabel: No, repeat the info
+        nextElement: 2
+      - answerLabel: Yes
+        nextElement: 3
+      - answerLabel: Yes, I would very much like to proceed. Nothing would make me
+          more happy. Thank you so, so much! Let us move forward!
+        nextElement: 3
+  - dialogue:
+    - The maximum number of buttons is currently 4.
+    - 'The reason is that the buttons have to be big enough to display the text,
+      and there is limited space on the dialogue-display. '
+    - If you want more than 4 buttons, then you have to modify the script yourself.
+    endAfterDialogue: 0
+    branchPoint:
+      question: That was all. What to do you want to do?
+      answers:
+      - answerLabel: Repeat the last section
+        nextElement: 3
+      - answerLabel: Go back to the start
+        nextElement: 0
+      - answerLabel: Bye
+        nextElement: 4
+      - answerLabel: Goodbye
+        nextElement: 5
+  - dialogue:
+    - Bye, bye!
+    endAfterDialogue: 1
+    branchPoint:
+      question: That was all. What to do you want to do?
+      answers:
+      - answerLabel: Repeat the last section
+        nextElement: 3
+      - answerLabel: Go back to the start
+        nextElement: 0
+      - answerLabel: Bye
+        nextElement: 2
+      - answerLabel: Goodbye
+        nextElement: 2
+  - dialogue:
+    - Goodbye to you too!
+    endAfterDialogue: 1
+    branchPoint:
+      question: That was all. What to do you want to do?
+      answers:
+      - answerLabel: Repeat the last section
+        nextElement: 3
+      - answerLabel: Go back to the start
+        nextElement: 0
+      - answerLabel: Bye
+        nextElement: 2
+      - answerLabel: Goodbye
+        nextElement: 2

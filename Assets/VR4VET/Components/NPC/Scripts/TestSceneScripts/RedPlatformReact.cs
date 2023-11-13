@@ -5,15 +5,15 @@ public class RedPlatformReact : MonoBehaviour
 {
     public GameObject npc;
     public DialogueTree newDialogueTree;
-    private NPCManager npcManager;
+    private ConversationController conversationController;
     
     void Start() {
-        npcManager = npc.GetComponentInChildren<NPCManager>();
+        conversationController = npc.GetComponentInChildren<ConversationController>();
     }
 
     void OnTriggerEnter() {
         if (!newDialogueTree.Equals(null)) {
-            npcManager.insertDialogueTreeAndChange(newDialogueTree);
+            conversationController.insertDialogueTreeAndChange(newDialogueTree);
         }
     }
 }

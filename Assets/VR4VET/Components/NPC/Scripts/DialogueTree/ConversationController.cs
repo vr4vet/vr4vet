@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class NPCManager : MonoBehaviour
+public class ConversationController : MonoBehaviour
 {
     //public DialogueTree dialogueTree;
     public GameObject collidingObject;
@@ -57,7 +57,7 @@ public class NPCManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {   
-        if (other.gameObject.Equals(collidingObject)) 
+        if (other.gameObject.Equals(collidingObject) && !controller.dialogueIsActive) 
         {
             controller.StartDialogue(dialogueTree, 0, "NPC");
         }
