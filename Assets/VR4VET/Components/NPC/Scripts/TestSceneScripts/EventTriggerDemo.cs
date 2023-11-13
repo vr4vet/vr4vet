@@ -11,10 +11,14 @@ public class EventTriggerDemo : MonoBehaviour
     private Vector3 proximityNPCSpawnPosition = new Vector3(1, 0, 1);
     private Vector3 taskNPCSpawnPosition = new Vector3(4, 0, 4);
 
+    private Vector3 characterModelNPCSpawnPosition = new Vector3(5, 0, 5);
+
     private NPCSpawner npcSpawner;
     private GameObject greetingNPC;
     private GameObject proximityNPC;
     private GameObject taskNPC;
+
+    private GameObject characterModelNPC;
 
     private float proximityRadius = 100.0f; // Radius for checking proximity to the player.
     private bool taskNPCSpawned = false; // To ensure task NPC is only spawned once.
@@ -36,6 +40,8 @@ public class EventTriggerDemo : MonoBehaviour
         proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, true, npcPrefab);
         // Configure the proximity NPC here with dialogue or other components.
         proximityNPC.SetActive(true);
+
+        characterModelNPC = npcSpawner.SpawnNPC(characterModelNPCSpawnPosition, true, npcPrefab);
     }
 
     private void Update()
