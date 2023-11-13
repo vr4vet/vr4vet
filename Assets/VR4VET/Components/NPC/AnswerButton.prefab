@@ -121,20 +121,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 515380966880996648}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7850822095440211487, guid: 7246bad61de6f49b8a0e9f29aff8e528,
-          type: 3}
-        m_TargetAssemblyTypeName: ButtonSpawner, Assembly-CSharp
-        m_MethodName: clickDebug
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 7
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8464209371375946033
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +149,7 @@ RectTransform:
   m_GameObject: {fileID: 8464209371375946033}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2640427375123768196}
@@ -230,12 +217,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
+  m_fontSize: 16
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 6
-  m_fontSizeMax: 14
+  m_fontSizeMin: 1
+  m_fontSizeMax: 16
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

@@ -2,19 +2,14 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 // Import of the TTS namespace
 using Meta.WitAi.TTS.Utilities;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 public class DialogueBoxController : MonoBehaviour
 {
-    // public static DialogueBoxController instance;
     [SerializeField] TextMeshProUGUI dialogueText;
-    // [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] GameObject dialogueBox;
     [SerializeField] GameObject answerBox;
-    // [SerializeField] Button[] answerObjects;
 
     [SerializeField] GameObject dialogueCanvas;
 
@@ -41,58 +36,40 @@ public class DialogueBoxController : MonoBehaviour
         {
             Debug.LogError("The NPC missing the Button spawner script");
         }
-        // Debug.Log("DialogueBoxController is awake with istance: " + instance);
-        // if (instance == null)
-        // {
-        //     instance = this;
-            //skipLineButton = GameObject.Find("DialogueCanvas/SkipLineButton");
-           // exitButton = GameObject.Find("DialogueCanvas/ExitConversationButton");
-            // skipLineButton.SetActive(false);
-            // exitButton.SetActive(false);
-            ResetBox();
-            dialogueIsActive = false;
+        ResetBox();
+        dialogueIsActive = false;
 
-            // Assign the event camera
-            // TODO: change
-            // Canvas dialogueCanvas = GameObject.Find("DialogueCanvas").GetComponent<Canvas>();
-            // Debug.Log("here is dialogueCanvas:  " + dialogueCanvas);
-            if (dialogueCanvas != null)
+        // Assign the event camera
+        if (dialogueCanvas != null)
+        {
+            GameObject cameraCaster = GameObject.Find("CameraCaster");
+            if (cameraCaster != null)
             {
-                GameObject cameraCaster = GameObject.Find("CameraCaster");
-                if (cameraCaster != null)
+                Camera eventCamera = cameraCaster.GetComponent<Camera>();
+                if (eventCamera != null)
                 {
-                    Camera eventCamera = cameraCaster.GetComponent<Camera>();
-                    if (eventCamera != null)
-                    {
-                        dialogueCanvas.GetComponent<Canvas>().worldCamera = eventCamera;
-                    }
-                    else
-                    {
-                        Debug.LogError("CameraCaster does not have a Camera component!");
-                    }
+                    dialogueCanvas.GetComponent<Canvas>().worldCamera = eventCamera;
                 }
                 else
                 {
-                    Debug.LogError("CameraCaster GameObject not found in the scene!");
+                    Debug.LogError("CameraCaster does not have a Camera component!");
                 }
             }
             else
             {
-                Debug.LogError("DialogueCanvas not found or does not have a Canvas component!");
+                Debug.LogError("CameraCaster GameObject not found in the scene!");
             }
+        }
+        else
+        {
+            Debug.LogError("DialogueCanvas not found or does not have a Canvas component!");
+        }
 
-            // Animation stuff
-            // Debug.Log("instance: " + instance);
-            // animator = instance.GetComponentInParent<Animator>();
-            animator = GetComponentInParent<Animator>();
-            Debug.Log("Animator" + animator);
-            isTalkingHash = Animator.StringToHash("isTalking");
-            hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
-        // }
-        // else 
-        // {
-        //     //Destroy(gameObject); // Make sure to destroy the gameObject, not just the script component
-        // }
+        // Animation stuff
+        animator = GetComponentInParent<Animator>();
+        Debug.Log("Animator" + animator);
+        isTalkingHash = Animator.StringToHash("isTalking");
+        hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
 
@@ -105,7 +82,6 @@ public class DialogueBoxController : MonoBehaviour
         animator.SetBool(isTalkingHash, true);
         // Dialogue 
         ResetBox();
-        // nameText.text = name;
         dialogueBox.SetActive(true);
         OnDialogueStarted?.Invoke();
         StartCoroutine(RunDialogue(dialogueTree, startSection));
@@ -132,7 +108,6 @@ public class DialogueBoxController : MonoBehaviour
         if (dialogueTree.sections[section].endAfterDialogue)
         {
             OnDialogueEnded?.Invoke();
-            //dialogueBox.SetActive(false);
             ExitConversation();
             yield break;
         }
@@ -143,7 +118,6 @@ public class DialogueBoxController : MonoBehaviour
         {
             yield return null;
         }
-        // answerBox.SetActive(false);
         answerTriggered = false;
         exitButton.SetActive(false);
         skipLineButton.SetActive(false);
@@ -154,7 +128,6 @@ public class DialogueBoxController : MonoBehaviour
     {
         StopAllCoroutines();
         dialogueBox.SetActive(false);
-        // answerBox.SetActive(false);
         buttonSpawner.removeAllButtons();
         skipLineTriggered = false;
         answerTriggered = false;
@@ -164,26 +137,8 @@ public class DialogueBoxController : MonoBehaviour
 
     void ShowAnswers(BranchPoint branchPoint)
     {
-        // Reveals the aselectable answers and sets their text values
-        Debug.Log("The answer options are:");
-        foreach (var answer in branchPoint.answers)
-        {
-            Debug.Log("Answer: " + answer.answerLabel);
-        }
+        // Reveals the selectable answers and sets their text values
         buttonSpawner.spawnAnswerButtons(branchPoint.answers);
-    
-        // answerBox.SetActive(true);
-        // for (int i = 0; i < 2; i++)
-        // {
-        //     if (i < branchPoint.answers.Length)
-        //     {
-        //         answerObjects[i].GetComponentInChildren<TextMeshProUGUI>().text = branchPoint.answers[i].answerLabel;
-        //         answerObjects[i].gameObject.SetActive(true);
-        //     }
-        //     else {
-        //         answerObjects[i].gameObject.SetActive(false);
-        //     }
-        // }
     }
 
     public void SkipLine()

@@ -38,17 +38,16 @@ MonoBehaviour:
   - dialogue:
     - The button text should scale pretty well depending on how much text there is
       in the answer-options.
-    - 'You can also '
     endAfterDialogue: 0
     branchPoint:
       question: Shall we move on?
       answers:
       - answerLabel: No, repeat the info
         nextElement: 2
-      - answerLabel: Yes,
+      - answerLabel: Yes
         nextElement: 3
       - answerLabel: Yes, I would very much like to proceed. Nothing would make me
-          more happy.
+          more happy. Thank you so, so much! Let us move forward!
         nextElement: 3
   - dialogue:
     - The maximum number of buttons is currently 4.
@@ -66,7 +65,7 @@ MonoBehaviour:
       - answerLabel: Bye
         nextElement: 4
       - answerLabel: Goodbye
-        nextElement: 4
+        nextElement: 5
   - dialogue:
     - Bye, bye!
     endAfterDialogue: 1
