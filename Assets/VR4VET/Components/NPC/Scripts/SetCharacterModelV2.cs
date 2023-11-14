@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
-public class SetCharacterModel : MonoBehaviour
+public class SetCharacterModelV2 : MonoBehaviour
 {
-
     [SerializeField] private GameObject rig;
     [SerializeField] private GameObject[] meshes;
     [SerializeField] private GameObject parentObject;
@@ -18,32 +15,31 @@ public class SetCharacterModel : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        VersionOne();
+        VersionTwo();
     }
 
     // Update is called once per frame
     void VersionOne()
     {
-        spawnLocation = new Vector3(1,0,1);
+        GameObject bones = Instantiate(rig, spawnLocation, Quaternion.identity);
+        bones.transform.SetParent(parentObject.transform);
+        Vector3 bonesLocation = new Vector3(spawnLocation.x, spawnLocation.y, spawnLocation.z);
+        bones.transform.localPosition = bonesLocation;
+        bones.name = rig.name;
+
+        spawnLocation = new Vector3(0,0,0);
         for (int i = 0; i < meshes.Length; i++)
         {
             GameObject skin = Instantiate(meshes[i], spawnLocation, Quaternion.identity);
             skin.transform.SetParent(parentObject.transform);
-            Vector3 skinLocation = new Vector3(parentObject.transform.position.x, parentObject.transform.position.y, parentObject.transform.position.y);
+            Vector3 skinLocation = new Vector3(spawnLocation.x, spawnLocation.y, spawnLocation.z);
             skin.transform.localPosition = skinLocation;
-            //GameObject skin = Instantiate(meshes[i], parentObject.transform, true);
             skin.name = meshes[i].name;
+            skin.SetActive(false);
+            skin.SetActive(true);
         }
-
-        GameObject bones = Instantiate(rig, spawnLocation, Quaternion.identity);
-        bones.transform.SetParent(parentObject.transform);
-        //Vector3 bonesLocation = new Vector3(spawnLocation.x, spawnLocation.y, spawnLocation.z);
-        Vector3 bonesLocation =  new Vector3(parentObject.transform.position.x, parentObject.transform.position.y, parentObject.transform.position.y);
-        bones.transform.localPosition = bonesLocation;
-        //GameObject bones = Instantiate(rig, parentObject.transform, true);
-        bones.name = rig.name;
     }
 
     void VersionTwo() {

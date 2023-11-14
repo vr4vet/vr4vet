@@ -24,7 +24,7 @@ public class FollowThePlayerControllerV2 : MonoBehaviour
 
     void Awake() {
         // Find an object to follow on the player
-        GameObject targetRef = GameObject.Find("XR Rig Advanced/PlayerController/CameraRig");
+        GameObject targetRef = GameObject.Find("CameraRig");
         if (targetRef != null)
         {
             target = targetRef.transform;
@@ -34,7 +34,8 @@ public class FollowThePlayerControllerV2 : MonoBehaviour
             Debug.LogError("Cannot find XR Rig Advanced/PlayerController/CameraRig in the scene");
         }
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        Debug.Log("Animator: " + animator);
     }
 
     // Update is called once per frame

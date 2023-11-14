@@ -4,21 +4,25 @@ public class EventTriggerDemo : MonoBehaviour
 {
 
     // TODO: change from public to [SerializeField] private, and see what need to be public
-    [SerializeField] private GameObject npcPrefab; // Assign your NPC prefab in the inspector.
+    [SerializeField] private GameObject npcPrefab;
+    [SerializeField] private GameObject npcPrefabV1; // Assign your NPC prefab in the inspector.
     
+    [SerializeField] private GameObject npcPrefabV2; 
     // Hardcoded spawn positions
     private Vector3 greetingNPCSpawnPosition = new Vector3(0, 0, 0);
     private Vector3 proximityNPCSpawnPosition = new Vector3(1, 0, 1);
     private Vector3 taskNPCSpawnPosition = new Vector3(4, 0, 4);
 
-    private Vector3 characterModelNPCSpawnPosition = new Vector3(5, 0, 5);
+    private Vector3 characterModelNPCV1SpawnPosition = new Vector3(5, 0, 5);
+    private Vector3 characterModelNPCV2SpawnPosition = new Vector3(6, 0, 6);
 
     private NPCSpawner npcSpawner;
     private GameObject greetingNPC;
     private GameObject proximityNPC;
     private GameObject taskNPC;
 
-    private GameObject characterModelNPC;
+    private GameObject characterModelNPCV1;
+    private GameObject characterModelNPCV2;
 
     private float proximityRadius = 100.0f; // Radius for checking proximity to the player.
     private bool taskNPCSpawned = false; // To ensure task NPC is only spawned once.
@@ -41,7 +45,8 @@ public class EventTriggerDemo : MonoBehaviour
         // Configure the proximity NPC here with dialogue or other components.
         proximityNPC.SetActive(true);
 
-        characterModelNPC = npcSpawner.SpawnNPC(characterModelNPCSpawnPosition, true, npcPrefab);
+        // characterModelNPCV1 = npcSpawner.SpawnNPC(characterModelNPCV1SpawnPosition, true, npcPrefabV1);
+        // characterModelNPCV2 = npcSpawner.SpawnNPC(characterModelNPCV2SpawnPosition, true, npcPrefabV2);
     }
 
     private void Update()

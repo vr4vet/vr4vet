@@ -20,7 +20,7 @@ public class ConversationController : MonoBehaviour
     private int hasNewDialogueOptionsHash;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {   
         // Attempt to find the "XR Rig Advanced" object in the entire scene
         GameObject xrRigAdvanced = GameObject.Find("XR Rig Advanced/Inventory/HolsterRight");
@@ -49,7 +49,11 @@ public class ConversationController : MonoBehaviour
         }
 
         controller = gameObject.GetComponentInParent<DialogueBoxController>();
-        animator = this.GetComponentInParent<Animator>();
+        // TODO: test if this works
+        GameObject parent = this.transform.parent.gameObject;
+        Debug.Log("parent: " + parent);
+        animator = parent.GetComponentInChildren<Animator>();
+        Debug.Log("Animator: " + animator);
         hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
