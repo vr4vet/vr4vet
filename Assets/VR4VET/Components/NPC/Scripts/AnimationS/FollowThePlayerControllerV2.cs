@@ -35,6 +35,7 @@ public class FollowThePlayerControllerV2 : MonoBehaviour
         }
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        // animator = GetComponent<Animator>();
         Debug.Log("Animator: " + animator);
     }
 

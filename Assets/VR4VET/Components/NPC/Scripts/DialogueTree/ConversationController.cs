@@ -53,6 +53,7 @@ public class ConversationController : MonoBehaviour
         GameObject parent = this.transform.parent.gameObject;
         Debug.Log("parent: " + parent);
         animator = parent.GetComponentInChildren<Animator>();
+        // animator = GetComponentInParent<Animator>();
         Debug.Log("Animator: " + animator);
         hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }

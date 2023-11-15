@@ -67,6 +67,7 @@ public class DialogueBoxController : MonoBehaviour
 
         // Animation stuff
         animator = GetComponentInChildren<Animator>();
+        // animator = GetComponent<Animator>();
         Debug.Log("Animator" + animator);
         isTalkingHash = Animator.StringToHash("isTalking");
         hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");

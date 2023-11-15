@@ -26,7 +26,7 @@ public class SetCharacterModel : MonoBehaviour
     // Update is called once per frame
     void VersionOne()
     {
-        spawnLocation = new Vector3(1,0,1);
+        spawnLocation = new Vector3(0,0,0);
         for (int i = 0; i < meshes.Length; i++)
         {
             GameObject skin = Instantiate(meshes[i], spawnLocation, Quaternion.identity);
