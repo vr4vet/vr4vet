@@ -6,6 +6,8 @@ using UnityEngine.Scripting;
 public class PlatformChangeModel : MonoBehaviour
 {
     [SerializeField] private GameObject[] ModelPrefabs;
+
+    [SerializeField] private Avatar[] modelAvatar;
     [HideInInspector] private int currentModelNr;
 
     [SerializeField] private GameObject NPC;
@@ -17,7 +19,14 @@ public class PlatformChangeModel : MonoBehaviour
     }
 
     private void ChangeModel() {
-        setCharacterModelV2.SetCharacterModel(ModelPrefabs[currentModelNr]);
+        setCharacterModelV2.SetCharacterModel(ModelPrefabs[currentModelNr], modelAvatar[currentModelNr]);
         currentModelNr++;
     }
+
+    void OnTriggerEnter() {
+        Debug.Log("WE ARE TRIGGGERD!!!");
+        ChangeModel();
+    }
+
+
 }

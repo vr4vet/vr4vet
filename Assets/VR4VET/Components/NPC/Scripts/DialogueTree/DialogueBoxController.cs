@@ -73,6 +73,14 @@ public class DialogueBoxController : MonoBehaviour
         hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
+    public void updateAnimator() {
+        //this.animator = animator;
+        this.animator = GetComponentInChildren<Animator>();
+        Debug.Log(animator);
+        isTalkingHash = Animator.StringToHash("isTalking");
+        hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+    }
+
 
     public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
     {

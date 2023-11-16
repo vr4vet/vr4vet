@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 
 /// <summary>
 /// Configure if the NPC will follow the player or not, 
@@ -22,6 +23,8 @@ public class FollowThePlayerControllerV2 : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
 
+    private int VelocityYHash;
+
     void Awake() {
         // Find an object to follow on the player
         GameObject targetRef = GameObject.Find("CameraRig");
@@ -35,6 +38,7 @@ public class FollowThePlayerControllerV2 : MonoBehaviour
         }
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        VelocityYHash = Animator.StringToHash("VelocityY");
         // animator = GetComponent<Animator>();
         Debug.Log("Animator: " + animator);
     }
@@ -51,18 +55,26 @@ public class FollowThePlayerControllerV2 : MonoBehaviour
             {
                 Vector3 direction = (target.position - transform.position).normalized;
                 agent.SetDestination(target.position - direction * personalSpaceFactor);
-                animator.SetFloat("VelocityY", agent.velocity.magnitude);
+                animator.SetFloat(VelocityYHash, agent.velocity.magnitude);
             }
             else 
             {
-                animator.SetFloat("VelocityY", agent.velocity.magnitude);
+                animator.SetFloat(VelocityYHash, agent.velocity.magnitude);
             }
         }
         else
         {
             // NPC should stand still
-            animator.SetFloat("VelocityY", 0); // Set the animation state to idle
+            animator.SetFloat(VelocityYHash, 0); // Set the animation state to idle
             agent.SetDestination(transform.position); // Stop the agent from moving
         }
+    }
+
+    public void updateAnimator() {
+        this.animator = GetComponentInChildren<Animator>();
+        Debug.Log("Animator:" + animator);
+        VelocityYHash = Animator.StringToHash("VelocityY");
+        Debug.Log(animator);
+        //this.animator = animator;
     }
 }
