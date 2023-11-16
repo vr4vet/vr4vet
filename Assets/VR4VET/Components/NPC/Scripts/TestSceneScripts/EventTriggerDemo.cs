@@ -4,25 +4,20 @@ public class EventTriggerDemo : MonoBehaviour
 {
 
     // TODO: change from public to [SerializeField] private, and see what need to be public
-    [SerializeField] private GameObject npcPrefab;
-    [SerializeField] private GameObject npcPrefabV1; // Assign your NPC prefab in the inspector.
-    
-    [SerializeField] private GameObject npcPrefabV2; 
+    [SerializeField] private GameObject npcPrefab; // Assign your NPC prefab in the inspector.
+    [SerializeField] private GameObject npcPrefabV5; 
+
+    [SerializeField] private GameObject[] characterModels;
+    [SerializeField] private Avatar[] characterAvatars;
     // Hardcoded spawn positions
-    private Vector3 greetingNPCSpawnPosition = new Vector3(0, 0, 0);
+    private Vector3 greetingNPCSpawnPosition = new Vector3(2, 0, 2);
     private Vector3 proximityNPCSpawnPosition = new Vector3(1, 0, 1);
     private Vector3 taskNPCSpawnPosition = new Vector3(4, 0, 4);
-
-    private Vector3 characterModelNPCV1SpawnPosition = new Vector3(5, 0, 5);
-    private Vector3 characterModelNPCV2SpawnPosition = new Vector3(6, 0, 6);
 
     private NPCSpawner npcSpawner;
     private GameObject greetingNPC;
     private GameObject proximityNPC;
     private GameObject taskNPC;
-
-    private GameObject characterModelNPCV1;
-    private GameObject characterModelNPCV2;
 
     private float proximityRadius = 100.0f; // Radius for checking proximity to the player.
     private bool taskNPCSpawned = false; // To ensure task NPC is only spawned once.
@@ -37,27 +32,32 @@ public class EventTriggerDemo : MonoBehaviour
         }
 
         // Spawn the greeting NPC at the hardcoded position
-        greetingNPC = npcSpawner.SpawnNPC(greetingNPCSpawnPosition, false, npcPrefab);
+        greetingNPC = npcSpawner.SpawnNPC(greetingNPCSpawnPosition, false, npcPrefabV5);
+        // changes the avatar from the deafult one, to a specific one
+        updateCharacterModel(greetingNPC, characterModels[0], characterAvatars[0]);
+        // changes the name of the NPC
+        DisplayName displayName = greetingNPC.GetComponent<DisplayName>();
+        if (displayName == null) {
+            Debug.Log("The NPC is missing the display name componenent");
+        }
+        displayName.updateDisplayedName("Bob the Builder");
         // Configure the greeting NPC here with dialogue or other components.
 
         // Spawn the proximity NPC at the hardcoded position but deactivate it until the player is close enough
-        proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, true, npcPrefab);
+        //proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, true, npcPrefab);
         // Configure the proximity NPC here with dialogue or other components.
-        proximityNPC.SetActive(true);
-
-        // characterModelNPCV1 = npcSpawner.SpawnNPC(characterModelNPCV1SpawnPosition, true, npcPrefabV1);
-        // characterModelNPCV2 = npcSpawner.SpawnNPC(characterModelNPCV2SpawnPosition, true, npcPrefabV2);
+       // proximityNPC.SetActive(true);
     }
 
     private void Update()
     {
-        HandleProximityNPC();
+        //HandleProximityNPC();
 
         // Check for the 'B' key to spawn the taskNPC
         if (Input.GetKeyDown(KeyCode.B) && !taskNPCSpawned)
         {	
 			Debug.Log("B key pressed");
-            SpawnTaskNPC();
+            //SpawnTaskNPC();
         }
     }
 
@@ -94,5 +94,15 @@ public class EventTriggerDemo : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // This can be left empty if you only want the B key to trigger the taskNPC spawn
+    }
+
+    private void updateCharacterModel(GameObject theNPC, GameObject characterModelPrefab, Avatar characterAvatar) {
+        SetCharacterModelV2 setCharacterModelV2 = theNPC.GetComponent<SetCharacterModelV2>();
+        if (setCharacterModelV2 == null)
+        {
+            Debug.Log("The NPC is missing the script SetCharacterModelV2");
+        } else {
+            setCharacterModelV2.SetCharacterModel(characterModelPrefab, characterAvatar);
+        }
     }
 }

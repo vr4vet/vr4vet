@@ -35,9 +35,10 @@ public class PlatformChangeModel : MonoBehaviour
         ChangeModel();
     }
 
-    // private void OnTriggerEnter(Collider other) {
+    // void OnTriggerEnter(Collider other) {
     //     if (other.gameObject.Equals(collidingObject)) 
     //     {
+    //         Debug.Log("WE ARE TRIGGGERD!!! Change skin");
     //         ChangeModel();
     //     }
     // }

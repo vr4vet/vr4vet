@@ -12,4 +12,9 @@ public class DisplayName : MonoBehaviour
         nameText.text = name;
     }
 
+    public void updateDisplayedName(string name) {
+        this.name = name;
+        nameText.text = name;
+    }
+
 }

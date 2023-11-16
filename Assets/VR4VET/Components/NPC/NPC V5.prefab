@@ -9,11 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7094233378567191540}
-  - component: {fileID: 1091732924449546722}
   - component: {fileID: 3597475516668894608}
   - component: {fileID: 8553449543414207982}
   - component: {fileID: 4781107937346705614}
-  - component: {fileID: 6739650166941725858}
   - component: {fileID: 4707600065585342815}
   - component: {fileID: 5828373786828991796}
   - component: {fileID: 7850822095440211487}
@@ -45,26 +43,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1091732924449546722
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 142329030213301039}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 493d363c3a5cd0849839eaaf8d833155, type: 2}
-  m_CullingMode: 2
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!195 &3597475516668894608
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -117,21 +95,6 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &6739650166941725858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 142329030213301039}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8007d79856b5d6d42b0a46e80eed1a1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startFollowingRadius: 8
-  stopFollowingRadius: 4
-  shouldFollow: 0
 --- !u!114 &4707600065585342815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +111,8 @@ MonoBehaviour:
   dialogueBox: {fileID: 979523570101981075}
   answerBox: {fileID: 2393529784512754671}
   dialogueCanvas: {fileID: 2983172922030219317}
-  TTSSpeaker: {fileID: 0}
+  TTSSpeaker: {fileID: 2198972155740386980, guid: 97a7d31fd83b6466ab70a0e2996ce089,
+    type: 3}
   skipLineButton: {fileID: 581411041544405079}
   exitButton: {fileID: 715794130603018707}
   dialogueIsActive: 0
@@ -208,8 +172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentObject: {fileID: 142329030213301039}
-  characterModelPrefab: {fileID: 0}
-  avatar: {fileID: 0}
+  characterModelPrefab: {fileID: 919132149155446097, guid: 6f1f9b49353c2df4ba808423d36563b5,
+    type: 3}
+  avatar: {fileID: 9000000, guid: 6f1f9b49353c2df4ba808423d36563b5, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: acb4b9981fa45ce46adb4867634b31ab,
     type: 2}
 --- !u!1 &389399547921113031
@@ -715,7 +680,7 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 12
+  m_fontSizeMin: 4
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -747,7 +712,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 4.508396, y: 3.0981894, z: 3.8418274, w: 3.125071}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1292,6 +1257,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TTSSpeaker
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795997264979624576, guid: 97a7d31fd83b6466ab70a0e2996ce089,
+        type: 3}
+      propertyPath: _ttsService
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7388602672097136224, guid: 97a7d31fd83b6466ab70a0e2996ce089,
         type: 3}
