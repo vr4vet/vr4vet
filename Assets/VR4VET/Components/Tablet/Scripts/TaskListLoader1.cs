@@ -73,6 +73,20 @@ namespace Tablet
         [SerializeField] private UnityEvent _taskPageOpen;
         [SerializeField] private UnityEvent _subtaskPageOpen;
 
+        private List<GameObject> _skillsClones = new List<GameObject>();
+
+        public static TaskListLoader1 Ins;
+        private void Awake()
+        {
+            if(Ins == null)
+            {
+                Ins = this;
+            }else
+            {
+                Destroy(this);
+            }
+
+        }
         private void Start()
         {
             //setting loading the scriptable objects
@@ -94,6 +108,14 @@ namespace Tablet
             LoadSkillsPage();
         }
 
+        public void UpdateSkillPoints()
+        {
+            for (int i = 0; i < _skills.Count; i++)
+            {
+                _skillsClones[i].GetComponentInChildren<TMP_Text>().text =
+                  _skills[i].GetArchivedPoints() + "/" + _skills[i].MaxPossiblePoints;
+            }
+        }
         public void LoadSkillsPage()
         {
             //loads each skill on the parent object
@@ -106,6 +128,7 @@ namespace Tablet
                 item.transform.localPosition = Vector3.zero;
                 item.transform.localScale = Vector3.one;
                 item.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                _skillsClones.Add(item);
 
                 // we find the button first and then its text component
                 Button button = item.transform.Find("btn_SubTask").GetComponent<Button>();
