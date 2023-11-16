@@ -74,7 +74,15 @@ public class FollowThePlayerControllerV2 : MonoBehaviour
         this.animator = GetComponentInChildren<Animator>();
         Debug.Log("Animator:" + animator);
         VelocityYHash = Animator.StringToHash("VelocityY");
-        Debug.Log(animator);
+        Debug.Log(VelocityYHash);
+        //this.animator = animator;
+    }
+
+    public void updateAnimator(Animator animator) {
+        this.animator = animator;
+        Debug.Log("Animator:" + animator);
+        // VelocityYHash = Animator.StringToHash("VelocityY");
+        // Debug.Log(VelocityYHash);
         //this.animator = animator;
     }
 }

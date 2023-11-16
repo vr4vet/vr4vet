@@ -13,6 +13,8 @@ public class PlatformChangeModel : MonoBehaviour
     [SerializeField] private GameObject NPC;
     [HideInInspector] private SetCharacterModelV2 setCharacterModelV2;
 
+    [SerializeField] private GameObject collidingObject;
+
     void Awake() {
         currentModelNr = 0;
         setCharacterModelV2 = NPC.GetComponent<SetCharacterModelV2>();
@@ -21,12 +23,23 @@ public class PlatformChangeModel : MonoBehaviour
     private void ChangeModel() {
         setCharacterModelV2.SetCharacterModel(ModelPrefabs[currentModelNr], modelAvatar[currentModelNr]);
         currentModelNr++;
+        if (currentModelNr >= ModelPrefabs.Length || currentModelNr >= modelAvatar.Length)
+        {
+            currentModelNr = 0;
+        }
     }
 
     void OnTriggerEnter() {
-        Debug.Log("WE ARE TRIGGGERD!!!");
+
+        Debug.Log("WE ARE TRIGGGERD!!! Change skin");
         ChangeModel();
     }
 
+    // private void OnTriggerEnter(Collider other) {
+    //     if (other.gameObject.Equals(collidingObject)) 
+    //     {
+    //         ChangeModel();
+    //     }
+    // }
 
 }

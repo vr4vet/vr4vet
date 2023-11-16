@@ -17,9 +17,21 @@ public class SetCharacterModelV2 : MonoBehaviour
     [SerializeField] private RuntimeAnimatorController runtimeAnimatorController;
 
     [HideInInspector] private GameObject bonesAndSkin;
+    [HideInInspector] private GameObject OldbonesAndSkin;
 
     [HideInInspector] private FollowThePlayerControllerV2 followThePlayerControllerV2;
     [HideInInspector] private DialogueBoxController dialogueBoxController;
+
+    [HideInInspector] private Animator animator; 
+    [HideInInspector] private int isTalkingHash;
+    [HideInInspector] private int hasNewDialogueOptionsHash;
+    [HideInInspector] private int velocityYHash;
+    [HideInInspector] private int velocityXHash;
+
+    [HideInInspector] private bool isTalking;
+    [HideInInspector] private bool hasNewDialogueOptions;
+    [HideInInspector] private float velocityY;
+    [HideInInspector] private float velocityX;
 
 
 
@@ -28,6 +40,10 @@ public class SetCharacterModelV2 : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        isTalkingHash = Animator.StringToHash("isTalking");
+        hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+        isTalking = false;
+        hasNewDialogueOptions = false;
         followThePlayerControllerV2 = parentObject.GetComponent<FollowThePlayerControllerV2>();
         dialogueBoxController = parentObject.GetComponent<DialogueBoxController>();
         spawnLocation = new Vector3(0,0,0);
@@ -63,25 +79,37 @@ public class SetCharacterModelV2 : MonoBehaviour
         Vector3 bonesAndSkinLocation = new Vector3(spawnLocation.x, spawnLocation.y, spawnLocation.z);
         bonesAndSkin.transform.localPosition = bonesAndSkinLocation;
 
-        Animator ani = bonesAndSkin.GetComponent<Animator>();
-        if (ani == null) {
+        animator = bonesAndSkin.GetComponent<Animator>();
+        if (animator == null) {
             Debug.Log("Adding new Animator");
             bonesAndSkin.AddComponent<Animator>();
-            ani = bonesAndSkin.GetComponent<Animator>();
+            animator = bonesAndSkin.GetComponent<Animator>();
         }
-        ani.runtimeAnimatorController = runtimeAnimatorController;
-        ani.avatar = avatar;
-        updateOtherScripts();
+        animator.runtimeAnimatorController = runtimeAnimatorController;
+        animator.avatar = avatar;
+        // Resetting the old values
+        animator.SetBool(isTalkingHash, isTalking);
+        animator.SetBool(hasNewDialogueOptionsHash, hasNewDialogueOptions);
+        animator.SetFloat(velocityXHash, velocityX);
+        animator.SetFloat(velocityYHash, velocityY);
+        updateOtherScripts(animator);
+        //updateOtherScripts();
     }
 
 
     public void SetCharacterModel(GameObject characterModelPrefab, Avatar avatar)  {
         // remove old stuff?
-        Destroy(bonesAndSkin);
+        OldbonesAndSkin = bonesAndSkin;
         // set new stuff
         this.characterModelPrefab = characterModelPrefab;
         this.avatar = avatar;
+        isTalking = animator.GetBool(isTalkingHash);
+        hasNewDialogueOptions = animator.GetBool(hasNewDialogueOptionsHash);
+        velocityX = animator.GetFloat(velocityXHash);
+        velocityY = animator.GetFloat(velocityYHash);
         VersionTwo();
+        Destroy(OldbonesAndSkin);
+        //updateOtherScripts();
     }
 
 
@@ -89,5 +117,10 @@ public class SetCharacterModelV2 : MonoBehaviour
         //Debug.Log("The animator we are setting is:" + animator);
         dialogueBoxController.updateAnimator();
         followThePlayerControllerV2.updateAnimator();
+    }
+    private void updateOtherScripts(Animator animator) {
+        //Debug.Log("The animator we are setting is:" + animator);
+        dialogueBoxController.updateAnimator(animator);
+        followThePlayerControllerV2.updateAnimator(animator);
     }
 }
