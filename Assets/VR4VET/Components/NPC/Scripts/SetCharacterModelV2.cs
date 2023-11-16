@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Meta.WitAi;
+using Photon.Voice;
 using UnityEngine;
 
 public class SetCharacterModelV2 : MonoBehaviour
@@ -9,6 +10,8 @@ public class SetCharacterModelV2 : MonoBehaviour
     // [SerializeField] private GameObject[] meshes;
     [SerializeField] private GameObject parentObject;
     [HideInInspector] private Vector3 spawnLocation;
+
+    [HideInInspector] private Vector3 spawnRotation;
 
     [SerializeField] private GameObject characterModelPrefab;
 
@@ -47,6 +50,7 @@ public class SetCharacterModelV2 : MonoBehaviour
         followThePlayerControllerV2 = parentObject.GetComponent<FollowThePlayerControllerV2>();
         dialogueBoxController = parentObject.GetComponent<DialogueBoxController>();
         spawnLocation = new Vector3(0,0,0);
+        //spawnRotation = new Vector3(parentObject.transform.rotation.x, parentObject.transform.rotation.y, parentObject.transform.rotation.z);
         VersionTwo();
     }
 
@@ -78,6 +82,9 @@ public class SetCharacterModelV2 : MonoBehaviour
         bonesAndSkin.transform.SetParent(parentObject.transform);
         Vector3 bonesAndSkinLocation = new Vector3(spawnLocation.x, spawnLocation.y, spawnLocation.z);
         bonesAndSkin.transform.localPosition = bonesAndSkinLocation;
+        Debug.Log("Rotation: " + parentObject.transform.rotation.ToString());
+        bonesAndSkin.transform.rotation = Quaternion.Euler(new Vector3(parentObject.transform.eulerAngles.x, parentObject.transform.eulerAngles.y, parentObject.transform.eulerAngles.z));
+        //bonesAndSkin.transform.Rotate(new Vector3(parentObject.transform.rotation.x, parentObject.transform.rotation.y, parentObject.transform.rotation.z));
 
         animator = bonesAndSkin.GetComponent<Animator>();
         if (animator == null) {
