@@ -7,16 +7,18 @@ public class EventTriggerDemo : MonoBehaviour
     [SerializeField] private GameObject npcPrefab; // Assign your NPC prefab in the inspector.
     
     // Hardcoded spawn positions
-    private Vector3 greetingNPCSpawnPosition = new Vector3(0, 0, 0);
-    private Vector3 proximityNPCSpawnPosition = new Vector3(1, 0, 1);
-    private Vector3 taskNPCSpawnPosition = new Vector3(4, 0, 4);
+    private Vector3 greetingNPCSpawnPosition = new Vector3(-15, 0, -4);
+    private Vector3 proximityNPCSpawnPosition = new Vector3(6, 0, 3);
+
+    private Vector3 taskNPCSpawnPosition = new Vector3(-1, 0, -9);
 
     private NPCSpawner npcSpawner;
     private GameObject greetingNPC;
     private GameObject proximityNPC;
+    private FollowThePlayerControllerV2 proximityNPCController;
     private GameObject taskNPC;
 
-    private float proximityRadius = 100.0f; // Radius for checking proximity to the player.
+    private float proximityRadius = 12.0f; // Radius for checking proximity to the player.
     private bool taskNPCSpawned = false; // To ensure task NPC is only spawned once.
 
     private void Start()
@@ -33,55 +35,65 @@ public class EventTriggerDemo : MonoBehaviour
         // Configure the greeting NPC here with dialogue or other components.
 
         // Spawn the proximity NPC at the hardcoded position but deactivate it until the player is close enough
-        proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, true, npcPrefab);
+        proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, false, npcPrefab);
         // Configure the proximity NPC here with dialogue or other components.
         proximityNPC.SetActive(true);
+        HandleProximityNPC();
     }
 
     private void Update()
     {
-        HandleProximityNPC();
+        UpdateProximityNPC();
 
-        // Check for the 'B' key to spawn the taskNPC
-        if (Input.GetKeyDown(KeyCode.B) && !taskNPCSpawned)
-        {	
-			Debug.Log("B key pressed");
-            SpawnTaskNPC();
-        }
     }
 
     private void HandleProximityNPC()
     {
+        if (proximityNPC != null) {proximityNPCController = proximityNPC.GetComponent<FollowThePlayerControllerV2>();}
+
+    }
+    private void UpdateProximityNPC()
+    {
         // Check the distance between the player and the proximity NPC spawn position
-        if (proximityNPC != null && !proximityNPC.activeSelf)
+        float distanceToPlayer = Vector3.Distance(PlayerManager.instance.player.transform.position, proximityNPCSpawnPosition);
+        if (distanceToPlayer <= proximityRadius)
         {
-            float distanceToPlayer = Vector3.Distance(PlayerManager.instance.player.transform.position, proximityNPCSpawnPosition);
-            if (distanceToPlayer <= proximityRadius)
-            {
+            Debug.Log("Player is close enough to the proximity NPC");
+            
                 // Activate the proximity NPC and make it follow the player
-                proximityNPC.SetActive(true);
-                FollowThePlayerControllerV2 proximityNPCController = proximityNPC.GetComponent<FollowThePlayerControllerV2>();
-                Debug.Log("proximityNPCController" + proximityNPCController); 
-                if (proximityNPCController != null)
-                {
-                    proximityNPCController.shouldFollow = true;
-                    // Trigger the initial dialogue for proximity NPC here
-                }
+            if (proximityNPCController != null)
+            {
+                proximityNPCController.shouldFollow = true;
+                // Trigger the initial dialogue for proximity NPC here
             }
+            
+        }
+        else if (proximityNPCController != null)   // Deactivate the proximity NPC's follow behavior if the player is too far away
+        {
+            proximityNPCController.shouldFollow = false;
         }
     }
 
-    private void SpawnTaskNPC()
+
+    public GameObject SpawnTaskNPC()
     {
         // Spawn the task NPC at the hardcoded spawn position
 		Debug.Log("Spawning task NPC");
         taskNPC = npcSpawner.SpawnNPC(taskNPCSpawnPosition, false, npcPrefab);
         taskNPCSpawned = true;
+        return taskNPC;
         // Configure the task NPC here with dialogue or other components.
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // This can be left empty if you only want the B key to trigger the taskNPC spawn
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {           // Check if the colliding object is the player and if the wall is "Wall (2)"
+        
+    //     if (!taskNPCSpawned) 
+    //     {   
+    //         Debug.Log("Player entered the trigger");
+    //         SpawnTaskNPC();
+    //     }
+
+        
+    // }
 }
