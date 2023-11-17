@@ -10,7 +10,7 @@ public class EventTriggerDemo : MonoBehaviour
     private Vector3 greetingNPCSpawnPosition = new Vector3(-15, 0, -4);
     private Vector3 proximityNPCSpawnPosition = new Vector3(6, 0, 3);
 
-    private Vector3 taskNPCSpawnPosition = new Vector3(-1, 0, -9);
+    private Vector3 taskNPCSpawnPosition = new Vector3(-1, 0, -10);
 
     private NPCSpawner npcSpawner;
     private GameObject greetingNPC;

@@ -16902,10 +16902,10 @@ GameObject:
   - component: {fileID: 2103420848}
   - component: {fileID: 2103420847}
   - component: {fileID: 2103420846}
-  - component: {fileID: 2103420850}
   - component: {fileID: 2103420851}
+  - component: {fileID: 2103420852}
   m_Layer: 11
-  m_Name: Wall (3)
+  m_Name: TaskNPCCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -16976,20 +16976,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &2103420850
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2103420844}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &2103420851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17004,6 +16990,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventTrigger: {fileID: 1008652454}
   newDialogueTree: {fileID: 11400000, guid: 303e7802cd1fa3147b3f7e3be386429c, type: 2}
+--- !u!65 &2103420852
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103420844}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 12, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &1945841171681592256
 PrefabInstance:
   m_ObjectHideFlags: 0
