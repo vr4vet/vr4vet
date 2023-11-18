@@ -58,8 +58,6 @@ public class ConversationController : MonoBehaviour
         hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
-
-
     private void OnTriggerEnter(Collider other)
     {   
         if (other.gameObject.Equals(collidingObject) && !controller.dialogueIsActive) 
@@ -80,6 +78,13 @@ public class ConversationController : MonoBehaviour
         animator.SetBool(hasNewDialogueOptionsHash, true);
     }
 
+    public void SetDialogueTreeList(DialogueTree dialogueTree) {
+        SetDialogueTreeList(new List<DialogueTree>
+        {
+            dialogueTree
+        });
+    }
+
     public void insertDialogueTreeAndChange(DialogueTree dialogueTree) {
         if (!dialogueTrees.Contains(dialogueTree)) {
             controller.ExitConversation();
@@ -95,13 +100,25 @@ public class ConversationController : MonoBehaviour
         if (currentElement >= dialogueTrees.Count())
         {
             currentElement--;
+            Debug.Log("You have read the last dialogue tree");
         } else {
             controller.ExitConversation();
             dialogueTree = dialogueTrees.ElementAt(currentElement);
-            // Should the animation observe the dialgoue tree??? To decouple stuff and have the option to add more signals
             animator.SetBool(hasNewDialogueOptionsHash, true);
         }
-        
+    }
+
+    public void previousDialogueTree() {
+        currentElement--;
+        if (currentElement < 0)
+        {
+            currentElement=0;
+            Debug.Log("You have read the first dialogue tree");
+        } else {
+            controller.ExitConversation();
+            dialogueTree = dialogueTrees.ElementAt(currentElement);
+            animator.SetBool(hasNewDialogueOptionsHash, true);
+        }
     }
 
 

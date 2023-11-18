@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using Meta.WitAi.TTS.Data;
+using Meta.WitAi.TTS.Integrations;
+using Meta.WitAi.TTS.Utilities;
 using UnityEngine;
 
 public class EventTriggerDemo : MonoBehaviour
@@ -7,15 +12,22 @@ public class EventTriggerDemo : MonoBehaviour
     [SerializeField] private GameObject npcPrefab; // Assign your NPC prefab in the inspector.
     [SerializeField] private GameObject npcPrefabV5; 
 
+    [SerializeField] private DialogueTree[] dialogueTrees; 
+
     [SerializeField] private GameObject[] characterModels;
     [SerializeField] private Avatar[] characterAvatars;
+
+    [SerializeField] private TTSWit ttsWitService;
     // Hardcoded spawn positions
-    private Vector3 greetingNPCSpawnPosition = new Vector3(2, 0, 2);
+    private Vector3 runtimeNPCSpawnPosition = new Vector3(2, 0, 2);
+    private Vector3 greetingNPCSpawnPosition = new Vector3(0, 0, 0);
     private Vector3 proximityNPCSpawnPosition = new Vector3(1, 0, 1);
     private Vector3 taskNPCSpawnPosition = new Vector3(4, 0, 4);
 
     private NPCSpawner npcSpawner;
+    private GameObject runtimeNPC;
     private GameObject greetingNPC;
+
     private GameObject proximityNPC;
     private GameObject taskNPC;
 
@@ -31,16 +43,28 @@ public class EventTriggerDemo : MonoBehaviour
             return;
         }
 
-        // Spawn the greeting NPC at the hardcoded position
-        greetingNPC = npcSpawner.SpawnNPC(greetingNPCSpawnPosition, false, npcPrefabV5);
-        // changes the avatar from the deafult one, to a specific one
-        updateCharacterModel(greetingNPC, characterModels[0], characterAvatars[0]);
-        // changes the name of the NPC
-        DisplayName displayName = greetingNPC.GetComponent<DisplayName>();
-        if (displayName == null) {
+        // Spawn the runtime NPC at the hardcoded position
+        runtimeNPC = npcSpawner.SpawnNPC(runtimeNPCSpawnPosition, false, npcPrefabV5);
+        // Change the dialogue from the deafult one, to a specific one
+        // ConversationController conversationControllerRuntimeNPC = runtimeNPC.GetComponentInChildren<ConversationController>();
+        // conversationControllerRuntimeNPC?.SetDialogueTreeList(dialogueTrees[0]);
+        // change the avatar from the deafult one, to a specific one
+        updateCharacterModel(runtimeNPC, characterModels[0], characterAvatars[0]);
+        // change the name of the NPC
+        DisplayName displayNameRuntimeNPC = runtimeNPC.GetComponent<DisplayName>();
+        if (displayNameRuntimeNPC == null) {
             Debug.Log("The NPC is missing the display name componenent");
         }
-        displayName.updateDisplayedName("Bob the Builder");
+        displayNameRuntimeNPC.updateDisplayedName("Bob the Builder");
+        // Change the voice of the NPC (maybe)
+        Debug.Log("TTSwit: "+ ttsWitService);
+        Debug.Log("voice options: " + ttsWitService.GetAllPresetVoiceSettings().ToString());
+        String settingsID = ttsWitService.GetAllPresetVoiceSettings()[19].SettingsId;
+        Debug.Log("You are talking with: " + settingsID);
+        runtimeNPC.GetComponent<TTSSpeaker>().ClearVoiceOverride();
+        runtimeNPC.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[2]);
+        Debug.Log("You are talking with: " + runtimeNPC.GetComponentInChildren<TTSSpeaker>().customWitVoiceSettings.SettingsId);
+        
         // Configure the greeting NPC here with dialogue or other components.
 
         // Spawn the proximity NPC at the hardcoded position but deactivate it until the player is close enough

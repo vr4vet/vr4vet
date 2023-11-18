@@ -9,7 +9,7 @@ public class NPCSpawner : MonoBehaviour
         GameObject newNPC = Instantiate(npcPrefab, position, Quaternion.identity);
 
         // Attach the TTS components
-        AttachTTSComponents(newNPC);
+        //AttachTTSComponents(newNPC);
 
         // Other NPC setup code (unchanged)
         FollowThePlayerControllerV2 npcController = newNPC.GetComponent<FollowThePlayerControllerV2>();
