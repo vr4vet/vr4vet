@@ -122,12 +122,12 @@ public class EventTriggerDemo : MonoBehaviour
     }
 
     private void updateCharacterModel(GameObject theNPC, GameObject characterModelPrefab, Avatar characterAvatar, int voicePresetId) {
-        SetCharacterModelV2 setCharacterModelV2 = theNPC.GetComponent<SetCharacterModelV2>();
-        if (setCharacterModelV2 == null)
+        SetCharacterModel setCharacterModel = theNPC.GetComponent<SetCharacterModel>();
+        if (setCharacterModel == null)
         {
-            Debug.Log("The NPC is missing the script SetCharacterModelV2");
+            Debug.Log("The NPC is missing the script SetCharacterModel");
         } else {
-            setCharacterModelV2.SetCharacterModel(characterModelPrefab, characterAvatar, voicePresetId);
+            setCharacterModel.ChangeCharacter(characterModelPrefab, characterAvatar, voicePresetId);
         }
     }
 }

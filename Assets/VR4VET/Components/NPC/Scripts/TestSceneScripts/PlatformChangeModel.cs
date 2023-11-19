@@ -13,17 +13,17 @@ public class PlatformChangeModel : MonoBehaviour
     [HideInInspector] private int currentModelNr;
 
     [SerializeField] private GameObject NPC;
-    [HideInInspector] private SetCharacterModelV2 setCharacterModelV2;
+    [HideInInspector] private SetCharacterModel setCharacterModel;
 
     [SerializeField] private GameObject collidingObject;
 
     void Awake() {
         currentModelNr = 0;
-        setCharacterModelV2 = NPC.GetComponent<SetCharacterModelV2>();
+        setCharacterModel = NPC.GetComponent<SetCharacterModel>();
     }
 
     private void ChangeModel() {
-        setCharacterModelV2.SetCharacterModel(ModelPrefabs[currentModelNr], modelAvatar[currentModelNr], voicePresetIds[currentModelNr]);
+        setCharacterModel.ChangeCharacter(ModelPrefabs[currentModelNr], modelAvatar[currentModelNr], voicePresetIds[currentModelNr]);
         currentModelNr++;
         if (currentModelNr >= ModelPrefabs.Length || currentModelNr >= modelAvatar.Length || currentModelNr >= voicePresetIds.Length)
         {
