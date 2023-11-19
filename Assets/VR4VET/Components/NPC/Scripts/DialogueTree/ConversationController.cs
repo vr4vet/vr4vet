@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class ConversationController : MonoBehaviour
 {
@@ -49,13 +51,21 @@ public class ConversationController : MonoBehaviour
         }
 
         controller = gameObject.GetComponentInParent<DialogueBoxController>();
-        // TODO: test if this works
+        updateAnimator();
+    }
+
+    public void updateAnimator()
+    {
         GameObject parent = this.transform.parent.gameObject;
         Debug.Log("parent: " + parent);
         animator = parent.GetComponentInChildren<Animator>();
         // animator = GetComponentInParent<Animator>();
         Debug.Log("Animator: " + animator);
         hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+    }
+
+    public void updateAnimator(Animator animator) {
+        this.animator = animator;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,7 +130,4 @@ public class ConversationController : MonoBehaviour
             animator.SetBool(hasNewDialogueOptionsHash, true);
         }
     }
-
-
-
 }

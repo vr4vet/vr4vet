@@ -8,6 +8,8 @@ public class PlatformChangeModel : MonoBehaviour
     [SerializeField] private GameObject[] ModelPrefabs;
 
     [SerializeField] private Avatar[] modelAvatar;
+
+    [SerializeField] public int[] voicePresetIds;
     [HideInInspector] private int currentModelNr;
 
     [SerializeField] private GameObject NPC;
@@ -21,9 +23,9 @@ public class PlatformChangeModel : MonoBehaviour
     }
 
     private void ChangeModel() {
-        setCharacterModelV2.SetCharacterModel(ModelPrefabs[currentModelNr], modelAvatar[currentModelNr]);
+        setCharacterModelV2.SetCharacterModel(ModelPrefabs[currentModelNr], modelAvatar[currentModelNr], voicePresetIds[currentModelNr]);
         currentModelNr++;
-        if (currentModelNr >= ModelPrefabs.Length || currentModelNr >= modelAvatar.Length)
+        if (currentModelNr >= ModelPrefabs.Length || currentModelNr >= modelAvatar.Length || currentModelNr >= voicePresetIds.Length)
         {
             currentModelNr = 0;
         }

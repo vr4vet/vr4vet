@@ -16,8 +16,9 @@ public class EventTriggerDemo : MonoBehaviour
 
     [SerializeField] private GameObject[] characterModels;
     [SerializeField] private Avatar[] characterAvatars;
+    [SerializeField] private int[] characterVoices;
 
-    [SerializeField] private TTSWit ttsWitService;
+    //[SerializeField] private TTSWit ttsWitService;
     // Hardcoded spawn positions
     private Vector3 runtimeNPCSpawnPosition = new Vector3(2, 0, 2);
     private Vector3 greetingNPCSpawnPosition = new Vector3(0, 0, 0);
@@ -44,26 +45,26 @@ public class EventTriggerDemo : MonoBehaviour
         }
 
         // Spawn the runtime NPC at the hardcoded position
-        runtimeNPC = npcSpawner.SpawnNPC(runtimeNPCSpawnPosition, false, npcPrefabV5);
+        runtimeNPC = npcSpawner.SpawnNPC(runtimeNPCSpawnPosition, true, npcPrefabV5);
         // Change the dialogue from the deafult one, to a specific one
-        // ConversationController conversationControllerRuntimeNPC = runtimeNPC.GetComponentInChildren<ConversationController>();
-        // conversationControllerRuntimeNPC?.SetDialogueTreeList(dialogueTrees[0]);
+        ConversationController conversationControllerRuntimeNPC = runtimeNPC.GetComponentInChildren<ConversationController>();
+        conversationControllerRuntimeNPC?.SetDialogueTreeList(dialogueTrees[0]);
         // change the avatar from the deafult one, to a specific one
-        updateCharacterModel(runtimeNPC, characterModels[0], characterAvatars[0]);
+        updateCharacterModel(runtimeNPC, characterModels[0], characterAvatars[0], characterVoices[0]);
         // change the name of the NPC
         DisplayName displayNameRuntimeNPC = runtimeNPC.GetComponent<DisplayName>();
         if (displayNameRuntimeNPC == null) {
             Debug.Log("The NPC is missing the display name componenent");
         }
         displayNameRuntimeNPC.updateDisplayedName("Bob the Builder");
-        // Change the voice of the NPC (maybe)
-        Debug.Log("TTSwit: "+ ttsWitService);
-        Debug.Log("voice options: " + ttsWitService.GetAllPresetVoiceSettings().ToString());
-        String settingsID = ttsWitService.GetAllPresetVoiceSettings()[19].SettingsId;
-        Debug.Log("You are talking with: " + settingsID);
-        runtimeNPC.GetComponent<TTSSpeaker>().ClearVoiceOverride();
-        runtimeNPC.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[2]);
-        Debug.Log("You are talking with: " + runtimeNPC.GetComponentInChildren<TTSSpeaker>().customWitVoiceSettings.SettingsId);
+
+        TTSWit ttsWitService = runtimeNPC.GetComponentInChildren<TTSWit>();
+        TTSSpeaker ttsSpeaker = runtimeNPC.GetComponentInChildren<TTSSpeaker>();
+        // Change the voice of the NPC
+        // int voiceNumber = 3;
+        // Debug.Log("You are talking with: " + ttsWitService.GetAllPresetVoiceSettings()[voiceNumber].SettingsId);
+        // ttsSpeaker.ClearVoiceOverride();
+        // ttsSpeaker.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[voiceNumber]);
         
         // Configure the greeting NPC here with dialogue or other components.
 
@@ -120,13 +121,13 @@ public class EventTriggerDemo : MonoBehaviour
         // This can be left empty if you only want the B key to trigger the taskNPC spawn
     }
 
-    private void updateCharacterModel(GameObject theNPC, GameObject characterModelPrefab, Avatar characterAvatar) {
+    private void updateCharacterModel(GameObject theNPC, GameObject characterModelPrefab, Avatar characterAvatar, int voicePresetId) {
         SetCharacterModelV2 setCharacterModelV2 = theNPC.GetComponent<SetCharacterModelV2>();
         if (setCharacterModelV2 == null)
         {
             Debug.Log("The NPC is missing the script SetCharacterModelV2");
         } else {
-            setCharacterModelV2.SetCharacterModel(characterModelPrefab, characterAvatar);
+            setCharacterModelV2.SetCharacterModel(characterModelPrefab, characterAvatar, voicePresetId);
         }
     }
 }

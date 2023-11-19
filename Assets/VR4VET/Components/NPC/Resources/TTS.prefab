@@ -45,6 +45,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TTSSpeaker
       objectReference: {fileID: 0}
+    - target: {fileID: 5795997264979624576, guid: 97a7d31fd83b6466ab70a0e2996ce089,
+        type: 3}
+      propertyPath: _ttsService
+      value: 
+      objectReference: {fileID: 7542148728965109935}
+    - target: {fileID: 5795997264979624576, guid: 97a7d31fd83b6466ab70a0e2996ce089,
+        type: 3}
+      propertyPath: presetVoiceID
+      value: CAM
+      objectReference: {fileID: 0}
     - target: {fileID: 7388602672097136224, guid: 97a7d31fd83b6466ab70a0e2996ce089,
         type: 3}
       propertyPath: m_RootOrder
@@ -183,3 +193,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4660365937729877723}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7542148728965109935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2884531852718714484, guid: 83d16644da4e14f80a78404d45d1c5fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 4660365937729877723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b3124b830442d45b9f357ff99b152f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

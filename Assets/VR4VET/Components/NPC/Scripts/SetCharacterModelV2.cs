@@ -1,21 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Meta.WitAi;
+using Meta.WitAi.TTS.Integrations;
+using Meta.WitAi.TTS.Utilities;
 using Photon.Voice;
 using UnityEngine;
 
 public class SetCharacterModelV2 : MonoBehaviour
 {
-    // [SerializeField] private GameObject rig;
-    // [SerializeField] private GameObject[] meshes;
     [SerializeField] private GameObject parentObject;
     [HideInInspector] private Vector3 spawnLocation;
 
-    [HideInInspector] private Vector3 spawnRotation;
-
     [SerializeField] private GameObject characterModelPrefab;
-
     [SerializeField] private Avatar avatar;
+    [SerializeField] private int voicePresetId;
 
     [SerializeField] private RuntimeAnimatorController runtimeAnimatorController;
 
@@ -24,6 +23,8 @@ public class SetCharacterModelV2 : MonoBehaviour
 
     [HideInInspector] private FollowThePlayerControllerV2 followThePlayerControllerV2;
     [HideInInspector] private DialogueBoxController dialogueBoxController;
+
+    [HideInInspector] private ConversationController conversationController;
 
     [HideInInspector] private Animator animator; 
     [HideInInspector] private int isTalkingHash;
@@ -49,9 +50,26 @@ public class SetCharacterModelV2 : MonoBehaviour
         hasNewDialogueOptions = false;
         followThePlayerControllerV2 = parentObject.GetComponent<FollowThePlayerControllerV2>();
         dialogueBoxController = parentObject.GetComponent<DialogueBoxController>();
+        conversationController = parentObject.GetComponentInChildren<ConversationController>();
         spawnLocation = new Vector3(0,0,0);
         //spawnRotation = new Vector3(parentObject.transform.rotation.x, parentObject.transform.rotation.y, parentObject.transform.rotation.z);
+        CheckMissingComponents();
         VersionTwo();
+    }
+
+    private void CheckMissingComponents() {
+        if (followThePlayerControllerV2 == null)
+        {
+            Debug.LogError("You are missing the script called followThePlayerController");
+        }
+        if (dialogueBoxController == null)
+        {
+            Debug.LogError("You are missing the script called dialogueBoxController");
+        }
+        if (conversationController == null)
+        {
+            Debug.LogError("You are missing the script called conversationController");
+        }
     }
 
     // Update is called once per frame
@@ -100,34 +118,51 @@ public class SetCharacterModelV2 : MonoBehaviour
         animator.SetFloat(velocityXHash, velocityX);
         animator.SetFloat(velocityYHash, velocityY);
         updateOtherScripts(animator);
-        //updateOtherScripts();
+
+        // change the voice
+        TTSWit ttsWitService = parentObject.GetComponentInChildren<TTSWit>();
+        TTSSpeaker ttsSpeaker = parentObject.GetComponentInChildren<TTSSpeaker>();
+        Debug.Log("TtsWitService: " + ttsWitService);
+        Debug.Log("ttsSpeaker: " + ttsSpeaker);
+        if (ttsWitService != null && ttsSpeaker != null)
+        {
+            // Change the voice of the NPC
+            Debug.Log("You are talking with: " + ttsWitService.GetAllPresetVoiceSettings()[voicePresetId].SettingsId);
+            ttsSpeaker.ClearVoiceOverride();
+            ttsSpeaker.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[voicePresetId]);
+        }
+
     }
 
 
-    public void SetCharacterModel(GameObject characterModelPrefab, Avatar avatar)  {
-        // remove old stuff?
+    public void SetCharacterModel(GameObject characterModelPrefab, Avatar avatar, int voicePresetId)  {
+        // remove old stuff
         OldbonesAndSkin = bonesAndSkin;
-        // set new stuff
+        // set new stuff 
         this.characterModelPrefab = characterModelPrefab;
         this.avatar = avatar;
         isTalking = animator.GetBool(isTalkingHash);
         hasNewDialogueOptions = animator.GetBool(hasNewDialogueOptionsHash);
         velocityX = animator.GetFloat(velocityXHash);
         velocityY = animator.GetFloat(velocityYHash);
+        this.voicePresetId = voicePresetId;
         VersionTwo();
         Destroy(OldbonesAndSkin);
         //updateOtherScripts();
     }
 
-
+    // remove?
     private void updateOtherScripts() {
         //Debug.Log("The animator we are setting is:" + animator);
         dialogueBoxController.updateAnimator();
         followThePlayerControllerV2.updateAnimator();
+        conversationController.updateAnimator();
     }
+    // keep
     private void updateOtherScripts(Animator animator) {
         //Debug.Log("The animator we are setting is:" + animator);
         dialogueBoxController.updateAnimator(animator);
         followThePlayerControllerV2.updateAnimator(animator);
+        conversationController.updateAnimator(animator);
     }
 }
