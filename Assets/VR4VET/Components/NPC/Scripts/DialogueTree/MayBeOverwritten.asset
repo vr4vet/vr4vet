@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e00f7924afa24219a5197b2a8fa8d48, type: 3}
+  m_Name: MayBeOverwritten
+  m_EditorClassIdentifier: 
+  sections:
+  - dialogue:
+    - Hello. I am a super simple dialogue tree.
+    endAfterDialogue: 0
+    branchPoint:
+      question: Do you understand
+      answers:
+      - answerLabel: No
+        nextElement: 0
+      - answerLabel: Yes
+        nextElement: 1
+  - dialogue:
+    - That was good to hear
+    endAfterDialogue: 1
+    branchPoint:
+      question: Do you understand
+      answers:
+      - answerLabel: No
+        nextElement: 0
+      - answerLabel: Yes
+        nextElement: 1

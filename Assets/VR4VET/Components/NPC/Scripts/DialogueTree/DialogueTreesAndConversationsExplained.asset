@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e00f7924afa24219a5197b2a8fa8d48, type: 3}
+  m_Name: DialogueTreesAndConversationsExplained
+  m_EditorClassIdentifier: 
+  sections:
+  - dialogue:
+    - Hello, this pop up displays the information the scriptableObject called DialogueTree
+    - 'The script ConversationController, holds a list over all the dialogues an
+      NPC can talk through. The scripts has methods for moving between the dialogues
+      and adding new ones.  '
+    - 'For example, you could have the dialogue change on the completion of a task. '
+    - The ConversationController accepts both the Scriptable Object called DialogueTree
+      and the deserialized JSON version. You can find examples of both in our folders.
+    - The script called DialogueBoxController displayes the dialogueTrees, as you
+      can see right in front of you.
+    - 'It also is connected to the Text-to-speech service which will read the dialogue
+      aloud. '
+    - 'You can read more about this on the wiki '
+    endAfterDialogue: 0
+    branchPoint:
+      question: Should I repeat or should we say our good byes?
+      answers:
+      - answerLabel: Repeat
+        nextElement: 0
+      - answerLabel: Good bye!
+        nextElement: 0
+  - dialogue:
+    - Toodle-oo
+    endAfterDialogue: 1
+    branchPoint:
+      question: Should I repeat or should we say our good byes?
+      answers:
+      - answerLabel: Repeat
+        nextElement: 0
+      - answerLabel: Good bye!
+        nextElement: 0
