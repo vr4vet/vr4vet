@@ -5,7 +5,8 @@ public class RedPlatformReact : MonoBehaviour
 {
     public EventTriggerDemo eventTrigger;
     private GameObject taskNPC;
-    public DialogueTree newDialogueTree;
+    [SerializeField] public DialogueTree[] dialogueTrees; 
+
     private ConversationController conversationController;
     
 
@@ -24,7 +25,7 @@ public class RedPlatformReact : MonoBehaviour
             Debug.Log("RedPlatformReact is triggered");
             taskNPC = eventTrigger.SpawnTaskNPC();
             // conversationController = taskNPC.GetComponentInChildren<ConversationController>();
-            // conversationController.insertDialogueTreeAndChange(newDialogueTree);s
+            // conversationController?.insertDialogueTreeAndChange(dialogueTrees[0]);
         }
     }
 }

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e00f7924afa24219a5197b2a8fa8d48, type: 3}
+  m_Name: Task2
+  m_EditorClassIdentifier: 
+  sections:
+  - dialogue:
+    - "Howdy! Welcome to task 2.\_"
+    - 'I am a NPC that will follow you inside a given radius. The logic for implementing
+      me can be found in EventTriggerDemo.cs. '
+    endAfterDialogue: 0
+    branchPoint:
+      question: 'Are you ready to hear the task? '
+      answers:
+      - answerLabel: 'For sure! '
+        nextElement: 1
+      - answerLabel: No, please repeat
+        nextElement: 0
+  - dialogue:
+    - 'I want to see your best dancemove! '
+    - 'Please show me your best move and the proceed to the next message. '
+    - 'Thats lit! '
+    - 'This is the last task. You can learn more about the NPC in the far corner
+      on the first floor. '
+    endAfterDialogue: 1
+    branchPoint:
+      question: 
+      answers: []

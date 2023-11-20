@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5493609, g: 0.79545873, b: 0.9734807, a: 1}
+  m_IndirectSpecularColor: {r: 0.54889095, g: 0.79580647, b: 0.9729184, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11572,6 +11572,7 @@ MonoBehaviour:
     type: 3}
   dialogueTrees:
   - {fileID: 11400000, guid: 307543b39e53adb4aa8c2e598b75a41b, type: 2}
+  - {fileID: 11400000, guid: 2f3515eccbe0f4430b18c2bfc237bf18, type: 2}
   characterModels:
   - {fileID: 919132149155446097, guid: 8e28746bec22d7747b484758390ef5e5, type: 3}
   characterAvatars:
@@ -11676,7 +11677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventTrigger: {fileID: 1008652454}
-  newDialogueTree: {fileID: 0}
+  dialogueTrees: []
 --- !u!4 &1055692582
 Transform:
   m_ObjectHideFlags: 0
@@ -18156,7 +18157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventTrigger: {fileID: 1008652454}
-  newDialogueTree: {fileID: 11400000, guid: 303e7802cd1fa3147b3f7e3be386429c, type: 2}
+  dialogueTrees: []
 --- !u!65 &2103420852
 BoxCollider:
   m_ObjectHideFlags: 0
