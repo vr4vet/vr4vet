@@ -20,19 +20,21 @@ public class EventTriggerDemo : MonoBehaviour
 
     //[SerializeField] private TTSWit ttsWitService;
     // Hardcoded spawn positions
-    private Vector3 runtimeNPCSpawnPosition = new Vector3(2, 0, 2);
-    private Vector3 greetingNPCSpawnPosition = new Vector3(0, 0, 0);
-    private Vector3 proximityNPCSpawnPosition = new Vector3(1, 0, 1);
-    private Vector3 taskNPCSpawnPosition = new Vector3(4, 0, 4);
+    private Vector3 runtimeNPCSpawnPosition = new Vector3(-11, 0, -4);
+    private Vector3 greetingNPCSpawnPosition = new Vector3(-15, 0, -4);
+    private Vector3 proximityNPCSpawnPosition = new Vector3(-15, 4, -4);
+
+    private Vector3 taskNPCSpawnPosition = new Vector3(-2, 0, -10);
 
     private NPCSpawner npcSpawner;
     private GameObject runtimeNPC;
     private GameObject greetingNPC;
 
     private GameObject proximityNPC;
+    private FollowThePlayerControllerV2 proximityNPCController;
     private GameObject taskNPC;
 
-    private float proximityRadius = 100.0f; // Radius for checking proximity to the player.
+    private float proximityRadius = 12.0f; // Radius for checking proximity to the player.
     private bool taskNPCSpawned = false; // To ensure task NPC is only spawned once.
 
     private void Start()
@@ -45,7 +47,10 @@ public class EventTriggerDemo : MonoBehaviour
         }
 
         // Spawn the runtime NPC at the hardcoded position
-        runtimeNPC = npcSpawner.SpawnNPC(runtimeNPCSpawnPosition, true, npcPrefabV5);
+        runtimeNPC = npcSpawner.SpawnNPC(runtimeNPCSpawnPosition, false, npcPrefabV5);
+        // Rotate the NPC to face the player
+        runtimeNPC.transform.rotation = Quaternion.Euler(new Vector3(0, 240, 0));
+
         // Change the dialogue from the deafult one, to a specific one
         ConversationController conversationControllerRuntimeNPC = runtimeNPC.GetComponentInChildren<ConversationController>();
         conversationControllerRuntimeNPC?.SetDialogueTreeList(dialogueTrees[0]);
@@ -58,8 +63,8 @@ public class EventTriggerDemo : MonoBehaviour
         }
         displayNameRuntimeNPC.updateDisplayedName("Bob the Builder");
 
-        TTSWit ttsWitService = runtimeNPC.GetComponentInChildren<TTSWit>();
-        TTSSpeaker ttsSpeaker = runtimeNPC.GetComponentInChildren<TTSSpeaker>();
+        // TTSWit ttsWitService = runtimeNPC.GetComponentInChildren<TTSWit>();
+        // TTSSpeaker ttsSpeaker = runtimeNPC.GetComponentInChildren<TTSSpeaker>();
         // Change the voice of the NPC
         // int voiceNumber = 3;
         // Debug.Log("You are talking with: " + ttsWitService.GetAllPresetVoiceSettings()[voiceNumber].SettingsId);
@@ -69,57 +74,78 @@ public class EventTriggerDemo : MonoBehaviour
         // Configure the greeting NPC here with dialogue or other components.
 
         // Spawn the proximity NPC at the hardcoded position but deactivate it until the player is close enough
-        //proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, true, npcPrefab);
+        proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, false, npcPrefabV5);
+        ConversationController conversationControllerProximityNPC = proximityNPC.GetComponentInChildren<ConversationController>();
+        conversationControllerProximityNPC?.SetDialogueTreeList(dialogueTrees[2]);
         // Configure the proximity NPC here with dialogue or other components.
-       // proximityNPC.SetActive(true);
+        proximityNPC.SetActive(true);
+        HandleProximityNPC();
     }
 
     private void Update()
     {
-        //HandleProximityNPC();
+        UpdateProximityNPC();
 
-        // Check for the 'B' key to spawn the taskNPC
-        if (Input.GetKeyDown(KeyCode.B) && !taskNPCSpawned)
-        {	
-			Debug.Log("B key pressed");
-            //SpawnTaskNPC();
-        }
     }
 
     private void HandleProximityNPC()
     {
-        // Check the distance between the player and the proximity NPC spawn position
-        if (proximityNPC != null && !proximityNPC.activeSelf)
+        if (proximityNPC != null) {proximityNPCController = proximityNPC.GetComponent<FollowThePlayerControllerV2>();}
+
+    }
+
+    private void UpdateProximityNPC()
+    {
+        if (proximityNPCController == null) return;
+
+        // Get the player's position and the NPC spawn position
+        Vector3 playerPosition = PlayerManager.instance.player.transform.position;
+        Vector3 npcPosition = proximityNPCSpawnPosition;
+
+        // Check if the player is at the same or higher vertical position as the NPC
+        bool isAtSameOrHigherHeight = playerPosition.y >= npcPosition.y;
+
+        // Calculate horizontal distance by ignoring the y-axis
+        Vector3 horizontalDistance = new Vector3(playerPosition.x - npcPosition.x, 0, playerPosition.z - npcPosition.z);
+
+        if (isAtSameOrHigherHeight && horizontalDistance.sqrMagnitude <= proximityRadius * proximityRadius)
         {
-            float distanceToPlayer = Vector3.Distance(PlayerManager.instance.player.transform.position, proximityNPCSpawnPosition);
-            if (distanceToPlayer <= proximityRadius)
-            {
-                // Activate the proximity NPC and make it follow the player
-                proximityNPC.SetActive(true);
-                FollowThePlayerControllerV2 proximityNPCController = proximityNPC.GetComponent<FollowThePlayerControllerV2>();
-                Debug.Log("proximityNPCController" + proximityNPCController); 
-                if (proximityNPCController != null)
-                {
-                    proximityNPCController.shouldFollow = true;
-                    // Trigger the initial dialogue for proximity NPC here
-                }
-            }
+            Debug.Log("Player is close enough to the proximity NPC and at the same or higher height");
+            // Activate the proximity NPC and make it follow the player
+            proximityNPCController.shouldFollow = true;
+            // Trigger the initial dialogue for proximity NPC here
+        }
+        else
+        {
+            // Deactivate the proximity NPC's follow behavior if the player is not at the same or higher height
+            proximityNPCController.shouldFollow = false;
         }
     }
 
-    private void SpawnTaskNPC()
+
+    public GameObject SpawnTaskNPC()
     {
         // Spawn the task NPC at the hardcoded spawn position
 		Debug.Log("Spawning task NPC");
-        taskNPC = npcSpawner.SpawnNPC(taskNPCSpawnPosition, false, npcPrefab);
+        taskNPC = npcSpawner.SpawnNPC(taskNPCSpawnPosition, false, npcPrefabV5);
+        ConversationController conversationControllerTaskNPC = taskNPC.GetComponentInChildren<ConversationController>();
+        conversationControllerTaskNPC?.SetDialogueTreeList(dialogueTrees[1]);
         taskNPCSpawned = true;
+        return taskNPC;
         // Configure the task NPC here with dialogue or other components.
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // This can be left empty if you only want the B key to trigger the taskNPC spawn
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {           // Check if the colliding object is the player and if the wall is "Wall (2)"
+        
+    //     if (!taskNPCSpawned) 
+    //     {   
+    //         Debug.Log("Player entered the trigger");
+    //         SpawnTaskNPC();
+    //     }
+
+        
+    // }
 
     private void updateCharacterModel(GameObject theNPC, GameObject characterModelPrefab, Avatar characterAvatar, int voicePresetId) {
         SetCharacterModel setCharacterModel = theNPC.GetComponent<SetCharacterModel>();

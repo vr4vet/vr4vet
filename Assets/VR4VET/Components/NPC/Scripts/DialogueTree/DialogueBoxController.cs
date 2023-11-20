@@ -42,7 +42,7 @@ public class DialogueBoxController : MonoBehaviour
         // Assign the event camera
         if (dialogueCanvas != null)
         {
-            GameObject cameraCaster = GameObject.Find("CenterEyeAnchor");
+            GameObject cameraCaster = GameObject.Find("CameraCaster");
             if (cameraCaster != null)
             {
                 Camera eventCamera = cameraCaster.GetComponent<Camera>();

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e00f7924afa24219a5197b2a8fa8d48, type: 3}
+  m_Name: Task1
+  m_EditorClassIdentifier: 
+  sections:
+  - dialogue:
+    - 'Welcome! This is an example of a task. '
+    endAfterDialogue: 0
+    branchPoint:
+      question: 'Are you ready to start? '
+      answers:
+      - answerLabel: Yes
+        nextElement: 1
+      - answerLabel: 'No, please repeat '
+        nextElement: 0
+  - dialogue:
+    - 'Good! The first task is to pick up the hammer. Please continue the conversation
+      after picking it up. '
+    - 'There are not yet functionality for changing the dialogue tree based on events,
+      but this could easily be implemented. '
+    endAfterDialogue: 0
+    branchPoint:
+      question: 'Are you ready to move on to task 2? '
+      answers:
+      - answerLabel: Yes
+        nextElement: 2
+      - answerLabel: No, please repeat this task.
+        nextElement: 1
+  - dialogue:
+    - 'Marvellous! You can walk up the stairs to meet my collegue for task 2. '
+    endAfterDialogue: 1
+    branchPoint:
+      question: 'Are you ready to move on to task 2? '
+      answers:
+      - answerLabel: Yes
+        nextElement: 2
+      - answerLabel: No, please repeat this task.
+        nextElement: 1
