@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Scripting;
+
+public class PlatformChangeModel : MonoBehaviour
+{
+    [SerializeField] private GameObject[] ModelPrefabs;
+
+    [SerializeField] private Avatar[] modelAvatar;
+
+    [SerializeField] public int[] voicePresetIds;
+    [HideInInspector] private int currentModelNr;
+
+    [SerializeField] private GameObject NPC;
+    [HideInInspector] private SetCharacterModel setCharacterModel;
+
+    [SerializeField] private GameObject collidingObject;
+
+    void Awake() {
+        currentModelNr = 0;
+        setCharacterModel = NPC.GetComponent<SetCharacterModel>();
+    }
+
+    private void ChangeModel() {
+        setCharacterModel.ChangeCharacter(ModelPrefabs[currentModelNr], modelAvatar[currentModelNr], voicePresetIds[currentModelNr]);
+        currentModelNr++;
+        if (currentModelNr >= ModelPrefabs.Length || currentModelNr >= modelAvatar.Length || currentModelNr >= voicePresetIds.Length)
+        {
+            currentModelNr = 0;
+        }
+    }
+
+    void OnTriggerEnter() {
+
+        Debug.Log("WE ARE TRIGGGERD!!! Change skin");
+        ChangeModel();
+    }
+
+    // void OnTriggerEnter(Collider other) {
+    //     if (other.gameObject.Equals(collidingObject)) 
+    //     {
+    //         Debug.Log("WE ARE TRIGGGERD!!! Change skin");
+    //         ChangeModel();
+    //     }
+    // }
+
+}

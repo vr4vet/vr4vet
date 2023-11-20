@@ -42,7 +42,7 @@ public class DialogueBoxController : MonoBehaviour
         // Assign the event camera
         if (dialogueCanvas != null)
         {
-            GameObject cameraCaster = GameObject.Find("CameraCaster");
+            GameObject cameraCaster = GameObject.Find("CenterEyeAnchor");
             if (cameraCaster != null)
             {
                 Camera eventCamera = cameraCaster.GetComponent<Camera>();
@@ -66,10 +66,23 @@ public class DialogueBoxController : MonoBehaviour
         }
 
         // Animation stuff
-        animator = GetComponentInParent<Animator>();
-        Debug.Log("Animator" + animator);
+        updateAnimator();
+    }
+
+    public void updateAnimator() {
+        //this.animator = animator;
+        this.animator = GetComponentInChildren<Animator>();
+        Debug.Log(animator);
         isTalkingHash = Animator.StringToHash("isTalking");
         hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+    }
+
+    public void updateAnimator(Animator animator) {
+        //this.animator = animator;
+        this.animator = animator;
+        Debug.Log(animator);
+        // isTalkingHash = Animator.StringToHash("isTalking");
+        // hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
 

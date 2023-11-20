@@ -87,3 +87,55 @@ Inspiration/tutorials:
   - The TTSSpeaker object contains a TTSSpeaker Audio object.
   - Here you can chose which priority the TTS audio has, the volume, the panning, spatial blend (2D and 3D audio) and reverb.
     - The 3D sound settings can be used to modify how the audio reacts to the 3D space, volume distance etc...
+
+
+
+### Animation and Models from Mixamo
+All animation and models are downloaded from mixamo.
+#### The animations are downloaded with the following information:
+
+- Y bot / X bot as the character 
+  - (The rest of the characters may have buged out rigs, not proporly set to T-pose)
+- In place: True
+- FBX for Unity (.fbx)
+- Without skin
+- 30 frames per second
+- No keyframe reduction (none)
+
+#### The models have been downloaded with these settings:
+
+- FBX for unity (.fbx)
+- T-pose
+
+#### Both animation and characters, the following has been modified in Unity:
+
+- The rig from generic to **humanoid** 
+  - (If you run the animation now, you will quicly see if the rig is bugged or not. Look at the feet)
+- I have generated the avatar (used later in the animator component)
+- I have turned on loop for all the animations
+- I have set Root Transform Rotation paramters
+  - bake into pose: true
+  - based upon: Original
+
+For the models you also need to extract the textures.
+
+
+### How to add a NPC to a new scene
+- Add the necessary prefabs
+  - **TTSWitService**
+    - Text to speech service
+  - **NPCInteractionManager**
+    - This is a singleton, and is easly accessed from the other scripts
+    - Holds object-reference that the NPC needs both cannot be set in the prefab
+    - You **need** to drag and drop the correct values here
+- Add/spawn NPC(s) and configure them to your use case
+  - The following scripts are found at the root object on the NPC or at the child called *CollisionTriggerHandler*:
+    - the script **Coversation controller** holds the NPC dialogue trees
+    - the script **Follow The Player Controller** specifies if the NPC should follow after the player and at what distance
+    - the script **Set Character Model**
+  - You can look at the scripts **NPCSpawner** and **EventTriggerDemo** to see how you would spawn in NPCs
+
+
+
+
+
