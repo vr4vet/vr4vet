@@ -60,8 +60,8 @@ public class EventTriggerDemo : MonoBehaviour
         }
         displayNameRuntimeNPC.updateDisplayedName("Bob the Builder");
 
-        TTSWit ttsWitService = runtimeNPC.GetComponentInChildren<TTSWit>();
-        TTSSpeaker ttsSpeaker = runtimeNPC.GetComponentInChildren<TTSSpeaker>();
+        // TTSWit ttsWitService = runtimeNPC.GetComponentInChildren<TTSWit>();
+        // TTSSpeaker ttsSpeaker = runtimeNPC.GetComponentInChildren<TTSSpeaker>();
         // Change the voice of the NPC
         // int voiceNumber = 3;
         // Debug.Log("You are talking with: " + ttsWitService.GetAllPresetVoiceSettings()[voiceNumber].SettingsId);
@@ -71,7 +71,7 @@ public class EventTriggerDemo : MonoBehaviour
         // Configure the greeting NPC here with dialogue or other components.
 
         // Spawn the proximity NPC at the hardcoded position but deactivate it until the player is close enough
-        proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, false, npcPrefab);
+        proximityNPC = npcSpawner.SpawnNPC(proximityNPCSpawnPosition, false, npcPrefabV5);
         // Configure the proximity NPC here with dialogue or other components.
         proximityNPC.SetActive(true);
         HandleProximityNPC();
@@ -115,7 +115,7 @@ public class EventTriggerDemo : MonoBehaviour
     {
         // Spawn the task NPC at the hardcoded spawn position
 		Debug.Log("Spawning task NPC");
-        taskNPC = npcSpawner.SpawnNPC(taskNPCSpawnPosition, false, npcPrefab);
+        taskNPC = npcSpawner.SpawnNPC(taskNPCSpawnPosition, false, npcPrefabV5);
         taskNPCSpawned = true;
         return taskNPC;
         // Configure the task NPC here with dialogue or other components.
