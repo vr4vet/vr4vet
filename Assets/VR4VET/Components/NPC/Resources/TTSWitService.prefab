@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2884531852718714484}
   - component: {fileID: 372342457674487358}
   - component: {fileID: 1564445972368936389}
+  - component: {fileID: 5361580809122007612}
   m_Layer: 0
   m_Name: TTSWitService
   m_TagString: Untagged
@@ -315,3 +316,18 @@ MonoBehaviour:
     OnStreamError:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &5361580809122007612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174676122015615048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed480b991f99f2d4b8bcbe45568be37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChunkBufferLength: 5
+  AudioClipReadyLength: 1
+  AudioClipPreloadCount: 3

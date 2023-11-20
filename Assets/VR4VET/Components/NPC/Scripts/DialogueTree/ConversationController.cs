@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class ConversationController : MonoBehaviour
 {
@@ -20,7 +22,7 @@ public class ConversationController : MonoBehaviour
     private int hasNewDialogueOptionsHash;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {   
         // Attempt to find the "XR Rig Advanced" object in the entire scene
         GameObject xrRigAdvanced = GameObject.Find("XR Rig Advanced/Inventory/HolsterRight");
@@ -49,11 +51,22 @@ public class ConversationController : MonoBehaviour
         }
 
         controller = gameObject.GetComponentInParent<DialogueBoxController>();
-        animator = this.GetComponentInParent<Animator>();
+        updateAnimator();
+    }
+
+    public void updateAnimator()
+    {
+        GameObject parent = this.transform.parent.gameObject;
+        Debug.Log("parent: " + parent);
+        animator = parent.GetComponentInChildren<Animator>();
+        // animator = GetComponentInParent<Animator>();
+        Debug.Log("Animator: " + animator);
         hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
-
+    public void updateAnimator(Animator animator) {
+        this.animator = animator;
+    }
 
     private void OnTriggerEnter(Collider other)
     {   
@@ -75,6 +88,13 @@ public class ConversationController : MonoBehaviour
         animator.SetBool(hasNewDialogueOptionsHash, true);
     }
 
+    public void SetDialogueTreeList(DialogueTree dialogueTree) {
+        SetDialogueTreeList(new List<DialogueTree>
+        {
+            dialogueTree
+        });
+    }
+
     public void insertDialogueTreeAndChange(DialogueTree dialogueTree) {
         if (!dialogueTrees.Contains(dialogueTree)) {
             controller.ExitConversation();
@@ -90,15 +110,24 @@ public class ConversationController : MonoBehaviour
         if (currentElement >= dialogueTrees.Count())
         {
             currentElement--;
+            Debug.Log("You have read the last dialogue tree");
         } else {
             controller.ExitConversation();
             dialogueTree = dialogueTrees.ElementAt(currentElement);
-            // Should the animation observe the dialgoue tree??? To decouple stuff and have the option to add more signals
             animator.SetBool(hasNewDialogueOptionsHash, true);
         }
-        
     }
 
-
-
+    public void previousDialogueTree() {
+        currentElement--;
+        if (currentElement < 0)
+        {
+            currentElement=0;
+            Debug.Log("You have read the first dialogue tree");
+        } else {
+            controller.ExitConversation();
+            dialogueTree = dialogueTrees.ElementAt(currentElement);
+            animator.SetBool(hasNewDialogueOptionsHash, true);
+        }
+    }
 }
