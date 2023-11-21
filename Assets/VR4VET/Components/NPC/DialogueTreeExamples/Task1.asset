@@ -26,8 +26,9 @@ MonoBehaviour:
   - dialogue:
     - 'Good! The first task is to pick up the hammer. Please continue the conversation
       after picking it up. '
-    - 'There are not yet functionality for changing the dialogue tree based on events,
-      but this could easily be implemented. '
+    - 'If you want me to have a reaction to events, then you should look at the script
+      called ConversationController. '
+    - There you have methods for controlling the list of dialogues.
     endAfterDialogue: 0
     branchPoint:
       question: 'Are you ready to move on to task 2? '

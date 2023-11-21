@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class AnimationSpeakController : MonoBehaviour
+public class AnimationContraintsController : MonoBehaviour
 {
     Animator animator;
     private int isTalkingHash;
