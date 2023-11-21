@@ -7,23 +7,22 @@ using Meta.WitAi.TTS.Utilities;
 
 public class DialogueBoxController : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI dialogueText;
-    [SerializeField] GameObject dialogueBox;
-    [SerializeField] GameObject answerBox;
+    [SerializeField] private TextMeshProUGUI _dialogueText;
+    [SerializeField] private GameObject _dialogueBox;
+    [SerializeField] private GameObject _answerBox;
+    [SerializeField] private GameObject _dialogueCanvas;
+    [SerializeField] public GameObject TTSSpeaker;
 
-    [SerializeField] GameObject dialogueCanvas;
-
-    public static event Action OnDialogueStarted;
-    public static event Action OnDialogueEnded;
-    bool skipLineTriggered;
-    bool answerTriggered;
-    int answerIndex;
-    public GameObject TTSSpeaker;
-    public GameObject skipLineButton;
-    public GameObject exitButton;
-    private Animator animator;
-    private int isTalkingHash;
-    private int hasNewDialogueOptionsHash;
+    [HideInInspector] public static event Action OnDialogueStarted;
+    [HideInInspector] public static event Action OnDialogueEnded;
+    [HideInInspector] private bool _skipLineTriggered;
+    [HideInInspector] private bool _answerTriggered;
+    [HideInInspector] private int _answerIndex;
+    [SerializeField] private GameObject _skipLineButton;
+    [SerializeField] private GameObject _exitButton;
+    [HideInInspector] private Animator _animator;
+    [HideInInspector] private int _isTalkingHash;
+    [HideInInspector] private int _hasNewDialogueOptionsHash;
 
     private ButtonSpawner buttonSpawner;
 
@@ -40,7 +39,7 @@ public class DialogueBoxController : MonoBehaviour
         dialogueIsActive = false;
 
         // Assign the event camera
-        if (dialogueCanvas != null)
+        if (_dialogueCanvas != null)
         {
             GameObject cameraCaster = GameObject.Find("CameraCaster");
             if (cameraCaster != null)
@@ -48,7 +47,7 @@ public class DialogueBoxController : MonoBehaviour
                 Camera eventCamera = cameraCaster.GetComponent<Camera>();
                 if (eventCamera != null)
                 {
-                    dialogueCanvas.GetComponent<Canvas>().worldCamera = eventCamera;
+                    _dialogueCanvas.GetComponent<Canvas>().worldCamera = eventCamera;
                 }
                 else
                 {
@@ -71,18 +70,13 @@ public class DialogueBoxController : MonoBehaviour
 
     public void updateAnimator() {
         //this.animator = animator;
-        this.animator = GetComponentInChildren<Animator>();
-        Debug.Log(animator);
-        isTalkingHash = Animator.StringToHash("isTalking");
-        hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+        this._animator = GetComponentInChildren<Animator>();
+        _isTalkingHash = Animator.StringToHash("isTalking");
+        _hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
     public void updateAnimator(Animator animator) {
-        //this.animator = animator;
-        this.animator = animator;
-        Debug.Log(animator);
-        // isTalkingHash = Animator.StringToHash("isTalking");
-        // hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+        this._animator = animator;
     }
 
 
@@ -90,15 +84,14 @@ public class DialogueBoxController : MonoBehaviour
     {
         dialogueIsActive = true;
         // stop I-have-something-to-tell-you-animation and start talking
-        Debug.Log("StartDialogue");
-        animator.SetBool(hasNewDialogueOptionsHash, false);
-        animator.SetBool(isTalkingHash, true);
+        _animator.SetBool(_hasNewDialogueOptionsHash, false);
+        _animator.SetBool(_isTalkingHash, true);
         // Dialogue 
         ResetBox();
-        dialogueBox.SetActive(true);
+        _dialogueBox.SetActive(true);
         OnDialogueStarted?.Invoke();
         StartCoroutine(RunDialogue(dialogueTree, startSection));
-        exitButton.SetActive(true);
+        _exitButton.SetActive(true);
 
     }
 
@@ -106,17 +99,16 @@ public class DialogueBoxController : MonoBehaviour
     {
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++) 
         {   
-            dialogueText.text = dialogueTree.sections[section].dialogue[i];
-            TTSSpeaker.GetComponent<TTSSpeaker>().Speak(dialogueText.text);
-            Debug.Log(dialogueText.text);
-            while (!skipLineTriggered)
+            _dialogueText.text = dialogueTree.sections[section].dialogue[i];
+            TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+            while (!_skipLineTriggered)
             {
-                skipLineButton.SetActive(true);
-                exitButton.SetActive(true);
+                _skipLineButton.SetActive(true);
+                _exitButton.SetActive(true);
                 yield return null;
             }
-            skipLineTriggered = false;
-            skipLineButton.SetActive(false);
+            _skipLineTriggered = false;
+            _skipLineButton.SetActive(false);
         }
         if (dialogueTree.sections[section].endAfterDialogue)
         {
@@ -124,28 +116,28 @@ public class DialogueBoxController : MonoBehaviour
             ExitConversation();
             yield break;
         }
-        dialogueText.text = dialogueTree.sections[section].branchPoint.question;
-        TTSSpeaker.GetComponent<TTSSpeaker>().Speak(dialogueText.text);
+        _dialogueText.text = dialogueTree.sections[section].branchPoint.question;
+        TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
         ShowAnswers(dialogueTree.sections[section].branchPoint);
-        while (answerTriggered == false)
+        while (_answerTriggered == false)
         {
             yield return null;
         }
-        answerTriggered = false;
-        exitButton.SetActive(false);
-        skipLineButton.SetActive(false);
-        StartCoroutine(RunDialogue(dialogueTree, dialogueTree.sections[section].branchPoint.answers[answerIndex].nextElement));
+        _answerTriggered = false;
+        _exitButton.SetActive(false);
+        _skipLineButton.SetActive(false);
+        StartCoroutine(RunDialogue(dialogueTree, dialogueTree.sections[section].branchPoint.answers[_answerIndex].nextElement));
     }
 
     void ResetBox() 
     {
         StopAllCoroutines();
-        dialogueBox.SetActive(false);
+        _dialogueBox.SetActive(false);
         buttonSpawner.removeAllButtons();
-        skipLineTriggered = false;
-        answerTriggered = false;
-        skipLineButton.SetActive(false);
-        exitButton.SetActive(false);
+        _skipLineTriggered = false;
+        _answerTriggered = false;
+        _skipLineButton.SetActive(false);
+        _exitButton.SetActive(false);
     }
 
     void ShowAnswers(BranchPoint branchPoint)
@@ -156,14 +148,13 @@ public class DialogueBoxController : MonoBehaviour
 
     public void SkipLine()
     {
-        skipLineTriggered = true;
+        _skipLineTriggered = true;
     }
 
     public void AnswerQuestion(int answer)
     {
-        Debug.Log("Answer question: " + answer);
-        answerIndex = answer;
-        answerTriggered = true;
+        _answerIndex = answer;
+        _answerTriggered = true;
         // remove the buttons
         buttonSpawner.removeAllButtons();
     }
@@ -171,7 +162,7 @@ public class DialogueBoxController : MonoBehaviour
     public void ExitConversation()
     {
         // stop talk-animation
-        animator.SetBool(isTalkingHash, false);
+        _animator.SetBool(_isTalkingHash, false);
         dialogueIsActive = false;
         ResetBox();
     }

@@ -5,16 +5,15 @@ using Button = UnityEngine.UI.Button;
 
 public class ButtonSpawner : MonoBehaviour
 {
-
-    [SerializeField] GameObject parentInCanvas;
-    [SerializeField] GameObject buttonPrefab;
+    [SerializeField] private GameObject _parentInCanvas;
+    [SerializeField] private GameObject _buttonPrefab;
     // max 4 buttons
-    private GameObject[] buttonsSpawned = new GameObject[4];
-    private DialogueBoxController dialogueBoxController;
+    [HideInInspector] private GameObject[] _buttonsSpawned = new GameObject[4];
+    [HideInInspector] private DialogueBoxController _dialogueBoxController;
 
     void Start() {
-        dialogueBoxController = GetComponent<DialogueBoxController>();
-        if (dialogueBoxController == null ) {
+        _dialogueBoxController = GetComponent<DialogueBoxController>();
+        if (_dialogueBoxController == null ) {
             Debug.LogError("The NPC missing the DialogueBoxController script");
         }
     }
@@ -36,29 +35,29 @@ public class ButtonSpawner : MonoBehaviour
                 return new Vector3(0,0,0);
         }
     }
-
-    // hard coded workaround for lambda functions 
+ 
+    // max 4 buttons
     void AddAnswerQuestionNumberListener() {
-        for (int i = 0; i < buttonsSpawned.Count(); i++)
+        for (int i = 0; i < _buttonsSpawned.Count(); i++)
         {
-            if(buttonsSpawned[i] != null) {
+            if(_buttonsSpawned[i] != null) {
                 switch (i)
                 {
                     case 0:
-                        buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {dialogueBoxController.AnswerQuestion(0);});
+                        _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(0);});
                         break;
                     case 1:
-                        buttonsSpawned[1].GetComponent<Button>().onClick.AddListener(() => {dialogueBoxController.AnswerQuestion(1);});
+                        _buttonsSpawned[1].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(1);});
                         break;
                     case 2:
-                        buttonsSpawned[2].GetComponent<Button>().onClick.AddListener(() => {dialogueBoxController.AnswerQuestion(2);});
+                        _buttonsSpawned[2].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(2);});
                         break;
                     case 3:
-                        buttonsSpawned[3].GetComponent<Button>().onClick.AddListener(() => {dialogueBoxController.AnswerQuestion(3);});
+                        _buttonsSpawned[3].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(3);});
                         break;
                     
                     default:
-                        buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {dialogueBoxController.AnswerQuestion(0);});
+                        _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(0);});
                         break;
                 }
             }
@@ -70,21 +69,16 @@ public class ButtonSpawner : MonoBehaviour
         {
             // spawn button at location, and set the canvas as the parent
             Vector3 spawnLocation = getSpawnLocation(answers.Length, i);
-            buttonsSpawned[i] = Instantiate(buttonPrefab, spawnLocation, Quaternion.identity);
-            GameObject button = buttonsSpawned[i];
-            button.transform.SetParent(parentInCanvas.transform, false);
+            _buttonsSpawned[i] = Instantiate(_buttonPrefab, spawnLocation, Quaternion.identity);
+            GameObject button = _buttonsSpawned[i];
+            button.transform.SetParent(_parentInCanvas.transform, false);
             RectTransform buttonTransfrom = button.GetComponent<RectTransform>();
             Vector3 buttonLocation = new Vector3(spawnLocation.x, spawnLocation.y, spawnLocation.z);
             buttonTransfrom.localPosition = buttonLocation;
             // fill in the text
             button.GetComponentInChildren<TextMeshProUGUI>().text = answers[i].answerLabel;
-            // add lister onclick 
-            //(the lambdafunction does not work, because it just sends the maxmum value of i and not the current i, since it is in its own thread)
-            // Button buttonComp= button.GetComponent<Button>();
-            // buttonComp.onClick.AddListener(() => {dialogueBoxController.AnswerQuestion(0);});
-            // buttonComp.onClick.AddListener(() => {Debug.Log("Script Button [ " + i + " ] was clicked.");});
         }
-        // Add onclick listeners (lambda workaround)
+        // Add onclick listeners
         AddAnswerQuestionNumberListener();
     }
 
@@ -92,12 +86,12 @@ public class ButtonSpawner : MonoBehaviour
     /// Destroy the button gameobject and remove the button reference in the array
     /// </summary>
     public void removeAllButtons() {
-        for (int i = 0; i < buttonsSpawned.Count(); i++)
+        for (int i = 0; i < _buttonsSpawned.Count(); i++)
         {
-            if (buttonsSpawned[i] != null)
+            if (_buttonsSpawned[i] != null)
             {
-                Destroy(buttonsSpawned[i].gameObject);
-                buttonsSpawned[i] = null;
+                Destroy(_buttonsSpawned[i].gameObject);
+                _buttonsSpawned[i] = null;
             }
         }
     }

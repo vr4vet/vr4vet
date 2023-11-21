@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class DisplayName : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI _nameText;
 
     void Awake()
     {
-        nameText.text = name;
+        _nameText.text = name;
     }
 
-    public void updateDisplayedName(string name) {
+    public void UpdateDisplayedName(string name) {
         this.name = name;
-        nameText.text = name;
+        _nameText.text = name;
     }
 
 }

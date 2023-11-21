@@ -1,13 +1,14 @@
 using System.Linq;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class AnimationSpeakController : MonoBehaviour
+public class AnimationContraintsController : MonoBehaviour
 {
-    Animator animator;
-    private int isTalkingHash;
-    RigBuilder rigBuilder; // Use RigBuilder instead of Rig
-    MultiAimConstraint multiAimConstraint;
+    [HideInInspector] private Animator animator;
+    [HideInInspector] private int isTalkingHash;
+    [HideInInspector] private RigBuilder rigBuilder; // Use RigBuilder instead of Rig
+    [HideInInspector] private MultiAimConstraint multiAimConstraint;
 
     /// <summary>
     /// Check that every compontent need exists
@@ -42,15 +43,17 @@ public class AnimationSpeakController : MonoBehaviour
                     if (multiAimConstraint == null)
                     {
                         Debug.LogError("MultiAimConstraint not found in the 'TargetTracking' Rig Layer.");
-                    } else {
-                        GameObject targetRef = GameObject.Find("XR Rig Advanced/PlayerController/CameraRig");
+                    }
+                    else
+                    {
+                        GameObject targetRef = NPCToPlayerReferenceManager.Instance.PlayerTarget;
                         if (targetRef != null)
                         {
                             // Adds contraints at runtime
                             MultiAimConstraint[] constraints = rig.GetComponentsInChildren<MultiAimConstraint>();
                             foreach (MultiAimConstraint con in constraints)
                             {
-                                con.data.sourceObjects = new WeightedTransformArray{new WeightedTransform(targetRef.transform, 1)};
+                                con.data.sourceObjects = new WeightedTransformArray { new WeightedTransform(targetRef.transform, 1) };
                             }
                             rigBuilder.Build();
                         }
@@ -74,7 +77,7 @@ public class AnimationSpeakController : MonoBehaviour
         {
             Debug.LogError("RigBuilder component not found.");
         }
-    
+
     }
 
     /// <summary>
@@ -82,9 +85,9 @@ public class AnimationSpeakController : MonoBehaviour
     /// </summary>
     void Update()
     {
-         bool isTalking = animator.GetBool(isTalkingHash);
+        bool isTalking = animator.GetBool(isTalkingHash);
 
-         // Add the code to control the multi-aim constraint here
+        // Add the code to control the multi-aim constraint here
         if (isTalking)
         {
             // Enable the multi-aim constraint when character is talking
@@ -95,7 +98,5 @@ public class AnimationSpeakController : MonoBehaviour
             // Disable the multi-aim constraint when character is not talking
             multiAimConstraint.weight = 0.0f;
         }
-        
-            
     }
 }

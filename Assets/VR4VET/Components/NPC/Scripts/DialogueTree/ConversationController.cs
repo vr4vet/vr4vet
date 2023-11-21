@@ -4,60 +4,28 @@ using UnityEngine;
 
 public class ConversationController : MonoBehaviour
 {
-    //public DialogueTree dialogueTree;
-    public GameObject collidingObject;
-
-    public DialogueTree ToBeOverwrittenByJSON;
-    
-    public List<TextAsset> dialogueTreesJSONFormat;
-
-
-
-    public List<DialogueTree> dialogueTreesSOFormat;
-
- 
-    private DialogueTree dialogueTree;
-
-    private int currentElement = 0;
-
-    private Animator animator;
-    private int hasNewDialogueOptionsHash;
-
-    private DialogueBoxController dialogueBoxController;
+    [SerializeField] private DialogueTree _toBeOverwrittenByJSON; // Josn override need an example of an dialogue tree, to turn something from JSON to DialogueTree
+    [SerializeField] private List<TextAsset> _dialogueTreesJSONFormat; // list of JSON, will be added to the list below
+    [SerializeField] private List<DialogueTree> _dialogueTreesSOFormat; // lsit of ScriptableObjects, JSON will be turned into SO, and added here. Yhis is the list we work with
+    [HideInInspector] private DialogueTree _dialogueTree; // The active dialogue
+    [HideInInspector] private int _currentElement = 0; // The element number of the active dialogue
+    [HideInInspector] private Animator _animator;
+    [HideInInspector] private int _hasNewDialogueOptionsHash;
+    [HideInInspector] private DialogueBoxController _dialogueBoxController;
 
     // Start is called before the first frame update
     void Start()
     {   
 
-        dialogueBoxController = GetComponentInParent<DialogueBoxController>();
-        if (dialogueBoxController == null) {
+        _dialogueBoxController = GetComponentInParent<DialogueBoxController>();
+        if (_dialogueBoxController == null) {
             Debug.LogError("The NPC is missing the DialogueBoxCOntroller script");
-        }
-
-        // Attempt to find the "XR Rig Advanced" object in the entire scene
-        GameObject xrRigAdvanced = GameObject.Find("XR Rig Advanced/Inventory/HolsterRight");
-        if (xrRigAdvanced != null)
-        {
-            // Get the collider from "HolsterRight"
-            Collider holsterCollider = xrRigAdvanced.GetComponent<Collider>();
-            if(holsterCollider != null)
-            {
-                collidingObject = xrRigAdvanced;
-            }
-            else
-            {
-                Debug.LogError("HolsterRight does not have a Collider attached!");
-            }
-        }
-        else
-        {
-            Debug.LogError("No object named 'XR Rig Advanced/Inventory/HolsterRight' found in the scene!");
         }
         // Join the json-version and the dialogueTree-version into one list;
         // The dialogueTree-version will be first
-        JoinWithScriptableObjectList(dialogueTreesJSONFormat);
-        if (dialogueTreesSOFormat.Count > 0) {
-            dialogueTree = dialogueTreesSOFormat.ElementAt(currentElement);
+        JoinWithScriptableObjectList(_dialogueTreesJSONFormat);
+        if (_dialogueTreesSOFormat.Count > 0) {
+            _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
         }
         updateAnimator();
     }
@@ -65,29 +33,32 @@ public class ConversationController : MonoBehaviour
     public void updateAnimator()
     {
         GameObject parent = this.transform.parent.gameObject;
-        Debug.Log("parent: " + parent);
-        animator = parent.GetComponentInChildren<Animator>();
-        // animator = GetComponentInParent<Animator>();
-        Debug.Log("Animator: " + animator);
-        hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+        _hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+        _animator = parent.GetComponentInChildren<Animator>();
+        if (_animator == null)
+        {
+            Debug.LogError("THe NPC is missing the Animator");
+            return;
+        }
     }
 
     public void updateAnimator(Animator animator) {
-        this.animator = animator;
+        this._animator = animator;
     }
 
+    
     /// <summary>
     /// Start the dialogue when the Player is close enough
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {   
-        if (other.gameObject.Equals(collidingObject) && !dialogueBoxController.dialogueIsActive) 
+        if (other.Equals(NPCToPlayerReferenceManager.Instance.PlayerCollider) && !_dialogueBoxController.dialogueIsActive) 
         {
             // string json = JsonUtility.ToJson(dialogueTree);
             // Debug.Log(json);
-            if (dialogueTree != null) {
-                dialogueBoxController.StartDialogue(dialogueTree, 0, "NPC");
+            if (_dialogueTree != null) {
+                _dialogueBoxController.StartDialogue(_dialogueTree, 0, "NPC");
             } else {
                 Debug.LogError("The dialogueTree of the NPC is null");
             }
@@ -103,11 +74,11 @@ public class ConversationController : MonoBehaviour
     {
         foreach (var dialogueJSON in dialogueTreesJSONFormat)
         {
-            DialogueTree temp = Instantiate(ToBeOverwrittenByJSON);
+            DialogueTree temp = Instantiate(_toBeOverwrittenByJSON);
             JsonUtility.FromJsonOverwrite(dialogueJSON.text, temp);
             //DialogueTree dia = JsonUtility.FromJson<DialogueTree>(dialogueJSON.text);
             Debug.Log("Deserialized dialogue Tree: " + temp);
-            dialogueTreesSOFormat.Add(temp);
+            _dialogueTreesSOFormat.Add(temp);
         }
     }
 
@@ -121,7 +92,7 @@ public class ConversationController : MonoBehaviour
         List<DialogueTree> dialogueTrees = new List<DialogueTree>();
         foreach (var dialogueJSON in dialogueTreesJSONFormat)
         {
-            DialogueTree temp = Instantiate(ToBeOverwrittenByJSON);
+            DialogueTree temp = Instantiate(_toBeOverwrittenByJSON);
             JsonUtility.FromJsonOverwrite(dialogueJSON.text, temp);
             //DialogueTree dia = JsonUtility.FromJson<DialogueTree>(dialogueJSON.text);
             Debug.Log("Deserialized dialogue Tree: " + temp);
@@ -136,11 +107,11 @@ public class ConversationController : MonoBehaviour
     /// </summary>
     /// <param name="dialogueTrees"></param>
     public void SetDialogueTreeList(List<DialogueTree> dialogueTrees) {
-        dialogueBoxController?.ExitConversation();
-        this.dialogueTreesSOFormat = dialogueTrees;
-        currentElement = 0;
-        this.dialogueTree = dialogueTrees.ElementAt(currentElement);
-        animator.SetBool(hasNewDialogueOptionsHash, true);
+        _dialogueBoxController?.ExitConversation();
+        this._dialogueTreesSOFormat = dialogueTrees;
+        _currentElement = 0;
+        this._dialogueTree = dialogueTrees.ElementAt(_currentElement);
+        _animator.SetBool(_hasNewDialogueOptionsHash, true);
     }
 
     /// <summary>
@@ -162,12 +133,12 @@ public class ConversationController : MonoBehaviour
     /// </summary>
     /// <param name="dialogueTree"></param>
     public void insertDialogueTreeAndChange(DialogueTree dialogueTree) {
-        if (!dialogueTreesSOFormat.Contains(dialogueTree)) {
-            dialogueBoxController.ExitConversation();
-            currentElement++;
-            dialogueTreesSOFormat.Insert(currentElement, dialogueTree);
-            this.dialogueTree = dialogueTreesSOFormat.ElementAt(currentElement);
-            animator.SetBool(hasNewDialogueOptionsHash, true);
+        if (!_dialogueTreesSOFormat.Contains(dialogueTree)) {
+            _dialogueBoxController.ExitConversation();
+            _currentElement++;
+            _dialogueTreesSOFormat.Insert(_currentElement, dialogueTree);
+            this._dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
+            _animator.SetBool(_hasNewDialogueOptionsHash, true);
         } 
     }
 
@@ -183,7 +154,7 @@ public class ConversationController : MonoBehaviour
     }
 
     public void insertDialogueTreeAndChange(TextAsset dialogueTree) {
-        DialogueTree temp = Instantiate(ToBeOverwrittenByJSON);
+        DialogueTree temp = Instantiate(_toBeOverwrittenByJSON);
         JsonUtility.FromJsonOverwrite(dialogueTree.text, temp);
         insertDialogueTreeAndChange(temp);
     }
@@ -193,15 +164,15 @@ public class ConversationController : MonoBehaviour
     /// The NPC will signal through animation that the dialogue changed. 
     /// </summary>
     public void NextDialogueTree() {
-        currentElement++;
-        if (currentElement >= dialogueTreesSOFormat.Count())
+        _currentElement++;
+        if (_currentElement >= _dialogueTreesSOFormat.Count())
         {
-            currentElement--;
+            _currentElement--;
             Debug.Log("You have read the last dialogue tree");
         } else {
-            dialogueBoxController.ExitConversation();
-            dialogueTree = dialogueTreesSOFormat.ElementAt(currentElement);
-            animator.SetBool(hasNewDialogueOptionsHash, true);
+            _dialogueBoxController.ExitConversation();
+            _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
+            _animator.SetBool(_hasNewDialogueOptionsHash, true);
         }
     }
 
@@ -210,15 +181,15 @@ public class ConversationController : MonoBehaviour
     /// The NPC will signal through animation that the dialogue changed. 
     /// </summary>
     public void previousDialogueTree() {
-        currentElement--;
-        if (currentElement < 0)
+        _currentElement--;
+        if (_currentElement < 0)
         {
-            currentElement=0;
+            _currentElement=0;
             Debug.Log("You have read the first dialogue tree");
         } else {
-            dialogueBoxController.ExitConversation();
-            dialogueTree = dialogueTreesSOFormat.ElementAt(currentElement);
-            animator.SetBool(hasNewDialogueOptionsHash, true);
+            _dialogueBoxController.ExitConversation();
+            _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
+            _animator.SetBool(_hasNewDialogueOptionsHash, true);
         }
     }
 

@@ -7,8 +7,6 @@ public class RedPlatformReact : MonoBehaviour
     private GameObject taskNPC;
     [SerializeField] public DialogueTree[] dialogueTrees; 
 
-    
-
     void OnTriggerEnter(Collider other) {
         
         if (!taskNPC) {

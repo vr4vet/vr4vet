@@ -1,48 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Scripting;
 
 public class PlatformChangeModel : MonoBehaviour
 {
-    [SerializeField] private GameObject[] ModelPrefabs;
+    [SerializeField] private GameObject[] _modelPrefabs;
 
-    [SerializeField] private Avatar[] modelAvatar;
+    [SerializeField] private Avatar[] _modelAvatar;
 
-    [SerializeField] public int[] voicePresetIds;
-    [HideInInspector] private int currentModelNr;
+    [SerializeField] private int[] _voicePresetIds;
+    [HideInInspector] private int _currentModelNr;
 
-    [SerializeField] private GameObject NPC;
-    [HideInInspector] private SetCharacterModel setCharacterModel;
-
-    [SerializeField] private GameObject collidingObject;
+    [SerializeField] private GameObject _npc;
+    [HideInInspector] private SetCharacterModel _setCharacterModel;
 
     void Awake() {
-        currentModelNr = 0;
-        setCharacterModel = NPC.GetComponent<SetCharacterModel>();
+        _currentModelNr = 0;
+        _setCharacterModel = _npc.GetComponent<SetCharacterModel>();
     }
-
     private void ChangeModel() {
-        setCharacterModel.ChangeCharacter(ModelPrefabs[currentModelNr], modelAvatar[currentModelNr], voicePresetIds[currentModelNr]);
-        currentModelNr++;
-        if (currentModelNr >= ModelPrefabs.Length || currentModelNr >= modelAvatar.Length || currentModelNr >= voicePresetIds.Length)
+        _setCharacterModel.ChangeCharacter(_modelPrefabs[_currentModelNr], _modelAvatar[_currentModelNr], _voicePresetIds[_currentModelNr]);
+        _currentModelNr++;
+        if (_currentModelNr >= _modelPrefabs.Length || _currentModelNr >= _modelAvatar.Length || _currentModelNr >= _voicePresetIds.Length)
         {
-            currentModelNr = 0;
+            _currentModelNr = 0;
         }
     }
-
     void OnTriggerEnter() {
-
-        Debug.Log("WE ARE TRIGGGERD!!! Change skin");
         ChangeModel();
     }
-
-    // void OnTriggerEnter(Collider other) {
-    //     if (other.gameObject.Equals(collidingObject)) 
-    //     {
-    //         Debug.Log("WE ARE TRIGGGERD!!! Change skin");
-    //         ChangeModel();
-    //     }
-    // }
 
 }

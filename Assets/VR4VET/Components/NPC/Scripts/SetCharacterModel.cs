@@ -9,129 +9,120 @@ using UnityEngine;
 
 public class SetCharacterModel : MonoBehaviour
 {
-    [SerializeField] private GameObject parentObject;
-    [HideInInspector] private Vector3 spawnLocation;
-    [SerializeField] private GameObject characterModelPrefab;
-    [SerializeField] private Avatar avatar;
-    [SerializeField] private int voicePresetId;
-    [SerializeField] private RuntimeAnimatorController runtimeAnimatorController;
-    
-    [HideInInspector] private GameObject bonesAndSkin;
-    [HideInInspector] private GameObject OldbonesAndSkin;
+    [SerializeField] private GameObject _parentObject; // Which Gameobject should the instense of the model be a child of (probably the root of the NPC)
+    [HideInInspector] private Vector3 _spawnLocation;
+    [SerializeField] private GameObject _characterModelPrefab; // what should the NPC look like
+    [SerializeField] private Avatar _avatar; // The animation avatar belonging to the model
+    [SerializeField] private int _voicePresetId; // what should the NPC sound like
+    [SerializeField] private RuntimeAnimatorController _runtimeAnimatorController;
+    // The model with rig
+    [HideInInspector] private GameObject _bonesAndSkin;
+    [HideInInspector] private GameObject _oldbonesAndSkin;
+    // scripts references
+    [HideInInspector] private FollowThePlayerController _followThePlayerController;
+    [HideInInspector] private DialogueBoxController _dialogueBoxController;
+    [HideInInspector] private ConversationController _conversationController;
+    // Animator and its parameters
+    [HideInInspector] private Animator _animator;
+    [HideInInspector] private int _isTalkingHash;
+    [HideInInspector] private int _hasNewDialogueOptionsHash;
+    [HideInInspector] private int _velocityYHash;
+    [HideInInspector] private int _velocityXHash;
+    [HideInInspector] private bool _isTalking;
+    [HideInInspector] private bool _hasNewDialogueOptions;
+    [HideInInspector] private float _velocityY;
+    [HideInInspector] private float _velocityX;
 
-    [HideInInspector] private FollowThePlayerControllerV2 followThePlayerControllerV2;
-    [HideInInspector] private DialogueBoxController dialogueBoxController;
-    [HideInInspector] private ConversationController conversationController;
-
-    [HideInInspector] private Animator animator; 
-    [HideInInspector] private int isTalkingHash;
-    [HideInInspector] private int hasNewDialogueOptionsHash;
-    [HideInInspector] private int velocityYHash;
-    [HideInInspector] private int velocityXHash;
-    [HideInInspector] private bool isTalking;
-    [HideInInspector] private bool hasNewDialogueOptions;
-    [HideInInspector] private float velocityY;
-    [HideInInspector] private float velocityX;
-
-    // Start is called before the first frame update
     void Awake()
     {
-        isTalkingHash = Animator.StringToHash("isTalking");
-        hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
-        isTalking = false;
-        hasNewDialogueOptions = false;
-        followThePlayerControllerV2 = parentObject.GetComponent<FollowThePlayerControllerV2>();
-        dialogueBoxController = parentObject.GetComponent<DialogueBoxController>();
-        conversationController = parentObject.GetComponentInChildren<ConversationController>();
-        spawnLocation = new Vector3(0,0,0);
-        //spawnRotation = new Vector3(parentObject.transform.rotation.x, parentObject.transform.rotation.y, parentObject.transform.rotation.z);
+        _isTalkingHash = Animator.StringToHash("isTalking");
+        _hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+        _isTalking = false;
+        _hasNewDialogueOptions = false;
+        _followThePlayerController = _parentObject.GetComponent<FollowThePlayerController>();
+        _dialogueBoxController = _parentObject.GetComponent<DialogueBoxController>();
+        _conversationController = _parentObject.GetComponentInChildren<ConversationController>();
+        _spawnLocation = new Vector3(0, 0, 0);
         CheckMissingComponents();
         NewCharacter();
     }
 
-    private void CheckMissingComponents() {
-        if (followThePlayerControllerV2 == null)
+    private void CheckMissingComponents()
+    {
+        if (_followThePlayerController == null)
         {
             Debug.LogError("You are missing the script called followThePlayerController");
         }
-        if (dialogueBoxController == null)
+        if (_dialogueBoxController == null)
         {
             Debug.LogError("You are missing the script called dialogueBoxController");
         }
-        if (conversationController == null)
+        if (_conversationController == null)
         {
             Debug.LogError("You are missing the script called conversationController");
         }
     }
 
-    private void NewCharacter() {
-        bonesAndSkin = Instantiate(characterModelPrefab, spawnLocation, Quaternion.identity);
-        bonesAndSkin.transform.SetParent(parentObject.transform);
-        Vector3 bonesAndSkinLocation = new Vector3(spawnLocation.x, spawnLocation.y, spawnLocation.z);
-        bonesAndSkin.transform.localPosition = bonesAndSkinLocation;
-        Debug.Log("Rotation: " + parentObject.transform.rotation.ToString());
-        bonesAndSkin.transform.rotation = Quaternion.Euler(new Vector3(parentObject.transform.eulerAngles.x, parentObject.transform.eulerAngles.y, parentObject.transform.eulerAngles.z));
-        //bonesAndSkin.transform.Rotate(new Vector3(parentObject.transform.rotation.x, parentObject.transform.rotation.y, parentObject.transform.rotation.z));
+    private void NewCharacter()
+    {
+        // Instansiate the model (consisting of skin and bones (rig) as a child of the ParentObject
+        // at the parentObjects location and with the same rotation
+        _bonesAndSkin = Instantiate(_characterModelPrefab, _spawnLocation, Quaternion.identity);
+        _bonesAndSkin.transform.SetParent(_parentObject.transform);
+        Vector3 bonesAndSkinLocation = new Vector3(_spawnLocation.x, _spawnLocation.y, _spawnLocation.z);
+        _bonesAndSkin.transform.localPosition = bonesAndSkinLocation;
+        _bonesAndSkin.transform.rotation = Quaternion.Euler(new Vector3(_parentObject.transform.eulerAngles.x, _parentObject.transform.eulerAngles.y, _parentObject.transform.eulerAngles.z));
 
-        animator = bonesAndSkin.GetComponent<Animator>();
-        if (animator == null) {
-            Debug.Log("Adding new Animator");
-            bonesAndSkin.AddComponent<Animator>();
-            animator = bonesAndSkin.GetComponent<Animator>();
+        // get or create a new animator and transfer over the old animation paramet values to this new one
+        _animator = _bonesAndSkin.GetComponent<Animator>();
+        if (_animator == null)
+        {
+            _bonesAndSkin.AddComponent<Animator>();
+            _animator = _bonesAndSkin.GetComponent<Animator>();
         }
-        animator.runtimeAnimatorController = runtimeAnimatorController;
-        animator.avatar = avatar;
+        _animator.runtimeAnimatorController = _runtimeAnimatorController;
+        _animator.avatar = _avatar;
         // Resetting the old values
-        animator.SetBool(isTalkingHash, isTalking);
-        animator.SetBool(hasNewDialogueOptionsHash, hasNewDialogueOptions);
-        animator.SetFloat(velocityXHash, velocityX);
-        animator.SetFloat(velocityYHash, velocityY);
-        updateOtherScripts(animator);
+        _animator.SetBool(_isTalkingHash, _isTalking);
+        _animator.SetBool(_hasNewDialogueOptionsHash, _hasNewDialogueOptions);
+        _animator.SetFloat(_velocityXHash, _velocityX);
+        _animator.SetFloat(_velocityYHash, _velocityY);
+        // We need to tell some other scripts that we changed the animator, so they can continue to refernce it correctly
+        updateOtherScripts(_animator);
 
         // change the voice
-        TTSWit ttsWitService = parentObject.GetComponentInChildren<TTSWit>();
-        TTSSpeaker ttsSpeaker = parentObject.GetComponentInChildren<TTSSpeaker>();
-        Debug.Log("TtsWitService: " + ttsWitService);
-        Debug.Log("ttsSpeaker: " + ttsSpeaker);
+        TTSWit ttsWitService = _parentObject.GetComponentInChildren<TTSWit>();
+        TTSSpeaker ttsSpeaker = _parentObject.GetComponentInChildren<TTSSpeaker>();
         if (ttsWitService != null && ttsSpeaker != null)
         {
             // Change the voice of the NPC
-            Debug.Log("You are talking with: " + ttsWitService.GetAllPresetVoiceSettings()[voicePresetId].SettingsId);
             ttsSpeaker.ClearVoiceOverride();
-            ttsSpeaker.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[voicePresetId]);
+            ttsSpeaker.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[_voicePresetId]);
         }
-
     }
 
-
-    public void ChangeCharacter(GameObject characterModelPrefab, Avatar avatar, int voicePresetId)  {
-        // remove old stuff
-        OldbonesAndSkin = bonesAndSkin;
-        // set new stuff 
-        this.characterModelPrefab = characterModelPrefab;
-        this.avatar = avatar;
-        isTalking = animator.GetBool(isTalkingHash);
-        hasNewDialogueOptions = animator.GetBool(hasNewDialogueOptionsHash);
-        velocityX = animator.GetFloat(velocityXHash);
-        velocityY = animator.GetFloat(velocityYHash);
-        this.voicePresetId = voicePresetId;
+    public void ChangeCharacter(GameObject characterModelPrefab, Avatar avatar, int voicePresetId)
+    {
+        // keep a reference to the old stuff, so it safely can be destroyed later
+        _oldbonesAndSkin = _bonesAndSkin;
+        // Save all the old animator parameter values
+        this._characterModelPrefab = characterModelPrefab;
+        this._avatar = avatar;
+        _isTalking = _animator.GetBool(_isTalkingHash);
+        _hasNewDialogueOptions = _animator.GetBool(_hasNewDialogueOptionsHash);
+        _velocityX = _animator.GetFloat(_velocityXHash);
+        _velocityY = _animator.GetFloat(_velocityYHash);
+        this._voicePresetId = voicePresetId;
+        // Add the new model and set the saved values to the new animator
         NewCharacter();
-        Destroy(OldbonesAndSkin);
-        //updateOtherScripts();
+        // destory the old stuff
+        Destroy(_oldbonesAndSkin);
     }
 
-    // remove?
-    private void updateOtherScripts() {
-        //Debug.Log("The animator we are setting is:" + animator);
-        dialogueBoxController.updateAnimator();
-        followThePlayerControllerV2.updateAnimator();
-        conversationController.updateAnimator();
-    }
-    // keep
-    private void updateOtherScripts(Animator animator) {
-        //Debug.Log("The animator we are setting is:" + animator);
-        dialogueBoxController.updateAnimator(animator);
-        followThePlayerControllerV2.updateAnimator(animator);
-        conversationController.updateAnimator(animator);
+    private void updateOtherScripts(Animator animator)
+    {
+        _dialogueBoxController.updateAnimator(animator);
+        _followThePlayerController.updateAnimator(animator);
+        _conversationController.updateAnimator(animator);
     }
 }

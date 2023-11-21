@@ -106,13 +106,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471baa25266eb44eeb52044bea9dfe87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueText: {fileID: 6802021749710148704}
-  dialogueBox: {fileID: 979523570101981075}
-  answerBox: {fileID: 2393529784512754671}
-  dialogueCanvas: {fileID: 2983172922030219317}
+  _dialogueText: {fileID: 6802021749710148704}
+  _dialogueBox: {fileID: 2983172922030219317}
+  _answerBox: {fileID: 2393529784512754671}
+  _dialogueCanvas: {fileID: 2983172922030219317}
   TTSSpeaker: {fileID: 0}
-  skipLineButton: {fileID: 581411041544405079}
-  exitButton: {fileID: 715794130603018707}
+  _skipLineButton: {fileID: 581411041544405079}
+  _exitButton: {fileID: 715794130603018707}
   dialogueIsActive: 0
 --- !u!114 &5828373786828991796
 MonoBehaviour:
@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31255f0e6a72de042ba44496fdf18bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startFollowingRadius: 8
-  personalSpaceFactor: 4
-  shouldFollow: 0
+  StartFollowingRadius: 8
+  PersonalSpaceFactor: 4
+  ShouldFollow: 0
 --- !u!114 &7850822095440211487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5382d013af63bd847a2692c71533629e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentInCanvas: {fileID: 2393529784512754671}
-  buttonPrefab: {fileID: 7192014449640984641, guid: 56a2b1470a515fa4a9969726ac78b7d1,
+  _parentInCanvas: {fileID: 2393529784512754671}
+  _buttonPrefab: {fileID: 7192014449640984641, guid: 56a2b1470a515fa4a9969726ac78b7d1,
     type: 3}
 --- !u!114 &1615359058989093574
 MonoBehaviour:
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0281ae1bd1584564bb2ab8c75107505a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 3342933767163273071}
+  _nameText: {fileID: 3342933767163273071}
 --- !u!114 &6268987475164533209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,12 +169,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c854b7d1e2d4d48a4bc127e90b4920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentObject: {fileID: 142329030213301039}
-  characterModelPrefab: {fileID: 919132149155446097, guid: 6f1f9b49353c2df4ba808423d36563b5,
+  _parentObject: {fileID: 142329030213301039}
+  _characterModelPrefab: {fileID: 919132149155446097, guid: 6f1f9b49353c2df4ba808423d36563b5,
     type: 3}
-  avatar: {fileID: 9000000, guid: 6f1f9b49353c2df4ba808423d36563b5, type: 3}
-  voicePresetId: 17
-  runtimeAnimatorController: {fileID: 9100000, guid: acb4b9981fa45ce46adb4867634b31ab,
+  _avatar: {fileID: 9000000, guid: 6f1f9b49353c2df4ba808423d36563b5, type: 3}
+  _voicePresetId: 17
+  _runtimeAnimatorController: {fileID: 9100000, guid: acb4b9981fa45ce46adb4867634b31ab,
     type: 2}
 --- !u!1 &389399547921113031
 GameObject:
@@ -235,11 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5673e56ba10f4945941f9dcbd5f95b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collidingObject: {fileID: 0}
-  ToBeOverwrittenByJSON: {fileID: 11400000, guid: 9feb4772a9c2ed64bbe957e9e1816184,
-    type: 2}
-  dialogueTreesJSONFormat: []
-  dialogueTreesSOFormat: []
+  _toBeOverwrittenByJSON: {fileID: 0}
+  _dialogueTreesJSONFormat: []
+  _dialogueTreesSOFormat: []
 --- !u!1 &581411041544405079
 GameObject:
   m_ObjectHideFlags: 0
