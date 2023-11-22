@@ -31,7 +31,7 @@ public class ButtonSpawner : MonoBehaviour
             case 4:
                 return new Vector3(-58 + 39 * currentNumber,-38,1);
             default:
-                Debug.Log("You have too many buttons/answer options of the dialogue tree. I do not know how to place them");
+                Debug.LogError("You have too many buttons/answer options of the dialogue tree. I do not know how to place them");
                 return new Vector3(0,0,0);
         }
     }

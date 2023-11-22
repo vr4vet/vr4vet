@@ -22,7 +22,6 @@ public class SpecializedNPCBehaviorDemo : MonoBehaviour
         _npcSpawner._npcInstances[1].gameObject.SetActive(false);
 
         _npc = _npcSpawner._npcInstances[2];
-        Debug.Log(_npc);
         HandleProximityNPC();
     }
 
@@ -36,7 +35,6 @@ public class SpecializedNPCBehaviorDemo : MonoBehaviour
     {
         if (_npc != null) { 
             _followThePlayerController = _npc.GetComponent<FollowThePlayerController>(); 
-            Debug.Log(_followThePlayerController);
         if (_followThePlayerController != null) {
                 _followThePlayerController.PersonalSpaceFactor = 2;
                 _followThePlayerController.StartFollowingRadius = 3;
@@ -63,14 +61,11 @@ public class SpecializedNPCBehaviorDemo : MonoBehaviour
         {
             // Activate the proximity NPC and make it follow the player
             _followThePlayerController.ShouldFollow = true;
-            // Trigger the initial dialogue for proximity NPC here
-            Debug.Log("we are at the same hight");
         }
         else
         {
             // Deactivate the proximity NPC's follow behavior if the player is not at the same or higher height
             _followThePlayerController.ShouldFollow = false;
         }
-        Debug.Log("Follow the player bool: "+_followThePlayerController.ShouldFollow);
     }
 }

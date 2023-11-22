@@ -108,8 +108,6 @@ public class ConversationController : MonoBehaviour
         if (_dialogueTreesSOFormat.Count > 0) {
             _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
         }
-        Debug.Log("_hasNewDialogueOptionsHash: " + _hasNewDialogueOptionsHash);
-        Debug.Log("Animator: " + _animator);
         _animator.SetBool(_hasNewDialogueOptionsHash, true);
     }
 
@@ -175,7 +173,7 @@ public class ConversationController : MonoBehaviour
         if (_currentElement >= _dialogueTreesSOFormat.Count())
         {
             _currentElement--;
-            Debug.Log("You have read the last dialogue tree");
+            Debug.Log("You have already read the last dialogue tree");
         } else {
             _dialogueBoxController.ExitConversation();
             _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
@@ -192,7 +190,7 @@ public class ConversationController : MonoBehaviour
         if (_currentElement < 0)
         {
             _currentElement=0;
-            Debug.Log("You have read the first dialogue tree");
+            Debug.Log("You have already read the first dialogue tree");
         } else {
             _dialogueBoxController.ExitConversation();
             _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);

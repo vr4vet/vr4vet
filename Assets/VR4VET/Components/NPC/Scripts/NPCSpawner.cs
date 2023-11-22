@@ -33,19 +33,6 @@ public class NPCSpawner : MonoBehaviour
         return newNPC;
     }
 
-    public GameObject SpawnNPC(Vector3 position, bool shouldFollow, GameObject npcPrefab)
-    {
-        // Instantiate the NPC prefab
-        // Debug.Log("Spawning NPC at " + position);
-        GameObject newNPC = Instantiate(npcPrefab, position, Quaternion.identity);
-        // Attach the TTS components
-        AttachTTSComponents(newNPC);
-
-        // Other NPC setup code (unchanged)
-
-        return newNPC;
-    }
-
     public void AttachTTSComponents(GameObject npc)
     {
         // Load the TTS prefab from the Resources folder
@@ -80,7 +67,7 @@ public class NPCSpawner : MonoBehaviour
         }
         else
         {
-            Debug.Log("NPC prefab does not have an NPCController component!");
+            Debug.LogError("NPC prefab does not have an NPCController component!");
         }
     }
 
@@ -89,7 +76,7 @@ public class NPCSpawner : MonoBehaviour
         SetCharacterModel setCharacterModel = npc.GetComponent<SetCharacterModel>();
         if (setCharacterModel == null)
         {
-            Debug.Log("The NPC is missing the script SetCharacterModel");
+            Debug.LogError("The NPC is missing the script SetCharacterModel");
         }
         else
         {
@@ -101,7 +88,7 @@ public class NPCSpawner : MonoBehaviour
         DisplayName displayName = npc.GetComponent<DisplayName>();
         if (displayName == null)
         {
-            Debug.Log("The NPC is missing the display name componenent");
+            Debug.LogError("The NPC is missing the display name componenent");
         } else {
             displayName.UpdateDisplayedName(name);
         }
@@ -111,7 +98,7 @@ public class NPCSpawner : MonoBehaviour
         ConversationController conversationController = npc.GetComponentInChildren<ConversationController>();
         if (conversationController == null)
         {
-            Debug.Log("The NPC is missing the conversationController");
+            Debug.LogError("The NPC is missing the conversationController");
         } else {
             conversationController.SetDialogueTreeList(dialogueTreesSO, dialogueTreesJSON);
         }

@@ -84,12 +84,10 @@ public class SetCharacterModel : MonoBehaviour
 
         // get or create a new animator and transfer over the old animation paramet values to this new one
         _animator = _bonesAndSkin.GetComponent<Animator>();
-        Debug.Log("bonesAndSkin animator is: " + _animator);
         if (_animator == null)
         {
             _bonesAndSkin.AddComponent<Animator>();
             _animator = _bonesAndSkin.GetComponent<Animator>();
-            Debug.Log("vi added the animator: " + _animator);
         }
         _animator.runtimeAnimatorController = _runtimeAnimatorController;
         _animator.avatar = _avatar;
@@ -114,8 +112,6 @@ public class SetCharacterModel : MonoBehaviour
         // keep a reference to the old stuff, so it safely can be destroyed later
         _oldbonesAndSkin = _bonesAndSkin;
         // Save all the old animator parameter values
-        Debug.Log("We are changing from (which is later deleted): " + _oldbonesAndSkin);
-        Debug.Log("changing into: " + characterModelPrefab);
         this._characterModelPrefab = characterModelPrefab;
         this._avatar = avatar;
         this._runtimeAnimatorController = runtimeAnimatorController;
@@ -125,12 +121,10 @@ public class SetCharacterModel : MonoBehaviour
         Destroy(_oldbonesAndSkin);
         // Add the new model and set the saved values to the new animator
         NewCharacter();
-        Debug.Log("We destoyed bones and skin. What happend to our animator?" + _animator);
     }
 
     private void UpdateOtherScripts(Animator animator)
     {
-        Debug.Log("We are updating the other scripts with the animator: " + animator);
         _dialogueBoxController.updateAnimator(animator);
         _followThePlayerController.UpdateAnimator(animator);
         _conversationController.updateAnimator(animator);
@@ -142,8 +136,7 @@ public class SetCharacterModel : MonoBehaviour
             _hasNewDialogueOptions = _animator.GetBool(_hasNewDialogueOptionsHash);
             _velocityX = _animator.GetFloat(_velocityXHash);
             _velocityY = _animator.GetFloat(_velocityYHash);
-            Debug.Log("SaveOldAnimationValues isTalking:" + _isTalking);
-                } else {
+        } else {
             Debug.LogError("You are not settubg the animation values");
         }
     }
@@ -158,6 +151,5 @@ public class SetCharacterModel : MonoBehaviour
             Debug.LogError("You are not settubg the animation values");
         }
     }
-
 
 }
