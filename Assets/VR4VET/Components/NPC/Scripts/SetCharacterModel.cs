@@ -35,16 +35,25 @@ public class SetCharacterModel : MonoBehaviour
 
     void Awake()
     {
-        _isTalkingHash = Animator.StringToHash("isTalking");
-        _hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
-        _isTalking = false;
-        _hasNewDialogueOptions = false;
+        // set variables
+        PrepareAnimationValues();
         _followThePlayerController = _parentObject.GetComponent<FollowThePlayerController>();
         _dialogueBoxController = _parentObject.GetComponent<DialogueBoxController>();
         _conversationController = _parentObject.GetComponentInChildren<ConversationController>();
         _spawnLocation = new Vector3(0, 0, 0);
         CheckMissingComponents();
         NewCharacter();
+    }
+
+    private void PrepareAnimationValues() {
+        _isTalkingHash = Animator.StringToHash("isTalking");
+        _hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+        _velocityYHash = Animator.StringToHash("VelocityY");
+        _velocityXHash = Animator.StringToHash("VelocityX");
+        _isTalking = false;
+        _hasNewDialogueOptions = false;
+        _velocityY = 0;
+        _velocityX = 0;
     }
 
     private void CheckMissingComponents()
@@ -75,20 +84,19 @@ public class SetCharacterModel : MonoBehaviour
 
         // get or create a new animator and transfer over the old animation paramet values to this new one
         _animator = _bonesAndSkin.GetComponent<Animator>();
+        Debug.Log("bonesAndSkin animator is: " + _animator);
         if (_animator == null)
         {
             _bonesAndSkin.AddComponent<Animator>();
             _animator = _bonesAndSkin.GetComponent<Animator>();
+            Debug.Log("vi added the animator: " + _animator);
         }
         _animator.runtimeAnimatorController = _runtimeAnimatorController;
         _animator.avatar = _avatar;
         // Resetting the old values
-        _animator.SetBool(_isTalkingHash, _isTalking);
-        _animator.SetBool(_hasNewDialogueOptionsHash, _hasNewDialogueOptions);
-        _animator.SetFloat(_velocityXHash, _velocityX);
-        _animator.SetFloat(_velocityYHash, _velocityY);
+        SetNewAnimationValues();
         // We need to tell some other scripts that we changed the animator, so they can continue to refernce it correctly
-        updateOtherScripts(_animator);
+        UpdateOtherScripts(_animator);
 
         // change the voice
         TTSWit ttsWitService = _parentObject.GetComponentInChildren<TTSWit>();
@@ -101,28 +109,55 @@ public class SetCharacterModel : MonoBehaviour
         }
     }
 
-    public void ChangeCharacter(GameObject characterModelPrefab, Avatar avatar, int voicePresetId)
+    public void ChangeCharacter(GameObject characterModelPrefab, Avatar avatar, RuntimeAnimatorController runtimeAnimatorController, int voicePresetId)
     {
         // keep a reference to the old stuff, so it safely can be destroyed later
         _oldbonesAndSkin = _bonesAndSkin;
         // Save all the old animator parameter values
+        Debug.Log("We are changing from (which is later deleted): " + _oldbonesAndSkin);
+        Debug.Log("changing into: " + characterModelPrefab);
         this._characterModelPrefab = characterModelPrefab;
         this._avatar = avatar;
-        _isTalking = _animator.GetBool(_isTalkingHash);
-        _hasNewDialogueOptions = _animator.GetBool(_hasNewDialogueOptionsHash);
-        _velocityX = _animator.GetFloat(_velocityXHash);
-        _velocityY = _animator.GetFloat(_velocityYHash);
+        this._runtimeAnimatorController = runtimeAnimatorController;
+        SaveOldAnimationValues();
         this._voicePresetId = voicePresetId;
-        // Add the new model and set the saved values to the new animator
-        NewCharacter();
         // destory the old stuff
         Destroy(_oldbonesAndSkin);
+        // Add the new model and set the saved values to the new animator
+        NewCharacter();
+        Debug.Log("We destoyed bones and skin. What happend to our animator?" + _animator);
     }
 
-    private void updateOtherScripts(Animator animator)
+    private void UpdateOtherScripts(Animator animator)
     {
+        Debug.Log("We are updating the other scripts with the animator: " + animator);
         _dialogueBoxController.updateAnimator(animator);
-        _followThePlayerController.updateAnimator(animator);
+        _followThePlayerController.UpdateAnimator(animator);
         _conversationController.updateAnimator(animator);
     }
+
+    private void SaveOldAnimationValues() {
+        if (_runtimeAnimatorController.name.Contains("NPCHumanoidAnimationController")) {
+            _isTalking = _animator.GetBool(_isTalkingHash);
+            _hasNewDialogueOptions = _animator.GetBool(_hasNewDialogueOptionsHash);
+            _velocityX = _animator.GetFloat(_velocityXHash);
+            _velocityY = _animator.GetFloat(_velocityYHash);
+            Debug.Log("SaveOldAnimationValues isTalking:" + _isTalking);
+                } else {
+            Debug.LogError("You are not settubg the animation values");
+        }
+    }
+
+    private void SetNewAnimationValues() {
+        if (_runtimeAnimatorController.name.Contains("NPCHumanoidAnimationController")) {
+            _animator.SetBool(_isTalkingHash, _isTalking);
+            _animator.SetBool(_hasNewDialogueOptionsHash, _hasNewDialogueOptions);
+            _animator.SetFloat(_velocityXHash, _velocityX);
+            _animator.SetFloat(_velocityYHash, _velocityY);
+        } else {
+            Debug.LogError("You are not settubg the animation values");
+        }
+    }
+
+
 }

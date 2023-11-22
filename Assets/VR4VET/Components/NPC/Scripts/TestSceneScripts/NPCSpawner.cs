@@ -1,31 +1,52 @@
 using UnityEngine;
 using Meta.WitAi.TTS.Utilities;
+using System;
+using System.Collections.Generic;
 public class NPCSpawner : MonoBehaviour
 {
+    [SerializeField] private NPC[] _nPCs;
+    [HideInInspector] public List<GameObject> _npcInstances;
+
+    private void Awake() {
+        foreach (var npcSO in _nPCs)
+        {
+            _npcInstances.Add(SpawnNPC(npcSO));
+        }
+    }
+
+    public GameObject SpawnNPC(NPC npcSO) {
+        // Instantiate the NPC prefab at the defined location
+        GameObject newNPC = Instantiate(npcSO.NpcPrefab, npcSO.SpawnPosition, Quaternion.identity);
+        // Rotate the NPC 
+        newNPC.transform.rotation = Quaternion.Euler(npcSO.SpawnRotation);  
+        // Attach the Text-To-Speech componenets
+        AttachTTSComponents(newNPC);
+        // change the apperance, animation avatar and voice from the deafult one, to a specific one
+        SetAppearanceAnimationAndVoice(newNPC, npcSO.CharacterModel, npcSO.CharacterAvatar, npcSO.runtimeAnimatorController , npcSO.VoicePresetId);
+        // Should the NPC follow after the player or not? (from the start)
+        SetFollowingBehavior(newNPC, npcSO.ShouldFollow);
+        // Update the name of the NPC
+        SetName(newNPC, npcSO.NameOfNPC);
+        // set talking topics aka. dialogueTrees
+        SetConversation(newNPC, npcSO.DialogueTreesSO, npcSO.DialogueTreeJSON);
+        // return the NPC
+        return newNPC;
+    }
+
     public GameObject SpawnNPC(Vector3 position, bool shouldFollow, GameObject npcPrefab)
     {
         // Instantiate the NPC prefab
         // Debug.Log("Spawning NPC at " + position);
         GameObject newNPC = Instantiate(npcPrefab, position, Quaternion.identity);
-
         // Attach the TTS components
         AttachTTSComponents(newNPC);
 
         // Other NPC setup code (unchanged)
-        FollowThePlayerController npcController = newNPC.GetComponent<FollowThePlayerController>();
-        if (npcController != null)
-        {
-            // Debug.Log("Setting shouldFollow to " + shouldFollow);
-            npcController.ShouldFollow = shouldFollow;
-        }
-        else
-        {
-            Debug.Log("NPC prefab does not have an NPCController component!");
-        }
+
         return newNPC;
     }
 
-    private void AttachTTSComponents(GameObject npc)
+    public void AttachTTSComponents(GameObject npc)
     {
         // Load the TTS prefab from the Resources folder
         GameObject ttsPrefab = Resources.Load<GameObject>("TTS");
@@ -48,6 +69,51 @@ public class NPCSpawner : MonoBehaviour
         else
         {
             Debug.LogError("TTS prefab could not be loaded. Ensure it's located in the Resources folder.");
+        }
+    }
+
+    public void SetFollowingBehavior(GameObject npc, bool shouldFollow) {
+        FollowThePlayerController followThePlayerController = npc.GetComponent<FollowThePlayerController>();
+        if (followThePlayerController != null)
+        {
+            followThePlayerController.ShouldFollow = shouldFollow;
+        }
+        else
+        {
+            Debug.Log("NPC prefab does not have an NPCController component!");
+        }
+    }
+
+    public void SetAppearanceAnimationAndVoice(GameObject npc, GameObject characterModelPrefab, Avatar characterAvatar, RuntimeAnimatorController runtimeAnimatorController, int voicePresetId)
+    {
+        SetCharacterModel setCharacterModel = npc.GetComponent<SetCharacterModel>();
+        if (setCharacterModel == null)
+        {
+            Debug.Log("The NPC is missing the script SetCharacterModel");
+        }
+        else
+        {
+            setCharacterModel.ChangeCharacter(characterModelPrefab, characterAvatar, runtimeAnimatorController, voicePresetId);
+        }
+    }
+
+    public void SetName(GameObject npc, String name) {
+        DisplayName displayName = npc.GetComponent<DisplayName>();
+        if (displayName == null)
+        {
+            Debug.Log("The NPC is missing the display name componenent");
+        } else {
+            displayName.UpdateDisplayedName(name);
+        }
+    }
+
+    public void SetConversation(GameObject npc, DialogueTree[] dialogueTreesSO, TextAsset[] dialogueTreesJSON) {
+        ConversationController conversationController = npc.GetComponentInChildren<ConversationController>();
+        if (conversationController == null)
+        {
+            Debug.Log("The NPC is missing the conversationController");
+        } else {
+            conversationController.SetDialogueTreeList(dialogueTreesSO, dialogueTreesJSON);
         }
     }
 }

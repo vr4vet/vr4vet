@@ -125,7 +125,7 @@ public class EventTriggerDemo : MonoBehaviour
         }
         else
         {
-            setCharacterModel.ChangeCharacter(characterModelPrefab, characterAvatar, voicePresetId);
+            // setCharacterModel.ChangeCharacter(characterModelPrefab, characterAvatar, voicePresetId);
         }
     }
 }
