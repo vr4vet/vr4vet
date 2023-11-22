@@ -15,8 +15,9 @@ MonoBehaviour:
   sections:
   - dialogue:
     - "Howdy! Welcome to task 2.\_"
-    - 'I am a NPC that will follow you inside a given radius. The logic for implementing
-      me can be found in EventTriggerDemo.cs. '
+    - I am a NPC that will follow you inside a given radius. The logic for implementing
+      me can be found in the script SpecializedNPCBehaviorDemo, which has been added
+      to the NPCSpawner prefab.
     endAfterDialogue: 0
     branchPoint:
       question: 'Are you ready to hear the task? '
@@ -27,7 +28,7 @@ MonoBehaviour:
         nextElement: 0
   - dialogue:
     - 'I want to see your best dance move! '
-    - 'Please show me your best move and the proceed to the next message. '
+    - 'Please show me your best move and then proceed to the next message. '
     - 'Thats lit! '
     - 'This is the last task. You can learn more about the NPC in the far corner
       on the first floor. '
