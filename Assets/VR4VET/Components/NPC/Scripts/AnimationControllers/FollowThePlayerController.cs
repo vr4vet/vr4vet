@@ -74,10 +74,12 @@ public class FollowThePlayerController : MonoBehaviour
                 _animator.SetFloat(_velocityYHash, 0); // Set the animation state to idle
                 _agent.SetDestination(transform.position); // Stop the agent from moving
             }
+        } else {
+            _animator = GetComponentInChildren<Animator>();
         }
     }
 
-    public void updateAnimator(Animator animator)
+    public void UpdateAnimator(Animator animator)
     {
         this._animator = animator;
     }
