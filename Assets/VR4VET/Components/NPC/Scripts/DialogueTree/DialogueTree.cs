@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName ="NPCScriptableObjects/DialogueTree")]
 [Serializable]
 public class DialogueTree : ScriptableObject
 {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName ="NPCScriptableObjects/NPC")]
 public class NPC : ScriptableObject
 {
     public String NameOfNPC;
