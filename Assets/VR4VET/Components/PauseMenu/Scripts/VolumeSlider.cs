@@ -16,15 +16,26 @@ public class VolumeSlider : MonoBehaviour
     private void Start()
     {
         //set the slider to the actual volume value
-        _sliderMaster.value = SoundManager.Instance.GetMasterVolume();
-        _sliderMusic.value = SoundManager.Instance.GetMusicVolume();
-        _sliderEffects.value = SoundManager.Instance.GetEffectsVolume();
-        _sliderVoice.value = SoundManager.Instance.GetVoiceVolume();
-
         //adding change volume functions to the sliders
-        _sliderMaster.onValueChanged.AddListener(val => SoundManager.Instance.ChangeMasterVolume(val));
-        _sliderMusic.onValueChanged.AddListener(val => SoundManager.Instance.ChangeMusicVolume(val));
-        _sliderEffects.onValueChanged.AddListener(val => SoundManager.Instance.ChangeEffectVolume(val));
-        _sliderVoice.onValueChanged.AddListener(val => SoundManager.Instance.ChangeVoiceVolume(val));
+        if (_sliderMaster != null)
+        {
+            _sliderMaster.value = SoundManager.Instance.GetMasterVolume();
+            _sliderMaster.onValueChanged.AddListener(val => SoundManager.Instance.ChangeMasterVolume(val));
+        }
+        if (_sliderMusic != null)
+        {
+            _sliderMusic.value = SoundManager.Instance.GetMusicVolume();
+            _sliderMusic.onValueChanged.AddListener(val => SoundManager.Instance.ChangeMusicVolume(val));
+        }
+        if (_sliderEffects != null)
+        {
+            _sliderEffects.value = SoundManager.Instance.GetEffectsVolume();
+            _sliderEffects.onValueChanged.AddListener(val => SoundManager.Instance.ChangeEffectVolume(val));
+        }
+        if (_sliderVoice != null)
+        {
+            _sliderVoice.value = SoundManager.Instance.GetVoiceVolume();
+            _sliderVoice.onValueChanged.AddListener(val => SoundManager.Instance.ChangeVoiceVolume(val));
+        }   
     }
 }

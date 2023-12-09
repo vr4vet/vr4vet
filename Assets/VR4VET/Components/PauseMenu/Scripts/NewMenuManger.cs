@@ -37,6 +37,8 @@ public class NewMenuManger : MonoBehaviour
     private float _holdtime = 1.5f;
 
     private List<GameObject> allMenus = new();
+    [SerializeField]
+    private float canvasesDistance;
     /// <summary>
     /// This Script manages all aspects of the Pause Menu:
     /// Toggle, or Hold to Pause
@@ -52,6 +54,7 @@ public class NewMenuManger : MonoBehaviour
         _wallsMaterial.color = c;
 
         allMenus.AddRange(new List<GameObject>() { _menuCanvas, _settingsCanvas, _aboutCanvas, _languagesCanvas, _remapCanvas, _audioCanvas });
+        AdjustCanvasDistances();
 
         foreach (var item in allMenus)
         {
@@ -189,6 +192,16 @@ public class NewMenuManger : MonoBehaviour
             {
                 item.SetActive(shouldSetActive);
             }
+        }
+    }
+
+    void AdjustCanvasDistances()
+    {
+        CanvasFollow[] canvasFollows = GetComponentsInChildren<CanvasFollow>();
+
+        foreach (CanvasFollow canvasFollow in canvasFollows)
+        {
+            canvasFollow.AdjustDistance(canvasesDistance);
         }
     }
 }
