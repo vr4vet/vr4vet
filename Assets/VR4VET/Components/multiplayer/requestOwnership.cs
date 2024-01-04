@@ -11,7 +11,7 @@ public class requestOwnership : MonoBehaviourPun
     private Grabbable BNGG;
     private bool beingHold = false;
     private Rigidbody rb;
-    private holdByOthers = false;
+    private bool holdByOthers = false;
 
     private void Start()
     {
