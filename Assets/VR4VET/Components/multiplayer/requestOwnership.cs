@@ -11,6 +11,7 @@ public class requestOwnership : MonoBehaviourPun
     private Grabbable BNGG;
     private bool beingHold = false;
     private Rigidbody rb;
+    private holdByOthers = false;
 
     private void Start()
     {
@@ -40,11 +41,17 @@ public class requestOwnership : MonoBehaviourPun
                 photonView.RPC("RPC_SetKinematicState", RpcTarget.OthersBuffered, true);
             }
         }
-        if (!BNGG.BeingHeld &! beingHold)
+        if (!BNGG.BeingHeld & beingHold)
         {
-            // Call the RPC function on the hit object's PhotonView
-            photonView.RPC("RPC_SetKinematicState", RpcTarget.OthersBuffered, false);
             beingHold = false;
+            if (holdByOthers)
+            {
+                rb.isKinematic = true;
+            } else
+            {
+                // Call the RPC function on the hit object's PhotonView
+                photonView.RPC("RPC_SetKinematicState", RpcTarget.OthersBuffered, false);
+            }
         }
     }
 
@@ -56,7 +63,16 @@ public class requestOwnership : MonoBehaviourPun
 
     public void SetKinematicState(bool isKinematic)
     {
+        if (isKinematic)
+        {
+            holdByOthers = true;
+        }
+        else
+        {
+            holdByOthers = false;
+        }
         rb.isKinematic = isKinematic;
+        // Debug.Log("Set object to kinematic: " + isKinematic);
     }
 
     [PunRPC]
