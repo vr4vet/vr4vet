@@ -43,14 +43,21 @@ public class requestOwnership : MonoBehaviourPun
         }
         if (!BNGG.BeingHeld & beingHold)
         {
+            Debug.Log("Have let go of object");
             beingHold = false;
             if (holdByOthers)
             {
                 rb.isKinematic = true;
-            } else
+                Debug.Log("It is still hold by others");
+                photonView.RPC("RPC_SetKinematicState", RpcTarget.OthersBuffered, false);
+
+            }
+            else
             {
                 // Call the RPC function on the hit object's PhotonView
                 photonView.RPC("RPC_SetKinematicState", RpcTarget.OthersBuffered, false);
+                rb.isKinematic = false;
+                Debug.Log("Not hold by others");
             }
         }
     }
@@ -65,10 +72,12 @@ public class requestOwnership : MonoBehaviourPun
     {
         if (isKinematic)
         {
+            Debug.Log("Hold by others");
             holdByOthers = true;
         }
         else
         {
+            Debug.Log("Not hold by others");
             holdByOthers = false;
         }
         rb.isKinematic = isKinematic;
