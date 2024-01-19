@@ -94,6 +94,19 @@ namespace Tablet
             _tasks = th.taskList;
             _skills = th.skillList;
 
+            foreach (Task.Task task in _tasks)
+            {
+                foreach (Task.Subtask subtask in task.Subtasks)
+                {
+                    foreach (Task.Step step in subtask.StepList)
+                    {
+                        step.SetCompleated(false);
+                    }
+                    subtask.SetCompleated(false);
+                }
+                task.Compleated(false);
+            }
+
             panelManager = this.gameObject.GetComponent<StaticPanelManager>();
             //load info in the tablet
             StartCoroutine(LoadTabletInfo());

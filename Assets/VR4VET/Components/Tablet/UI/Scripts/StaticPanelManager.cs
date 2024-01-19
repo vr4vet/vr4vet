@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Tablet;
 
 public class StaticPanelManager : MonoBehaviour
 {
@@ -110,6 +111,8 @@ public class StaticPanelManager : MonoBehaviour
 
     public void OnClickBackToTasks()
     {
+        TaskListLoader1 taskListLoader1 = GetComponent<TaskListLoader1>();
+        taskListLoader1.UpdateTaskPage();
         SwitchMenuTo(TaskListMenu);
     }
 
@@ -190,6 +193,8 @@ public class StaticPanelManager : MonoBehaviour
     #region MainMenu
     public void OnClickMenuTask()
     {
+        TaskListLoader1 taskListLoader1 = GetComponent<TaskListLoader1>();
+        taskListLoader1.UpdateTaskPage();
         SwitchMenuTo(TaskListMenu);
     }
     public void OnClickMenuSkills()
