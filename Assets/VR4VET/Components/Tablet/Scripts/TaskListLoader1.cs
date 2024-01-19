@@ -226,6 +226,24 @@ namespace Tablet
             taskContent.GetComponent<ContentPageChanger>().Refresh();
         }
 
+        public void UpdateTaskPage()
+        {
+            Task.TaskHolder th = GameObject.FindObjectsOfType<Task.TaskHolder>()[0];
+
+            // Get the Transform component of the taskContent GameObject
+            Transform taskContentTransform = taskContent.transform;
+
+            // Loop through each child of taskContent
+            foreach (Transform child in taskContentTransform)
+            {
+                TMP_Text caption = child.Find("txt_TaskNr").GetComponent<TMP_Text>();
+                string taskName = caption.text;
+                Task.Task task = th.GetTask(taskName);
+                GameObject checkmark = child.Find("img_Checkmark").gameObject;
+                if (task.Compleated()) checkmark.SetActive(true);
+            }
+        }
+
         public void TaskPageLoader(Task.Task task)
         {
             //for extra events
