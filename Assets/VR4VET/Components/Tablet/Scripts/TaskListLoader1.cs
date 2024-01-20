@@ -94,17 +94,26 @@ namespace Tablet
             _tasks = th.taskList;
             _skills = th.skillList;
 
-            foreach (Task.Task task in _tasks)
+            if (_tasks != null)
             {
-                foreach (Task.Subtask subtask in task.Subtasks)
+                foreach (Task.Task task in _tasks)
                 {
-                    foreach (Task.Step step in subtask.StepList)
+                    if (task.Subtasks != null)
                     {
-                        step.SetCompleated(false);
+                        foreach (Task.Subtask subtask in task.Subtasks)
+                        {
+                            if (subtask.StepList != null)
+                            {
+                                foreach (Task.Step step in subtask.StepList)
+                                {
+                                    step.SetCompleated(false);
+                                }
+                            }
+                            subtask.SetCompleated(false);
+                        }
                     }
-                    subtask.SetCompleated(false);
+                    task.Compleated(false);
                 }
-                task.Compleated(false);
             }
 
             panelManager = this.gameObject.GetComponent<StaticPanelManager>();
@@ -261,24 +270,26 @@ namespace Tablet
             {
                 GameObject.Destroy(child.gameObject);
             }
-
-            foreach (Task.Subtask sub in task.Subtasks)
+            if (task.Subtasks != null)
             {
-                //task for the list
-                GameObject item = Instantiate(_subtaskListEntry, Vector3.zero, Quaternion.identity);
-                item.transform.SetParent(TaskSubtaskContent.transform);
-                item.transform.localPosition = Vector3.zero;
-                item.transform.localScale = Vector3.one;
-                item.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                foreach (Task.Subtask sub in task.Subtasks)
+                {
+                    //task for the list
+                    GameObject item = Instantiate(_subtaskListEntry, Vector3.zero, Quaternion.identity);
+                    item.transform.SetParent(TaskSubtaskContent.transform);
+                    item.transform.localPosition = Vector3.zero;
+                    item.transform.localScale = Vector3.one;
+                    item.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-                TMP_Text caption = item.transform.Find("txt_SubTaskNr").GetComponent<TMP_Text>();
-                // GameObject points = item.transform.Find("PointText").gameObject; points for later
-                caption.text = sub.SubtaskName;
+                    TMP_Text caption = item.transform.Find("txt_SubTaskNr").GetComponent<TMP_Text>();
+                    // GameObject points = item.transform.Find("PointText").gameObject; points for later
+                    caption.text = sub.SubtaskName;
 
-                Button button = item.transform.Find("btn_SubTask").GetComponent<Button>();
-                GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
-                if (sub.Compleated()) checkmark.SetActive(true);
-                button.onClick.AddListener(() => SubTaskPageLoader(sub));
+                    Button button = item.transform.Find("btn_SubTask").GetComponent<Button>();
+                    GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
+                    if (sub.Compleated()) checkmark.SetActive(true);
+                    button.onClick.AddListener(() => SubTaskPageLoader(sub));
+                }
             }
         }
 
@@ -300,23 +311,25 @@ namespace Tablet
             {
                 GameObject.Destroy(child.gameObject);
             }
-
-            foreach (Task.Step step in subtask.StepList)
+            if (subtask.StepList != null)
             {
-                GameObject item = Instantiate(_stepListEntry, Vector3.zero, Quaternion.identity);
-                item.transform.SetParent(_subtaskContent.transform);
-                item.transform.localPosition = Vector3.zero;
-                item.transform.localScale = Vector3.one;
-                item.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                foreach (Task.Step step in subtask.StepList)
+                {
+                    GameObject item = Instantiate(_stepListEntry, Vector3.zero, Quaternion.identity);
+                    item.transform.SetParent(_subtaskContent.transform);
+                    item.transform.localPosition = Vector3.zero;
+                    item.transform.localScale = Vector3.one;
+                    item.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-                TMP_Text caption = item.transform.Find("txt_Desc").GetComponent<TMP_Text>();
-                GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
-                if (step.IsCompeleted()) checkmark.SetActive(true);
+                    TMP_Text caption = item.transform.Find("txt_Desc").GetComponent<TMP_Text>();
+                    GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
+                    if (step.IsCompeleted()) checkmark.SetActive(true);
 
-                TMP_Text reps = item.transform.Find("txt_SubTaskNr").GetComponent<TMP_Text>();
+                    TMP_Text reps = item.transform.Find("txt_SubTaskNr").GetComponent<TMP_Text>();
 
-                caption.text = step.StepName;
-                reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
+                    caption.text = step.StepName;
+                    reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
+                }
             }
         }
     }

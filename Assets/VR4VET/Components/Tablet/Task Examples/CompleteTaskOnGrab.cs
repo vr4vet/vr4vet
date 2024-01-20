@@ -20,7 +20,7 @@ public class CompleteTaskOnGrab : MonoBehaviour
         // Check for grab input manually
         if (grabbable.BeingHeld)
         {
-            taskHolder.GetTask("Grab Hammer").Compleated(true);
+            taskHolder.GetTask("Grab Hammer").GetSubtask("Perform Grab").SetCompleated(true);
         }
     }
 }
