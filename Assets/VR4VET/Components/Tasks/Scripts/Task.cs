@@ -36,6 +36,8 @@ namespace Task
         public void Compleated(bool value)
         {
             _compleated = value;
+            Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
+            taskLoader.updateCheckMarks();
         }
 
         public bool Compleated()

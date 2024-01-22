@@ -172,6 +172,7 @@ public class StaticPanelManager : MonoBehaviour
         }
         //run whatever graphical resetting methods here if we do things like expanding/collapsing categories | clear text areas of text here as well
         b.SetActive(true);
+        Debug.Log("Now displaying: " + b);
     }
 
     void Start()

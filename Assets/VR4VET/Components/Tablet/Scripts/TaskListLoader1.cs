@@ -75,6 +75,9 @@ namespace Tablet
 
         private List<GameObject> _skillsClones = new List<GameObject>();
 
+        private Task.Task currentTask;
+        private Task.Subtask currentSubtask;
+
         public static TaskListLoader1 Ins;
         private void Awake()
         {
@@ -255,6 +258,7 @@ namespace Tablet
 
         public void TaskPageLoader(Task.Task task)
         {
+            currentTask = task;
             //for extra events
             if (_taskPageOpen != null) _taskPageOpen.Invoke();
 
@@ -295,6 +299,7 @@ namespace Tablet
 
         public void SubTaskPageLoader(Task.Subtask subtask)
         {
+            currentSubtask = subtask;
             if (_subtaskPageOpen != null) _subtaskPageOpen.Invoke();
 
             //hide previos pagee
@@ -314,6 +319,71 @@ namespace Tablet
             if (subtask.StepList != null)
             {
                 foreach (Task.Step step in subtask.StepList)
+                {
+                    GameObject item = Instantiate(_stepListEntry, Vector3.zero, Quaternion.identity);
+                    item.transform.SetParent(_subtaskContent.transform);
+                    item.transform.localPosition = Vector3.zero;
+                    item.transform.localScale = Vector3.one;
+                    item.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+                    TMP_Text caption = item.transform.Find("txt_Desc").GetComponent<TMP_Text>();
+                    GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
+                    if (step.IsCompeleted()) checkmark.SetActive(true);
+
+                    TMP_Text reps = item.transform.Find("txt_SubTaskNr").GetComponent<TMP_Text>();
+
+                    caption.text = step.StepName;
+                    reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
+                }
+            }
+        }
+
+        public void updateCheckMarks()
+        {
+            if (currentTask == null)
+            {
+                return;
+            }
+            UpdateTaskPage();
+            //cleaning list before loading the new subtasks
+            foreach (Transform child in TaskSubtaskContent.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            if (currentTask.Subtasks != null)
+            {
+                foreach (Task.Subtask sub in currentTask.Subtasks)
+                {
+                    //task for the list
+                    GameObject item = Instantiate(_subtaskListEntry, Vector3.zero, Quaternion.identity);
+                    item.transform.SetParent(TaskSubtaskContent.transform);
+                    item.transform.localPosition = Vector3.zero;
+                    item.transform.localScale = Vector3.one;
+                    item.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+                    TMP_Text caption = item.transform.Find("txt_SubTaskNr").GetComponent<TMP_Text>();
+                    // GameObject points = item.transform.Find("PointText").gameObject; points for later
+                    caption.text = sub.SubtaskName;
+
+                    Button button = item.transform.Find("btn_SubTask").GetComponent<Button>();
+                    GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
+                    if (sub.Compleated()) checkmark.SetActive(true);
+                    button.onClick.AddListener(() => SubTaskPageLoader(sub));
+                }
+            }
+
+            //cleaning list before loading the new subtasks
+            foreach (Transform child in _subtaskContent.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            if (currentSubtask == null)
+            {
+                return;
+            }
+            if (currentSubtask.StepList != null)
+            {
+                foreach (Task.Step step in currentSubtask.StepList)
                 {
                     GameObject item = Instantiate(_stepListEntry, Vector3.zero, Quaternion.identity);
                     item.transform.SetParent(_subtaskContent.transform);
