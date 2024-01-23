@@ -61,6 +61,7 @@ public class NewMenuManger : MonoBehaviour
             item.SetActive(false);
         }
         _menuCanvas.SetActive(true);
+        _menuOpen = true;
     }
 
     private void ToggleMenu()
@@ -86,13 +87,17 @@ public class NewMenuManger : MonoBehaviour
 
     public void ResumeGame()
     {
+        _menuOpen = false;
         Color c = _wallsMaterial.color;
         c.a = 1f;
         _wallsMaterial.color = c;
         Time.timeScale = 1;
         RenderSettings.skybox = SkyboxMat;
         _cam.cullingMask = -1; // -1 = "Everything"
-        _menuCanvas.SetActive(false);
+        foreach (var item in allMenus)
+        {
+            item.SetActive(false);
+        }
     }
 
     public void Restart()

@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "Menu",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "761fe0b5-248c-4aa9-ba9e-1e59e85dfdf1",
-                    "expectedControlType": "DiscreteButton",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -30,7 +30,7 @@
                 {
                     "name": "",
                     "id": "1ba1f665-69a5-40ec-9965-5b4c39973860",
-                    "path": "<XRController>{RightHand}/menu",
+                    "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
