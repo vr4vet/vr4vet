@@ -32,7 +32,7 @@ public class SkillUI : MonoBehaviour
         int p = DynamicDataDisplayer.Instance.GetSkillProficiency(skill);
 
         checkmark.color = (p == 100 ? Color.green : Color.white);
-
+        text_proficiency.color = p == 100 ? Color.green : new Color(28, 69, 110);
         text_proficiency.text = p.ToString();
     }
 

@@ -46,7 +46,13 @@ namespace Task
             achievedPoints = 0;
             foreach (Subtask sub in _subtasks)
             {
-                achievedPoints += sub.Points;
+                if (achievedPoints < MaxPossiblePoints)
+                {
+                    achievedPoints += sub.Points;
+                }else
+                {
+                    achievedPoints = MaxPossiblePoints;
+                }
             }
             return achievedPoints;
         }

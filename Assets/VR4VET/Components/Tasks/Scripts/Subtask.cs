@@ -63,6 +63,8 @@ namespace Task
         public void SetCompleated(bool isCompleated)
         {
             _compleated = isCompleated;
+            Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
+            taskLoader.updateCheckMarks();
         }
 
         public float GeneralPercent()
@@ -78,6 +80,7 @@ namespace Task
         public void AddPoints(int value)
         {
             _points += value;
+            Tablet.TaskListLoader1.Ins.UpdateSkillPoints();
         }
 
         public Step GetStep(string stepname)

@@ -41,7 +41,8 @@ public class CanvasFollow : MonoBehaviour
         transform.LookAt(transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
 
         //change the Y position to fix one (height) , and the X,Z rotation to 0 )
-        transform.position = new Vector3(transform.position.x, _height, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, _height, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
@@ -59,8 +60,9 @@ public class CanvasFollow : MonoBehaviour
             transform.LookAt(transform.position + chad.Rotation * Vector3.forward, chad.Rotation * Vector3.up);
 
             //change the Y position to fix one (height) , and the X,Z rotation to 0 )
-            transform.position = new Vector3(transform.position.x, _height, transform.position.z);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            //transform.position = new Vector3(transform.position.x, _height, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
         }
     }
 
@@ -71,5 +73,18 @@ public class CanvasFollow : MonoBehaviour
             lapins.Enqueue(new PastPosition() { Position = _cam.transform.position, Rotation = _cam.transform.rotation, Foward = _cam.transform.forward });
             yield return new WaitForEndOfFrame();
         }
+    }
+    private void OnEnable()
+    {
+     // _height+=player.transform.Find("PlayerController").transform.position.y;
+    }
+    private void OnDisable()
+    {
+       // _height-=player.transform.Find("PlayerController").transform.position.y;
+    }
+
+    public void AdjustDistance(float newDistance)
+    {
+        _distanceToCamera = newDistance;
     }
 }

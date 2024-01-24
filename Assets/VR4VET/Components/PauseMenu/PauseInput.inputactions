@@ -1,0 +1,45 @@
+{
+    "name": "PauseInput",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "68fc2b07-74d0-4aaf-849a-a278002ef3c5",
+            "actions": [
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "761fe0b5-248c-4aa9-ba9e-1e59e85dfdf1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "19bf4baa-4f9f-4319-bb19-dc1f43e57255",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ba1f665-69a5-40ec-9965-5b4c39973860",
+                    "path": "<XRController>{LeftHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -7,7 +7,9 @@ using UnityEngine;
 namespace Task
 {
     [System.Serializable]
-    public class Step
+
+    [CreateAssetMenu(fileName = "New Step", menuName = "Tasks/Step")]
+    public class Step : ScriptableObject
     {
         [SerializeField] private string _stepName;
         [SerializeField] [Range(1, 20)] private int _repetionNumber = 1;
@@ -25,6 +27,8 @@ namespace Task
             {
                 _repetionsCompleated++;
             }
+            Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
+            taskLoader.updateCheckMarks();
         }
 
         public float CompleatedPercent()
@@ -36,6 +40,8 @@ namespace Task
         public void CompleateAllReps()
         {
             _repetionsCompleated = _repetionNumber;
+            Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
+            taskLoader.updateCheckMarks();
         }
 
         public bool IsCompeleted()
@@ -49,6 +55,8 @@ namespace Task
         public void SetCompleated(bool value)
         {
             _compleated = value;
+            Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
+            taskLoader.updateCheckMarks();
         }
 
         //overload to compleate reps
@@ -59,6 +67,8 @@ namespace Task
             {
                 RepetionsCompleated = RepetionNumber;
             }
+            Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
+            taskLoader.updateCheckMarks();
         }
 
         /// Set the name of this aktivitet (Legacy)
