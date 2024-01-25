@@ -21,7 +21,7 @@ public class TooltipManager : MonoBehaviour
     void Start()
     {
         // Assign all tooltip objects to the tooltips array.
-        Tooltips.AddRange(FindObjectsOfType<TooltipScript>());
+        Tooltips.AddRange(FindObjectsOfType(typeof(TooltipScript), true) as TooltipScript[]);
         
         // Write how many tooltips were found to Debug console.
         Debug.Log($"Found {Tooltips.Count} tooltips.");
