@@ -258,9 +258,10 @@ namespace Tablet
 
         public void TaskPageLoader(Task.Task task)
         {
+            Debug.Log("Task page loading");
             currentTask = task;
             //for extra events
-            if (_taskPageOpen != null) _taskPageOpen.Invoke();
+            if (_taskPageOpen != null) _taskPageOpen.Invoke(); 
 
             panelManager.OnClickBackToAboutTask();
 
@@ -269,13 +270,28 @@ namespace Tablet
             _taskAboutTab.text = task.Description;
             _taskFeedback.text = task.Feedback;
 
+            // Start a coroutine to wait for the child GameObjects to be destroyed
+            StartCoroutine(WaitForChildrenDestroyed(task));
+        }
+
+        IEnumerator WaitForChildrenDestroyed(Task.Task task)
+        {
             //cleaning list before loading the new subtasks
-            foreach (Transform child in TaskSubtaskContent.transform)
-            {
-                GameObject.Destroy(child.gameObject);
+            foreach(Transform child in TaskSubtaskContent.transform) {
+                Destroy(child.gameObject);
             }
+
+            // Wait until there are no more child GameObjects
+            while (TaskSubtaskContent.transform.childCount > 0)
+            {
+                yield return null; // Wait for the next frame
+            }
+
             if (task.Subtasks != null)
             {
+                // Create a list to store gameobjects from the subtasks list items
+                List<GameObject> childObjects = new List<GameObject>();
+
                 foreach (Task.Subtask sub in task.Subtasks)
                 {
                     //task for the list
@@ -293,9 +309,14 @@ namespace Tablet
                     GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
                     if (sub.Compleated()) checkmark.SetActive(true);
                     button.onClick.AddListener(() => SubTaskPageLoader(sub));
+                    childObjects.Add(item);
                 }
             }
+
+            // Start a coroutine to wait for the child GameObjects to be destroyed
+            TaskSubtaskContent.GetComponent<ContentPageChanger>().Refresh();
         }
+
 
         public void SubTaskPageLoader(Task.Subtask subtask)
         {

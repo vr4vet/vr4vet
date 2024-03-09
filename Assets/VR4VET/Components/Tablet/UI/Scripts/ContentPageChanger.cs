@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ContentPageChanger : MonoBehaviour
 {
-    List<GameObject> content = new();
+    public List<GameObject> content = new();
     [SerializeReference] TextMeshProUGUI pageLabel;
     [SerializeField] int entriesPerPage = 3;
     int currentPage = 1;
@@ -21,6 +21,7 @@ public class ContentPageChanger : MonoBehaviour
     void Start()
     {
         ClearChildrenOnStart();
+        Refresh();
     }
 
     void ClearChildrenOnStart()
@@ -46,7 +47,10 @@ public class ContentPageChanger : MonoBehaviour
 
     public void Refresh()
     {
-
+        Debug.Log("Refreshing content page: " + name);
+        currentPage = 1;
+        content.Clear();
+        Debug.Log(content.Count);
         GetAllChildren();
         VieWCurrentPage();
     }
@@ -55,7 +59,9 @@ public class ContentPageChanger : MonoBehaviour
     {
         if (content.Contains(b))
         {
-            throw new System.Exception(name +" - ContentPageChanger.AddChild() - Managed list already contains object =>" + b.name);
+            Debug.Log("Tried to add a child that was already in " + name + ". Child name: " + b.name);
+            return;
+            //throw new System.Exception(name +" - ContentPageChanger.AddChild() - Managed list already contains object =>" + b.name);
         }
         content.Add(b);
     }
@@ -72,14 +78,14 @@ public class ContentPageChanger : MonoBehaviour
         }
     }
 
-    public void ChangePage(bool forward)
+    public void ChangePage(bool backwards)
     {
-        Debug.Log("Clicked page change btn.");
-        if (forward)
+        if (backwards)
         {
             currentPage = Mathf.Clamp(currentPage - 1, 1, pageCount);
         }
         else currentPage = Mathf.Clamp(currentPage + 1, 1, pageCount);
+        Debug.Log("Current page: " + currentPage);
         VieWCurrentPage();
     }
     public void VieWCurrentPage()
@@ -89,11 +95,16 @@ public class ContentPageChanger : MonoBehaviour
             item.SetActive(false);
         }
 
+        Debug.Log("Content Count: " + content.Count);
+
         List<GameObject> objectsToActivate = content.Skip((currentPage - 1) * entriesPerPage).Take(entriesPerPage).ToList();
+
+        Debug.Log("Objects to Activate Count: " + objectsToActivate.Count);
 
         foreach (var item in objectsToActivate)
         {
             item.SetActive(true);
+            Debug.Log(item);
         }
         pageLabel.text = currentPage.ToString() + "/" + pageCount.ToString();
     }
