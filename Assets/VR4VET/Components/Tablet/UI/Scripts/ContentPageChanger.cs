@@ -85,6 +85,7 @@ public class ContentPageChanger : MonoBehaviour
             currentPage = Mathf.Clamp(currentPage - 1, 1, pageCount);
         }
         else currentPage = Mathf.Clamp(currentPage + 1, 1, pageCount);
+
         Debug.Log("Current page: " + currentPage);
         VieWCurrentPage();
     }
@@ -106,6 +107,12 @@ public class ContentPageChanger : MonoBehaviour
             item.SetActive(true);
             Debug.Log(item);
         }
+
+        if (pageCount == 0)
+        {
+            currentPage = 0;
+        }
+
         pageLabel.text = currentPage.ToString() + "/" + pageCount.ToString();
     }
 }
