@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEditor;
 using System;
 
 // Main class.
@@ -56,7 +55,7 @@ public class TooltipManager : MonoBehaviour
 
     public TooltipScript InstantiateTooltip(Transform Parent, string Header, string Content, string StartState = "Open", bool RemoveHeader = false, bool Unclosable = false, bool FacePlayer = true, bool AlwaysAboveParent = true, bool CloseWhenDistant = false, float CloseThreshold = 10f)
     {
-        GameObject instTooltip = PrefabUtility.InstantiatePrefab(TooltipPrefab, Parent) as GameObject;
+        GameObject instTooltip = Instantiate(TooltipPrefab, Parent) as GameObject;
         TooltipScript InstTooltip = instTooltip.GetComponent<TooltipScript>();
         Debug.Log(InstTooltip);
         AddNewTooltip(InstTooltip);
