@@ -79,15 +79,18 @@ public class CanvasFollow : MonoBehaviour
     {
         // _height+=player.transform.Find("PlayerController").transform.position.y;
         lapins.Clear();
+        
+        if (_cam != null)
+        {
+            //set the menu to be on front of the player and looking toward them
+            transform.position = _cam.transform.position + _cam.transform.forward * _distanceToCamera;
+            transform.LookAt(transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
 
-        //set the menu to be on front of the player and looking toward them
-        transform.position = _cam.transform.position + _cam.transform.forward * _distanceToCamera;
-        transform.LookAt(transform.position + _cam.transform.rotation * Vector3.forward, _cam.transform.rotation * Vector3.up);
-
-        //change the Y position to fix one (height) , and the X,Z rotation to 0 )
-        //transform.position = new Vector3(transform.position.x, _height, transform.position.z);
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+            //change the Y position to fix one (height) , and the X,Z rotation to 0 )
+            //transform.position = new Vector3(transform.position.x, _height, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        }
     }
 
     private void OnDisable()
