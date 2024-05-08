@@ -47,4 +47,7 @@ public class StepUI : MonoBehaviour
     {
         checkmark.SetActive(b);
     }
+    public void Update() {
+        txt_description = associatedSubTask.GetStep().Counter;
+    }
 }

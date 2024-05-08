@@ -8,33 +8,45 @@ using TMPro;
 namespace Task {
     public class TimerScript : MonoBehaviour
     {
+        private IEnumerator _startTimer (int Timer, string TimerDiplay, Step Step) {
+            if (Timer > 0){
+                for (int i = Timer; i >= 0; i--){
+                    TimeSpan RemainingTime = new TimeSpan(0, 0, i);
+                    TimerDiplay = RemainingTime.ToString(@"mm\:ss");
+                    step.Counter = TimerDiplay;
+                    yield return new WaitForSeconds(1f);
+                }
+            }else if(Timer == 0) {
+                TimeSpan timer = new TimeSpan(0, 0, 0);
+                while(Timer != null) {
+                    timer += new TimeSpan(0, 0, 1);
+                    TimerDiplay = timer.ToString(@"mm\:ss");
+                    Debug.Log(TimerDiplay);
+                    step.Counter = TimerDiplay;
+                    yield return new WaitForSeconds(1f);
+                }
+            }else {
+                yield return null;
+            }
+        }
 
-        public IEnumerator StartTimer (int Timer, TMP_Text TimerDiplay) {
-            for (int i = Timer; i >= 0; i--){
-                TimeSpan RemainingTime = new TimeSpan(0, 0, i);
-                TimerDiplay.text = RemainingTime.ToString(@"mm\:ss");
-                yield return new WaitForSeconds(1f);
-            }
+        public void startTimer(int Timer, string TimerDiplay, Step step) {
+            StartCoroutine(_startTimer(Timer, TimerDiplay, step));
         }
-        public IEnumerator StartTimer (TMP_Text TimerDiplay, bool CountUp) {
-            TimeSpan Timer = new TimeSpan(0, 0, 0);
-            while(CountUp) {
-                Timer += new TimeSpan(0, 0, 1);
-                TimerDiplay.text = Timer.ToString(@"mm\:ss");
-                yield return new WaitForSeconds(1f);
-            }
-        }
+
+
+
+
+
 
 #if UNITY_EDITOR
         [SerializeField] private int Timer;
-        [SerializeField] private bool CountUp;
-        public void StartTimer(TMP_Text TimerDiplay){
-            if (!CountUp) {
-                StartCoroutine(StartTimer(Timer, TimerDiplay));
-            } else {
-                StartCoroutine(StartTimer(TimerDiplay, CountUp));
-            }
+        [SerializeField] private string TimerDiplay;
+        [SerializeField] private Step step;
+        public void startTimer(){
+            StartCoroutine(_startTimer(Timer, TimerDiplay, step));
         }
+        
 #endif    
     }
 }

@@ -2,7 +2,9 @@
  * Ask your questions on github: https://github.com/Jorest
  */
 
+using System;
 using UnityEngine;
+using TMPro;
 
 namespace Task
 {
@@ -13,13 +15,19 @@ namespace Task
     {
         [SerializeField] private string _stepName;
         [SerializeField] [Range(1, 20)] private int _repetionNumber = 1;
+        
+        [Tooltip(">0 : count down, <0 : no timer, 0 : count up")]
+        [SerializeField] private int _timer = -1;
 
         private bool _compleated = false;
         private int _repetionsCompleated = 0;
+        [SerializeField] private string _counter;
 
         public int RepetionNumber { get => _repetionNumber; set => _repetionNumber = value; }
         public int RepetionsCompleated { get => _repetionsCompleated; set => _repetionsCompleated = value; }
         public string StepName { get => _stepName; set => _stepName = value; }
+        public int Timer { get => _timer; set => _timer = value; }
+        public string Counter { get => _counter; set => _counter = value; }
 
         public void CompleateRep()
         {
@@ -76,6 +84,11 @@ namespace Task
         public void SetAktivitetName(string value)
         {
             _stepName = value;
+        }
+
+        public void StartTimer(){
+            Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
+            taskLoader.startTimer(Timer, _counter, this);
         }
     }
 }

@@ -3,6 +3,7 @@
  * Ask your questions on github: https://github.com/Jorest
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -367,7 +368,11 @@ namespace Tablet
                     TMP_Text reps = item.transform.Find("txt_SubTaskNr").GetComponent<TMP_Text>();
 
                     caption.text = step.StepName;
-                    reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
+                    if (step.Timer >= 0) {
+                        reps.text = step.Counter;
+                    } else {
+                        reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
+                    }
                 }
             }
 
@@ -398,7 +403,31 @@ namespace Tablet
 
             // Start a coroutine to wait for the child GameObjects to be destroyed
             StartCoroutine(WaitForChildrenDestroyedSubtask(currentSubtask));
-
+        }
+            // Coroutine that handles counting and formatting timer string
+        private IEnumerator _startTimer (int Timer, string TimerDiplay, Task.Step step) {
+            if (Timer > 0){
+                for (int i = Timer; i >= 0; i--){
+                    TimeSpan RemainingTime = new TimeSpan(0, 0, i);
+                    TimerDiplay = RemainingTime.ToString(@"mm\:ss");
+                    step.Counter = TimerDiplay;
+                    yield return new WaitForSeconds(1f);
+                }
+            }else if(Timer == 0) {
+                TimeSpan timer = new TimeSpan(0, 0, 0);
+                while(Timer != null) {
+                    timer += new TimeSpan(0, 0, 1);
+                    TimerDiplay = timer.ToString(@"mm\:ss");
+                    step.Counter = TimerDiplay;
+                    yield return new WaitForSeconds(1f);
+                }
+            }else {
+                yield return null;
+            }
+        }
+        // public method to start coroutine because scriptable objects cannot start coroutines on their own
+        public void startTimer(int Timer, string TimerDiplay, Task.Step step) {
+            StartCoroutine(_startTimer(Timer, TimerDiplay, step));
         }
     }
 }
