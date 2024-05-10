@@ -360,16 +360,20 @@ namespace Tablet
                     item.transform.localPosition = Vector3.zero;
                     item.transform.localScale = Vector3.one;
                     item.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    item.GetComponent<StepUI>().associatedSubTask = subtask;
 
                     TMP_Text caption = item.transform.Find("txt_Desc").GetComponent<TMP_Text>();
                     GameObject checkmark = item.transform.Find("img_Checkmark").gameObject;
                     if (step.IsCompeleted()) checkmark.SetActive(true);
 
                     TMP_Text reps = item.transform.Find("txt_SubTaskNr").GetComponent<TMP_Text>();
-
                     caption.text = step.StepName;
+
                     if (step.Timer >= 0) {
-                        reps.text = step.Counter;
+                        if (!step.TimerStarted) {
+                        startTimer(step.Timer, reps, step);
+                        step.TimerStarted = true;
+                        }
                     } else {
                         reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
                     }
@@ -405,28 +409,36 @@ namespace Tablet
             StartCoroutine(WaitForChildrenDestroyedSubtask(currentSubtask));
         }
             // Coroutine that handles counting and formatting timer string
-        private IEnumerator _startTimer (int Timer, string TimerDiplay, Task.Step step) {
+        private IEnumerator _startTimer (int Timer, TMP_Text TimerDiplay, Task.Step step) {
             if (Timer > 0){
-                for (int i = Timer; i >= 0; i--){
+                for (int i = Timer; i >= 0 && !step.IsCompeleted() && step.IsStarted(); i--){
                     TimeSpan RemainingTime = new TimeSpan(0, 0, i);
-                    TimerDiplay = RemainingTime.ToString(@"mm\:ss");
-                    step.Counter = TimerDiplay;
+                    TimerDiplay.text = RemainingTime.ToString(@"mm\:ss");
+                    step.Counter = RemainingTime;
                     yield return new WaitForSeconds(1f);
                 }
+                    if (step.IsCompeleted()){
+                        yield break;
+                    } else {
+                        yield return new WaitForSeconds(1f);
+                    }
             }else if(Timer == 0) {
-                TimeSpan timer = new TimeSpan(0, 0, 0);
-                while(Timer != null) {
+                TimeSpan timer = step.Counter;
+                while(Timer != null && !step.IsCompeleted() && step.IsStarted()){
                     timer += new TimeSpan(0, 0, 1);
-                    TimerDiplay = timer.ToString(@"mm\:ss");
-                    step.Counter = TimerDiplay;
+                    TimerDiplay.text = timer.ToString(@"mm\:ss");
+                    step.Counter = timer;
                     yield return new WaitForSeconds(1f);
                 }
+                if (step.IsCompeleted()) yield break;
+                yield return new WaitForSeconds(1f);
             }else {
-                yield return null;
+                yield break;
             }
+            yield break;
         }
         // public method to start coroutine because scriptable objects cannot start coroutines on their own
-        public void startTimer(int Timer, string TimerDiplay, Task.Step step) {
+        public void startTimer(int Timer, TMP_Text TimerDiplay, Task.Step step) {
             StartCoroutine(_startTimer(Timer, TimerDiplay, step));
         }
     }
