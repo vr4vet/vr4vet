@@ -111,6 +111,8 @@ namespace Tablet
                                 foreach (Task.Step step in subtask.StepList)
                                 {
                                     step.SetCompleated(false);
+                                    step.TimerStarted = false;
+                                    //step.SetStarted(false);
                                 }
                             }
                             subtask.SetCompleated(false);
@@ -370,11 +372,12 @@ namespace Tablet
                     caption.text = step.StepName;
 
                     if (step.Timer >= 0) {
-                        if (!step.TimerStarted) {
+                        if (step.TimerStarted == false){
+
                         startTimer(step.Timer, reps, step);
                         step.TimerStarted = true;
                         }
-                    } else {
+                    } else if (step.Timer < 0){
                         reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
                     }
                 }
@@ -410,35 +413,42 @@ namespace Tablet
         }
             // Coroutine that handles counting and formatting timer string
         private IEnumerator _startTimer (int Timer, TMP_Text TimerDiplay, Task.Step step) {
-            if (Timer > 0){
-                for (int i = Timer; i >= 0 && !step.IsCompeleted() && step.IsStarted(); i--){
-                    TimeSpan RemainingTime = new TimeSpan(0, 0, i);
-                    TimerDiplay.text = RemainingTime.ToString(@"mm\:ss");
-                    step.Counter = RemainingTime;
-                    yield return new WaitForSeconds(1f);
-                }
-                    if (step.IsCompeleted()){
-                        yield break;
-                    } else {
+            while (true){
+                if (Timer > 0){
+                    for (int i = Timer; i >= 0 && step.IsCompeleted() == false && step.IsStarted(); i--){
+                        TimeSpan RemainingTime = new TimeSpan(0, 0, i);
+                        TimerDiplay.text = RemainingTime.ToString(@"mm\:ss");
+                        step.Counter = RemainingTime;
+                        Debug.Log(RemainingTime);
                         yield return new WaitForSeconds(1f);
                     }
-            }else if(Timer == 0) {
-                TimeSpan timer = step.Counter;
-                while(Timer != null && !step.IsCompeleted() && step.IsStarted()){
-                    timer += new TimeSpan(0, 0, 1);
-                    TimerDiplay.text = timer.ToString(@"mm\:ss");
-                    step.Counter = timer;
+                        if (step.IsCompeleted()){
+                            yield break;
+                        }
+                }else if(Timer == 0) {
+                    TimeSpan timer = step.Counter;
+                    while(Timer != null && step.IsCompeleted() == false && step.IsStarted()){
+                        timer += new TimeSpan(0, 0, 1);
+                        TimerDiplay.text = timer.ToString(@"mm\:ss");
+                        step.Counter = timer;
+                        yield return new WaitForSeconds(1f);
+                        Debug.Log(timer);
+                    }
+                    if (step.IsCompeleted()) {
+                    yield break;
+                    }
                     yield return new WaitForSeconds(1f);
+                }else {
+                    Debug.Log("cannot count");
+                    yield break;
                 }
-                if (step.IsCompeleted()) yield break;
-                yield return new WaitForSeconds(1f);
-            }else {
+                Debug.Log("Stop counting");
                 yield break;
             }
-            yield break;
         }
         // public method to start coroutine because scriptable objects cannot start coroutines on their own
         public void startTimer(int Timer, TMP_Text TimerDiplay, Task.Step step) {
+            Debug.Log("Start counting");
             StartCoroutine(_startTimer(Timer, TimerDiplay, step));
         }
     }

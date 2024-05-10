@@ -49,7 +49,4 @@ public class StepUI : MonoBehaviour
     }
 
     */
-    public void Update() {
-        txt_description.text = associatedSubTask.GetStep(_name).Counter.ToString(@"mm\:ss");
-    }
 }

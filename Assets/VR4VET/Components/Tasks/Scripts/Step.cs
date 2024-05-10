@@ -20,10 +20,10 @@ namespace Task
         [SerializeField] private int _timer = -1;
 
         private bool _compleated = false;
-        private bool _started = false;
+        [SerializeField] private bool _started = false;
         private int _repetionsCompleated = 0;
         private TimeSpan _counter;
-        private bool _timerStarted = false;
+        [SerializeField] private bool _timerStarted = false;
 
         public int RepetionNumber { get => _repetionNumber; set => _repetionNumber = value; }
         public int RepetionsCompleated { get => _repetionsCompleated; set => _repetionsCompleated = value; }
