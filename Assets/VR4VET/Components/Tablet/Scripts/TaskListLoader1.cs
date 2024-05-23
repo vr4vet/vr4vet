@@ -372,7 +372,7 @@ namespace Tablet
                     caption.text = step.StepName;
 
                     if (step.Timer >= 0) {
-                        startTimer(step.Timer, step);
+                       reps.text = step.Counter.ToString(@"mm\:ss");
                     } else if (step.Timer < 0){
                         reps.text = step.RepetionsCompleated + "/" + step.RepetionNumber;
                     }
