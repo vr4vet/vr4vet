@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,16 @@ public class StepUI : MonoBehaviour
             return _desc;
         }
     }
+
+    private void FixedUpdate() {
+        var Step = associatedSubTask.GetStep(txt_description.text);
+        if (Step.Timer != -1) {
+            Debug.Log(associatedSubTask.name);
+            var Timer = Step.Counter.ToString(@"mm\:ss");
+            txt_name.text = Timer;
+        }
+    }
+
     /*
     public void InitializeButton(string stepName, string description, SubTask s)
     {//initialized when a subtask is chosen
