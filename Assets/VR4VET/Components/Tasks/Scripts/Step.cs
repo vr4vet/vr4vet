@@ -20,17 +20,14 @@ namespace Task
         [SerializeField] private int _timer = -1;
 
         private bool _compleated = false;
-        [SerializeField] private bool _started = false;
         private int _repetionsCompleated = 0;
         private TimeSpan _counter;
-        [SerializeField] private bool _timerStarted = false;
 
         public int RepetionNumber { get => _repetionNumber; set => _repetionNumber = value; }
         public int RepetionsCompleated { get => _repetionsCompleated; set => _repetionsCompleated = value; }
         public string StepName { get => _stepName; set => _stepName = value; }
         public int Timer { get => _timer; set => _timer = value; }
         public TimeSpan Counter { get => _counter; set => _counter = value; }
-        public bool TimerStarted { get => _timerStarted; set => _timerStarted = value; }
 
         public void CompleateRep()
         {
@@ -80,13 +77,6 @@ namespace Task
             Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
             taskLoader.updateCheckMarks();
         }
-
-        public bool IsStarted(){
-            return _started;
-        }
-        public void SetStarted(bool value){
-            _started = value;
-        }
         /// Set the name of this aktivitet (Legacy)
 
         public void SetAktivitetName(string value)
@@ -97,7 +87,7 @@ namespace Task
         
         public void StartTimer(){
             Tablet.TaskListLoader1 taskLoader = GameObject.FindObjectsOfType<Tablet.TaskListLoader1>()[0];
-           // taskLoader.startTimer(Timer, this);
+            taskLoader.startTimer(Timer, this);
         }
         
     }

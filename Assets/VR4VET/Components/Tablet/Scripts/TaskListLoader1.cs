@@ -111,8 +111,6 @@ namespace Tablet
                                 foreach (Task.Step step in subtask.StepList)
                                 {
                                     step.SetCompleated(false);
-                                    step.TimerStarted = false;
-                                    //step.SetStarted(false);
                                 }
                             }
                             subtask.SetCompleated(false);
@@ -411,7 +409,7 @@ namespace Tablet
         private IEnumerator _startTimer (int Timer, Task.Step step) {
             while (true){
                 if (Timer > 0){
-                    for (int i = Timer; i >= 0 && step.IsCompeleted() == false && step.IsStarted(); i--){
+                    for (int i = Timer; i >= 0 && step.IsCompeleted() == false; i--){
                         TimeSpan RemainingTime = new TimeSpan(0, 0, i);
                         step.Counter = RemainingTime;
                         Debug.Log(RemainingTime);
@@ -422,7 +420,7 @@ namespace Tablet
                         }
                 }else if(Timer == 0) {
                     TimeSpan timer = step.Counter;
-                    while(Timer != null && step.IsCompeleted() == false && step.IsStarted()){
+                    while(Timer != null && step.IsCompeleted() == false){
                         timer += new TimeSpan(0, 0, 1);
                         step.Counter = timer;
                         yield return new WaitForSeconds(1f);
@@ -432,12 +430,7 @@ namespace Tablet
                     yield break;
                     }
                     yield return new WaitForSeconds(1f);
-                }else {
-                    Debug.Log("cannot count");
-                    yield break;
                 }
-                Debug.Log("Stop counting");
-                yield break;
             }
         }
         // public method to start coroutine because scriptable objects cannot start coroutines on their own
