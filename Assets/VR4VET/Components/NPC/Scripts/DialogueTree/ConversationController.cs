@@ -8,10 +8,12 @@ public class ConversationController : MonoBehaviour
     [SerializeField] private List<TextAsset> _dialogueTreesJSONFormat; // list of JSON, will be added to the list below
     [SerializeField] private List<DialogueTree> _dialogueTreesSOFormat; // lsit of ScriptableObjects, JSON will be turned into SO, and added here. Yhis is the list we work with
     [HideInInspector] private DialogueTree _dialogueTree; // The active dialogue
+    [HideInInspector] private DialogueTree _oldDialogueTree; // The previous dialogue, for checking if we are on same dialogue
     [HideInInspector] private int _currentElement = 0; // The element number of the active dialogue
     [HideInInspector] private Animator _animator;
     [HideInInspector] private int _hasNewDialogueOptionsHash;
     [HideInInspector] private DialogueBoxController _dialogueBoxController;
+    public bool shouldTrigger;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,7 @@ public class ConversationController : MonoBehaviour
             _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
         }
         updateAnimator();
+        shouldTrigger = true;
     }
 
     public void updateAnimator()
@@ -52,17 +55,37 @@ public class ConversationController : MonoBehaviour
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {   
-        if (other.Equals(NPCToPlayerReferenceManager.Instance.PlayerCollider) && !_dialogueBoxController.dialogueIsActive) 
+        if (other.Equals(NPCToPlayerReferenceManager.Instance.PlayerCollider) && shouldTrigger && !_dialogueBoxController.dialogueIsActive && _oldDialogueTree != _dialogueTree) 
         {
             // string json = JsonUtility.ToJson(dialogueTree);
             // Debug.Log(json);
+            //_dialogueBoxController.startSpeakCanvas(_dialogueTree);
+            _oldDialogueTree = _dialogueTree;
             if (_dialogueTree != null) {
                 _dialogueBoxController.StartDialogue(_dialogueTree, 0, "NPC");
             } else {
-                Debug.LogError("The dialogueTree of the NPC is null");
+                // Commented out because not all NPC's should have a dialogue tree, therefor not an error
+
+                //Debug.LogError("The dialogueTree of the NPC is null");
             }
         }
     }
+
+    /// <summary>
+    /// Method to trigger dialogue
+    /// Should be connected to event of your choosing
+    /// Only triggers if there is a new dialogue tree
+    /// </summary>
+    public void DialogueTrigger() {
+        if (_oldDialogueTree != _dialogueTree) {
+            // Change the old tree to be the current tree, to ensure no repeats
+            _oldDialogueTree = _dialogueTree;
+            if (_dialogueTree != null) {
+                _dialogueBoxController.StartDialogue(_dialogueTree, 0, "NPC");
+            }
+        }
+    }
+
 
     /// <summary>
     /// Join the json-version and the dialogueTree-version into one list.
@@ -175,8 +198,15 @@ public class ConversationController : MonoBehaviour
             _currentElement--;
             Debug.Log("You have already read the last dialogue tree");
         } else {
-            _dialogueBoxController.ExitConversation();
+            //_dialogueBoxController.ExitConversation();
             _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
+            // Change the speak canvas to the new dialogue tree
+            _dialogueBoxController.StartSpeakCanvas(_dialogueTree);
+            if (_animator == null) 
+            { 
+                GameObject parent = this.transform.parent.gameObject; 
+                _animator = parent.GetComponentInChildren<Animator>(); 
+            }
             _animator.SetBool(_hasNewDialogueOptionsHash, true);
         }
     }
@@ -192,8 +222,10 @@ public class ConversationController : MonoBehaviour
             _currentElement=0;
             Debug.Log("You have already read the first dialogue tree");
         } else {
-            _dialogueBoxController.ExitConversation();
+            //_dialogueBoxController.ExitConversation();
             _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
+            // Change the speak canvas to the new dialogue tree
+            _dialogueBoxController.StartSpeakCanvas(_dialogueTree);
             _animator.SetBool(_hasNewDialogueOptionsHash, true);
         }
     }

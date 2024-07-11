@@ -14,5 +14,10 @@ public class NPC : ScriptableObject
     public bool ShouldFollow;
     public DialogueTree[] DialogueTreesSO;
     public TextAsset[] DialogueTreeJSON;
-    public RuntimeAnimatorController runtimeAnimatorController; 
+    public RuntimeAnimatorController runtimeAnimatorController;
+    [Range(0, 1)]
+    public float SpatialBlend;
+    [Range(1, 100)]
+    public float MinDistance;
+    
 }
