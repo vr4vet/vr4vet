@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class ButtonSpawner : MonoBehaviour
     // max 4 buttons
     [HideInInspector] private GameObject[] _buttonsSpawned = new GameObject[4];
     [HideInInspector] private DialogueBoxController _dialogueBoxController;
+    [HideInInspector] public static event Action<string> OnAnswer;
 
     void Start() {
         _dialogueBoxController = GetComponent<DialogueBoxController>();
@@ -44,20 +46,35 @@ public class ButtonSpawner : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(0);});
+                        _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {
+                            OnAnswer?.Invoke(_buttonsSpawned[0].GetComponentInChildren<TextMeshProUGUI>().text); 
+                            _dialogueBoxController.AnswerQuestion(0);
+                        });
                         break;
                     case 1:
-                        _buttonsSpawned[1].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(1);});
+                        _buttonsSpawned[1].GetComponent<Button>().onClick.AddListener(() => { 
+                            OnAnswer?.Invoke(_buttonsSpawned[1].GetComponentInChildren<TextMeshProUGUI>().text); 
+                            _dialogueBoxController.AnswerQuestion(1);
+                        });
                         break;
                     case 2:
-                        _buttonsSpawned[2].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(2);});
+                        _buttonsSpawned[2].GetComponent<Button>().onClick.AddListener(() => { 
+                            OnAnswer?.Invoke(_buttonsSpawned[2].GetComponentInChildren<TextMeshProUGUI>().text); 
+                            _dialogueBoxController.AnswerQuestion(2);
+                        });
                         break;
                     case 3:
-                        _buttonsSpawned[3].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(3);});
+                        _buttonsSpawned[3].GetComponent<Button>().onClick.AddListener(() => { 
+                            OnAnswer?.Invoke(_buttonsSpawned[3].GetComponentInChildren<TextMeshProUGUI>().text); 
+                            _dialogueBoxController.AnswerQuestion(3);
+                        });
                         break;
                     
                     default:
-                        _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.AnswerQuestion(0);});
+                        _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {
+                            OnAnswer?.Invoke(_buttonsSpawned[0].GetComponentInChildren<TextMeshProUGUI>().text);
+                            _dialogueBoxController.AnswerQuestion(0);
+                        });
                         break;
                 }
             }
@@ -94,5 +111,20 @@ public class ButtonSpawner : MonoBehaviour
                 _buttonsSpawned[i] = null;
             }
         }
+    }
+
+    // Add new "Speak" button to start conversation again
+    public void spawnSpeakButton(DialogueTree dialogueTree) {
+        removeAllButtons();
+        Vector3 spawnLocation = getSpawnLocation(1, 1);
+        _buttonsSpawned[0] = Instantiate(_buttonPrefab, spawnLocation, Quaternion.identity);
+        GameObject button = _buttonsSpawned[0];
+        button.transform.SetParent(_parentInCanvas.transform, false);
+        RectTransform buttonTransfrom = button.GetComponent<RectTransform>();
+        Vector3 buttonLocation = new Vector3(spawnLocation.x, spawnLocation.y+37f, spawnLocation.z);
+        buttonTransfrom.localPosition = buttonLocation;
+        button.GetComponentInChildren<TextMeshProUGUI>().text = "Speak";
+        
+        _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.StartDialogue(dialogueTree, 0, "NPC");});
     }
 }

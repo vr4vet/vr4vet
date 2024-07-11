@@ -6,6 +6,7 @@ public class NPCSpawner : MonoBehaviour
 {
     [SerializeField] private NPC[] _nPCs;
     [HideInInspector] public List<GameObject> _npcInstances;
+    private GameObject spawnedNpc;
 
     private void Awake() {
         foreach (var npcSO in _nPCs)
@@ -20,7 +21,7 @@ public class NPCSpawner : MonoBehaviour
         // Rotate the NPC 
         newNPC.transform.rotation = Quaternion.Euler(npcSO.SpawnRotation);  
         // Attach the Text-To-Speech componenets
-        AttachTTSComponents(newNPC);
+        AttachTTSComponents(newNPC, npcSO.SpatialBlend, npcSO.MinDistance);
         // change the apperance, animation avatar and voice from the deafult one, to a specific one
         SetAppearanceAnimationAndVoice(newNPC, npcSO.CharacterModel, npcSO.CharacterAvatar, npcSO.runtimeAnimatorController , npcSO.VoicePresetId);
         // Should the NPC follow after the player or not? (from the start)
@@ -29,11 +30,12 @@ public class NPCSpawner : MonoBehaviour
         SetName(newNPC, npcSO.NameOfNPC);
         // set talking topics aka. dialogueTrees
         SetConversation(newNPC, npcSO.DialogueTreesSO, npcSO.DialogueTreeJSON);
+        spawnedNpc = newNPC;
         // return the NPC
         return newNPC;
     }
 
-    public void AttachTTSComponents(GameObject npc)
+    public void AttachTTSComponents(GameObject npc, float spatialBlend, float minDistance)
     {
         // Load the TTS prefab from the Resources folder
         GameObject ttsPrefab = Resources.Load<GameObject>("TTS");
@@ -51,6 +53,22 @@ public class NPCSpawner : MonoBehaviour
             if (ttsSpeaker != null && dialogueController != null)
             {
                 dialogueController.TTSSpeaker = ttsSpeaker.gameObject;
+
+                // Set the TTSSpeakerAudio settings to those defined in NPC-scriptable
+                AudioSource speakerAudio = ttsSpeaker.GetComponentInChildren<AudioSource>();
+                
+                if (spatialBlend != 0) {
+                    speakerAudio.spatialBlend = spatialBlend;
+                } else {
+                    speakerAudio.spatialBlend = 1;
+                }
+                if (minDistance != 0) {
+                    speakerAudio.minDistance = minDistance;
+                } else {
+                    speakerAudio.minDistance = 5;
+                }
+                
+                
             }
         }
         else
@@ -102,5 +120,10 @@ public class NPCSpawner : MonoBehaviour
         } else {
             conversationController.SetDialogueTreeList(dialogueTreesSO, dialogueTreesJSON);
         }
+    }
+
+    public GameObject getNpc()
+    {
+        return spawnedNpc;
     }
 }

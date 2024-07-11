@@ -68,12 +68,6 @@ public class FollowThePlayerController : MonoBehaviour
                     _animator.SetFloat(_velocityYHash, _agent.velocity.magnitude);
                 }
             }
-            else
-            {
-                // NPC should stand still
-                _animator.SetFloat(_velocityYHash, 0); // Set the animation state to idle
-                _agent.SetDestination(transform.position); // Stop the agent from moving
-            }
         } else {
             _animator = GetComponentInChildren<Animator>();
         }
