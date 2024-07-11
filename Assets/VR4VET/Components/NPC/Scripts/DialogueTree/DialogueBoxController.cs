@@ -147,7 +147,13 @@ public class DialogueBoxController : MonoBehaviour
         _answerTriggered = false;
         _exitButton.SetActive(false);
         _skipLineButton.SetActive(false);
-        StartCoroutine(RunDialogue(dialogueTree, dialogueTree.sections[section].branchPoint.answers[_answerIndex].nextElement));
+        if (dialogueTree.sections[section].branchPoint.answers[_answerIndex].endAfterAnswer) {
+            // Exit conversation if the answer is set to exit after answer
+            ExitConversation();
+        } else {
+            // Continue to section of the dialogue the answer points to
+            StartCoroutine(RunDialogue(dialogueTree, dialogueTree.sections[section].branchPoint.answers[_answerIndex].nextElement));
+        }
     }
 
     public void ResetBox() 
