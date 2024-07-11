@@ -76,7 +76,7 @@ public class ConversationController : MonoBehaviour
     /// Should be connected to event of your choosing
     /// Only triggers if there is a new dialogue tree
     /// </summary>
-    void DialogueTrigger() {
+    public void DialogueTrigger() {
         if (_oldDialogueTree != _dialogueTree) {
             // Change the old tree to be the current tree, to ensure no repeats
             _oldDialogueTree = _dialogueTree;
