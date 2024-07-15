@@ -190,7 +190,7 @@ public class DialogueBoxController : MonoBehaviour
     // Reverts to idle animation after 10.267 seconds
     // Time is length of talking animation, should be tweaked to not use value
     private IEnumerator revertToIdleAnimation() {
-        yield return new WaitForSeconds(10.267f);
+        yield return new WaitForSeconds(9.0f);
         _animator.SetBool(_isTalkingHash, false);
 
     }
@@ -200,12 +200,15 @@ public class DialogueBoxController : MonoBehaviour
         // stop talk-animation
         _animator.SetBool(_isTalkingHash, false);
         dialogueIsActive = false;
-        StartSpeakCanvas(dialogueTreeRestart);
+        ResetBox();
+        if (dialogueTreeRestart.speakButtonOnExit) {
+            // Only start speak canvas if option is not turned off
+            StartSpeakCanvas(dialogueTreeRestart);
+        }
     }
 
     public void StartSpeakCanvas(DialogueTree dialogueTree)
     {
-        ResetBox();
         _dialogueBox.SetActive(true);
         _dialogueText.text = null;
         backgroundRect.sizeDelta = new Vector2(50,30);

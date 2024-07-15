@@ -5,5 +5,6 @@ using UnityEngine;
 [Serializable]
 public class DialogueTree : ScriptableObject
 {
+	public bool speakButtonOnExit = true;
 	public DialogueSection[] sections;
 }

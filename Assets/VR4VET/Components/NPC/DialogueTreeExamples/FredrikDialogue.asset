@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e00f7924afa24219a5197b2a8fa8d48, type: 3}
   m_Name: FredrikDialogue
   m_EditorClassIdentifier: 
+  speakButtonOnExit: 1
   sections:
   - dialogue:
-    - 
+    - Please continue
     endAfterDialogue: 0
     branchPoint:
-      question: yo?
+      question: Yes to restart question, no to exit conversation
       answers:
-      - answerLabel: yo
+      - answerLabel: Yes
         nextElement: 0
+        endAfterAnswer: 0
+      - answerLabel: No
+        nextElement: 0
+        endAfterAnswer: 1
