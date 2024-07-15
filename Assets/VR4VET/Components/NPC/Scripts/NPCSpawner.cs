@@ -55,6 +55,7 @@ public class NPCSpawner : MonoBehaviour
                 dialogueController.TTSSpeaker = ttsSpeaker.gameObject;
 
                 // Set the TTSSpeakerAudio settings to those defined in NPC-scriptable
+                // If they are not specified use preset blend 1 and minDistance 5
                 AudioSource speakerAudio = ttsSpeaker.GetComponentInChildren<AudioSource>();
                 
                 if (spatialBlend != 0) {

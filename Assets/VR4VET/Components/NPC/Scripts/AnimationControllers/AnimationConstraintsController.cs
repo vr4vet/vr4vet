@@ -1,8 +1,9 @@
 using System.Linq;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class AnimationContraintsController : MonoBehaviour
+public class AnimationConstraintsController : MonoBehaviour
 {
     [HideInInspector] private Animator animator;
     [HideInInspector] private int isTalkingHash;
@@ -15,8 +16,9 @@ public class AnimationContraintsController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        animator = GetComponent<Animator>();
-        rigBuilder = GetComponent<RigBuilder>();
+        Debug.Log("Jeg starter check");
+        animator = GetComponentInChildren<Animator>();
+        rigBuilder = GetComponentInChildren<RigBuilder>();
 
         // increases performance
         isTalkingHash = Animator.StringToHash("isTalking");
@@ -55,6 +57,7 @@ public class AnimationContraintsController : MonoBehaviour
                                 con.data.sourceObjects = new WeightedTransformArray { new WeightedTransform(targetRef.transform, 1) };
                             }
                             rigBuilder.Build();
+                            Debug.Log("Build gjennomført");
                         }
                         else
                         {
@@ -84,18 +87,21 @@ public class AnimationContraintsController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        bool isTalking = animator.GetBool(isTalkingHash);
-
-        // Add the code to control the multi-aim constraint here
-        if (isTalking)
-        {
-            // Enable the multi-aim constraint when character is talking
-            multiAimConstraint.weight = 1.0f;
-        }
-        else
-        {
-            // Disable the multi-aim constraint when character is not talking
-            multiAimConstraint.weight = 0.0f;
+        if (animator != null) {
+            bool isTalking = animator.GetBool(isTalkingHash);
+            // Add the code to control the multi-aim constraint here
+            if (isTalking)
+            {
+                // Enable the multi-aim constraint when character is talking
+                multiAimConstraint.weight = 1.0f;
+            }
+            else
+            {
+                // Disable the multi-aim constraint when character is not talking
+                multiAimConstraint.weight = 0.0f;
+            }
+        } else {
+            animator = GetComponentInChildren<Animator>();
         }
     }
 }

@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BNG;
 using Meta.WitAi;
 using Meta.WitAi.TTS.Integrations;
 using Meta.WitAi.TTS.Utilities;
 using Photon.Voice;
+using TMPro.Examples;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class SetCharacterModel : MonoBehaviour
 {
@@ -32,6 +35,7 @@ public class SetCharacterModel : MonoBehaviour
     [HideInInspector] private bool _hasNewDialogueOptions;
     [HideInInspector] private float _velocityY;
     [HideInInspector] private float _velocityX;
+    [HideInInspector] private AnimationConstraintsController constraintsController;
 
     void Awake()
     {
@@ -104,6 +108,39 @@ public class SetCharacterModel : MonoBehaviour
             // Change the voice of the NPC
             ttsSpeaker.ClearVoiceOverride();
             ttsSpeaker.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[_voicePresetId]);
+        }
+
+        // Attach rigbuilder to the head of the NPC to enable looking at player
+        // Start by attaching rigbuilder to character (bonesAndSkin)
+        if (_bonesAndSkin.GetComponent<RigBuilder>() == null) {
+            RigBuilder rigBuilder = _bonesAndSkin.AddComponent<RigBuilder>();
+            // Create new rig object and add it to layers of rigbuilder
+            GameObject rigObject = new GameObject("TargetTracking");
+            rigObject.transform.parent = _bonesAndSkin.transform;
+            Rig rig = rigObject.AddComponent<Rig>();
+            rigBuilder.layers.Add(new RigLayer(rig));
+            // Add last object to containt multi-aim constraints
+            GameObject aimObject = new GameObject("AimObject");
+            aimObject.transform.parent = rigObject.transform;
+            // Add multi-aim constraints and find the NPC head to make it the constrained object
+            MultiAimConstraint constraints = aimObject.AddComponent<MultiAimConstraint>();
+            // Find the NPC head
+            Component[] bodyParts = _bonesAndSkin.GetComponentsInChildren<Component>(true);
+            GameObject NPCHead = null;
+            foreach (Component comp in bodyParts) {
+                // Return component if name contains "Head"
+                if (comp.gameObject.name.Contains(":Head")) { NPCHead = comp.gameObject; break;}
+            }
+            if (NPCHead == null) {
+                Debug.LogError("Could not find NPC head");
+            } else {
+                // Set constrained object to NPC head
+                constraints.data.constrainedObject = NPCHead.transform;
+            }
+            
+            Debug.Log("Rigbuilder instantiated and configurated for NPC");
+        } else {
+            Debug.Log("RigBuilder already instantiated on NPC");
         }
     }
 
