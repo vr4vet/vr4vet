@@ -35,7 +35,6 @@ public class SetCharacterModel : MonoBehaviour
     [HideInInspector] private bool _hasNewDialogueOptions;
     [HideInInspector] private float _velocityY;
     [HideInInspector] private float _velocityX;
-    [HideInInspector] private AnimationConstraintsController constraintsController;
 
     void Awake()
     {
@@ -137,8 +136,16 @@ public class SetCharacterModel : MonoBehaviour
                 // Set constrained object to NPC head
                 constraints.data.constrainedObject = NPCHead.transform;
             }
-            
+
+            // If there is already a animation constraints controller (f.ex from previous model) remove it
+            if (_bonesAndSkin.GetComponent<AnimationConstraintsController>() != null) {
+                Destroy(_bonesAndSkin.GetComponent<AnimationConstraintsController>());
+            }
+            // Add the constraints add runtime so the rig builds with the correct model
+            _bonesAndSkin.AddComponent<AnimationConstraintsController>();
+            rigBuilder.Build();
             Debug.Log("Rigbuilder instantiated and configurated for NPC");
+
         } else {
             Debug.Log("RigBuilder already instantiated on NPC");
         }
