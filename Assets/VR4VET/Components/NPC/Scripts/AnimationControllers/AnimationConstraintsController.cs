@@ -12,6 +12,8 @@ public class AnimationConstraintsController : MonoBehaviour
     [HideInInspector] private RigBuilder rigBuilder; // Use RigBuilder instead of Rig
     [HideInInspector] private MultiAimConstraint multiAimConstraint;
 
+    private GameObject targetRef;
+
     /// <summary>
     /// Check that every compontent need exists
     /// Add contraints at run time, the NPC should look at the player (aka. CameraRig)
@@ -48,7 +50,7 @@ public class AnimationConstraintsController : MonoBehaviour
                     }
                     else
                     {
-                        GameObject targetRef = NPCToPlayerReferenceManager.Instance.PlayerTarget;
+                        targetRef = NPCToPlayerReferenceManager.Instance.PlayerTarget;
                         if (targetRef != null)
                         {
                             // Adds contraints at runtime
@@ -67,6 +69,7 @@ public class AnimationConstraintsController : MonoBehaviour
                                 con.data.constrainedXAxis = true;
                                 con.data.constrainedYAxis = true;
                                 con.data.constrainedZAxis = true;
+                                // The max ranges for how far to the side the NPC will look
                                 con.data.limits = new Vector2(-70f, 70f);
 
                             }
@@ -100,14 +103,26 @@ public class AnimationConstraintsController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //Debug.Log(publicCon.data.sourceObjects.Count);
         if (animator != null) {
             bool isTalking = animator.GetBool(isTalkingHash);
             // Add the code to control the multi-aim constraint here
             if (isTalking)
             {
-                // Enable the multi-aim constraint when character is talking
-                multiAimConstraint.weight += 0.004f;
+                // Get the direction between player and NPC
+                Vector3 playerDirection = targetRef.transform.position - transform.position;
+                playerDirection.Normalize();
+                // Get forward direction of NPC (this)
+                Vector3 forward = transform.forward;
+                // Angle between player and NPC
+                float angle = Vector3.Angle(forward, playerDirection);
+                Debug.Log(angle);
+                if (angle <= 90f)  {
+                    // Enable the multi-aim constraint when character is talking and player not behind NPC
+                    multiAimConstraint.weight += 0.004f;
+                } else {
+                    // If behind NPC, stop looking at player
+                    multiAimConstraint.weight -= 0.002f;
+                }
             }
             else
             {
