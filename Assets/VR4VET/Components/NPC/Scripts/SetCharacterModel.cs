@@ -119,22 +119,37 @@ public class SetCharacterModel : MonoBehaviour
             Rig rig = rigObject.AddComponent<Rig>();
             rigBuilder.layers.Add(new RigLayer(rig));
             // Add last object to containt multi-aim constraints
-            GameObject aimObject = new GameObject("AimObject");
-            aimObject.transform.parent = rigObject.transform;
-            // Add multi-aim constraints and find the NPC head to make it the constrained object
-            MultiAimConstraint constraints = aimObject.AddComponent<MultiAimConstraint>();
+            GameObject aimObjectHead = new GameObject("AimObjectHead");
+            GameObject aimObjectSpine = new GameObject("AimObjectSpine");
+            aimObjectHead.transform.parent = rigObject.transform;
+            aimObjectSpine.transform.parent = rigObject.transform;
+
+            // Add multi-aim constraints components
+            MultiAimConstraint constraintsHead = aimObjectHead.AddComponent<MultiAimConstraint>();
+            MultiAimConstraint constraintsSpine = aimObjectSpine.AddComponent<MultiAimConstraint>();
             // Find the NPC head
             Component[] bodyParts = _bonesAndSkin.GetComponentsInChildren<Component>(true);
             GameObject NPCHead = null;
+            GameObject NPCSpine = null;
             foreach (Component comp in bodyParts) {
                 // Return component if name contains "Head"
-                if (comp.gameObject.name.Contains(":Head")) { NPCHead = comp.gameObject; break;}
+                if (comp.gameObject.name.Contains(":Head") && NPCHead == null) { NPCHead = comp.gameObject; }
+                // Return component if name contains "Spine"
+                if (comp.gameObject.name.Contains(":Spine2") && NPCSpine == null) {NPCSpine = comp.gameObject; }
+                // Stop checking body parts if both are found
+                if (NPCHead != null && NPCSpine != null) { break; }
             }
             if (NPCHead == null) {
                 Debug.LogError("Could not find NPC head");
             } else {
                 // Set constrained object to NPC head
-                constraints.data.constrainedObject = NPCHead.transform;
+                constraintsHead.data.constrainedObject = NPCHead.transform;
+            }
+            if (NPCSpine == null) {
+                Debug.LogError("Could not find NPC spine");
+            } else {
+                // Set constrained object to NPC spine
+                constraintsSpine.data.constrainedObject = NPCSpine.transform;
             }
 
             // If there is already a animation constraints controller (f.ex from previous model) remove it
@@ -143,7 +158,7 @@ public class SetCharacterModel : MonoBehaviour
             }
             // Add the constraints add runtime so the rig builds with the correct model
             _bonesAndSkin.AddComponent<AnimationConstraintsController>();
-            rigBuilder.Build();
+            
             Debug.Log("Rigbuilder instantiated and configurated for NPC");
 
         } else {
