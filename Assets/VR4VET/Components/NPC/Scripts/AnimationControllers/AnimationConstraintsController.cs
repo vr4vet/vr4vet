@@ -1,6 +1,7 @@
 using System.IO.Compression;
 using System.Linq;
 using TMPro.Examples;
+using Unity.XR.CoreUtils;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -40,8 +41,9 @@ public class AnimationConstraintsController : MonoBehaviour
                 Rig rig = rigLayer.rig;
 
                 if (rig != null)
-                {                                                          
-                    targetRef = NPCToPlayerReferenceManager.Instance.PlayerTarget;
+                {               
+                    GameObject playerRef = NPCToPlayerReferenceManager.Instance.PlayerTarget;                                           
+                    targetRef = playerRef.transform.Find("TrackingSpace").transform.Find("CenterEyeAnchor").gameObject;
                     if (targetRef != null)
                     {
                         // Adds contraints at runtime
