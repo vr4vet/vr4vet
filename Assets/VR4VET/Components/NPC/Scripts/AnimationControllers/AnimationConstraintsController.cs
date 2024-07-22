@@ -48,6 +48,9 @@ public class AnimationConstraintsController : MonoBehaviour
                     {
                         // Adds contraints at runtime
                         MultiAimConstraint[] constraints = rig.GetComponentsInChildren<MultiAimConstraint>();
+                        if (constraints.Count() == 0) {
+                            Debug.LogError("Could not find any multi aim constraints in the rig (AimObjectHead or AimObjectSpine)");
+                        }
                         foreach (MultiAimConstraint con in constraints)
                         {
                             // Set the player camera as the source object (what the NPC will look at)
@@ -80,7 +83,7 @@ public class AnimationConstraintsController : MonoBehaviour
                         }
                     else
                     {
-                        Debug.LogError("Cannot find XR Rig Advanced/PlayerController/CameraRig in the scene");
+                        Debug.LogError("Cannot find XR Rig Advanced/PlayerController/CameraRig/TrackingSpace/CenterEyeAnchor in the scene");
                     }
                     
                 }
@@ -120,6 +123,7 @@ public class AnimationConstraintsController : MonoBehaviour
                 float angle = Vector3.Angle(forward, playerDirection);
                 if (angle <= 90f)  {
                     // Enable the multi-aim constraint when character is talking and player not behind NPC
+                    // Add up to different thresholds for spine and head so spine moves less than head
                     if (headCon.weight < 0.7f) { headCon.weight += 0.004f; }
                     if (spineCon.weight < 0.3f) { spineCon.weight += 0.004f; }
                 } else {
