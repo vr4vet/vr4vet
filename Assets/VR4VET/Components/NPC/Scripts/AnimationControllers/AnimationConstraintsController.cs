@@ -1,13 +1,19 @@
+using System.IO.Compression;
 using System.Linq;
+using TMPro.Examples;
+using Unity.XR.CoreUtils;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class AnimationContraintsController : MonoBehaviour
+public class AnimationConstraintsController : MonoBehaviour
 {
     [HideInInspector] private Animator animator;
     [HideInInspector] private int isTalkingHash;
     [HideInInspector] private RigBuilder rigBuilder; // Use RigBuilder instead of Rig
-    [HideInInspector] private MultiAimConstraint multiAimConstraint;
+    private GameObject targetRef;
+    private MultiAimConstraint headCon;
+    private MultiAimConstraint spineCon;
 
     /// <summary>
     /// Check that every compontent need exists
@@ -35,32 +41,51 @@ public class AnimationContraintsController : MonoBehaviour
                 Rig rig = rigLayer.rig;
 
                 if (rig != null)
-                {
-                    // Access the constraints within the Rig
-                    multiAimConstraint = rig.GetComponentsInChildren<MultiAimConstraint>(true).FirstOrDefault();
-
-                    if (multiAimConstraint == null)
+                {               
+                    GameObject playerRef = NPCToPlayerReferenceManager.Instance.PlayerTarget;                                           
+                    targetRef = playerRef.transform.Find("TrackingSpace").transform.Find("CenterEyeAnchor").gameObject;
+                    if (targetRef != null)
                     {
-                        Debug.LogError("MultiAimConstraint not found in the 'TargetTracking' Rig Layer.");
-                    }
+                        // Adds contraints at runtime
+                        MultiAimConstraint[] constraints = rig.GetComponentsInChildren<MultiAimConstraint>();
+                        if (constraints.Count() == 0) {
+                            Debug.LogError("Could not find any multi aim constraints in the rig (AimObjectHead or AimObjectSpine)");
+                        }
+                        foreach (MultiAimConstraint con in constraints)
+                        {
+                            // Set the player camera as the source object (what the NPC will look at)
+                            var sourceObject = con.data.sourceObjects;
+                            var newSource = new WeightedTransform(targetRef.transform, 1.0f);
+                            sourceObject.Add(newSource);
+                            con.data.sourceObjects = sourceObject;
+
+                            // Manage settings for the constrained object(s)
+                            con.data.aimAxis = MultiAimConstraintData.Axis.Z;
+                            con.data.upAxis = MultiAimConstraintData.Axis.Z;
+                            con.data.constrainedXAxis = true;
+                            con.data.constrainedYAxis = true;
+                            con.data.constrainedZAxis = true;
+                            if (con.gameObject.name == "AimObjectHead") {
+                                //con.data.constrainedXAxis = true;
+                                // The max ranges for how far to the side the NPC will look
+                                con.data.limits = new Vector2(-70f, 70f);
+                                headCon = con;
+                            } else if (con.gameObject.name == "AimObjectSpine") {
+                                // Spine should move less than head and not bend backwards (x-axis)
+                                con.data.limits = new Vector2(-40f, 40f);
+                                spineCon = con;
+                            }
+                                
+                                
+
+                        }
+                        rigBuilder.Build();
+                        }
                     else
                     {
-                        GameObject targetRef = NPCToPlayerReferenceManager.Instance.PlayerTarget;
-                        if (targetRef != null)
-                        {
-                            // Adds contraints at runtime
-                            MultiAimConstraint[] constraints = rig.GetComponentsInChildren<MultiAimConstraint>();
-                            foreach (MultiAimConstraint con in constraints)
-                            {
-                                con.data.sourceObjects = new WeightedTransformArray { new WeightedTransform(targetRef.transform, 1) };
-                            }
-                            rigBuilder.Build();
-                        }
-                        else
-                        {
-                            Debug.LogError("Cannot find XR Rig Advanced/PlayerController/CameraRig in the scene");
-                        }
+                        Debug.LogError("Cannot find XR Rig Advanced/PlayerController/CameraRig/TrackingSpace/CenterEyeAnchor in the scene");
                     }
+                    
                 }
                 else
                 {
@@ -84,18 +109,37 @@ public class AnimationContraintsController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        bool isTalking = animator.GetBool(isTalkingHash);
-
-        // Add the code to control the multi-aim constraint here
-        if (isTalking)
-        {
-            // Enable the multi-aim constraint when character is talking
-            multiAimConstraint.weight = 1.0f;
-        }
-        else
-        {
-            // Disable the multi-aim constraint when character is not talking
-            multiAimConstraint.weight = 0.0f;
+        if (animator != null) {
+            bool isTalking = animator.GetBool(isTalkingHash);
+            // Add the code to control the multi-aim constraint here
+            if (isTalking)
+            {
+                // Get the direction between player and NPC
+                Vector3 playerDirection = targetRef.transform.position - transform.position;
+                playerDirection.Normalize();
+                // Get forward direction of NPC (this)
+                Vector3 forward = transform.forward;
+                // Angle between player and NPC
+                float angle = Vector3.Angle(forward, playerDirection);
+                if (angle <= 90f)  {
+                    // Enable the multi-aim constraint when character is talking and player not behind NPC
+                    // Add up to different thresholds for spine and head so spine moves less than head
+                    if (headCon.weight < 0.7f) { headCon.weight += 0.004f; }
+                    if (spineCon.weight < 0.3f) { spineCon.weight += 0.004f; }
+                } else {
+                    // If behind NPC, stop looking at player
+                    headCon.weight -= 0.002f;
+                    spineCon.weight -= 0.002f;
+                }
+            }
+            else
+            {
+                // Disable the multi-aim constraint when character is not talking
+                headCon.weight -= 0.002f;
+                spineCon.weight -= 0.002f;
+            }
+        } else {
+            animator = GetComponentInChildren<Animator>();
         }
     }
 }
