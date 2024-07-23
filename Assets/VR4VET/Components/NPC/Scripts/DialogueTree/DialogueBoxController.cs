@@ -153,6 +153,9 @@ public class DialogueBoxController : MonoBehaviour
     }
 
     public void StartComment(DialogueTree dialogueTree, int startSection, string name) {
+        // Reset dialogue box if active
+        dialogueIsActive = false;
+        ResetBox();
         // Similar to startDialogue but don't activate the dialogue box
         dialogueIsActive = true;
         _animator.SetBool(_hasNewDialogueOptionsHash, false);

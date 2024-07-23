@@ -8,6 +8,7 @@ public class FredrikSpecializedScript : MonoBehaviour
     [HideInInspector] private GameObject _npc;
     private GameObject platform;
     private ConversationController _conversationController;
+    private int i = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,10 @@ public class FredrikSpecializedScript : MonoBehaviour
 
     void OnTriggerEnter() {
         Debug.Log("Entered platform trigger");
+        if (i == 0) {
+            i++;
+            _conversationController.NextDialogueTree();
+        }
         _conversationController.CommentTrigger();
     }
 
