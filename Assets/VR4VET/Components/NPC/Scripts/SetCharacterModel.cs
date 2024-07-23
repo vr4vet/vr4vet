@@ -156,7 +156,9 @@ public class SetCharacterModel : MonoBehaviour
             if (_bonesAndSkin.GetComponent<AnimationConstraintsController>() != null) {
                 Destroy(_bonesAndSkin.GetComponent<AnimationConstraintsController>());
             }
-            // Add the constraints add runtime so the rig builds with the correct model
+
+            // Add the constraints lastly at runtime so the animation constraints fit to the NEW model
+            // Makes the rig "rebuild", could be perfomance heavy
             _bonesAndSkin.AddComponent<AnimationConstraintsController>();
             
             Debug.Log("Rigbuilder instantiated and configurated for NPC");

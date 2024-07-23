@@ -26,13 +26,9 @@ public class DialogueBoxController : MonoBehaviour
     [HideInInspector] private int _hasNewDialogueOptionsHash;
     [HideInInspector] private RectTransform backgroundRect;
     [HideInInspector] private RectTransform dialogueTextRect;
-
-    public ButtonSpawner buttonSpawner;
-
+    [HideInInspector] public ButtonSpawner buttonSpawner;
     [HideInInspector] public bool dialogueIsActive;
-
-    // For testing purposes
-    public DialogueTree dialogueTreeRestart;
+    [HideInInspector]public DialogueTree dialogueTreeRestart;
 
     private void Awake() 
     {
@@ -156,6 +152,32 @@ public class DialogueBoxController : MonoBehaviour
         }
     }
 
+    public void StartComment(DialogueTree dialogueTree, int startSection, string name) {
+        // Reset dialogue box if active
+        dialogueIsActive = false;
+        ResetBox();
+        // Similar to startDialogue but don't activate the dialogue box
+        dialogueIsActive = true;
+        _animator.SetBool(_hasNewDialogueOptionsHash, false);
+        OnDialogueStarted?.Invoke(name);
+        RunComment(dialogueTree, startSection);
+    }
+
+    void RunComment(DialogueTree dialogueTree, int section) {
+        // Runs the current section with no dialogue box, then exits
+        _animator.SetBool(_isTalkingHash, true);
+        StartCoroutine(ExitComment());
+        _dialogueText.text = dialogueTree.sections[section].dialogue[0];
+        TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+    }
+
+    private IEnumerator ExitComment() {
+        // When 9 seconds have passed, stop the animation and exit the comment dialogue
+        yield return new WaitForSeconds(9.0f);
+        _animator.SetBool(_isTalkingHash, false);
+        dialogueIsActive = false;
+    }
+
     public void ResetBox() 
     {
         StopAllCoroutines();
@@ -164,8 +186,7 @@ public class DialogueBoxController : MonoBehaviour
         _skipLineTriggered = false;
         _answerTriggered = false;
         _skipLineButton.SetActive(false);
-        _exitButton.SetActive(false);
-          
+        _exitButton.SetActive(false); 
     }
 
     void ShowAnswers(BranchPoint branchPoint)
@@ -192,7 +213,6 @@ public class DialogueBoxController : MonoBehaviour
     private IEnumerator revertToIdleAnimation() {
         yield return new WaitForSeconds(9.0f);
         _animator.SetBool(_isTalkingHash, false);
-
     }
 
     public void ExitConversation()
