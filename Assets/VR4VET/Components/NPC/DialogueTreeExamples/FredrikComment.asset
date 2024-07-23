@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e00f7924afa24219a5197b2a8fa8d48, type: 3}
   m_Name: FredrikComment
   m_EditorClassIdentifier: 
-  shouldTriggerOnProximity: 1
-  speakButtonOnExit: 1
-  sections: []
+  shouldTriggerOnProximity: 0
+  speakButtonOnExit: 0
+  sections:
+  - dialogue:
+    - Hi!
+    endAfterDialogue: 0
+    branchPoint:
+      question: 
+      answers: []
