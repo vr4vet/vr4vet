@@ -46,7 +46,15 @@ public class ConversationController : MonoBehaviour
         this._animator = animator;
     }
 
+    public bool isDialogueActive() 
+    {
+        return _dialogueBoxController.dialogueIsActive;
+    }
     
+    public int GetActivatedCount()
+    {
+        return _dialogueBoxController.GetActivatedCount();
+    }
     /// <summary>
     /// Start the dialogue when the Player is close enough
     /// </summary>
@@ -159,7 +167,10 @@ public class ConversationController : MonoBehaviour
         if (_dialogueTreesSOFormat.Count > 0) {
             _dialogueTree = _dialogueTreesSOFormat.ElementAt(_currentElement);
         }
-        _animator.SetBool(_hasNewDialogueOptionsHash, true);
+        if (_animator)
+        {
+            _animator.SetBool(_hasNewDialogueOptionsHash, true);
+        }
     }
 
     /// <summary>
