@@ -127,4 +127,9 @@ public class NPCSpawner : MonoBehaviour
     {
         return spawnedNpc;
     }
+
+    public NPC[] GetNPCs()
+    {
+        return _nPCs;
+    }
 }

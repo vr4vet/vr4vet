@@ -7,7 +7,8 @@ using UnityEngine.TestTools;
 
 public class NPCSpawnerTest
 {
-    private GameObject NPCSpawner;
+    private GameObject NPCSpawnerObject;
+    private ScriptableObject _npc;
 
     [SetUp]
     public void SetUp()
@@ -15,8 +16,12 @@ public class NPCSpawnerTest
         SceneManager.CreateScene("NPCSpawnerTest");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("NPCSpawnerTest"));
 
+        // Load the NPCSpawner and the example NPC
         var NPCSpawnerPrefab = Resources.Load<GameObject>("Prefabs/NPCSpawner");
-        NPCSpawner = UnityEngine.Object.Instantiate(NPCSpawnerPrefab);
+        _npc = Resources.Load<ScriptableObject>("TestNPC/TestNPC");
+        // Assign the NPC to the spawners NPC list
+        NPCSpawnerObject = UnityEngine.Object.Instantiate(NPCSpawnerPrefab);
+        //NPCSpawnerObject.GetComponent<NPCSpawner>();
     }
     
     [UnityTest]
@@ -24,13 +29,13 @@ public class NPCSpawnerTest
     {
         yield return null;
         // Use the Assert class to test conditions
-        Assert.AreNotEqual(NPCSpawner, null);
+        Assert.AreNotEqual(NPCSpawnerObject, null);
     }
 
     [TearDown]
     public void TearDown()
     {
-        UnityEngine.Object.Destroy(NPCSpawner);
+        UnityEngine.Object.Destroy(NPCSpawnerObject);
         SceneManager.UnloadSceneAsync("NPCSpawnerTest");
     }
 }
