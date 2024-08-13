@@ -201,23 +201,24 @@ MonoBehaviour:
           m_WaitForCompletion: 0
           m_LocalVariables: []
         m_PropertyPath: TextContent
---- !u!114 &1497968
+--- !u!114 &1497973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497960}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 010601089a3d7f44694984bce842cab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stringTable:
     m_TableReference:
-      m_TableCollectionName: 
-  entryKeyHeader: 
-  entryKeyText: 
+      m_TableCollectionName: GUID:49ed079115fe4734d99e732e431be073
+  entryKeyHeader: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (2)/SimpleToolTip
+  entryKeyText: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (2)/SimpleToolTip
+    1
 --- !u!1 &329372486 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4311516584083422607, guid: b15f1bfb638911147ac1b8a0a0aff156,
@@ -301,16 +302,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329372486}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 010601089a3d7f44694984bce842cab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stringTable:
     m_TableReference:
-      m_TableCollectionName: 
-  entryKeyHeader: 
-  entryKeyText: 
+      m_TableCollectionName: GUID:49ed079115fe4734d99e732e431be073
+  entryKeyHeader: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (5)/SimpleToolTip
+  entryKeyText: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (5)/SimpleToolTip
+    1
 --- !u!1001 &462569303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -437,6 +439,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1676904252704523297, guid: b15f1bfb638911147ac1b8a0a0aff156,
         type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676904252704523297, guid: b15f1bfb638911147ac1b8a0a0aff156,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -449,6 +456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676904252764676569, guid: b15f1bfb638911147ac1b8a0a0aff156,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1676904252764676569, guid: b15f1bfb638911147ac1b8a0a0aff156,
         type: 3}
@@ -469,6 +481,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676904252925535677, guid: b15f1bfb638911147ac1b8a0a0aff156,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1676904252925535677, guid: b15f1bfb638911147ac1b8a0a0aff156,
         type: 3}
@@ -525,6 +542,21 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 1676904253822145174, guid: b15f1bfb638911147ac1b8a0a0aff156,
+        type: 3}
+      propertyPath: hammerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1347684333}
+    - target: {fileID: 1676904253822145174, guid: b15f1bfb638911147ac1b8a0a0aff156,
+        type: 3}
+      propertyPath: hammerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676904253822145174, guid: b15f1bfb638911147ac1b8a0a0aff156,
+        type: 3}
+      propertyPath: hammerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1676904253822145175, guid: b15f1bfb638911147ac1b8a0a0aff156,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -539,6 +571,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676904254027132469, guid: b15f1bfb638911147ac1b8a0a0aff156,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1676904254027132469, guid: b15f1bfb638911147ac1b8a0a0aff156,
         type: 3}
@@ -649,6 +686,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Knapp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676904254637066779, guid: b15f1bfb638911147ac1b8a0a0aff156,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1676904254637066779, guid: b15f1bfb638911147ac1b8a0a0aff156,
         type: 3}
@@ -1061,16 +1103,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516334281}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 010601089a3d7f44694984bce842cab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stringTable:
     m_TableReference:
-      m_TableCollectionName: 
-  entryKeyHeader: 
-  entryKeyText: 
+      m_TableCollectionName: GUID:49ed079115fe4734d99e732e431be073
+  entryKeyHeader: StartTutorial/StartingTutorial/Tutorial/TutorialEntry/SimpleToolTip
+  entryKeyText: StartTutorial/StartingTutorial/Tutorial/TutorialEntry/SimpleToolTip
+    1
 --- !u!1 &532297493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,16 +1796,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991903962}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 010601089a3d7f44694984bce842cab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stringTable:
     m_TableReference:
-      m_TableCollectionName: 
-  entryKeyHeader: 
-  entryKeyText: 
+      m_TableCollectionName: GUID:49ed079115fe4734d99e732e431be073
+  entryKeyHeader: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (4)/SimpleToolTip
+    1
+  entryKeyText: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (4)/SimpleToolTip
 --- !u!1 &1285562961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,16 +1984,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347323314}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 010601089a3d7f44694984bce842cab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stringTable:
     m_TableReference:
-      m_TableCollectionName: 
-  entryKeyHeader: 
-  entryKeyText: 
+      m_TableCollectionName: GUID:49ed079115fe4734d99e732e431be073
+  entryKeyHeader: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (1)/SimpleToolTip
+  entryKeyText: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (1)/SimpleToolTip
+    1
 --- !u!1 &1347684333 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1676904252704523297, guid: b15f1bfb638911147ac1b8a0a0aff156,
@@ -2153,16 +2198,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430628912}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 010601089a3d7f44694984bce842cab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stringTable:
     m_TableReference:
-      m_TableCollectionName: 
-  entryKeyHeader: 
-  entryKeyText: 
+      m_TableCollectionName: GUID:49ed079115fe4734d99e732e431be073
+  entryKeyHeader: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (3)/SimpleToolTip
+  entryKeyText: StartTutorial/StartingTutorial/Tutorial/TutorialEntry (3)/SimpleToolTip
+    1
 --- !u!1001 &1827767923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2189,11 +2235,6 @@ PrefabInstance:
         type: 3}
       propertyPath: MinElevation
       value: -12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3492994722929524557, guid: 0f2bcfe3b2900db469a02abdad5e5fc7,
-        type: 3}
-      propertyPath: CharacterControllerYOffset
-      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3645714274288965364, guid: 0f2bcfe3b2900db469a02abdad5e5fc7,
         type: 3}
