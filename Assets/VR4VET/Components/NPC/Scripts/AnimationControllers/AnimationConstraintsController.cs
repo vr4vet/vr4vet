@@ -2,7 +2,6 @@ using System.IO.Compression;
 using System.Linq;
 using TMPro.Examples;
 using Unity.XR.CoreUtils;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
