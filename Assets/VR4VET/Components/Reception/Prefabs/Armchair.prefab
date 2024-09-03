@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2295354911227327296}
   - component: {fileID: 3187147892908262462}
   - component: {fileID: 8359554775277334858}
+  - component: {fileID: 8603108098166827407}
   m_Layer: 0
   m_Name: Armchair
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8603108098166827407
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026030536126998472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.72417057, z: 0.86581033}
+  m_Center: {x: 0.011502404, y: 0.8127037, z: 0.036454137}
 --- !u!1 &5028149272132765016
 GameObject:
   m_ObjectHideFlags: 0
