@@ -395,8 +395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae5105792e7c4042871fe5abafd7420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _taskAndTargerts: []
-  _skillList: []
+  skillList: []
+  taskList: []
 --- !u!1 &278101137
 GameObject:
   m_ObjectHideFlags: 0
@@ -11417,6 +11417,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1814892649}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &887900997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d4e0691a98d51842b2712afd3a48f39,
+    type: 3}
+  m_PrefabInstance: {fileID: 1191012316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &887900999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887900997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b754b066d6d9444cb5e6aaba06fcc49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &985867456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16274,12 +16292,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2469262684800766919, guid: 7d4e0691a98d51842b2712afd3a48f39, type: 3}
---- !u!20 &1646475711 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 2683195716760517856, guid: 4ac7df741a9c0a2418ec19477729ee3d,
-    type: 3}
-  m_PrefabInstance: {fileID: 375934024}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1687998214 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 907931764449879985, guid: cd83d7ec3c8f7d449b1cb93495a9c1b1,
