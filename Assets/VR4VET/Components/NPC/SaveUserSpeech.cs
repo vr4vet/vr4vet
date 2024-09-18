@@ -21,7 +21,6 @@ public class SaveUserSpeech : MonoBehaviour
 		StartCoroutine(SaveWav());
     }
 
-
 	IEnumerator SaveWav() {
 		yield return new WaitForSeconds(5);
 		Debug.Log("TEEEEEEST");
