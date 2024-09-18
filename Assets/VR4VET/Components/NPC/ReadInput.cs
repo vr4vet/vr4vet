@@ -4,12 +4,13 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ReadInput : MonoBehaviour
+    public class ReadInput : MonoBehaviour
 {
     private string api = "https://api.openai.com/v1/audio/transcriptions";
     private string key;
+    public string transcript;
 
-	public string audioFile; // The audio file to send to OpenAI, must be in the StreamingAssets folder
+	public string audioFile = "test.wav"; // The audio file to send to OpenAI, must be in the StreamingAssets folder
 
 	public SupportedLanguage selectedLanguage;  // Public dropdown to select the language
 
@@ -97,6 +98,7 @@ public class ReadInput : MonoBehaviour
             else
             {
                 Debug.Log($"OpenAI Transcription Response: {request.downloadHandler.text}");
+                transcript = request.downloadHandler.text.Replace("{", "").Replace("\"", "").Replace(":", "").Replace("}", "").Trim();
             }
         }
     }
