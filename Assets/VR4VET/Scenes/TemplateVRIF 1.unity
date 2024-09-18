@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5493609, g: 0.79545873, b: 0.9734807, a: 1}
+  m_IndirectSpecularColor: {r: 0.54889095, g: 0.79580647, b: 0.9729184, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17873,6 +17873,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994154161}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1999100758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d4e0691a98d51842b2712afd3a48f39,
+    type: 3}
+  m_PrefabInstance: {fileID: 1191012316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1999100761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999100758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c30b034a50d4f498b62e49997131ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioFile: readInputTest.m4a
 --- !u!1001 &2011549322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19153,7 +19172,12 @@ MonoBehaviour:
   TTSSpeaker: {fileID: 1601938851}
   _skipLineButton: {fileID: 581411041842384488}
   _exitButton: {fileID: 715794130904074220}
+  _speakButton: {fileID: 0}
+  buttonSpawner: {fileID: 0}
   dialogueIsActive: 0
+  dialogueTreeRestart: {fileID: 0}
+  dialogueEnded: 0
+  timesEnded: 0
 --- !u!136 &4781107937381062385
 CapsuleCollider:
   m_ObjectHideFlags: 0
