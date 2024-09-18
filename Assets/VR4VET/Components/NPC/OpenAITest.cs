@@ -21,6 +21,8 @@ public class OpenAITest : MonoBehaviour
 		StartCoroutine(OpenAI());
 	}
 
+	// test
+
 	IEnumerator OpenAI()
 	{
 		string query = "Hei. Kan du hjelpe meg med fisking?";
