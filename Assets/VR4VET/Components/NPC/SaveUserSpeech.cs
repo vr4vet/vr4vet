@@ -5,6 +5,8 @@ using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using static ReadInput;
+using static OpenAITest;
 
 public class SaveUserSpeech : MonoBehaviour
 {	
@@ -25,6 +27,14 @@ public class SaveUserSpeech : MonoBehaviour
 		yield return new WaitForSeconds(5);
 		Debug.Log("TEEEEEEST");
 		SaveUserSpeech.Save("test", myAudioClip);
+		ReadInput ri = gameObject.AddComponent<ReadInput>() as ReadInput;
+		while (ri.transcript == null) {
+			yield return new WaitForSeconds(1);
+		}
+		Debug.Log($"Dette er fra SUS: {ri.transcript}");
+		OpenAITest oai = gameObject.AddComponent<OpenAITest>() as OpenAITest;
+		oai.query = ri.transcript;
+
 	}
 
     //	Copyright (c) 2012 Calvin Rien

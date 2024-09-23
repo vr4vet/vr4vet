@@ -7,6 +7,7 @@ public class OpenAITest : MonoBehaviour
 {
 	private string api = "https://api.openai.com/v1/chat/completions";
 	private string key;
+	public string query;
 
 	void Start()
 	{
@@ -25,7 +26,10 @@ public class OpenAITest : MonoBehaviour
 
 	IEnumerator OpenAI()
 	{
-		string query = "Hei. Kan du hjelpe meg med fisking?";
+		while (query == null) {
+			yield return new WaitForSeconds(1);
+		}
+		Debug.Log($"Query: {query.GetType()}");
 		string jsonData = $"{{\"model\": \"gpt-4o-mini\", \"messages\": [{{\"role\": \"user\", \"content\": \"{query}\"}}], \"max_tokens\": 50}}";
 		using (UnityWebRequest request = new UnityWebRequest(api, "POST"))
 		{
