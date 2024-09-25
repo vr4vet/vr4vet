@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7850822095440211487}
   - component: {fileID: 1615359058989093574}
   - component: {fileID: 6268987475164533209}
+  - component: {fileID: 8229521940919253968}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -117,6 +118,8 @@ MonoBehaviour:
   buttonSpawner: {fileID: 0}
   dialogueIsActive: 0
   dialogueTreeRestart: {fileID: 0}
+  dialogueEnded: 0
+  timesEnded: 0
 --- !u!114 &5828373786828991796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +182,18 @@ MonoBehaviour:
   _voicePresetId: 17
   _runtimeAnimatorController: {fileID: 9100000, guid: acb4b9981fa45ce46adb4867634b31ab,
     type: 2}
+--- !u!114 &8229521940919253968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142329030213301039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b657c5232e0447a9b64573933dbd658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &389399547921113031
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +256,7 @@ MonoBehaviour:
   _toBeOverwrittenByJSON: {fileID: 0}
   _dialogueTreesJSONFormat: []
   _dialogueTreesSOFormat: []
-  shouldTrigger: 0
+  playerInsideTrigger: 0
 --- !u!1 &581411041544405079
 GameObject:
   m_ObjectHideFlags: 0
