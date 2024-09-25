@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using static OpenAIResponse;
 
-public class OpenAITest : MonoBehaviour
+public class AIRequest : MonoBehaviour
 {
 	private string api = "https://api.openai.com/v1/chat/completions";
 	private string key;
 	public string query;
+	public string responseText;
 
 	void Start()
 	{
@@ -47,8 +49,10 @@ public class OpenAITest : MonoBehaviour
 				Debug.LogError($"Error: {request.error}\nResponse Code: {request.responseCode}");
 			}
 			else
-			{
-				Debug.Log($"OpenAI Response: {request.downloadHandler.text}");
+			{	
+				OpenAIResponse response = JsonUtility.FromJson<OpenAIResponse>(request.downloadHandler.text);
+				responseText = response.choices[0].message.content;
+				Debug.Log($"Response: {responseText}");
 			}
 		}
 	}
