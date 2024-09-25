@@ -10,7 +10,7 @@ using UnityEngine.Networking;
     private string key;
     public string transcript;
 
-	public string audioFile = "test.wav"; // The audio file to send to OpenAI, must be in the StreamingAssets folder
+	public string audioFile = SaveUserSpeech.FILENAME; // The audio file to send to OpenAI, must be saved in Application.persistentDataPath
 
 	public SupportedLanguage selectedLanguage;  // Public dropdown to select the language
 
@@ -63,7 +63,7 @@ using UnityEngine.Networking;
             return;
         }
 
-        string audioFilePath = Path.Combine(Application.streamingAssetsPath, audioFile);
+        string audioFilePath = Path.Combine(Application.persistentDataPath, audioFile);
         StartCoroutine(SendAudioToOpenAI(audioFilePath)); 
     }
 
