@@ -16,23 +16,22 @@ public class SaveUserSpeech : MonoBehaviour
 	public const string FILENAME = "conversation.wav";
 	public const int MAX_RECORDTIME = 10;
 	private string filePath;
-	private bool isRecording = false;
+	public bool isRecording = false;
 
-	void Update() {
-		if (Input.GetKeyDown(KeyCode.E)) {
-			if (!isRecording) {
+
+	public void StartRecording() {
+		if (!isRecording) {
 				isRecording = true;
-				StartRecording();
+				Record();
 			}
-		}
-		if (Input.GetKeyUp(KeyCode.E)) {
-			isRecording = false;
-		}
-		
+	}
+
+	public void EndRecording() {
+		isRecording = false;
 	}
 
 	// Starts a recording of MAX_RECORDTIME seconds
-	public void StartRecording() {
+	public void Record() {
 		Debug.Log("Recording started");
 		audioSource = GetComponent<AudioSource>();
 		myAudioClip = audioSource.clip;

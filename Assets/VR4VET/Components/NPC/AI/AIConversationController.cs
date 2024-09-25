@@ -2,31 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIConversationController: MonoBehaviour
+public class AIConversationController : MonoBehaviour
 {
+
+    [SerializeField] private SaveUserSpeech _SaveUserSpeech;
+
     void Start()
     {
-        Debug.Log("AIConversation script is running");
+        _SaveUserSpeech = GetComponent<SaveUserSpeech>();
     }
-
-
 
     public void startRecording()
     {
-        Debug.Log("Recording started");
+        _SaveUserSpeech.StartRecording();
     }
 
-    
+
     public void endRecording()
     {
-        Debug.Log("Recording ended");
-        answerAI();
+        _SaveUserSpeech.EndRecording();
     }
-
-    public void answerAI()
-    {
-        Debug.Log("AI Answered");
-    }
-
-
 }
