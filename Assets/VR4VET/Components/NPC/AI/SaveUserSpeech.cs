@@ -14,24 +14,57 @@ public class SaveUserSpeech : MonoBehaviour
 	private AudioSource audioSource;
 	private AudioClip myAudioClip;
 	public const string FILENAME = "conversation.wav";
-	public const int RECORDTIME = 5;
+	public const int MAX_RECORDTIME = 10;
+	private string filePath;
+	private bool isRecording = false;
 
-	void Start()
-    {
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.E)) {
+			if (!isRecording) {
+				isRecording = true;
+				StartRecording();
+			}
+		}
+		if (Input.GetKeyUp(KeyCode.E)) {
+			isRecording = false;
+		}
+		
+	}
+
+	// Starts a recording of MAX_RECORDTIME seconds
+	public void StartRecording() {
+		Debug.Log("Recording started");
 		audioSource = GetComponent<AudioSource>();
 		myAudioClip = audioSource.clip;
-        myAudioClip = Microphone.Start(null, false, 5, 44100);
-        audioSource.Play();
-		
-		StartCoroutine(SaveWav());
-    }
+        myAudioClip = Microphone.Start(null, false, MAX_RECORDTIME, 44100);
+		StartCoroutine(SaveWavMax());
+		StartCoroutine(SaveWavEarly());
+	}
 
-	IEnumerator SaveWav() {
-		yield return new WaitForSeconds(RECORDTIME);
+	public void SaveWav() {
+		filePath = Path.Combine(Application.persistentDataPath, FILENAME);
 		var byteArray = OpenWavParser.AudioClipToByteArray(myAudioClip);
-    	string filePath = Path.Combine(Application.persistentDataPath, FILENAME);
 		File.WriteAllBytes(filePath, byteArray);
+	}
 
+	IEnumerator SaveWavMax() {
+		yield return new WaitForSeconds(MAX_RECORDTIME);
+		SaveWav();
+		StopAllCoroutines();
+		StartCoroutine(Transcribe());
+	}
+
+	IEnumerator SaveWavEarly() {
+		while (isRecording) {
+			yield return new WaitForSeconds(0.1f);
+		}
+		Microphone.End(null);
+		SaveWav();
+		StopAllCoroutines();
+		StartCoroutine(Transcribe());
+	}
+
+	IEnumerator Transcribe() {
 		ReadInput ri = gameObject.AddComponent<ReadInput>() as ReadInput;
 		while (ri.transcript == null) {
 			yield return new WaitForSeconds(1);
