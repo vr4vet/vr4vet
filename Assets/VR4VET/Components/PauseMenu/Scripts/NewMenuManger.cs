@@ -60,8 +60,9 @@ public class NewMenuManger : MonoBehaviour
         {
             item.SetActive(false);
         }
-        _menuCanvas.SetActive(true);
-        _menuOpen = true;
+
+        if(_menuOpen)
+            _menuCanvas.SetActive(true);
     }
 
     private void ToggleMenu()
