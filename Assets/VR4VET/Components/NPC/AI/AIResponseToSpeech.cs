@@ -3,18 +3,13 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
-using static AIRequest;
 
 public class AIResponseToSpeech : MonoBehaviour
 {
     private string api = "https://api.openai.com/v1/audio/speech";
     private string key;
-    public string speechResponse;
 
-    public AIRequest requestText;
-
-    public string aiResponseText; // This is the response from the AIRequest script
-
+    public string hi = "Hello";
     void Start()
     {
         key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
@@ -25,21 +20,18 @@ public class AIResponseToSpeech : MonoBehaviour
             return;
         }
 
-        aiResponseText = requestText.responseText;
-        StartCoroutine(SendAIResponseToOpenAI(aiResponseText));
+        //StartCoroutine(DictateText(responseText));
+
     }
 
-    IEnumerator SendAIResponseToOpenAI(string aiResponseText)
-    {
-        if (string.IsNullOrEmpty(aiResponseText))
-        {
-            Debug.LogError("AI response is missing.");
-            yield break;
-        }
 
+    public IEnumerator DictateText(String responseText)
+    {
+        Debug.Log($"Dictating text: {responseText}");
+       
         WWWForm form = new WWWForm();
         form.AddField("model", "tts-1");
-        form.AddField("input", aiResponseText);
+        form.AddField("input", responseText);
         form.AddField("voice", "alloy");
 
         using (UnityWebRequest request = UnityWebRequest.Post(api, form))

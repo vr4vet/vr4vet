@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using static OpenAIResponse;
+using static AIResponseToSpeech;
 
 public class AIRequest : MonoBehaviour
 {
@@ -53,6 +54,10 @@ public class AIRequest : MonoBehaviour
 				OpenAIResponse response = JsonUtility.FromJson<OpenAIResponse>(request.downloadHandler.text);
 				responseText = response.choices[0].message.content;
 				Debug.Log($"Response: {responseText}");
+				
+				AIResponseToSpeech dictation = gameObject.AddComponent<AIResponseToSpeech>() as AIResponseToSpeech;
+				StartCoroutine(dictation.DictateText(responseText));
+				Debug.Log($"Dictation: {dictation.hi}");
 			}
 		}
 	}
