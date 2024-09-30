@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using static ReadInput;
-using static OpenAITest;
+using static AIRequest;
 using static OpenWavParser;
 
 public class SaveUserSpeech : MonoBehaviour
@@ -70,7 +70,7 @@ public class SaveUserSpeech : MonoBehaviour
 			yield return new WaitForSeconds(1);
 		}
 		Debug.Log($"Dette er fra SUS: {ri.transcript}");
-		OpenAITest oai = gameObject.AddComponent<OpenAITest>() as OpenAITest;
+		AIRequest oai = gameObject.AddComponent<AIRequest>() as AIRequest;
 		oai.query = ri.transcript;
 
 		// Delete audio file from disk after transcribing.
