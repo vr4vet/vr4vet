@@ -4,16 +4,18 @@ using UnityEngine.InputSystem;
 
 public class PressButton : MonoBehaviour
 {
-	public AIConversationController controller;
+	public AIConversationController _AIConversationController;
+	private ConversationController _ConversationController;
 
 	void Start()
 	{
-		controller = GetComponent<AIConversationController>();
+		_AIConversationController = GetComponent<AIConversationController>();
+		_ConversationController = GetComponentInChildren<ConversationController>();
 	}
 
 	public void StartRecording(InputAction.CallbackContext context)
 	{
-		if (context.started)
+		if (context.started && _ConversationController.playerInsideTrigger)
 		{
 			Debug.Log("button clicked");
 			StartCoroutine(RecordingInput());
@@ -21,13 +23,13 @@ public class PressButton : MonoBehaviour
 
 		if (context.canceled)
 		{
-			controller.endRecording();
+			_AIConversationController.endRecording();
 		}
 	}
 
 	IEnumerator RecordingInput()
 	{
 		yield return new WaitForSeconds(0.1f);
-		controller.startRecording();
+		_AIConversationController.startRecording();
 	}
 }

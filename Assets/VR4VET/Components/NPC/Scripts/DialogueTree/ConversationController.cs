@@ -15,7 +15,7 @@ public class ConversationController : MonoBehaviour
     [HideInInspector] private DialogueBoxController _dialogueBoxController;
     [SerializeField] public AIConversationController _AIConversationController;
 
-    [HideInInspector] private bool playerInsideTrigger = false;
+    [HideInInspector] public bool playerInsideTrigger = false;
 
 
 
