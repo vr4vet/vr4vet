@@ -23,13 +23,13 @@ public class PressButton : MonoBehaviour
 
 		if (context.canceled)
 		{
-			_AIConversationController.endRecording();
+			_AIConversationController.EndRecording();
 		}
 	}
 
 	IEnumerator RecordingInput()
 	{
 		yield return new WaitForSeconds(0.1f);
-		_AIConversationController.startRecording();
+		_AIConversationController.StartRecording();
 	}
 }

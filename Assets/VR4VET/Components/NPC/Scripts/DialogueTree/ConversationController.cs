@@ -49,11 +49,11 @@ public class ConversationController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                _AIConversationController.startRecording();
+                _AIConversationController.StartRecording();
             }
             if (Input.GetKeyUp(KeyCode.E))
             {
-                _AIConversationController.endRecording();
+                _AIConversationController.EndRecording();
             }
         }
     }

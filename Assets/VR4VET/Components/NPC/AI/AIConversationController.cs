@@ -12,13 +12,13 @@ public class AIConversationController : MonoBehaviour
         _SaveUserSpeech = GetComponent<SaveUserSpeech>();
     }
 
-    public void startRecording()
+    public void StartRecording()
     {
         _SaveUserSpeech.StartRecording();
     }
 
 
-    public void endRecording()
+    public void EndRecording()
     {
         _SaveUserSpeech.EndRecording();
     }
