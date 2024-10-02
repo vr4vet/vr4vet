@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 7320500719012628531}
   - component: {fileID: 2813417528501295280}
   - component: {fileID: -3192633732066059844}
+  - component: {fileID: 3833807276438326027}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -371,7 +372,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b6263eeedcb48889b0f529d3e5f362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  _AIConversationController: {fileID: 0}
+--- !u!114 &3833807276438326027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142329030213301039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7431cda181f5b4a1aabeb9778b1cacab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &389399547921113031
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +448,7 @@ MonoBehaviour:
   _dialogueTreesJSONFormat: []
   _dialogueTreesSOFormat: []
   _AIConversationController: {fileID: 0}
+  playerInsideTrigger: 0
 --- !u!1 &581411041544405079
 GameObject:
   m_ObjectHideFlags: 0
