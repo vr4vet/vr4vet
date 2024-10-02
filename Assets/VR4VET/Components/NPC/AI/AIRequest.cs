@@ -64,7 +64,11 @@ public class AIRequest : MonoBehaviour
             else
             {
                 OpenAIResponse response = JsonUtility.FromJson<OpenAIResponse>(request.downloadHandler.text);
-                responseText = response.choices[0].message.content;
+                responseText = response.choices[0].message.content
+						.Replace("\\", "\\\\") 
+    					.Replace("\"", "\\\"") 
+    					.Replace("\n", "\\n")   
+    					.Replace("\r", "\\r");
                 Debug.Log($"Response: {responseText}");
 
                 // Call AIResponseToSpeech to dictate the response
