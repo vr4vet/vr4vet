@@ -14,6 +14,9 @@ using UnityEngine.Networking;
 
 	public SupportedLanguage selectedLanguage;  // Public dropdown to select the language
 
+    private AudioSource audioSource;
+    private AudioClip audioClip;
+
     public enum SupportedLanguage
     {
         English,  // en
@@ -51,8 +54,6 @@ using UnityEngine.Networking;
         }
     }
 
-
-
     void Start()
     {
         key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
@@ -64,7 +65,14 @@ using UnityEngine.Networking;
         }
 
         string audioFilePath = Path.Combine(Application.persistentDataPath, audioFile);
-        StartCoroutine(SendAudioToOpenAI(audioFilePath)); 
+        StartCoroutine(SendAudioToOpenAI(audioFilePath));
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null) {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioClip = Resources.Load<AudioClip>("AudioFiles/no_internet");
+        audioSource.clip = audioClip;
     }
 
     IEnumerator SendAudioToOpenAI(string audioFilePath)
@@ -88,12 +96,21 @@ using UnityEngine.Networking;
         using (UnityWebRequest request = UnityWebRequest.Post(api, form))
         {
             request.SetRequestHeader("Authorization", $"Bearer {key}");
-
+            
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError($"Error: {request.error}\nResponse Code: {request.responseCode}");
+                if (request.responseCode == 0) {
+                    Debug.Log("No internet connection");
+                    if (audioClip == null) {
+                        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    }
+                    audioSource.Play();
+                }
+                else {
+                    Debug.LogError($"Error: {request.error}\nResponse Code: {request.responseCode}");
+                }
             }
             else
             {
