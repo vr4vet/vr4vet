@@ -71,7 +71,7 @@ using UnityEngine.Networking;
         if (audioSource == null) {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
-        audioClip = Resources.Load<AudioClip>("AudioFiles/no_internet");
+        audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/English/fable");
         audioSource.clip = audioClip;
     }
 
