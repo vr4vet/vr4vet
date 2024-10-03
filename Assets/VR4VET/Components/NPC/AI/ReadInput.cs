@@ -32,7 +32,7 @@ public class ReadInput : MonoBehaviour
             case SupportedLanguage.Norwegian: return "no";
             case SupportedLanguage.German: return "de";
             case SupportedLanguage.Dutch: return "nl";
-            default: return "en";  // Default to English
+            default: return "no";  // Default to English
         }
     }
 
