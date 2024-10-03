@@ -4,36 +4,39 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
-    public class ReadInput : MonoBehaviour
+public class ReadInput : MonoBehaviour
 {
     private string api = "https://api.openai.com/v1/audio/transcriptions";
     private string key;
     public string transcript;
 
-	public string audioFile = SaveUserSpeech.FILENAME; // The audio file to send to OpenAI, must be saved in Application.persistentDataPath
+    public string audioFile = SaveUserSpeech.FILENAME; // The audio file to send to OpenAI, must be saved in Application.persistentDataPath
 
-	public SupportedLanguage selectedLanguage;  // Public dropdown to select the language
+    public SupportedLanguage selectedLanguage;  // Public dropdown to select the language
+
+    private AudioSource audioSource;
+    private AudioClip audioClip;
 
     public enum SupportedLanguage
     {
         English,  // en
         Norwegian,   // no
         German,   // de
-		Dutch,   // nl
+        Dutch,   // nl
     }
     private string GetLanguageCode(SupportedLanguage language)
     {
         switch (language)
         {
             case SupportedLanguage.English: return "en";
-			case SupportedLanguage.Norwegian: return "no";
+            case SupportedLanguage.Norwegian: return "no";
             case SupportedLanguage.German: return "de";
-			case SupportedLanguage.Dutch: return "nl";
+            case SupportedLanguage.Dutch: return "nl";
             default: return "no";  // Default to English
         }
     }
 
-	  private string GetMimeType(string filePath)
+    private string GetMimeType(string filePath)
     {
         string extension = Path.GetExtension(filePath).ToLowerInvariant();
         switch (extension)
@@ -51,8 +54,6 @@ using UnityEngine.Networking;
         }
     }
 
-
-
     void Start()
     {
         key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
@@ -64,7 +65,15 @@ using UnityEngine.Networking;
         }
 
         string audioFilePath = Path.Combine(Application.persistentDataPath, audioFile);
-        StartCoroutine(SendAudioToOpenAI(audioFilePath)); 
+        StartCoroutine(SendAudioToOpenAI(audioFilePath));
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/English/fable");
+        audioSource.clip = audioClip;
     }
 
     IEnumerator SendAudioToOpenAI(string audioFilePath)
@@ -76,7 +85,7 @@ using UnityEngine.Networking;
         }
 
         byte[] audioData = File.ReadAllBytes(audioFilePath);
-		string mimeType = GetMimeType(audioFilePath);
+        string mimeType = GetMimeType(audioFilePath);
 
 
         WWWForm form = new WWWForm();
@@ -93,7 +102,20 @@ using UnityEngine.Networking;
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError($"Error: {request.error}\nResponse Code: {request.responseCode}");
+                if (request.responseCode == 0)
+                {
+                    // Debug.Log("No internet connection");
+
+                    // If audio source is not already playing, then play voiceline
+                    if (!audioSource.isPlaying)
+                    {
+                        audioSource.Play();
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"Error: {request.error}\nResponse Code: {request.responseCode}");
+                }
             }
             else
             {
