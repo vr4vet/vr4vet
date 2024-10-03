@@ -17,7 +17,7 @@ public class PressButton : MonoBehaviour
 	{
 		if (context.started && _ConversationController.playerInsideTrigger)
 		{
-			Debug.Log("button clicked");
+			// Debug.Log("Recording button clicked.");
 			StartCoroutine(RecordingInput());
 		}
 

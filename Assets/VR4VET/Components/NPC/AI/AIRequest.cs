@@ -10,42 +10,42 @@ public class AIRequest : MonoBehaviour
     public string query;
     public string responseText;
 
-    // Reference to AIResponseToSpeech script
-    public AIResponseToSpeech aiResponseToSpeech;
+    public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation  
 
     void Start()
-{
-    key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-
-    if (string.IsNullOrEmpty(key))
     {
-        Debug.LogError("OpenAI API key not found");
-        return;
-    }
+        // Get OpenAI key, which must be set in .env file
+        key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
-    // Attempt to automatically find and set the AIResponseToSpeech reference if it's not assigned in the Inspector
-    if (aiResponseToSpeech == null)
-    {
-        aiResponseToSpeech = FindObjectOfType<AIResponseToSpeech>();
-        
-        if (aiResponseToSpeech == null)
+        if (string.IsNullOrEmpty(key))
         {
-            Debug.LogError("AIResponseToSpeech component not found in the scene.");
+            Debug.LogError("OpenAI API key not found.");
             return;
         }
-    }
+        // Attempt to automatically find and set AIResponseToSpeech
+        if (_AIResponseToSpeech == null)
+        {
+            _AIResponseToSpeech = FindObjectOfType<AIResponseToSpeech>();
+            if (_AIResponseToSpeech == null)
+            {
+                Debug.LogError("AIResponseToSpeech component not found in the scene.");
+                return;
+            }
+        }
 
+    // Start coroutine for the OpenAI request
     StartCoroutine(OpenAI());
-}
+    }
 
     IEnumerator OpenAI()
     {
         while (string.IsNullOrEmpty(query))
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.1f);
         }
-        Debug.Log($"Query: {query}");
+        // Debug.Log($"Query: {query}");
 
+        // Creates the OpenAI API request in JSON format, with the query from the user inserted
         string jsonData = $"{{\"model\": \"gpt-4o-mini\", \"messages\": [{{\"role\": \"user\", \"content\": \"{query}\"}}], \"max_tokens\": 50}}";
         using (UnityWebRequest request = new UnityWebRequest(api, "POST"))
         {
@@ -55,6 +55,7 @@ public class AIRequest : MonoBehaviour
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("Authorization", $"Bearer {key}");
 
+            // Asynchronously send and wait for the response
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
@@ -64,17 +65,19 @@ public class AIRequest : MonoBehaviour
             else
             {
                 OpenAIResponse response = JsonUtility.FromJson<OpenAIResponse>(request.downloadHandler.text);
+
+                // Retrieve the field with the actual response content, but add backslash before problematic characters
                 responseText = response.choices[0].message.content
 						.Replace("\\", "\\\\") 
     					.Replace("\"", "\\\"") 
     					.Replace("\n", "\\n")   
     					.Replace("\r", "\\r");
-                Debug.Log($"Response: {responseText}");
+                // Debug.Log($"Response: {responseText}");
 
                 // Call AIResponseToSpeech to dictate the response
-                if (aiResponseToSpeech != null)
+                if (_AIResponseToSpeech != null)
                 {
-                    StartCoroutine(aiResponseToSpeech.OpenAIDictate(responseText));
+                    StartCoroutine(_AIResponseToSpeech.OpenAIDictate(responseText));
                 }
                 else
                 {

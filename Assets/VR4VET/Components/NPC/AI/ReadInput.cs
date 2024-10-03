@@ -8,21 +8,25 @@ public class ReadInput : MonoBehaviour
 {
     private string api = "https://api.openai.com/v1/audio/transcriptions";
     private string key;
+
+    private string originalTranscript;
     public string transcript;
 
-    public string audioFile = SaveUserSpeech.FILENAME; // The audio file to send to OpenAI, must be saved in Application.persistentDataPath
+    // The audio file to send to OpenAI, must be saved in Application.persistentDataPath
+    public string audioFile = SaveUserSpeech.FILENAME;
 
-    public SupportedLanguage selectedLanguage;  // Public dropdown to select the language
+    // Public dropdown to select the language
+    public SupportedLanguage selectedLanguage;
 
     private AudioSource audioSource;
     private AudioClip audioClip;
 
     public enum SupportedLanguage
     {
-        English,  // en
-        Norwegian,   // no
-        German,   // de
-        Dutch,   // nl
+        English, // en
+        Norwegian, // no
+        German, // de
+        Dutch, // nl
     }
     private string GetLanguageCode(SupportedLanguage language)
     {
@@ -32,7 +36,7 @@ public class ReadInput : MonoBehaviour
             case SupportedLanguage.Norwegian: return "no";
             case SupportedLanguage.German: return "de";
             case SupportedLanguage.Dutch: return "nl";
-            default: return "no";  // Default to English
+            default: return "no"; // Default to English
         }
     }
 
@@ -50,20 +54,22 @@ public class ReadInput : MonoBehaviour
             case ".m4a":
                 return "audio/m4a";
             default:
-                return "application/octet-stream";  // Default for unknown file types
+                return "application/octet-stream"; // Default for unknown file types
         }
     }
 
     void Start()
     {
+        // Get OpenAI key, which must be set in .env file
         key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
         if (string.IsNullOrEmpty(key))
         {
-            Debug.LogError("OpenAI API key not found");
+            Debug.LogError("OpenAI API key not found.");
             return;
         }
 
+        // Set the path where the transcript is saved
         string audioFilePath = Path.Combine(Application.persistentDataPath, audioFile);
         StartCoroutine(SendAudioToOpenAI(audioFilePath));
 
@@ -72,39 +78,42 @@ public class ReadInput : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        // Audio clip to play if no connection
         audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/English/fable");
         audioSource.clip = audioClip;
     }
 
+    // Coroutine for sending audio file to OpenAI for transcription
     IEnumerator SendAudioToOpenAI(string audioFilePath)
     {
         if (!File.Exists(audioFilePath))
         {
-            Debug.LogError("Audio file not found at path: " + audioFilePath);
+            Debug.LogError("Audio file not found at path: " + audioFilePath + ".");
             yield break;
         }
 
         byte[] audioData = File.ReadAllBytes(audioFilePath);
         string mimeType = GetMimeType(audioFilePath);
 
-
+        // Create API request as a Web form
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", audioData, audioFile, mimeType);
         form.AddField("model", "whisper-1");
         form.AddField("language", GetLanguageCode(selectedLanguage));
 
-
         using (UnityWebRequest request = UnityWebRequest.Post(api, form))
         {
             request.SetRequestHeader("Authorization", $"Bearer {key}");
 
+            // Asynchronously send and wait for the response
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
                 if (request.responseCode == 0)
                 {
-                    // Debug.Log("No internet connection");
+                    // Debug.Log("No internet connection.");
 
                     // If audio source is not already playing, then play voiceline
                     if (!audioSource.isPlaying)
@@ -119,8 +128,9 @@ public class ReadInput : MonoBehaviour
             }
             else
             {
-                Debug.Log($"OpenAI Transcription Response: {request.downloadHandler.text}");
-                transcript = request.downloadHandler.text.Replace("{", "").Replace("\"", "").Replace(":", "").Replace("}", "").Trim();
+                // Debug.Log($"OpenAI transcription response: {request.downloadHandler.text}");
+                originalTranscript = request.downloadHandler.text.Replace("{", "").Replace("\"", "").Replace(":", "").Replace("}", "").Trim();
+                transcript = originalTranscript.Substring(5);
             }
         }
     }

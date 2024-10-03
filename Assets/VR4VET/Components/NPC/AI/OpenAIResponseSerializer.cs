@@ -1,5 +1,6 @@
 using System;
 
+// Field definitions for all of our serializable structures, for JSON requests and responses
 [Serializable]
 public class Message
 {

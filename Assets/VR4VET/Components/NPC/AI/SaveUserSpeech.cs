@@ -11,15 +11,16 @@ public class SaveUserSpeech : MonoBehaviour
     private AudioSource audioSource;
     private AudioClip myAudioClip;
     public const string FILENAME = "conversation.wav";
-    public const int MAX_RECORDTIME = 10;
+    public const int MAX_RECORDTIME = 10; // Max recording time in seconds
 
-	private const int SAMPLE_RATE = 16000;
+    private const int SAMPLE_RATE = 12000; // Sample rate of the audio file, 8K to 16K is normal in realtime voice applications
     private string filePath;
     public bool isRecording = false;
 
-	public void Start() {
-		audioSource = GetComponent<AudioSource>();
-	}
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void StartRecording()
     {
@@ -38,14 +39,16 @@ public class SaveUserSpeech : MonoBehaviour
     // Starts a recording of MAX_RECORDTIME seconds
     public void Record()
     {
-        Debug.Log("Recording started");
+        Debug.Log("Recording started.");
         myAudioClip = Microphone.Start(null, false, MAX_RECORDTIME, SAMPLE_RATE);
         StartCoroutine(SaveWav());
     }
 
     IEnumerator SaveWav()
     {
+        // Wait until recording is stopped or maximum recording time is reached
         yield return new WaitUntil(() => !isRecording || Microphone.GetPosition(null) >= MAX_RECORDTIME * SAMPLE_RATE);
+        Debug.Log("Recording stopped.");
         Microphone.End(null);
         filePath = Path.Combine(Application.persistentDataPath, FILENAME);
         var byteArray = OpenWavParser.AudioClipToByteArray(myAudioClip);
@@ -53,18 +56,20 @@ public class SaveUserSpeech : MonoBehaviour
         StartCoroutine(Transcribe());
     }
 
+    // Coroutine for transcription
     IEnumerator Transcribe()
     {
-        ReadInput ri = gameObject.AddComponent<ReadInput>();
-        while (ri.transcript == null)
+        ReadInput input = gameObject.AddComponent<ReadInput>();
+        while (input.transcript == null)
         {
             yield return new WaitForSeconds(1);
         }
 
-        Debug.Log($"Dette er fra SUS: {ri.transcript}");
-        AIRequest oai = gameObject.AddComponent<AIRequest>();
-        oai.query = ri.transcript;
+        Debug.Log($"Transcript: {input.transcript}");
+        AIRequest request = gameObject.AddComponent<AIRequest>();
+        request.query = input.transcript;
 
+        // Delete the audio file after getting the transcript
         try
         {
             File.Delete(filePath);

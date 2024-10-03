@@ -92,7 +92,7 @@ public class ConversationController : MonoBehaviour
         if (other.Equals(NPCToPlayerReferenceManager.Instance.PlayerCollider))
         {
             playerInsideTrigger = true;
-            Debug.Log(playerInsideTrigger);
+            Debug.Log("Inside range to talk.");
         }
         if (other.Equals(NPCToPlayerReferenceManager.Instance.PlayerCollider) && _dialogueTree.shouldTriggerOnProximity && !_dialogueBoxController.dialogueIsActive && _oldDialogueTree != _dialogueTree)
         {
@@ -119,7 +119,7 @@ public class ConversationController : MonoBehaviour
         if (other.Equals(NPCToPlayerReferenceManager.Instance.PlayerCollider))
         {
             playerInsideTrigger = false;
-            Debug.Log(playerInsideTrigger);
+            Debug.Log("Outside range to talk.");
         }
     }
 
