@@ -23,6 +23,6 @@ public class NPC : ScriptableObject
 
     [TextArea(3, 10)]
     public string contextPrompt;
-    public int maxTokens;
+    public int maxTokens=50;
     
 }
