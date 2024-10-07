@@ -6,6 +6,8 @@ public class AIConversationController : MonoBehaviour
 {
 
     [SerializeField] private SaveUserSpeech _SaveUserSpeech;
+    public string contextPrompt;
+    public int maxTokens = 50;
 
     void Start()
     {
@@ -14,7 +16,7 @@ public class AIConversationController : MonoBehaviour
 
     public void StartRecording()
     {
-        _SaveUserSpeech.StartRecording();
+        _SaveUserSpeech.StartRecording(contextPrompt, maxTokens);
     }
 
 
