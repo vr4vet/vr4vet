@@ -18,7 +18,7 @@ namespace Whisper
         [Header("Model")]
         [SerializeField] 
         [Tooltip("Path to model weights file")]
-        private string modelPath = "Whisper/ggml-base.bin";
+        private string modelPath = "Whisper/ggml-tiny.bin";
         
         [SerializeField]
         [Tooltip("Determines whether the StreamingAssets folder should be prepended to the model path")]
