@@ -64,25 +64,19 @@ public class SaveUserSpeech : MonoBehaviour
         }
     }
 
-    public void StartRecording(int max_tokens, string prompt)
+    public void StartRecording(string prompt, int max_tokens)
     {
-        this.maxTokens = max_tokens;
-        this.contextPrompt = prompt;
+        maxTokens = max_tokens;
+        contextPrompt = prompt;
         if (!microphoneRecord.IsRecording)
         {
             whisper.UpdateLanguage(currentLanguage);
             _stream.StartStream();
             microphoneRecord.StartRecord();
         }
+        
     }
-    {
-        if (!microphoneRecord.IsRecording)
-        {
-            whisper.UpdateLanguage(currentLanguage);
-            _stream.StartStream();
-            microphoneRecord.StartRecord();
-        }
-    }
+
 
     public void EndRecording()
     {
@@ -114,8 +108,8 @@ public class SaveUserSpeech : MonoBehaviour
         // ReadInput input = gameObject.AddComponent<ReadInput>();
         AIRequest request = gameObject.AddComponent<AIRequest>();
         request.query = streamResult;
-        request.contextPrompt = this.contextPrompt;
-        request.maxTokens = this.maxTokens;
+        request.contextPrompt = contextPrompt;
+        request.maxTokens = maxTokens;
         streamResult = "";
     }
 }
