@@ -101,5 +101,6 @@ public class SaveUserSpeech : MonoBehaviour
         // ReadInput input = gameObject.AddComponent<ReadInput>();
         AIRequest request = gameObject.AddComponent<AIRequest>();
         request.query = streamResult;
+        streamResult = "";
     }
 }
