@@ -98,7 +98,7 @@ public class SaveUserSpeech : MonoBehaviour
         print("Stream finished!");
 
         // Add components and create OpenAI query based on transcript
-        ReadInput input = gameObject.AddComponent<ReadInput>();
+        // ReadInput input = gameObject.AddComponent<ReadInput>();
         AIRequest request = gameObject.AddComponent<AIRequest>();
         request.query = streamResult;
     }
