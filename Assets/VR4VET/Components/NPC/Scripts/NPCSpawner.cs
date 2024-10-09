@@ -30,8 +30,11 @@ public class NPCSpawner : MonoBehaviour
         SetName(newNPC, npcSO.NameOfNPC);
         // set talking topics aka. dialogueTrees
         SetConversation(newNPC, npcSO.DialogueTreesSO, npcSO.DialogueTreeJSON);
+
+        setAIBehaviour(newNPC, npcSO.contextPrompt, npcSO.maxTokens);
         spawnedNpc = newNPC;
         // return the NPC
+
         return newNPC;
     }
 
@@ -120,6 +123,18 @@ public class NPCSpawner : MonoBehaviour
             Debug.LogError("The NPC is missing the conversationController");
         } else {
             conversationController.SetDialogueTreeList(dialogueTreesSO, dialogueTreesJSON);
+        }
+    }
+
+    public void setAIBehaviour(GameObject npc, string contextPrompt, int maxTokens)
+    {
+        AIConversationController aiConversationController = npc.GetComponent<AIConversationController>();
+        if (aiConversationController == null)
+        {
+            Debug.LogError("The NPC is missing the AIConversationController");
+        } else {
+            aiConversationController.contextPrompt = contextPrompt;
+            aiConversationController.maxTokens = maxTokens;
         }
     }
 
