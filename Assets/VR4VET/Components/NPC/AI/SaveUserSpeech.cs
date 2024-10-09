@@ -62,7 +62,7 @@ public class SaveUserSpeech : MonoBehaviour
         ReadInput input = gameObject.AddComponent<ReadInput>();
         while (input.transcript == null)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.01f);
         }
 
         Debug.Log($"Transcript: {input.transcript}");
