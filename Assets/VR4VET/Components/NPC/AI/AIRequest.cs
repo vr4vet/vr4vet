@@ -88,9 +88,13 @@ public class AIRequest : MonoBehaviour
                 if (_AIResponseToSpeech != null)
                 {
                     StartCoroutine(_AIResponseToSpeech.OpenAIDictate(responseText));
+
+                    // Display the thinking dialogue while waiting for the response
                     Coroutine thinking = StartCoroutine(_dialogueBoxController.DisplayThinking());
                     yield return new WaitUntil(() => _AIResponseToSpeech.readyToAnswer);
                     StopCoroutine(thinking);
+
+                    // Display the response in the dialogue box
                     StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));
                 }
                 else

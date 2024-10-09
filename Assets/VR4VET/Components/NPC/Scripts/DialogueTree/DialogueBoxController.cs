@@ -286,12 +286,13 @@ public class DialogueBoxController : MonoBehaviour
         _exitButton.SetActive(true);
         _skipLineButton.SetActive(false);
 
+        // Wait for the player to exit the conversation
         while (_exitButton.activeSelf)
         {
             yield return null;
         }
 
-        // Exit conversation when skip or exit is pressed
+        // Exit conversation when exit is pressed
         ExitConversation();
         yield return null;
 
@@ -299,6 +300,7 @@ public class DialogueBoxController : MonoBehaviour
 
     public IEnumerator DisplayThinking()
     {
+        // While waiting for a response, display thinking dialogue
         while (true)
         {
             _dialogueText.text = "I'm thinking...";
