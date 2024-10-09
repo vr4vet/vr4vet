@@ -10,7 +10,8 @@ public class AIRequest : MonoBehaviour
     public string query;
     public string responseText;
 
-    public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation  
+    public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation
+    public DialogueBoxController _dialogueBoxController;  
 
     void Start()
     {
@@ -29,6 +30,15 @@ public class AIRequest : MonoBehaviour
             if (_AIResponseToSpeech == null)
             {
                 Debug.LogError("AIResponseToSpeech component not found in the scene.");
+                return;
+            }
+        }
+        if (_dialogueBoxController == null)
+        {
+            _dialogueBoxController = FindObjectOfType<DialogueBoxController>();
+            if (_dialogueBoxController == null)
+            {
+                Debug.LogError("DialogueBoxController component not found in the scene.");
                 return;
             }
         }
@@ -78,6 +88,10 @@ public class AIRequest : MonoBehaviour
                 if (_AIResponseToSpeech != null)
                 {
                     StartCoroutine(_AIResponseToSpeech.OpenAIDictate(responseText));
+                    Coroutine thinking = StartCoroutine(_dialogueBoxController.DisplayThinking());
+                    yield return new WaitUntil(() => _AIResponseToSpeech.readyToAnswer);
+                    StopCoroutine(thinking);
+                    StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));
                 }
                 else
                 {

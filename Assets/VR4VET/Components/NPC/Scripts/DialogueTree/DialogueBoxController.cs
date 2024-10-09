@@ -33,6 +33,8 @@ public class DialogueBoxController : MonoBehaviour
     public bool dialogueEnded;
     public int timesEnded = 0;
 
+    public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation
+
     private void Awake() 
     {
         buttonSpawner = GetComponent<ButtonSpawner>();
@@ -137,7 +139,7 @@ public class DialogueBoxController : MonoBehaviour
             dialogueEnded = true;
             timesEnded++;
             OnDialogueEnded?.Invoke(name);
-            ExitConversation();
+            StartDynamicQuery();
             yield break;
         }
         _dialogueText.text = dialogueTree.sections[section].branchPoint.question;
@@ -152,7 +154,7 @@ public class DialogueBoxController : MonoBehaviour
         _skipLineButton.SetActive(false);
         if (dialogueTree.sections[section].branchPoint.answers[_answerIndex].endAfterAnswer) {
             // Exit conversation if the answer is set to exit after answer
-            ExitConversation();
+            StartDynamicQuery();
         } else {
             // Continue to section of the dialogue the answer points to
             StartCoroutine(RunDialogue(dialogueTree, dialogueTree.sections[section].branchPoint.answers[_answerIndex].nextElement));
@@ -230,12 +232,12 @@ public class DialogueBoxController : MonoBehaviour
 
     public void ExitConversation()
     {
-        // stop talk-animation
+        //stop talk-animation
         _animator.SetBool(_isTalkingHash, false);
         dialogueIsActive = false;
         ResetBox();
         if (dialogueTreeRestart.speakButtonOnExit) {
-            // Only start speak canvas if option is not turned off
+            //Only start speak canvas if option is not turned off
             StartSpeakCanvas(dialogueTreeRestart);
         }
     }
@@ -248,4 +250,65 @@ public class DialogueBoxController : MonoBehaviour
         dialogueTextRect.sizeDelta = new Vector2(50,30);
         buttonSpawner.spawnSpeakButton(dialogueTree);
     }
+
+    public void StartDynamicQuery()
+    {
+        // Stop previous NPC speech
+        TTSSpeaker.GetComponent<TTSSpeaker>().Stop();
+        _dialogueBox.SetActive(true);
+
+        // Set text to generic question
+        _dialogueText.text = "That's all I have to say. Do you have any questions? Hold B to speak to me.";
+
+        // If the AIResponseToSpeech component is not set, attempt to find it
+        if (_AIResponseToSpeech == null)
+        {
+            _AIResponseToSpeech = FindObjectOfType<AIResponseToSpeech>();
+            if (_AIResponseToSpeech == null)
+            {
+                Debug.LogError("AIResponseToSpeech component not found in the scene.");
+                return;
+            }
+        }
+
+        // NPC will speak generic question
+        StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
+
+        // Display generic question
+        StartCoroutine(DisplayResponse(_dialogueText.text));
+    }
+
+    public IEnumerator DisplayResponse(string response)
+    {
+        // Start talking animation
+        _animator.SetBool(_isTalkingHash, true);
+        _dialogueText.text = response;
+        _exitButton.SetActive(true);
+        _skipLineButton.SetActive(false);
+
+        while (_exitButton.activeSelf)
+        {
+            yield return null;
+        }
+
+        // Exit conversation when skip or exit is pressed
+        ExitConversation();
+        yield return null;
+
+    }
+
+    public IEnumerator DisplayThinking()
+    {
+        while (true)
+        {
+            _dialogueText.text = "I'm thinking...";
+            yield return new WaitForSeconds(0.5f);
+            _dialogueText.text = "I'm thinking.";
+            yield return new WaitForSeconds(0.5f);
+            _dialogueText.text = "I'm thinking..";
+            yield return new WaitForSeconds(0.5f);
+        }
+
+    }
+
 }

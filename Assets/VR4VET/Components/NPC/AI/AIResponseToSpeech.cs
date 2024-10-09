@@ -9,6 +9,7 @@ public class AIResponseToSpeech : MonoBehaviour
     private string api = "https://api.openai.com/v1/audio/speech";
     private string key;
     private AudioSource audioSource;
+    public bool readyToAnswer = false;
 
     void Start()
     {
@@ -32,6 +33,9 @@ public class AIResponseToSpeech : MonoBehaviour
     // Coroutine for dictation through OpenAI's API in JSON request format
     public IEnumerator OpenAIDictate(string responseText)
     {
+        // Indicate that the AI is thinking
+        yield return readyToAnswer = false;
+
         // Debug.Log($"Dictating text: {responseText}");
         string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{responseText}\", \"voice\": \"alloy\"}}";
 
@@ -57,6 +61,9 @@ public class AIResponseToSpeech : MonoBehaviour
                 string filePath = Path.Combine(Application.persistentDataPath, "speech.mp3");
                 File.WriteAllBytes(filePath, audioData);
                 // Debug.Log($"Audio saved to: {filePath}");
+
+                // Indicate that the AI is ready to answer
+                yield return readyToAnswer = true;
 
                 // Play the saved audio file through coroutine
                 StartCoroutine(PlayAudio(filePath));
