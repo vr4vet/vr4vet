@@ -29,6 +29,9 @@ public class SaveUserSpeech : MonoBehaviour
 
     private const int SUBTITLE_DURATION = 5;
 
+    private string contextPrompt;
+    private int maxTokens;
+
     public async void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -66,15 +69,19 @@ public class SaveUserSpeech : MonoBehaviour
         }
     }
 
-    public void StartRecording()
+    public void StartRecording(string prompt, int max_tokens)
     {
+        maxTokens = max_tokens;
+        contextPrompt = prompt;
         if (!microphoneRecord.IsRecording)
         {
             whisper.UpdateLanguage(currentLanguage);
             _stream.StartStream();
             microphoneRecord.StartRecord();
         }
+        
     }
+
 
     public void EndRecording()
     {
@@ -102,6 +109,9 @@ public class SaveUserSpeech : MonoBehaviour
         // Add components and create OpenAI query based on transcript
         AIRequest request = gameObject.AddComponent<AIRequest>();
         request.query = finalResult;
+        request.contextPrompt = contextPrompt;
+        request.maxTokens = maxTokens;
+        
         subtitle.text = finalResult;   // Set subtitles based on final result
         StartCoroutine(WaitForSubtitleFadeOut());
     }

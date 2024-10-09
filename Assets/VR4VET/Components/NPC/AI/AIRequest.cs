@@ -8,6 +8,8 @@ public class AIRequest : MonoBehaviour
     private string api = "https://api.openai.com/v1/chat/completions";
     private string key;
     public string query;
+    public string contextPrompt;
+    public int maxTokens;
     public string responseText;
 
     public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation  
@@ -46,7 +48,8 @@ public class AIRequest : MonoBehaviour
         // Debug.Log($"Query: {query}");
 
         // Creates the OpenAI API request in JSON format, with the query from the user inserted
-        string jsonData = $"{{\"model\": \"gpt-4o-mini\", \"messages\": [{{\"role\": \"user\", \"content\": \"{query}\"}}], \"max_tokens\": 50}}";
+        string jsonData = $"{{\"model\": \"gpt-4o-mini\", \"messages\": [{{\"role\": \"user\", \"content\": \"{contextPrompt} input:{query}\"}}], \"max_tokens\": {maxTokens}}}";
+        Debug.Log($"context: {contextPrompt} q: {query}");
         using (UnityWebRequest request = new UnityWebRequest(api, "POST"))
         {
             byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(jsonData);
@@ -72,7 +75,7 @@ public class AIRequest : MonoBehaviour
     					.Replace("\"", "\\\"") 
     					.Replace("\n", "\\n")   
     					.Replace("\r", "\\r");
-                // Debug.Log($"Response: {responseText}");
+                Debug.Log($"Response: {responseText}");
 
                 // Call AIResponseToSpeech to dictate the response
                 if (_AIResponseToSpeech != null)
