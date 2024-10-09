@@ -43,7 +43,7 @@ public class AIRequest : MonoBehaviour
     {
         while (string.IsNullOrEmpty(query))
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
         }
         // Debug.Log($"Query: {query}");
 

@@ -80,7 +80,7 @@ public class AIResponseToSpeech : MonoBehaviour
                 AudioClip audioClip = DownloadHandlerAudioClip.GetContent(request);
                 audioSource.clip = audioClip;
                 audioSource.Play();
-                // Debug.Log("Playing audio.");
+                Debug.Log("Playing audio.");
             }
         }
     }

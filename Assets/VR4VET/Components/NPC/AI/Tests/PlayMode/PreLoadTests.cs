@@ -10,7 +10,7 @@ public class PreLoadTests
     public void IsKeyRetrieved()
     {
         Env.Load();
-        string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-        Assert.IsFalse(string.IsNullOrEmpty(apiKey), "OpenAI API key should not be null or empty.");
+        string key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+        Assert.IsFalse(string.IsNullOrEmpty(key), "OpenAI API key should not be null or empty.");
     }
 }

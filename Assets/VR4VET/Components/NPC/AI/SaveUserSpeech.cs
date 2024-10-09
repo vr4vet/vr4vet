@@ -5,6 +5,9 @@ using System.Collections;
 using static ReadInput;
 using static AIRequest;
 using static OpenWavParser;
+using Whisper;
+using Whisper.Utils;
+using System.Threading.Tasks;
 
 public class SaveUserSpeech : MonoBehaviour
 {
@@ -12,73 +15,107 @@ public class SaveUserSpeech : MonoBehaviour
     private AudioClip myAudioClip;
     public const string FILENAME = "conversation.wav";
     public const int MAX_RECORDTIME = 10; // Max recording time in seconds
-
     private const int SAMPLE_RATE = 12000; // Sample rate of the audio file, 8K to 16K is normal in realtime voice applications
     private string filePath;
-    public bool isRecording = false;
+    public WhisperManager whisper;
+    // NB! There currently is no language dropdown selector on the pause menu. This is on the main branch, not NPCAI. 
+    private string[] languages = { "en", "no", "de", "nl" };
+    private int currentLanguageIndex = 0;
+    private string currentLanguage;
+    public MicrophoneRecord microphoneRecord;
+    private WhisperStream _stream;
+    private string streamResult;
 
-    public void Start()
+    private string contextPrompt;
+    private int maxTokens;
+
+    public async void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        microphoneRecord = GetComponent<MicrophoneRecord>();
+
+        // Assign whisper transcription manager and set current language.
+        // Users can change language by pressing 'L' on the keyboard for now.
+        whisper = GetComponent<WhisperManager>();
+        currentLanguage = languages[currentLanguageIndex];
+        whisper.language = currentLanguage; // Default value is English
+
+        _stream = await whisper.CreateStream(microphoneRecord);
+        _stream.OnResultUpdated += OnResult;
+        _stream.OnSegmentUpdated += OnSegmentUpdated;
+        _stream.OnSegmentFinished += OnSegmentFinished;
+        _stream.OnStreamFinished += OnFinished;
+
+        microphoneRecord.OnRecordStop += OnRecordStop;
     }
 
-    public void StartRecording(string contextPrompt, int maxTokens)
-    {
-        if (!isRecording)
+    public void Update() {
+        // Check if the 'L' key is pressed
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            isRecording = true;
-            Record(contextPrompt, maxTokens);
+            // Move to the next language in the list
+            currentLanguageIndex++;
+            if (currentLanguageIndex >= languages.Length)
+            {
+                currentLanguageIndex = 0;
+            }
+            currentLanguage = languages[currentLanguageIndex];
+            Debug.Log("Current lang. code: " + currentLanguage);
+        }
+    }
+
+    public void StartRecording(int max_tokens, string prompt)
+    {
+        this.maxTokens = max_tokens;
+        this.contextPrompt = prompt;
+        if (!microphoneRecord.IsRecording)
+        {
+            whisper.UpdateLanguage(currentLanguage);
+            _stream.StartStream();
+            microphoneRecord.StartRecord();
+        }
+    }
+    {
+        if (!microphoneRecord.IsRecording)
+        {
+            whisper.UpdateLanguage(currentLanguage);
+            _stream.StartStream();
+            microphoneRecord.StartRecord();
         }
     }
 
     public void EndRecording()
     {
-        isRecording = false;
+        microphoneRecord.StopRecord();
     }
 
-    // Starts a recording of MAX_RECORDTIME seconds
-    public void Record(string contextPrompt, int maxTokens)
+    private void OnResult(string result)
     {
-        Debug.Log("Recording started.");
-        myAudioClip = Microphone.Start(null, false, MAX_RECORDTIME, SAMPLE_RATE);
-        StartCoroutine(SaveWav(contextPrompt, maxTokens));
+        streamResult+= result;
     }
 
-    IEnumerator SaveWav(string contextPrompt, int maxTokens)
+    private void OnRecordStop(AudioChunk recordedAudio){}
+    
+    private void OnSegmentUpdated(WhisperResult segment)
     {
-        // Wait until recording is stopped or maximum recording time is reached
-        yield return new WaitUntil(() => !isRecording || Microphone.GetPosition(null) >= MAX_RECORDTIME * SAMPLE_RATE);
-        Debug.Log("Recording stopped.");
-        Microphone.End(null);
-        filePath = Path.Combine(Application.persistentDataPath, FILENAME);
-        var byteArray = OpenWavParser.AudioClipToByteArray(myAudioClip);
-        File.WriteAllBytes(filePath, byteArray);
-        StartCoroutine(Transcribe(contextPrompt, maxTokens));
+        print($"Segment updated: {segment.Result}");
     }
-
-    // Coroutine for transcription
-    IEnumerator Transcribe(string contextPrompt, int maxTokens)
+    
+    private void OnSegmentFinished(WhisperResult segment)
     {
-        ReadInput input = gameObject.AddComponent<ReadInput>();
-        while (input.transcript == null)
-        {
-            yield return new WaitForSeconds(1);
-        }
+        print($"Segment finished: {segment.Result}");
+    }
+    
+    private void OnFinished(string finalResult)
+    {
+        print("Stream finished!");
 
-        Debug.Log($"Transcript: {input.transcript}");
+        // Add components and create OpenAI query based on transcript
+        // ReadInput input = gameObject.AddComponent<ReadInput>();
         AIRequest request = gameObject.AddComponent<AIRequest>();
-        request.query = input.transcript;
-		request.contextPrompt = contextPrompt;
-		request.maxTokens = maxTokens;
-
-        // Delete the audio file after getting the transcript
-        try
-        {
-            File.Delete(filePath);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"Error deleting audio file: {e.Message}");
-        }
+        request.query = streamResult;
+        request.contextPrompt = this.contextPrompt;
+        request.maxTokens = this.maxTokens;
+        streamResult = "";
     }
 }
