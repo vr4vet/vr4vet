@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using Meta.WitAi.TTS.Utilities;
 
 public class AIRequest : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class AIRequest : MonoBehaviour
     public string responseText;
 
     public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation
-    public DialogueBoxController _dialogueBoxController;  
+    public DialogueBoxController _dialogueBoxController;
 
     void Start()
     {
@@ -45,8 +46,8 @@ public class AIRequest : MonoBehaviour
             }
         }
 
-    // Start coroutine for the OpenAI request
-    StartCoroutine(OpenAI());
+        // Start coroutine for the OpenAI request
+        StartCoroutine(OpenAI());
     }
 
     IEnumerator OpenAI()
@@ -81,16 +82,28 @@ public class AIRequest : MonoBehaviour
 
                 // Retrieve the field with the actual response content, but add backslash before problematic characters
                 responseText = response.choices[0].message.content
-						.Replace("\\", "\\\\") 
-    					.Replace("\"", "\\\"") 
-    					.Replace("\n", "\\n")   
-    					.Replace("\r", "\\r");
+                        .Replace("\\", "\\\\")
+                        .Replace("\"", "\\\"")
+                        .Replace("\n", "\\n")
+                        .Replace("\r", "\\r");
                 Debug.Log($"Response: {responseText}");
 
                 // Call AIResponseToSpeech to dictate the response
-                if (_AIResponseToSpeech != null)
+                if (_AIResponseToSpeech != null && _dialogueBoxController.useWitAI == false)
                 {
                     StartCoroutine(_AIResponseToSpeech.OpenAIDictate(responseText));
+
+                    // Display the thinking dialogue while waiting for the response
+                    Coroutine thinking = StartCoroutine(_dialogueBoxController.DisplayThinking());
+                    yield return new WaitUntil(() => _AIResponseToSpeech.readyToAnswer);
+                    StopCoroutine(thinking);
+
+                    // Display the response in the dialogue box
+                    StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));
+                }
+                else if (_dialogueBoxController.useWitAI == true)
+                {
+                    StartCoroutine(_AIResponseToSpeech.WitAIDictate(responseText));
 
                     // Display the thinking dialogue while waiting for the response
                     Coroutine thinking = StartCoroutine(_dialogueBoxController.DisplayThinking());
