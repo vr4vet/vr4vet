@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using Meta.WitAi.TTS.Utilities;
 
 public class AIResponseToSpeech : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class AIResponseToSpeech : MonoBehaviour
     private string key;
     private AudioSource audioSource;
     public bool readyToAnswer = false;
+
+    public GameObject TTSSpeaker;
+    private TTSSpeaker ttsSpeakerComponent;
 
     void Start()
     {
@@ -27,6 +31,24 @@ public class AIResponseToSpeech : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        if (TTSSpeaker == null)
+        {
+            TTSSpeaker = FindObjectOfType<TTSSpeaker>()?.gameObject;
+            if (TTSSpeaker == null)
+            {
+                Debug.LogError("TTSSpeaker GameObject is not assigned in AIResponseToSpeech and couldn't be found.");
+                return;
+            }
+        }
+
+        ttsSpeakerComponent = TTSSpeaker.GetComponent<TTSSpeaker>();
+
+        if (ttsSpeakerComponent == null)
+        {
+            Debug.LogError("TTSSpeaker component not found on the assigned or found TTSSpeaker GameObject.");
+            return;
         }
     }
 
@@ -90,5 +112,27 @@ public class AIResponseToSpeech : MonoBehaviour
                 Debug.Log("Playing audio.");
             }
         }
+    }
+    public IEnumerator WitAIDictate(string responseText)
+    {
+        readyToAnswer = false;
+
+        if (ttsSpeakerComponent != null)
+        {
+            ttsSpeakerComponent.Speak(responseText);
+        }
+        else
+        {
+            Debug.LogError("TTSSpeaker component is missing or not assigned.");
+        }
+
+        //  Wait until the speaking is finished
+        while (ttsSpeakerComponent.IsSpeaking)
+        {
+            yield return null;
+        }
+
+        // Indicate that the AI is ready to answer again
+        readyToAnswer = true;
     }
 }

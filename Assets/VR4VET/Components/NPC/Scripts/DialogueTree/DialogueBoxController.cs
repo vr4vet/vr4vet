@@ -20,7 +20,7 @@ public class DialogueBoxController : MonoBehaviour
     [HideInInspector] private int _answerIndex;
     [SerializeField] private GameObject _skipLineButton;
     [SerializeField] private GameObject _exitButton;
-    [SerializeField] private GameObject _speakButton; 
+    [SerializeField] private GameObject _speakButton;
     [HideInInspector] private Animator _animator;
     [HideInInspector] private int _isTalkingHash;
     [HideInInspector] private int _hasNewDialogueOptionsHash;
@@ -29,16 +29,18 @@ public class DialogueBoxController : MonoBehaviour
     [HideInInspector] public ButtonSpawner buttonSpawner;
     [HideInInspector] public bool dialogueIsActive;
     private int _activatedCount = 0;
-    [HideInInspector]public DialogueTree dialogueTreeRestart;
+    [HideInInspector] public DialogueTree dialogueTreeRestart;
     public bool dialogueEnded;
     public int timesEnded = 0;
 
     public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation
 
-    private void Awake() 
+    public bool useWitAI;
+
+    private void Awake()
     {
         buttonSpawner = GetComponent<ButtonSpawner>();
-        if (buttonSpawner == null) 
+        if (buttonSpawner == null)
         {
             Debug.LogError("The NPC missing the Button spawner script");
         }
@@ -51,6 +53,7 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Start()
     {
+        useWitAI = false;
         dialogueEnded = false;
         // Assign the event camera
         if (_dialogueCanvas != null)
@@ -80,21 +83,34 @@ public class DialogueBoxController : MonoBehaviour
         // Get the background transform for dimension changes
         backgroundRect = _dialogueBox.transform.Find("BasicDialogueItems").transform.Find("Background").GetComponent<RectTransform>();
         dialogueTextRect = _dialogueBox.transform.Find("BasicDialogueItems").transform.Find("DialogueText").GetComponent<RectTransform>();
+
+        // If the AIResponseToSpeech component is not set, attempt to find it
+        if (_AIResponseToSpeech == null)
+        {
+            _AIResponseToSpeech = FindObjectOfType<AIResponseToSpeech>();
+            if (_AIResponseToSpeech == null)
+            {
+                Debug.LogError("AIResponseToSpeech component not found in the scene.");
+                return;
+            }
+        }
     }
 
-    public void updateAnimator() {
+    public void updateAnimator()
+    {
         //this.animator = animator;
         this._animator = GetComponentInChildren<Animator>();
         _isTalkingHash = Animator.StringToHash("isTalking");
         _hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
-    public void updateAnimator(Animator animator) {
+    public void updateAnimator(Animator animator)
+    {
         this._animator = animator;
     }
 
 
-    public void StartDialogue(DialogueTree dialogueTree, int startSection, string name) 
+    public void StartDialogue(DialogueTree dialogueTree, int startSection, string name)
     {
         dialogueIsActive = true;
         // stop I-have-something-to-tell-you-animation and start talking
@@ -112,19 +128,27 @@ public class DialogueBoxController : MonoBehaviour
 
     IEnumerator RunDialogue(DialogueTree dialogueTree, int section)
     {
+        Debug.Log("useWitAI is: " + useWitAI);
         // Make the "Speak" restart tree the current tree
         dialogueTreeRestart = dialogueTree;
         // Reset the dialogue box dimensions from "Speak" button dimensions
-        backgroundRect.sizeDelta = new Vector2(160,100);
-        dialogueTextRect.sizeDelta = new Vector2(150,60);
+        backgroundRect.sizeDelta = new Vector2(160, 100);
+        dialogueTextRect.sizeDelta = new Vector2(150, 60);
 
-        for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++) 
-        {   
+        for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++)
+        {
             // Start talking animation
             _animator.SetBool(_isTalkingHash, true);
             StartCoroutine(revertToIdleAnimation());
             _dialogueText.text = dialogueTree.sections[section].dialogue[i];
-            TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+            if (useWitAI)
+            {
+                TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+            }
+            else
+            {
+                StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
+            }
             while (!_skipLineTriggered)
             {
                 _skipLineButton.SetActive(true);
@@ -143,7 +167,14 @@ public class DialogueBoxController : MonoBehaviour
             yield break;
         }
         _dialogueText.text = dialogueTree.sections[section].branchPoint.question;
-        TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+        if (useWitAI)
+        {
+            TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+        }
+        else
+        {
+            StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
+        }
         ShowAnswers(dialogueTree.sections[section].branchPoint);
         while (_answerTriggered == false)
         {
@@ -152,16 +183,20 @@ public class DialogueBoxController : MonoBehaviour
         _answerTriggered = false;
         _exitButton.SetActive(false);
         _skipLineButton.SetActive(false);
-        if (dialogueTree.sections[section].branchPoint.answers[_answerIndex].endAfterAnswer) {
+        if (dialogueTree.sections[section].branchPoint.answers[_answerIndex].endAfterAnswer)
+        {
             // Exit conversation if the answer is set to exit after answer
             StartDynamicQuery();
-        } else {
+        }
+        else
+        {
             // Continue to section of the dialogue the answer points to
             StartCoroutine(RunDialogue(dialogueTree, dialogueTree.sections[section].branchPoint.answers[_answerIndex].nextElement));
         }
     }
 
-    public void StartComment(DialogueTree dialogueTree, int startSection, string name) {
+    public void StartComment(DialogueTree dialogueTree, int startSection, string name)
+    {
         // Reset dialogue box if active
         dialogueIsActive = false;
         ResetBox();
@@ -172,22 +207,31 @@ public class DialogueBoxController : MonoBehaviour
         RunComment(dialogueTree, startSection);
     }
 
-    void RunComment(DialogueTree dialogueTree, int section) {
+    void RunComment(DialogueTree dialogueTree, int section)
+    {
         // Runs the current section with no dialogue box, then exits
         _animator.SetBool(_isTalkingHash, true);
         StartCoroutine(ExitComment());
         _dialogueText.text = dialogueTree.sections[section].dialogue[0];
-        TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+        if (useWitAI)
+        {
+            TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+        }
+        else
+        {
+            StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
+        }
     }
 
-    private IEnumerator ExitComment() {
+    private IEnumerator ExitComment()
+    {
         // When 9 seconds have passed, stop the animation and exit the comment dialogue
         yield return new WaitForSeconds(9.0f);
         _animator.SetBool(_isTalkingHash, false);
         dialogueIsActive = false;
     }
 
-    public void ResetBox() 
+    public void ResetBox()
     {
         StopAllCoroutines();
         _dialogueBox.SetActive(false);
@@ -195,7 +239,7 @@ public class DialogueBoxController : MonoBehaviour
         _skipLineTriggered = false;
         _answerTriggered = false;
         _skipLineButton.SetActive(false);
-        _exitButton.SetActive(false); 
+        _exitButton.SetActive(false);
     }
 
     void ShowAnswers(BranchPoint branchPoint)
@@ -220,7 +264,8 @@ public class DialogueBoxController : MonoBehaviour
 
     // Reverts to idle animation after 10.267 seconds
     // Time is length of talking animation, should be tweaked to not use value
-    private IEnumerator revertToIdleAnimation() {
+    private IEnumerator revertToIdleAnimation()
+    {
         yield return new WaitForSeconds(9.0f);
         _animator.SetBool(_isTalkingHash, false);
     }
@@ -236,7 +281,8 @@ public class DialogueBoxController : MonoBehaviour
         _animator.SetBool(_isTalkingHash, false);
         dialogueIsActive = false;
         ResetBox();
-        if (dialogueTreeRestart.speakButtonOnExit) {
+        if (dialogueTreeRestart.speakButtonOnExit)
+        {
             //Only start speak canvas if option is not turned off
             StartSpeakCanvas(dialogueTreeRestart);
         }
@@ -246,8 +292,8 @@ public class DialogueBoxController : MonoBehaviour
     {
         _dialogueBox.SetActive(true);
         _dialogueText.text = null;
-        backgroundRect.sizeDelta = new Vector2(50,30);
-        dialogueTextRect.sizeDelta = new Vector2(50,30);
+        backgroundRect.sizeDelta = new Vector2(50, 30);
+        dialogueTextRect.sizeDelta = new Vector2(50, 30);
         buttonSpawner.spawnSpeakButton(dialogueTree);
     }
 
@@ -260,19 +306,15 @@ public class DialogueBoxController : MonoBehaviour
         // Set text to generic question
         _dialogueText.text = "That's all I have to say. Do you have any questions? Hold B to speak to me.";
 
-        // If the AIResponseToSpeech component is not set, attempt to find it
-        if (_AIResponseToSpeech == null)
-        {
-            _AIResponseToSpeech = FindObjectOfType<AIResponseToSpeech>();
-            if (_AIResponseToSpeech == null)
-            {
-                Debug.LogError("AIResponseToSpeech component not found in the scene.");
-                return;
-            }
-        }
-
         // NPC will speak generic question
-        StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
+        if (useWitAI)
+        {
+            TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+        }
+        else
+        {
+            StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
+        }
 
         // Display generic question
         StartCoroutine(DisplayResponse(_dialogueText.text));

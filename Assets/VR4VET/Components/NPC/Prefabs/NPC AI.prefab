@@ -127,6 +127,7 @@ MonoBehaviour:
   dialogueTreeRestart: {fileID: 0}
   dialogueEnded: 0
   timesEnded: 0
+  _AIResponseToSpeech: {fileID: 0}
 --- !u!114 &5828373786828991796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +203,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SaveUserSpeech: {fileID: 0}
+  contextPrompt: 
+  maxTokens: 50
 --- !u!114 &472243030718372020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7431cda181f5b4a1aabeb9778b1cacab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readyToAnswer: 0
 --- !u!114 &3492104680634422935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,7 +420,7 @@ MonoBehaviour:
   lengthSec: 10
   updatePrompt: 0
   dropOldBuffer: 0
-  useVad: 1
+  useVad: 0
   tokensTimestamps: 0
   speedUp: 0
   audioCtx: 0
