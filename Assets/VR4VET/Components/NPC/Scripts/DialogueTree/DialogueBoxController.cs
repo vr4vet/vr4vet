@@ -122,7 +122,7 @@ public class DialogueBoxController : MonoBehaviour
         OnDialogueStarted?.Invoke(name);
         _activatedCount = 0;
         StartCoroutine(RunDialogue(dialogueTree, startSection));
-        _exitButton.SetActive(true);
+        _exitButton.SetActive(false);
 
     }
 
@@ -152,7 +152,7 @@ public class DialogueBoxController : MonoBehaviour
             while (!_skipLineTriggered)
             {
                 _skipLineButton.SetActive(true);
-                _exitButton.SetActive(true);
+                _exitButton.SetActive(false);
                 yield return null;
             }
             _skipLineTriggered = false;
@@ -163,7 +163,7 @@ public class DialogueBoxController : MonoBehaviour
             dialogueEnded = true;
             timesEnded++;
             OnDialogueEnded?.Invoke(name);
-            StartDynamicQuery();
+            StartDynamicQuery(dialogueTree);
             yield break;
         }
         _dialogueText.text = dialogueTree.sections[section].branchPoint.question;
@@ -186,7 +186,7 @@ public class DialogueBoxController : MonoBehaviour
         if (dialogueTree.sections[section].branchPoint.answers[_answerIndex].endAfterAnswer)
         {
             // Exit conversation if the answer is set to exit after answer
-            StartDynamicQuery();
+            StartDynamicQuery(dialogueTree);
         }
         else
         {
@@ -297,14 +297,16 @@ public class DialogueBoxController : MonoBehaviour
         buttonSpawner.spawnSpeakButton(dialogueTree);
     }
 
-    public void StartDynamicQuery()
+    public void StartDynamicQuery(DialogueTree dialogueTree)
     {
         // Stop previous NPC speech
+        buttonSpawner.spawnRepeatButton(dialogueTree);
         TTSSpeaker.GetComponent<TTSSpeaker>().Stop();
+        _exitButton.SetActive(false);
         _dialogueBox.SetActive(true);
 
         // Set text to generic question
-        _dialogueText.text = "That's all I have to say. Do you have any questions? Hold B to speak to me.";
+        _dialogueText.text = "That's all I have to say. Do you have any questions? Hold \"B\" to speak to me.";
 
         // NPC will speak generic question
         if (useWitAI)
@@ -325,17 +327,17 @@ public class DialogueBoxController : MonoBehaviour
         // Start talking animation
         _animator.SetBool(_isTalkingHash, true);
         _dialogueText.text = response;
-        _exitButton.SetActive(true);
+        _exitButton.SetActive(false);
         _skipLineButton.SetActive(false);
 
         // Wait for the player to exit the conversation
-        while (_exitButton.activeSelf)
-        {
-            yield return null;
-        }
+        // while (_exitButton.activeSelf)
+        // {
+        //     yield return null;
+        // }
 
         // Exit conversation when exit is pressed
-        ExitConversation();
+        // ExitConversation();
         yield return null;
 
     }
