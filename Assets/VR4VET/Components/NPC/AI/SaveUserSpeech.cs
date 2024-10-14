@@ -106,6 +106,11 @@ public class SaveUserSpeech : MonoBehaviour
     {
         print("Stream finished!");
 
+        if (finalResult.Contains("[ Inaudible ]") || finalResult.Contains("[BLANK_AUDIO]")) {
+            Debug.Log("Blank audio returned from Whisper. Please speak into the microphone and hold the microphone button down for a few seconds.");
+            finalResult = "Please respond by saying you cannot understand me";
+        }
+
         // Add components and create OpenAI query based on transcript
         AIRequest request = gameObject.AddComponent<AIRequest>();
         request.query = finalResult;

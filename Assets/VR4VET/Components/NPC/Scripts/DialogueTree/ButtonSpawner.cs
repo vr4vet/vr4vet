@@ -127,4 +127,19 @@ public class ButtonSpawner : MonoBehaviour
         
         _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.StartDialogue(dialogueTree, 0, "NPC");});
     }
+
+    // Add new "Restart Conversation" button to start conversation again
+    public void spawnRepeatButton(DialogueTree dialogueTree) {
+        removeAllButtons();
+        Vector3 spawnLocation = new Vector3(0,-75,1);
+        _buttonsSpawned[0] = Instantiate(_buttonPrefab, spawnLocation, Quaternion.identity);
+        GameObject button = _buttonsSpawned[0];
+        button.transform.SetParent(_parentInCanvas.transform, false);
+        RectTransform buttonTransfrom = button.GetComponent<RectTransform>();
+        Vector3 buttonLocation = new Vector3(spawnLocation.x, spawnLocation.y+37f, spawnLocation.z);
+        buttonTransfrom.localPosition = buttonLocation;
+        button.GetComponentInChildren<TextMeshProUGUI>().text = "Restart Conversation";
+        
+        _buttonsSpawned[0].GetComponent<Button>().onClick.AddListener(() => {_dialogueBoxController.StartDialogue(dialogueTree, 0, "NPC");});
+    }
 }
