@@ -130,6 +130,7 @@ public class AIRequest : MonoBehaviour
                     Coroutine thinking = StartCoroutine(_dialogueBoxController.DisplayThinking());
                     yield return new WaitUntil(() => _AIResponseToSpeech.readyToAnswer);
                     StopCoroutine(thinking);
+                    _dialogueBoxController.stopThinking();
 
                     // Display the response in the dialogue box
                     StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));
