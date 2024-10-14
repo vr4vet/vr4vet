@@ -35,6 +35,8 @@ public class DialogueBoxController : MonoBehaviour
 
     public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation
 
+    public AIConversationController _AIConversationController; // Save messages here in order to save them across multiple instances of this AIrequset.
+
     public bool useWitAI;
 
     private void Awake()
@@ -94,6 +96,15 @@ public class DialogueBoxController : MonoBehaviour
                 return;
             }
         }
+
+        if (_AIConversationController == null)
+        {
+            _AIConversationController = FindObjectOfType<AIConversationController>();
+            if (_AIConversationController == null)
+            {
+                Debug.LogError("AIConversationController component not found.");
+            }
+        }
     }
 
     public void updateAnimator()
@@ -141,6 +152,7 @@ public class DialogueBoxController : MonoBehaviour
             _animator.SetBool(_isTalkingHash, true);
             StartCoroutine(revertToIdleAnimation());
             _dialogueText.text = dialogueTree.sections[section].dialogue[i];
+            AddDialogueToContext(_dialogueText.text);
             if (useWitAI)
             {
                 TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
@@ -166,7 +178,7 @@ public class DialogueBoxController : MonoBehaviour
             StartDynamicQuery();
             yield break;
         }
-        _dialogueText.text = dialogueTree.sections[section].branchPoint.question;
+
         if (useWitAI)
         {
             TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
@@ -242,6 +254,13 @@ public class DialogueBoxController : MonoBehaviour
         _exitButton.SetActive(false);
     }
 
+    void AddDialogueToContext(string dialogue)
+    {
+        _AIConversationController.AddMessage(new Message { role = "assistant", content = dialogue });
+        Debug.Log("Added message to context: " + dialogue);
+
+    }
+
     void ShowAnswers(BranchPoint branchPoint)
     {
         // Reveals the selectable answers and sets their text values
@@ -305,6 +324,7 @@ public class DialogueBoxController : MonoBehaviour
 
         // Set text to generic question
         _dialogueText.text = "That's all I have to say. Do you have any questions? Hold B to speak to me.";
+
 
         // NPC will speak generic question
         if (useWitAI)

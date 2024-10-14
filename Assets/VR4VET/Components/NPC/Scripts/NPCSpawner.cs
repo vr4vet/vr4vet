@@ -135,6 +135,9 @@ public class NPCSpawner : MonoBehaviour
         } else {
             aiConversationController.contextPrompt = contextPrompt;
             aiConversationController.maxTokens = maxTokens;
+            
+            Message promptMessage = new Message { role = "system", content = contextPrompt };
+            aiConversationController.AddMessage(promptMessage);
         }
     }
 
