@@ -29,10 +29,22 @@ public class SaveUserSpeech : MonoBehaviour
     private string contextPrompt;
     private int maxTokens;
 
+
+    public float animationSpeed = 1.0f; // Speed of the animation
+    public float minScale = 1f; // Minimum size
+    public float maxScale = 4.0f; // Maximum size
+    public SpriteRenderer microphoneIcon;
+
+    private bool growing = true;
+    private float currentScale;
+    private bool isAnimating = false; // Flag to control animation
+
     public async void Start()
     {
         audioSource = GetComponent<AudioSource>();
         microphoneRecord = GetComponent<MicrophoneRecord>();
+
+      
 
         // Assign whisper transcription manager and set current language.
         // Users can change language by pressing 'L' on the keyboard for now.
@@ -47,7 +59,11 @@ public class SaveUserSpeech : MonoBehaviour
         _stream.OnStreamFinished += OnFinished;
 
         microphoneRecord.OnRecordStop += OnRecordStop;
+
+        currentScale = minScale;
+        microphoneIcon.enabled = false; // Initially hide the microphone icon
     }
+
 
     public void Update() {
         // Check if the 'L' key is pressed
@@ -62,17 +78,28 @@ public class SaveUserSpeech : MonoBehaviour
             currentLanguage = languages[currentLanguageIndex];
             Debug.Log("Current lang. code: " + currentLanguage);
         }
+
+        // Animation of microphone
+        if (isAnimating)
+        {
+            AnimateMicrophoneIcon();
+        }
     }
 
     public void StartRecording(string prompt, int max_tokens)
     {
         maxTokens = max_tokens;
         contextPrompt = prompt;
+        
+    
         if (!microphoneRecord.IsRecording)
         {
             whisper.UpdateLanguage(currentLanguage);
             _stream.StartStream();
             microphoneRecord.StartRecord();
+            //microphoneIcon.drawMode = SpriteDrawMode.Simple;
+            microphoneIcon.enabled = true; // Show the microphone icon
+            isAnimating = true; // Start mic animation
         }
         
     }
@@ -81,6 +108,8 @@ public class SaveUserSpeech : MonoBehaviour
     public void EndRecording()
     {
         microphoneRecord.StopRecord();
+        isAnimating = false; // Stop mic animation
+        microphoneIcon.enabled = false; // Hide the microphone icon
     }
 
     private void OnResult(string result)
@@ -111,5 +140,30 @@ public class SaveUserSpeech : MonoBehaviour
         request.contextPrompt = contextPrompt;
         request.maxTokens = maxTokens;
         streamResult = "";
+    }
+
+
+    private void AnimateMicrophoneIcon()
+    {
+        if (growing)
+        {
+            currentScale += animationSpeed * Time.deltaTime;
+            if (currentScale >= maxScale)
+            {
+                currentScale = maxScale;
+                growing = false;
+            }
+        }
+        else
+        {
+            currentScale -= animationSpeed * Time.deltaTime;
+            if (currentScale <= minScale)
+            {
+                currentScale = minScale;
+                growing = true;
+            }
+        }
+
+        microphoneIcon.transform.localScale = new Vector3(currentScale, currentScale, 1);
     }
 }
