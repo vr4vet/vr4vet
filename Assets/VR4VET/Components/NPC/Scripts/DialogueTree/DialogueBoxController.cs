@@ -56,7 +56,7 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Start()
     {
-        useWitAI = false;
+        useWitAI = true;
         dialogueEnded = false;
         // Assign the event camera
         if (_dialogueCanvas != null)
@@ -143,11 +143,11 @@ public class DialogueBoxController : MonoBehaviour
     {
         if (useWitAI)
         {
-            Debug.Log("Using WitAI for text-to-speech. Slightly faster, but less accurate than OpenAI.");
+            Debug.Log("Using WitAI for text-to-speech. Slightly faster, but sounds worse than OpenAI in some languages.");
         }
         else
         {
-            Debug.Log("Using OpenAI for text-to-speech. Slightly slower, but more accurate than WitAI.");
+            Debug.Log("Using OpenAI for text-to-speech. Slightly slower, but sounds better than WitAI in some languages.");
         }
         // Make the "Speak" restart tree the current tree
         dialogueTreeRestart = dialogueTree;
