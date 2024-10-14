@@ -15,6 +15,8 @@ public class AIResponseToSpeech : MonoBehaviour
     public GameObject TTSSpeaker;
     private TTSSpeaker ttsSpeakerComponent;
 
+    private string newResponseText;
+
     void Start()
     {
         // Get OpenAI key, which must be set in .env file
@@ -58,8 +60,10 @@ public class AIResponseToSpeech : MonoBehaviour
         // Indicate that the AI is thinking
         yield return readyToAnswer = false;
 
-        // Debug.Log($"Dictating text: {responseText}");
-        string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{responseText}\", \"voice\": \"alloy\"}}";
+        newResponseText = responseText.Replace("\n", " "); // Replace newline with space
+
+        // Debug.Log($"Dictating text: {newResponseText}");
+        string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{newResponseText}\", \"voice\": \"alloy\"}}";
 
         using (UnityWebRequest request = new UnityWebRequest(api, "POST"))
         {
@@ -109,7 +113,7 @@ public class AIResponseToSpeech : MonoBehaviour
                 AudioClip audioClip = DownloadHandlerAudioClip.GetContent(request);
                 audioSource.clip = audioClip;
                 audioSource.Play();
-                Debug.Log("Playing audio.");
+                Debug.Log("Playing audio response from OpenAI.");
             }
         }
     }
@@ -120,6 +124,7 @@ public class AIResponseToSpeech : MonoBehaviour
         if (ttsSpeakerComponent != null)
         {
             ttsSpeakerComponent.Speak(responseText);
+            Debug.Log("Playing audio response from WitAI.");
         }
         else
         {

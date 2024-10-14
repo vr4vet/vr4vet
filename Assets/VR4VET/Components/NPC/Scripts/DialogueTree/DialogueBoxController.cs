@@ -56,7 +56,7 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Start()
     {
-        useWitAI = true;
+        useWitAI = false;
         dialogueEnded = false;
         // Assign the event camera
         if (_dialogueCanvas != null)
@@ -141,7 +141,14 @@ public class DialogueBoxController : MonoBehaviour
 
     IEnumerator RunDialogue(DialogueTree dialogueTree, int section)
     {
-        Debug.Log("useWitAI is: " + useWitAI);
+        if (useWitAI)
+        {
+            Debug.Log("Using WitAI for text-to-speech. Slightly faster, but less accurate than OpenAI.");
+        }
+        else
+        {
+            Debug.Log("Using OpenAI for text-to-speech. Slightly slower, but more accurate than WitAI.");
+        }
         // Make the "Speak" restart tree the current tree
         dialogueTreeRestart = dialogueTree;
         // Reset the dialogue box dimensions from "Speak" button dimensions
@@ -151,7 +158,6 @@ public class DialogueBoxController : MonoBehaviour
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++)
         {
             // Start talking animation
-            _animator.SetBool(_isTalkingHash, true);
             StartCoroutine(revertToIdleAnimation());
             _dialogueText.text = dialogueTree.sections[section].dialogue[i];
             AddDialogueToContext(_dialogueText.text);
@@ -162,7 +168,9 @@ public class DialogueBoxController : MonoBehaviour
             else
             {
                 StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
+                yield return new WaitForSeconds(1.5f);
             }
+            _animator.SetBool(_isTalkingHash, true);
             while (!_skipLineTriggered)
             {
                 _skipLineButton.SetActive(true);
@@ -259,7 +267,7 @@ public class DialogueBoxController : MonoBehaviour
     void AddDialogueToContext(string dialogue)
     {
         _AIConversationController.AddMessage(new Message { role = "assistant", content = dialogue });
-        Debug.Log("Added message to context: " + dialogue);
+        // Debug.Log("Added message to context: " + dialogue);
 
     }
 
@@ -363,7 +371,7 @@ public class DialogueBoxController : MonoBehaviour
 
         yield return new WaitForSeconds(8.0f);
         _animator.SetBool(_isTalkingHash, false);
-        
+
         yield return null;
 
     }
@@ -371,8 +379,7 @@ public class DialogueBoxController : MonoBehaviour
     public IEnumerator DisplayThinking()
     {
         // While waiting for a response, display thinking dialogue
-        _animator.SetBool(_isTalkingHash, true);
-        _animator.SetBool(_isTalkingHash, false);
+        _animator.SetBool(_isListeningHash, true);
         while (true)
         {
             _dialogueText.text = ".";
@@ -384,8 +391,9 @@ public class DialogueBoxController : MonoBehaviour
         }
     }
 
-    public void stopThinking() {
-        _animator.SetBool(_isTalkingHash, false);
+    public void stopThinking()
+    {
+        _animator.SetBool(_isListeningHash, false);
     }
 
 }
