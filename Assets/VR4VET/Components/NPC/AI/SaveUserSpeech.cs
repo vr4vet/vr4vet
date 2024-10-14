@@ -27,7 +27,7 @@ public class SaveUserSpeech : MonoBehaviour
 
     public TextMeshProUGUI subtitle;
 
-    private const int SUBTITLE_DURATION = 5;
+    private const int SUBTITLE_DURATION = 7;
 
     private string contextPrompt;
     private int maxTokens;
