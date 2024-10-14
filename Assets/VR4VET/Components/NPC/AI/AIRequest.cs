@@ -32,12 +32,6 @@ public class AIRequest : MonoBehaviour
         if (_AIConversationController != null)
         {
             messages = new List<Message>(_AIConversationController.messages);
-            if (messages.Count == 0)
-            {
-                Message promptMessage = new Message { role = "system", content = contextPrompt };
-                messages.Add(promptMessage);
-                _AIConversationController.AddMessage(promptMessage);
-            }
         }
         else
         {
@@ -102,6 +96,8 @@ public class AIRequest : MonoBehaviour
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("Authorization", $"Bearer {key}");
+
+            Debug.Log(jsonData);    
 
             // Asynchronously send and wait for the response
             yield return request.SendWebRequest();
