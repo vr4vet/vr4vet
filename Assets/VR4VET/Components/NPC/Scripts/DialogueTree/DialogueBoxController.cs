@@ -23,6 +23,7 @@ public class DialogueBoxController : MonoBehaviour
     [SerializeField] private GameObject _speakButton;
     [HideInInspector] private Animator _animator;
     [HideInInspector] private int _isTalkingHash;
+    [HideInInspector] private int _isListeningHash;
     [HideInInspector] private int _hasNewDialogueOptionsHash;
     [HideInInspector] private RectTransform backgroundRect;
     [HideInInspector] private RectTransform dialogueTextRect;
@@ -55,7 +56,7 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Start()
     {
-        useWitAI = false;
+        useWitAI = true;
         dialogueEnded = false;
         // Assign the event camera
         if (_dialogueCanvas != null)
@@ -112,6 +113,7 @@ public class DialogueBoxController : MonoBehaviour
         //this.animator = animator;
         this._animator = GetComponentInChildren<Animator>();
         _isTalkingHash = Animator.StringToHash("isTalking");
+        _isListeningHash = Animator.StringToHash("isListening");
         _hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
     }
 
@@ -238,7 +240,7 @@ public class DialogueBoxController : MonoBehaviour
     private IEnumerator ExitComment()
     {
         // When 9 seconds have passed, stop the animation and exit the comment dialogue
-        yield return new WaitForSeconds(9.0f);
+        yield return new WaitForSeconds(8.0f);
         _animator.SetBool(_isTalkingHash, false);
         dialogueIsActive = false;
     }
@@ -285,7 +287,7 @@ public class DialogueBoxController : MonoBehaviour
     // Time is length of talking animation, should be tweaked to not use value
     private IEnumerator revertToIdleAnimation()
     {
-        yield return new WaitForSeconds(9.0f);
+        yield return new WaitForSeconds(8.0f);
         _animator.SetBool(_isTalkingHash, false);
     }
 
@@ -358,6 +360,10 @@ public class DialogueBoxController : MonoBehaviour
 
         // Exit conversation when exit is pressed
         // ExitConversation();
+
+        yield return new WaitForSeconds(8.0f);
+        _animator.SetBool(_isTalkingHash, false);
+        
         yield return null;
 
     }
@@ -365,16 +371,21 @@ public class DialogueBoxController : MonoBehaviour
     public IEnumerator DisplayThinking()
     {
         // While waiting for a response, display thinking dialogue
+        _animator.SetBool(_isTalkingHash, true);
+        _animator.SetBool(_isTalkingHash, false);
         while (true)
         {
-            _dialogueText.text = "I'm thinking...";
+            _dialogueText.text = ".";
             yield return new WaitForSeconds(0.5f);
-            _dialogueText.text = "I'm thinking.";
+            _dialogueText.text = "..";
             yield return new WaitForSeconds(0.5f);
-            _dialogueText.text = "I'm thinking..";
+            _dialogueText.text = "...";
             yield return new WaitForSeconds(0.5f);
         }
+    }
 
+    public void stopThinking() {
+        _animator.SetBool(_isTalkingHash, false);
     }
 
 }
