@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Meta.WitAi.TTS.Utilities;
 
 public class AIRequest : MonoBehaviour
 {
@@ -125,9 +126,21 @@ public class AIRequest : MonoBehaviour
                 _AIConversationController.AddMessage(assistantMessage);
 
                 // Call AIResponseToSpeech to dictate the response
-                if (_AIResponseToSpeech != null)
+                if (_AIResponseToSpeech != null && _dialogueBoxController.useWitAI == false)
                 {
                     StartCoroutine(_AIResponseToSpeech.OpenAIDictate(responseText));
+
+                    // Display the thinking dialogue while waiting for the response
+                    Coroutine thinking = StartCoroutine(_dialogueBoxController.DisplayThinking());
+                    yield return new WaitUntil(() => _AIResponseToSpeech.readyToAnswer);
+                    StopCoroutine(thinking);
+
+                    // Display the response in the dialogue box
+                    StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));
+                }
+                else if (_dialogueBoxController.useWitAI == true)
+                {
+                    StartCoroutine(_AIResponseToSpeech.WitAIDictate(responseText));
 
                     // Display the thinking dialogue while waiting for the response
                     Coroutine thinking = StartCoroutine(_dialogueBoxController.DisplayThinking());
