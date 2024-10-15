@@ -16,7 +16,7 @@ public class SetCharacterModel : MonoBehaviour
     [HideInInspector] private Vector3 _spawnLocation;
     [SerializeField] private GameObject _characterModelPrefab; // what should the NPC look like
     [SerializeField] private Avatar _avatar; // The animation avatar belonging to the model
-    [SerializeField] private int _voicePresetId; // what should the NPC sound like
+    [SerializeField] private int _WitVoiceId; // what should the NPC sound like
     [SerializeField] private RuntimeAnimatorController _runtimeAnimatorController;
     // The model with rig
     [HideInInspector] private GameObject _bonesAndSkin;
@@ -106,7 +106,7 @@ public class SetCharacterModel : MonoBehaviour
         {
             // Change the voice of the NPC
             ttsSpeaker.ClearVoiceOverride();
-            ttsSpeaker.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[_voicePresetId]);
+            ttsSpeaker.GetComponentInChildren<TTSSpeaker>().SetVoiceOverride(ttsWitService.GetAllPresetVoiceSettings()[_WitVoiceId]);
         }
 
         // Attach rigbuilder to the head of the NPC to enable looking at player
@@ -168,7 +168,7 @@ public class SetCharacterModel : MonoBehaviour
         }
     }
 
-    public void ChangeCharacter(GameObject characterModelPrefab, Avatar avatar, RuntimeAnimatorController runtimeAnimatorController, int voicePresetId)
+    public void ChangeCharacter(GameObject characterModelPrefab, Avatar avatar, RuntimeAnimatorController runtimeAnimatorController, int WitVoiceId)
     {
         // keep a reference to the old stuff, so it safely can be destroyed later
         _oldbonesAndSkin = _bonesAndSkin;
@@ -177,7 +177,7 @@ public class SetCharacterModel : MonoBehaviour
         this._avatar = avatar;
         this._runtimeAnimatorController = runtimeAnimatorController;
         SaveOldAnimationValues();
-        this._voicePresetId = voicePresetId;
+        this._WitVoiceId = WitVoiceId;
         // destory the old stuff
         Destroy(_oldbonesAndSkin);
         // Add the new model and set the saved values to the new animator

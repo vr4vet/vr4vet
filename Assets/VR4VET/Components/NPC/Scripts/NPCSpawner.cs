@@ -23,7 +23,7 @@ public class NPCSpawner : MonoBehaviour
         // Attach the Text-To-Speech componenets
         AttachTTSComponents(newNPC, npcSO.SpatialBlend, npcSO.MinDistance);
         // change the apperance, animation avatar and voice from the deafult one, to a specific one
-        SetAppearanceAnimationAndVoice(newNPC, npcSO.CharacterModel, npcSO.CharacterAvatar, npcSO.runtimeAnimatorController , npcSO.VoicePresetId);
+        SetAppearanceAnimationAndVoice(newNPC, npcSO.CharacterModel, npcSO.CharacterAvatar, npcSO.runtimeAnimatorController , npcSO.WitVoiceId);
         // Should the NPC follow after the player or not? (from the start)
         SetFollowingBehavior(newNPC, npcSO.ShouldFollow);
         // Update the name of the NPC
@@ -93,7 +93,7 @@ public class NPCSpawner : MonoBehaviour
         }
     }
 
-    public void SetAppearanceAnimationAndVoice(GameObject npc, GameObject characterModelPrefab, Avatar characterAvatar, RuntimeAnimatorController runtimeAnimatorController, int voicePresetId)
+    public void SetAppearanceAnimationAndVoice(GameObject npc, GameObject characterModelPrefab, Avatar characterAvatar, RuntimeAnimatorController runtimeAnimatorController, int WitVoiceId)
     {
         SetCharacterModel setCharacterModel = npc.GetComponent<SetCharacterModel>();
         if (setCharacterModel == null)
@@ -102,7 +102,7 @@ public class NPCSpawner : MonoBehaviour
         }
         else
         {
-            setCharacterModel.ChangeCharacter(characterModelPrefab, characterAvatar, runtimeAnimatorController, voicePresetId);
+            setCharacterModel.ChangeCharacter(characterModelPrefab, characterAvatar, runtimeAnimatorController, WitVoiceId);
         }
     }
 
