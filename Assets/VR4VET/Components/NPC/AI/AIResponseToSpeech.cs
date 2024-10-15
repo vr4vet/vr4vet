@@ -63,7 +63,7 @@ public class AIResponseToSpeech : MonoBehaviour
         newResponseText = responseText.Replace("\n", " "); // Replace newline with space
 
         // Debug.Log($"Dictating text: {newResponseText}");
-        string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{newResponseText}\", \"voice\": \"alloy\"}}";
+        string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{newResponseText}\", \"voice\": \"onyx\"}}";
 
         using (UnityWebRequest request = new UnityWebRequest(api, "POST"))
         {

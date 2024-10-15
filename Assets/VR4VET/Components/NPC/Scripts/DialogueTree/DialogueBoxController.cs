@@ -335,7 +335,7 @@ public class DialogueBoxController : MonoBehaviour
         _dialogueBox.SetActive(true);
 
         // Set text to generic question
-        _dialogueText.text = "That's all I have to say. Do you have any questions? Hold \"B\" to speak to me.";
+        _dialogueText.text = "Now you know the basics. That's all I have to say.";
 
 
         // NPC will speak generic question
