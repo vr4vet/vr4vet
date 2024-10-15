@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using Meta.WitAi.TTS.Utilities;
 
 public class AIResponseToSpeech : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class AIResponseToSpeech : MonoBehaviour
     private string key;
     private AudioSource audioSource;
     public bool readyToAnswer = false;
+
+    public GameObject TTSSpeaker;
+    private TTSSpeaker ttsSpeakerComponent;
+
+    private string newResponseText;
 
     void Start()
     {
@@ -28,6 +34,24 @@ public class AIResponseToSpeech : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        if (TTSSpeaker == null)
+        {
+            TTSSpeaker = FindObjectOfType<TTSSpeaker>()?.gameObject;
+            if (TTSSpeaker == null)
+            {
+                Debug.LogError("TTSSpeaker GameObject is not assigned in AIResponseToSpeech and couldn't be found.");
+                return;
+            }
+        }
+
+        ttsSpeakerComponent = TTSSpeaker.GetComponent<TTSSpeaker>();
+
+        if (ttsSpeakerComponent == null)
+        {
+            Debug.LogError("TTSSpeaker component not found on the assigned or found TTSSpeaker GameObject.");
+            return;
+        }
     }
 
     // Coroutine for dictation through OpenAI's API in JSON request format
@@ -36,8 +60,10 @@ public class AIResponseToSpeech : MonoBehaviour
         // Indicate that the AI is thinking
         yield return readyToAnswer = false;
 
-        // Debug.Log($"Dictating text: {responseText}");
-        string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{responseText}\", \"voice\": \"alloy\"}}";
+        newResponseText = responseText.Replace("\n", " "); // Replace newline with space
+
+        // Debug.Log($"Dictating text: {newResponseText}");
+        string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{newResponseText}\", \"voice\": \"onyx\"}}";
 
         using (UnityWebRequest request = new UnityWebRequest(api, "POST"))
         {
@@ -87,8 +113,31 @@ public class AIResponseToSpeech : MonoBehaviour
                 AudioClip audioClip = DownloadHandlerAudioClip.GetContent(request);
                 audioSource.clip = audioClip;
                 audioSource.Play();
-                Debug.Log("Playing audio.");
+                Debug.Log("Playing audio response from OpenAI.");
             }
         }
+    }
+    public IEnumerator WitAIDictate(string responseText)
+    {
+        readyToAnswer = false;
+
+        if (ttsSpeakerComponent != null)
+        {
+            ttsSpeakerComponent.Speak(responseText);
+            Debug.Log("Playing audio response from WitAI.");
+        }
+        else
+        {
+            Debug.LogError("TTSSpeaker component is missing or not assigned.");
+        }
+
+        //  Wait until the speaking is finished
+        while (ttsSpeakerComponent.IsSpeaking)
+        {
+            yield return null;
+        }
+
+        // Indicate that the AI is ready to answer again
+        readyToAnswer = true;
     }
 }

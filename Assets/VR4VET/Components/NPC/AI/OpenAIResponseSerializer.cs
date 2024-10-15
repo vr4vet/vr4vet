@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 
 // Field definitions for all of our serializable structures, for JSON requests and responses
 [Serializable]
@@ -40,7 +42,15 @@ public class OpenAIResponse
 	public string object_;
 	public string created;
 	public string model;
-	public Choice[] choices;
+	public List<Choice> choices;
 	public Usage usage;
 	public string system_fingerprint;
+}
+
+[Serializable]
+public class OpenAIRequest
+{
+    public string model;
+    public List<Message> messages;
+    public int max_tokens;
 }
