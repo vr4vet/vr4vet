@@ -8,7 +8,7 @@ public class PlatformChangeModel : MonoBehaviour
 
     [SerializeField] private RuntimeAnimatorController runtimeAnimatorController;
 
-    [SerializeField] private int[] _voicePresetIds;
+    [SerializeField] private int[] _WitVoiceIds;
     [HideInInspector] private int _currentModelNr;
 
     [SerializeField] private GameObject _npc;
@@ -19,9 +19,9 @@ public class PlatformChangeModel : MonoBehaviour
         _setCharacterModel = _npc.GetComponent<SetCharacterModel>();
     }
     private void ChangeModel() {
-        _setCharacterModel.ChangeCharacter(_modelPrefabs[_currentModelNr], _modelAvatar[_currentModelNr], runtimeAnimatorController, _voicePresetIds[_currentModelNr]);
+        _setCharacterModel.ChangeCharacter(_modelPrefabs[_currentModelNr], _modelAvatar[_currentModelNr], runtimeAnimatorController, _WitVoiceIds[_currentModelNr]);
         _currentModelNr++;
-        if (_currentModelNr >= _modelPrefabs.Length || _currentModelNr >= _modelAvatar.Length || _currentModelNr >= _voicePresetIds.Length)
+        if (_currentModelNr >= _modelPrefabs.Length || _currentModelNr >= _modelAvatar.Length || _currentModelNr >= _WitVoiceIds.Length)
         {
             _currentModelNr = 0;
         }

@@ -17,6 +17,8 @@ public class AIResponseToSpeech : MonoBehaviour
 
     private string newResponseText;
 
+    public string OpenAiVoiceId;
+
     void Start()
     {
         // Get OpenAI key, which must be set in .env file
@@ -62,8 +64,9 @@ public class AIResponseToSpeech : MonoBehaviour
 
         newResponseText = responseText.Replace("\n", " "); // Replace newline with space
 
+
         // Debug.Log($"Dictating text: {newResponseText}");
-        string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{newResponseText}\", \"voice\": \"onyx\"}}";
+        string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{newResponseText}\", \"voice\": \"{OpenAiVoiceId}\"}}";
 
         using (UnityWebRequest request = new UnityWebRequest(api, "POST"))
         {
@@ -120,6 +123,7 @@ public class AIResponseToSpeech : MonoBehaviour
     public IEnumerator WitAIDictate(string responseText)
     {
         readyToAnswer = false;
+        Debug.Log("Dictating text: " + responseText);
 
         if (ttsSpeakerComponent != null)
         {

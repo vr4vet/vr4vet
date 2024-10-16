@@ -38,7 +38,7 @@ public class DialogueBoxController : MonoBehaviour
 
     public AIConversationController _AIConversationController; // Save messages here in order to save them across multiple instances of this AIrequset.
 
-    public bool useWitAI;
+    public bool useWitAI = false;
 
     private void Awake()
     {
@@ -56,7 +56,6 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Start()
     {
-        useWitAI = true;
         dialogueEnded = false;
         // Assign the event camera
         if (_dialogueCanvas != null)
@@ -389,6 +388,14 @@ public class DialogueBoxController : MonoBehaviour
             _dialogueText.text = "...";
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    public void useOpenAiTTS(){
+        useWitAI = false;
+    }
+
+    public void useWitTTS(){
+        useWitAI = true;
     }
 
     public void stopThinking()
