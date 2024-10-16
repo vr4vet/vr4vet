@@ -89,7 +89,7 @@ public class DialogueBoxController : MonoBehaviour
         // If the AIResponseToSpeech component is not set, attempt to find it
         if (_AIResponseToSpeech == null)
         {
-            _AIResponseToSpeech = FindObjectOfType<AIResponseToSpeech>();
+            _AIResponseToSpeech = GetComponent<AIResponseToSpeech>();
             if (_AIResponseToSpeech == null)
             {
                 Debug.LogError("AIResponseToSpeech component not found in the scene.");
@@ -99,7 +99,7 @@ public class DialogueBoxController : MonoBehaviour
 
         if (_AIConversationController == null)
         {
-            _AIConversationController = FindObjectOfType<AIConversationController>();
+            _AIConversationController = GetComponent<AIConversationController>();
             if (_AIConversationController == null)
             {
                 Debug.LogError("AIConversationController component not found.");
