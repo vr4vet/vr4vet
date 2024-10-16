@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.548891, g: 0.7958065, b: 0.97291845, a: 1}
+  m_IndirectSpecularColor: {r: 0.54889095, g: 0.79580647, b: 0.9729184, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10793,34 +10793,16 @@ MonoBehaviour:
   m_Teleporting:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &701706763 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4376909619194593628, guid: ea7db852323fd6b4986a2685991fe1c5,
-    type: 3}
-  m_PrefabInstance: {fileID: 4376909619625636695}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &701706764 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4376909619194593627, guid: ea7db852323fd6b4986a2685991fe1c5,
     type: 3}
   m_PrefabInstance: {fileID: 4376909619625636695}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701706763}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c13da548ef4c44409a8f6719bd0feb2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &701706766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701706763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddaa6a99df1f4ce438d9afb3a5cae60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &705507993
@@ -16198,7 +16180,7 @@ MonoBehaviour:
   - {fileID: 9000000, guid: 2a17fc0e9bdaf2642b429bc348fc2559, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: acb4b9981fa45ce46adb4867634b31ab,
     type: 2}
-  _voicePresetIds: 150000000200000003000000110000000f0000000e000000060000000d000000
+  _WitVoiceIds: 
   _npc: {fileID: 142329029979618576}
 --- !u!135 &1508732750 stripped
 SphereCollider:
@@ -19348,7 +19330,7 @@ PrefabInstance:
     - target: {fileID: 4376909619194593627, guid: ea7db852323fd6b4986a2685991fe1c5,
         type: 3}
       propertyPath: _nPCs.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4376909619194593627, guid: ea7db852323fd6b4986a2685991fe1c5,
         type: 3}
@@ -19360,19 +19342,19 @@ PrefabInstance:
         type: 3}
       propertyPath: _nPCs.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 825e6be9eb262437aa181654c1ecaadf,
+      objectReference: {fileID: 11400000, guid: d191ab20c40bf41f98e66a0c4c51196c,
         type: 2}
     - target: {fileID: 4376909619194593627, guid: ea7db852323fd6b4986a2685991fe1c5,
         type: 3}
       propertyPath: _nPCs.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 825e6be9eb262437aa181654c1ecaadf,
+      objectReference: {fileID: 11400000, guid: 9098763f7cf644565bbebfc3d3ec40cd,
         type: 2}
     - target: {fileID: 4376909619194593627, guid: ea7db852323fd6b4986a2685991fe1c5,
         type: 3}
       propertyPath: _nPCs.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 825e6be9eb262437aa181654c1ecaadf,
+      objectReference: {fileID: 11400000, guid: 4304dc583138c22468c81129d720e06a,
         type: 2}
     - target: {fileID: 4376909619194593628, guid: ea7db852323fd6b4986a2685991fe1c5,
         type: 3}
@@ -19525,7 +19507,7 @@ MonoBehaviour:
   _characterModelPrefab: {fileID: 919132149155446097, guid: 6f1f9b49353c2df4ba808423d36563b5,
     type: 3}
   _avatar: {fileID: 9000000, guid: 6f1f9b49353c2df4ba808423d36563b5, type: 3}
-  _voicePresetId: 17
+  _WitVoiceId: 0
   _runtimeAnimatorController: {fileID: 9100000, guid: acb4b9981fa45ce46adb4867634b31ab,
     type: 2}
 --- !u!114 &6547638388311527413

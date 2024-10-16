@@ -19,9 +19,9 @@ public class SpecializedNPCBehaviorDemo : MonoBehaviour
             return;
         }
 
-        _npcSpawner._npcInstances[0].gameObject.SetActive(false);
+        _npcSpawner._npcInstances[1].gameObject.SetActive(false);
 
-        _npc = _npcSpawner._npcInstances[0];
+        _npc = _npcSpawner._npcInstances[1];
         HandleProximityNPC();
     }
 

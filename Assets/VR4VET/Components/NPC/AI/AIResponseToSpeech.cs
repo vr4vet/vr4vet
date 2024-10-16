@@ -39,7 +39,7 @@ public class AIResponseToSpeech : MonoBehaviour
 
         if (TTSSpeaker == null)
         {
-            TTSSpeaker = FindObjectOfType<TTSSpeaker>()?.gameObject;
+            TTSSpeaker = GetComponentInChildren<TTSSpeaker>()?.gameObject;
             if (TTSSpeaker == null)
             {
                 Debug.LogError("TTSSpeaker GameObject is not assigned in AIResponseToSpeech and couldn't be found.");
@@ -62,8 +62,7 @@ public class AIResponseToSpeech : MonoBehaviour
         // Indicate that the AI is thinking
         yield return readyToAnswer = false;
 
-        newResponseText = responseText.Replace("\n", " "); // Replace newline with space
-
+        newResponseText = responseText.Replace("\n", " ").Replace("\"", "").Replace(":", ""); // Replace newline with space
 
         // Debug.Log($"Dictating text: {newResponseText}");
         string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{newResponseText}\", \"voice\": \"{OpenAiVoiceId}\"}}";
