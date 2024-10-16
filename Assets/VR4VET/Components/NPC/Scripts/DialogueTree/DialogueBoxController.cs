@@ -266,7 +266,6 @@ public class DialogueBoxController : MonoBehaviour
     void AddDialogueToContext(string dialogue)
     {
         _AIConversationController.AddMessage(new Message { role = "assistant", content = dialogue });
-        // Debug.Log("Added message to context: " + dialogue);
 
     }
 

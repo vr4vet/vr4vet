@@ -39,7 +39,7 @@ public class AIResponseToSpeech : MonoBehaviour
 
         if (TTSSpeaker == null)
         {
-            TTSSpeaker = FindObjectOfType<TTSSpeaker>()?.gameObject;
+            TTSSpeaker = GetComponentInChildren<TTSSpeaker>()?.gameObject;
             if (TTSSpeaker == null)
             {
                 Debug.LogError("TTSSpeaker GameObject is not assigned in AIResponseToSpeech and couldn't be found.");
