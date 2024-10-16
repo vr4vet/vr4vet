@@ -11,6 +11,8 @@ public class AIConversationController : MonoBehaviour
     public string contextPrompt;
     public int maxTokens = 50;
 
+    public List<Message> messages = new List<Message>();
+
     
 
     void Start()
@@ -27,5 +29,10 @@ public class AIConversationController : MonoBehaviour
     public void EndRecording()
     {
         _SaveUserSpeech.EndRecording();
+    }
+
+    public void AddMessage(Message message)
+    {
+        messages.Add(message);
     }
 }

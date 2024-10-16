@@ -8,15 +8,15 @@ using static OpenWavParser;
 using Whisper;
 using Whisper.Utils;
 using System.Threading.Tasks;
+using UnityEngine.UI;
+using TMPro;
 
 public class SaveUserSpeech : MonoBehaviour
 {
     private AudioSource audioSource;
     private AudioClip myAudioClip;
     public const string FILENAME = "conversation.wav";
-    public const int MAX_RECORDTIME = 10; // Max recording time in seconds
-    private const int SAMPLE_RATE = 12000; // Sample rate of the audio file, 8K to 16K is normal in realtime voice applications
-    private string filePath;
+    public const int MAX_RECORDTIME = 10; // Max recording time in secon
     public WhisperManager whisper;
     // NB! There currently is no language dropdown selector on the pause menu. This is on the main branch, not NPCAI. 
     private string[] languages = { "en", "no", "de", "nl" };
@@ -24,7 +24,10 @@ public class SaveUserSpeech : MonoBehaviour
     private string currentLanguage;
     public MicrophoneRecord microphoneRecord;
     private WhisperStream _stream;
-    private string streamResult;
+
+    public TextMeshProUGUI subtitle;
+
+    private const int SUBTITLE_DURATION = 7;
 
     private string contextPrompt;
     private int maxTokens;
@@ -57,13 +60,14 @@ public class SaveUserSpeech : MonoBehaviour
         _stream.OnSegmentUpdated += OnSegmentUpdated;
         _stream.OnSegmentFinished += OnSegmentFinished;
         _stream.OnStreamFinished += OnFinished;
-
         microphoneRecord.OnRecordStop += OnRecordStop;
 
         currentScale = minScale;
         microphoneIcon.enabled = false; // Initially hide the microphone icon
-    }
 
+        // Initialize subtitles
+        subtitle = GameObject.Find("SubtitleUI").GetComponentInChildren<TextMeshProUGUI>();
+    }
 
     public void Update() {
         // Check if the 'L' key is pressed
@@ -112,10 +116,7 @@ public class SaveUserSpeech : MonoBehaviour
         microphoneIcon.enabled = false; // Hide the microphone icon
     }
 
-    private void OnResult(string result)
-    {
-        streamResult+= result;
-    }
+    private void OnResult(string result){}
 
     private void OnRecordStop(AudioChunk recordedAudio){}
     
@@ -133,15 +134,26 @@ public class SaveUserSpeech : MonoBehaviour
     {
         print("Stream finished!");
 
+        if (finalResult.Contains("[ Inaudible ]") || finalResult.Contains("[BLANK_AUDIO]")) {
+            Debug.Log("Blank audio returned from Whisper. Please speak into the microphone and hold the microphone button down for a few seconds.");
+            finalResult = "Please respond by saying you cannot understand me";
+        }
+
         // Add components and create OpenAI query based on transcript
-        // ReadInput input = gameObject.AddComponent<ReadInput>();
         AIRequest request = gameObject.AddComponent<AIRequest>();
-        request.query = streamResult;
+        request.query = finalResult;
         request.contextPrompt = contextPrompt;
         request.maxTokens = maxTokens;
-        streamResult = "";
+        
+        subtitle.text = finalResult;   // Set subtitles based on final result
+        StartCoroutine(WaitForSubtitleFadeOut());
     }
 
+    // Fade out subtitles after SUBTITLE_DURATION seconds
+    private IEnumerator WaitForSubtitleFadeOut() {
+        yield return new WaitForSeconds(SUBTITLE_DURATION);
+        subtitle.text = "";
+    }
 
     private void AnimateMicrophoneIcon()
     {
