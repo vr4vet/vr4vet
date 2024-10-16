@@ -22,8 +22,8 @@ public class NPCInspector : Editor
         switch (npc.selectedTTSProvider)
         {
             case TTSProvider.Wit:
-                string[] WitVoicePresets = new string[23];
-                for (int i = 0; i <= 22; i++)
+                string[] WitVoicePresets = new string[22];
+                for (int i = 0; i <= 21; i++)
                 {
                     WitVoicePresets[i] = "Preset " + i; 
                 }
