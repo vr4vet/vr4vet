@@ -47,7 +47,7 @@ public class AIRequest : MonoBehaviour
         // Attempt to automatically find and set AIResponseToSpeech
         if (_AIResponseToSpeech == null)
         {
-            _AIResponseToSpeech = FindObjectOfType<AIResponseToSpeech>();
+            _AIResponseToSpeech = GetComponent<AIResponseToSpeech>();
             if (_AIResponseToSpeech == null)
             {
                 Debug.LogError("AIResponseToSpeech component not found in the scene.");
@@ -57,7 +57,7 @@ public class AIRequest : MonoBehaviour
 
         if (_dialogueBoxController == null)
         {
-            _dialogueBoxController = FindObjectOfType<DialogueBoxController>();
+            _dialogueBoxController = GetComponent<DialogueBoxController>();
             if (_dialogueBoxController == null)
             {
                 Debug.LogError("DialogueBoxController component not found in the scene.");
