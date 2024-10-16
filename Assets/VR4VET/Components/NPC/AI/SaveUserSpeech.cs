@@ -134,19 +134,28 @@ public class SaveUserSpeech : MonoBehaviour
     {
         print("Stream finished!");
 
-        if (finalResult.Contains("[ Inaudible ]") || finalResult.Contains("[BLANK_AUDIO]")) {
-            Debug.Log("Blank audio returned from Whisper. Please speak into the microphone and hold the microphone button down for a few seconds.");
-            finalResult = "Please respond by saying you cannot understand me";
+        if (finalResult.Contains("[ Inaudible ]") || finalResult.Contains("[BLANK_AUDIO]"))
+        {
+            Debug.Log("Blank audio returned from Whisper. Make sure to hold the microphone button down for a few seconds.");
+            finalResult = "Please respond by saying you cannot understand me, and that the microphone may have to be checked.";
+            // Add components and create OpenAI query based on transcript
+            AIRequest request = gameObject.AddComponent<AIRequest>();
+            request.query = finalResult;
+            request.contextPrompt = contextPrompt;
+            request.maxTokens = maxTokens;
         }
+        else
+        {
+            // Add components and create OpenAI query based on transcript
+            AIRequest request = gameObject.AddComponent<AIRequest>();
+            request.query = finalResult;
+            request.contextPrompt = contextPrompt;
+            request.maxTokens = maxTokens;
 
-        // Add components and create OpenAI query based on transcript
-        AIRequest request = gameObject.AddComponent<AIRequest>();
-        request.query = finalResult;
-        request.contextPrompt = contextPrompt;
-        request.maxTokens = maxTokens;
-        
-        subtitle.text = finalResult;   // Set subtitles based on final result
-        StartCoroutine(WaitForSubtitleFadeOut());
+            // Set subtitles based on final result
+            subtitle.text = finalResult;
+            StartCoroutine(WaitForSubtitleFadeOut());
+        }
     }
 
     // Fade out subtitles after SUBTITLE_DURATION seconds
