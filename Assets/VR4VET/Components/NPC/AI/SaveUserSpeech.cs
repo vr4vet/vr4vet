@@ -27,7 +27,7 @@ public class SaveUserSpeech : MonoBehaviour
 
     public TextMeshProUGUI subtitle;
 
-    private const int SUBTITLE_DURATION = 7;
+    private const int SUBTITLE_DURATION = 8;
 
     private string contextPrompt;
     private int maxTokens;
@@ -42,12 +42,12 @@ public class SaveUserSpeech : MonoBehaviour
     private float currentScale;
     private bool isAnimating = false; // Flag to control animation
 
+    private bool subtitlesEnabled = true;
+
     public async void Start()
     {
         audioSource = GetComponent<AudioSource>();
         microphoneRecord = GetComponent<MicrophoneRecord>();
-
-      
 
         // Assign whisper transcription manager and set current language.
         // Users can change language by pressing 'L' on the keyboard for now.
@@ -69,8 +69,9 @@ public class SaveUserSpeech : MonoBehaviour
         subtitle = GameObject.Find("SubtitleUI").GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void Update() {
-        // Check if the 'L' key is pressed
+    public void Update()
+    {
+        // Check if the "L" key is pressed
         if (Input.GetKeyDown(KeyCode.L))
         {
             // Move to the next language in the list
@@ -81,6 +82,12 @@ public class SaveUserSpeech : MonoBehaviour
             }
             currentLanguage = languages[currentLanguageIndex];
             Debug.Log("Current lang. code: " + currentLanguage);
+        }
+
+        // Check if the "U" key is pressed
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            ToggleSubtitles();
         }
 
         // Animation of microphone
@@ -94,8 +101,8 @@ public class SaveUserSpeech : MonoBehaviour
     {
         maxTokens = max_tokens;
         contextPrompt = prompt;
-        
-    
+
+
         if (!microphoneRecord.IsRecording)
         {
             whisper.UpdateLanguage(currentLanguage);
@@ -105,7 +112,7 @@ public class SaveUserSpeech : MonoBehaviour
             microphoneIcon.enabled = true; // Show the microphone icon
             isAnimating = true; // Start mic animation
         }
-        
+
     }
 
 
@@ -116,20 +123,20 @@ public class SaveUserSpeech : MonoBehaviour
         microphoneIcon.enabled = false; // Hide the microphone icon
     }
 
-    private void OnResult(string result){}
+    private void OnResult(string result) { }
 
-    private void OnRecordStop(AudioChunk recordedAudio){}
-    
+    private void OnRecordStop(AudioChunk recordedAudio) { }
+
     private void OnSegmentUpdated(WhisperResult segment)
     {
         print($"Segment updated: {segment.Result}");
     }
-    
+
     private void OnSegmentFinished(WhisperResult segment)
     {
         print($"Segment finished: {segment.Result}");
     }
-    
+
     private void OnFinished(string finalResult)
     {
         print("Stream finished!");
@@ -152,14 +159,24 @@ public class SaveUserSpeech : MonoBehaviour
             request.contextPrompt = contextPrompt;
             request.maxTokens = maxTokens;
 
-            // Set subtitles based on final result
-            subtitle.text = finalResult;
-            StartCoroutine(WaitForSubtitleFadeOut());
+            // Enable subtitles if toggled
+            if (subtitlesEnabled)
+            {
+                subtitle.text = finalResult;
+                StartCoroutine(WaitForSubtitleFadeOut());
+            }
         }
     }
 
+    public void ToggleSubtitles()
+    {
+        subtitlesEnabled = !subtitlesEnabled;
+        subtitle.gameObject.SetActive(subtitlesEnabled);
+    }
+
     // Fade out subtitles after SUBTITLE_DURATION seconds
-    private IEnumerator WaitForSubtitleFadeOut() {
+    private IEnumerator WaitForSubtitleFadeOut()
+    {
         yield return new WaitForSeconds(SUBTITLE_DURATION);
         subtitle.text = "";
     }
