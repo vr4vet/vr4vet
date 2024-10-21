@@ -122,12 +122,6 @@ public class AIRequest : MonoBehaviour
                     .Replace("#", "")
                     .Replace("\r", "");
 
-            if (responseText.Length > 280)
-            {
-                responseText = responseText.Substring(0, 280);
-                responseText = $"{responseText}...";
-            }
-
                 Message assistantMessage = new Message { role = "assistant", content = responseText };
                 messages.Add(assistantMessage);
                 _AIConversationController.AddMessage(assistantMessage);
@@ -143,6 +137,12 @@ public class AIRequest : MonoBehaviour
                     StopCoroutine(thinking);
                     _dialogueBoxController.stopThinking();
 
+                    if (responseText.Length > 280)
+                    {
+                        responseText = responseText.Substring(0, 280);
+                        responseText = $"{responseText}...";
+                    }
+
                     // Display the response in the dialogue box
                     StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));
                 }
@@ -154,6 +154,13 @@ public class AIRequest : MonoBehaviour
                     Coroutine thinking = StartCoroutine(_dialogueBoxController.DisplayThinking());
                     yield return new WaitUntil(() => _AIResponseToSpeech.readyToAnswer);
                     StopCoroutine(thinking);
+                    _dialogueBoxController.stopThinking();
+
+                    if (responseText.Length > 280)
+                    {
+                        responseText = responseText.Substring(0, 280);
+                        responseText = $"{responseText}...";
+                    }
 
                     // Display the response in the dialogue box
                     StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));
