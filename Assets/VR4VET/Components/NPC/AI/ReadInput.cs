@@ -13,7 +13,7 @@ public class ReadInput : MonoBehaviour
     public string transcript;
 
     // The audio file to send to OpenAI, must be saved in Application.persistentDataPath
-    public string audioFile = SaveUserSpeech.FILENAME;
+    public string audioFile = NPCManager.FILENAME;
 
     // Public dropdown to select the language
     public SupportedLanguage selectedLanguage;
