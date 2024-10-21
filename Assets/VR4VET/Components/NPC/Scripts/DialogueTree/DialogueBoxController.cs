@@ -402,4 +402,18 @@ public class DialogueBoxController : MonoBehaviour
         _animator.SetBool(_isListeningHash, false);
     }
 
+    public void ShowDialogueBox()
+    {
+        _dialogueBox.SetActive(true);
+        _dialogueCanvas.SetActive(true);
+        Debug.Log("Dialogue box reactivated.");
+    }
+
+    public void HideDialogueBox()
+    {
+        _dialogueBox.SetActive(false);
+        _dialogueCanvas.SetActive(false);
+        Debug.Log("Dialogue box hidden.");
+    }
+
 }
