@@ -93,23 +93,16 @@ public class ConversationController : MonoBehaviour
         {
             playerInsideTrigger = true;
             Debug.Log("Inside range to talk.");
-        }
-        if (other.Equals(NPCToPlayerReferenceManager.Instance.PlayerCollider) && _dialogueTree.shouldTriggerOnProximity && !_dialogueBoxController.dialogueIsActive && _oldDialogueTree != _dialogueTree)
-        {
 
-            // string json = JsonUtility.ToJson(dialogueTree);
-            // Debug.Log(json);
-            //_dialogueBoxController.startSpeakCanvas(_dialogueTree);
-            _oldDialogueTree = _dialogueTree;
-            if (_dialogueTree != null)
+            // Show dialogue box
+            _dialogueBoxController.ShowDialogueBox();
+            if (_dialogueTree.shouldTriggerOnProximity && !_dialogueBoxController.dialogueIsActive && _oldDialogueTree != _dialogueTree)
             {
-                _dialogueBoxController.StartDialogue(_dialogueTree, 0, "NPC");
-            }
-            else
-            {
-                // Commented out because not all NPC's should have a dialogue tree, therefor not an error
-
-                //Debug.LogError("The dialogueTree of the NPC is null");
+                _oldDialogueTree = _dialogueTree;
+                if (_dialogueTree != null)
+                {
+                    _dialogueBoxController.StartDialogue(_dialogueTree, 0, "NPC");
+                }
             }
         }
     }
@@ -120,6 +113,7 @@ public class ConversationController : MonoBehaviour
         {
             playerInsideTrigger = false;
             Debug.Log("Outside range to talk.");
+            _dialogueBoxController.HideDialogueBox();
         }
     }
 
