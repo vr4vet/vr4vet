@@ -4,7 +4,6 @@ using System.IO;
 using System.Collections;
 using static ReadInput;
 using static AIRequest;
-using static OpenWavParser;
 using Whisper;
 using Whisper.Utils;
 using System.Threading.Tasks;

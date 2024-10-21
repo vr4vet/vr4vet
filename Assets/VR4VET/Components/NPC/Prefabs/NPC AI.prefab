@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 8229521940919253968}
   - component: {fileID: 7320500719012628531}
   - component: {fileID: 2813417528501295280}
-  - component: {fileID: -3192633732066059844}
   - component: {fileID: 3833807276438326027}
   - component: {fileID: 3492104680634422935}
   m_Layer: 0
@@ -335,9 +334,9 @@ MonoBehaviour:
     m_ActionName: Default/Menu[/Keyboard/0]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -3192633732066059844}
-        m_TargetAssemblyTypeName: PressButton, Assembly-CSharp
-        m_MethodName: StartRecording
+      - m_Target: {fileID: 8229521940919253968}
+        m_TargetAssemblyTypeName: AIConversationController, Assembly-CSharp
+        m_MethodName: PressButton
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -354,19 +353,6 @@ MonoBehaviour:
   m_DefaultActionMap: Default
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &-3192633732066059844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 142329030213301039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b6263eeedcb48889b0f529d3e5f362, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _AIConversationController: {fileID: 0}
 --- !u!114 &3833807276438326027
 MonoBehaviour:
   m_ObjectHideFlags: 0
