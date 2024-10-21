@@ -50,6 +50,7 @@ public class ConversationController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 _AIConversationController.StartRecording();
+                _dialogueBoxController.startThinking();
             }
             if (Input.GetKeyUp(KeyCode.E))
             {
