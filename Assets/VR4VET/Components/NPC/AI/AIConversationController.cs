@@ -6,6 +6,7 @@ public class AIConversationController : MonoBehaviour
 {
 
     [SerializeField] private SaveUserSpeech _SaveUserSpeech;
+
     
     [TextArea(3, 10)]
     public string contextPrompt;

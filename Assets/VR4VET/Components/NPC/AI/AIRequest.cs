@@ -25,6 +25,7 @@ public class AIRequest : MonoBehaviour
     void Start()
     {
         // Get OpenAI key, which must be set in .env file
+
         key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
         _AIConversationController = GetComponent<AIConversationController>();
