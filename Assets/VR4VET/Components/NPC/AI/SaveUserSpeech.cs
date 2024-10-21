@@ -34,7 +34,7 @@ public class SaveUserSpeech : MonoBehaviour
 
 
     public float animationSpeed = 1.0f; // Speed of the animation
-    public float minScale = 1f; // Minimum size
+    public float minScale = 2.0f; // Minimum size
     public float maxScale = 4.0f; // Maximum size
     public SpriteRenderer microphoneIcon;
 
