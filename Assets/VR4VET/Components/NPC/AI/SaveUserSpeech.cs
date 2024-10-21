@@ -34,7 +34,7 @@ public class SaveUserSpeech : MonoBehaviour
 
 
     public float animationSpeed = 1.0f; // Speed of the animation
-    public float minScale = 1f; // Minimum size
+    public float minScale = 2.0f; // Minimum size
     public float maxScale = 4.0f; // Maximum size
     public SpriteRenderer microphoneIcon;
 
@@ -62,7 +62,7 @@ public class SaveUserSpeech : MonoBehaviour
         _stream.OnStreamFinished += OnFinished;
         microphoneRecord.OnRecordStop += OnRecordStop;
 
-        currentScale = minScale;
+        currentScale = maxScale;
         microphoneIcon.enabled = false; // Initially hide the microphone icon
 
         // Initialize subtitles
@@ -108,7 +108,6 @@ public class SaveUserSpeech : MonoBehaviour
             whisper.UpdateLanguage(currentLanguage);
             _stream.StartStream();
             microphoneRecord.StartRecord();
-            //microphoneIcon.drawMode = SpriteDrawMode.Simple;
             microphoneIcon.enabled = true; // Show the microphone icon
             isAnimating = true; // Start mic animation
         }
@@ -181,27 +180,37 @@ public class SaveUserSpeech : MonoBehaviour
         subtitle.text = "";
     }
 
-    private void AnimateMicrophoneIcon()
+   private void AnimateMicrophoneIcon()
     {
         if (growing)
         {
+            // Increase the scale of the icon
             currentScale += animationSpeed * Time.deltaTime;
+            
+            // Check if the scale has reached or exceeded the maximum limit
             if (currentScale >= maxScale)
             {
+                // Clamp the scale to the maximum value and start shrinking
                 currentScale = maxScale;
-                growing = false;
+                growing = false; 
             }
         }
         else
         {
+            // Decrease the scale of the icon
             currentScale -= animationSpeed * Time.deltaTime;
+            
+            // Check if the scale has reached or fallen below the minimum limit
             if (currentScale <= minScale)
             {
+                // Clamp the scale to the minimum value and start growing
                 currentScale = minScale;
-                growing = true;
+                growing = true;  
             }
         }
 
+        // Apply the updated scale to the microphone icon
         microphoneIcon.transform.localScale = new Vector3(currentScale, currentScale, 1);
     }
+
 }
