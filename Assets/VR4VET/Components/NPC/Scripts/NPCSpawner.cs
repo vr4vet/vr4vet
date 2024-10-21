@@ -6,6 +6,11 @@ public class NPCSpawner : MonoBehaviour
 {
     [SerializeField] private NPC[] _nPCs;
     [HideInInspector] public List<GameObject> _npcInstances;
+
+    [TextArea(3, 10)]
+    public string globalContextPrompt;
+
+
     private GameObject spawnedNpc;
 
     private void Awake()
@@ -147,6 +152,7 @@ public class NPCSpawner : MonoBehaviour
     public void setAIBehaviour(GameObject npc, string contextPrompt, int maxTokens)
     {
         AIConversationController aiConversationController = npc.GetComponent<AIConversationController>();
+        
         if (aiConversationController == null)
         {
             Debug.LogError("The NPC is missing the AIConversationController");
@@ -155,14 +161,15 @@ public class NPCSpawner : MonoBehaviour
         {
             aiConversationController.contextPrompt = contextPrompt;
             aiConversationController.maxTokens = maxTokens;
-
-            Message promptMessage = new Message { role = "system", content = contextPrompt };
-            aiConversationController.AddMessage(promptMessage);
+            
+            aiConversationController.AddMessage(new Message { role = "system", content = globalContextPrompt });
+            aiConversationController.AddMessage(new Message { role = "system", content = contextPrompt });
         }
     }
     public void setTTSProvider(GameObject npc, TTSProvider ttsProvider, string openAiVoiceId)
     {
         DialogueBoxController dialogueBoxController = npc.GetComponent<DialogueBoxController>();
+        
         if (dialogueBoxController == null)
         {
             Debug.LogError("The NPC is missing the DialogueBoxController");
