@@ -112,10 +112,21 @@ public class AIRequest : MonoBehaviour
 
                 // Retrieve the field with the actual response content, but add backslash before problematic characters
                 responseText = response.choices[0].message.content
-                    .Replace("\\", "\\\\")
-                    .Replace("\"", "\\\"")
-                    .Replace("\n", "\\n")
-                    .Replace("\r", "\\r");
+                    .Replace("\\", "")
+                    .Replace("\"", "")
+                    .Replace("\n", "")
+                    .Replace("*", "")
+                    .Replace("[", "")
+                    .Replace("]", "")
+                    .Replace("_", "")
+                    .Replace("#", "")
+                    .Replace("\r", "");
+
+            if (responseText.Length > 280)
+            {
+                responseText = responseText.Substring(0, 280);
+                responseText = $"{responseText}...";
+            }
 
                 Message assistantMessage = new Message { role = "assistant", content = responseText };
                 messages.Add(assistantMessage);
