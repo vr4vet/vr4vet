@@ -159,6 +159,11 @@ public class DialogueBoxController : MonoBehaviour
             // Start talking animation
             StartCoroutine(revertToIdleAnimation());
             _dialogueText.text = dialogueTree.sections[section].dialogue[i];
+            if (_dialogueText.text.Length > 280)
+            {
+                _dialogueText.text = _dialogueText.text.Substring(0, 280);
+                _dialogueText.text = $"{_dialogueText.text}...";
+            }
             AddDialogueToContext(_dialogueText.text);
             if (useWitAI)
             {
@@ -336,8 +341,7 @@ public class DialogueBoxController : MonoBehaviour
         _dialogueBox.SetActive(true);
 
         // Set text to generic question
-        _dialogueText.text = "Now you know the basics. That's all I have to say.";
-
+        _dialogueText.text = "That is all I have to say.";
 
         // NPC will speak generic question
         if (useWitAI)
