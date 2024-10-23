@@ -168,6 +168,11 @@ public class DialogueBoxController : MonoBehaviour
             // Start talking animation
             StartCoroutine(revertToIdleAnimation());
             _dialogueText.text = dialogueTree.sections[section].dialogue[i];
+            if (_dialogueText.text.Length > 280)
+            {
+                _dialogueText.text = _dialogueText.text.Substring(0, 280);
+                _dialogueText.text = $"{_dialogueText.text}...";
+            }
 
             // if the dialogue is not interruptable, it should not be possible to interact with NPC
             isTalkable = dialogueTree.sections[section].interruptableElements[i];  
@@ -268,6 +273,7 @@ public class DialogueBoxController : MonoBehaviour
         // When 9 seconds have passed, stop the animation and exit the comment dialogue
         yield return new WaitForSeconds(8.0f);
         _animator.SetBool(_isTalkingHash, false);
+        _animator.SetBool(_isListeningHash, false);
         dialogueIsActive = false;
     }
 
@@ -317,6 +323,7 @@ public class DialogueBoxController : MonoBehaviour
     {
         yield return new WaitForSeconds(8.0f);
         _animator.SetBool(_isTalkingHash, false);
+        _animator.SetBool(_isListeningHash, false);
     }
 
     public int GetActivatedCount()
@@ -328,6 +335,7 @@ public class DialogueBoxController : MonoBehaviour
     {
         //stop talk-animation
         _animator.SetBool(_isTalkingHash, false);
+        _animator.SetBool(_isListeningHash, false);
         dialogueIsActive = false;
         ResetBox();
         if (dialogueTreeRestart.speakButtonOnExit)
@@ -362,8 +370,7 @@ public class DialogueBoxController : MonoBehaviour
         _dialogueBox.SetActive(true);
 
         // Set text to generic question
-        _dialogueText.text = "Now you know the basics. That's all I have to say.";
-
+        _dialogueText.text = "That is all I have to say.";
 
         // NPC will speak generic question
         if (useWitAI)
@@ -396,8 +403,7 @@ public class DialogueBoxController : MonoBehaviour
         // Exit conversation when exit is pressed
         // ExitConversation();
 
-        yield return new WaitForSeconds(8.0f);
-        _animator.SetBool(_isTalkingHash, false);
+        StartCoroutine(revertToIdleAnimation());
 
         yield return null;
 
@@ -406,7 +412,6 @@ public class DialogueBoxController : MonoBehaviour
     public IEnumerator DisplayThinking()
     {
         // While waiting for a response, display thinking dialogue
-        _animator.SetBool(_isListeningHash, true);
         while (true)
         {
             _dialogueText.text = ".";
@@ -426,9 +431,28 @@ public class DialogueBoxController : MonoBehaviour
         useWitAI = true;
     }
 
+    public void startThinking()
+    {
+        _animator.SetBool(_isListeningHash, true);
+    }
+
     public void stopThinking()
     {
         _animator.SetBool(_isListeningHash, false);
+    }
+
+    public void ShowDialogueBox()
+    {
+        _dialogueBox.SetActive(true);
+        _dialogueCanvas.SetActive(true);
+        Debug.Log("Dialogue box reactivated.");
+    }
+
+    public void HideDialogueBox()
+    {
+        _dialogueBox.SetActive(false);
+        _dialogueCanvas.SetActive(false);
+        Debug.Log("Dialogue box hidden.");
     }
 
 }

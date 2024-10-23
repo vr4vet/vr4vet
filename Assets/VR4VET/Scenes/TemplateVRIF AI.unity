@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.54889095, g: 0.79580647, b: 0.9729184, a: 1}
+  m_IndirectSpecularColor: {r: 0.548891, g: 0.7958065, b: 0.97291845, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11180,6 +11180,117 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1814892649}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &832675799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 832675802}
+  - component: {fileID: 832675801}
+  - component: {fileID: 832675804}
+  - component: {fileID: 832675803}
+  m_Layer: 0
+  m_Name: TranscriptionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &832675801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832675799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fa4a43fe3e1ea4ab231f8f9aea769f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whisper: {fileID: 0}
+  microphoneRecord: {fileID: 0}
+  subtitle: {fileID: 0}
+  _NPCManager: {fileID: 0}
+--- !u!4 &832675802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832675799}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.09, y: 1, z: 5.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &832675803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832675799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9370225a2ca94276b870d5f87b0db55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logLevel: 1
+  modelPath: Whisper/ggml-tiny.bin
+  isModelPathInStreamingAssets: 1
+  initOnAwake: 1
+  language: en
+  translateToEnglish: 0
+  strategy: 1
+  noContext: 1
+  singleSegment: 0
+  enableTokens: 0
+  initialPrompt: 
+  stepSec: 3
+  keepSec: 0.2
+  lengthSec: 10
+  updatePrompt: 1
+  dropOldBuffer: 0
+  useVad: 1
+  tokensTimestamps: 0
+  speedUp: 0
+  audioCtx: 0
+--- !u!114 &832675804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832675799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc03a4c19604ea394e364f8fc632928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLengthSec: 60
+  loop: 0
+  frequency: 16000
+  chunksLengthSec: 0.5
+  echo: 0
+  useVad: 1
+  vadUpdateRateSec: 0.1
+  vadContextSec: 30
+  vadLastSec: 1.25
+  vadThd: 1
+  vadFreqThd: 100
+  vadIndicatorImage: {fileID: 0}
+  vadStop: 0
+  dropVadPart: 1
+  vadStopTime: 3
+  microphoneDropdown: {fileID: 0}
+  microphoneDefaultLabel: Default microphone
 --- !u!1001 &887646470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19356,6 +19467,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 4304dc583138c22468c81129d720e06a,
         type: 2}
+    - target: {fileID: 4376909619194593627, guid: ea7db852323fd6b4986a2685991fe1c5,
+        type: 3}
+      propertyPath: globalContextPrompt
+      value: 'You are an AI assistant NPC in a VR game for vulnerable and/or unemployed
+        people. You are listening and talking via TTS and STT. In this game, users
+        can try working at a fish factory as a fun game to see if they are interested
+        in this job. The experience should be as real as possible, so never say that
+        you are programmed or not real, never answer questions about how your functionality
+        like TTS or SST works, and never refer to the setting as a game. You should
+        act like a friendly assistant and give short and helpful answers. It should
+        seem like you are a real person in the setting that the users are talking
+        to.
+
+
+        Use max 280 characters'
+      objectReference: {fileID: 0}
     - target: {fileID: 4376909619194593628, guid: ea7db852323fd6b4986a2685991fe1c5,
         type: 3}
       propertyPath: m_Name
