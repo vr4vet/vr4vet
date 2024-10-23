@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 7320500719012628531}
   - component: {fileID: 2813417528501295280}
   - component: {fileID: 3833807276438326027}
-  - component: {fileID: 3492104680634422935}
   m_Layer: 0
   m_Name: NPC AI
   m_TagString: Untagged
@@ -201,11 +200,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b657c5232e0447a9b64573933dbd658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _NPCManager: {fileID: 0}
   _Transcribe: {fileID: 0}
   contextPrompt: 
   maxTokens: 50
   messages: []
+  animationSpeed: 1
+  minScale: 2
+  maxScale: 4
+  microphoneIcon: {fileID: 5863376653629600302}
 --- !u!82 &7320500719012628531
 AudioSource:
   m_ObjectHideFlags: 0
@@ -368,22 +370,6 @@ MonoBehaviour:
   readyToAnswer: 0
   TTSSpeaker: {fileID: 0}
   OpenAiVoiceId: 
---- !u!114 &3492104680634422935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 142329030213301039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ab2a19051d1daa4d81f173ac85c27cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationSpeed: 1
-  minScale: 1
-  maxScale: 3
-  microphoneIcon: {fileID: 5863376653629600302}
 --- !u!1 &389399547921113031
 GameObject:
   m_ObjectHideFlags: 0
