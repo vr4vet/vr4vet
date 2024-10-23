@@ -9,10 +9,10 @@ using Whisper.Utils;
 using TMPro;
 
 /* 
-	This script is a resides on the TranscriptionManager GameObject, which needs to be present in the scene for transcription to work.
+	This script resides on the TranscriptionManager GameObject, which needs to be present in the scene for transcription to work.
 	It handles all transcription locally, and updates the subtitle text (even if they are active or not).
 	Currently English, Norwegian, German and Dutch can be switched between by pressing the 'L' key on the keyboard.
-	It also runs the NPCManager class' EndRecording method once transcription has been completed. 
+	It also runs the AIConversationController class' CreateRequest method once transcription has been completed. 
 */
 public class Transcribe : MonoBehaviour
 {
@@ -25,14 +25,12 @@ public class Transcribe : MonoBehaviour
 	public const int MAX_RECORDTIME = 10; // Max recording time in secon
 	private bool subtitlesEnabled = true;
 	private const int SUBTITLE_DURATION = 8;	// How long it takes before subtitles fade
-	private string transcript;
 	public TextMeshProUGUI subtitle;
-	[SerializeField] private NPCManager _NPCManager;
+    [SerializeField] private AIConversationController _AIConversationController;
 
 
 	public async void Start()
 	{
-		transcript = "";
         microphoneRecord = GetComponent<MicrophoneRecord>();
         // Assign whisper transcription manager (from the whisper package) and set current language.
         whisper = GetComponent<WhisperManager>();
@@ -72,9 +70,9 @@ public class Transcribe : MonoBehaviour
         }
 	}
 
-	public void StartRecording(NPCManager _NPCManager)
+	public void StartRecording(AIConversationController _AIConversationController)
     {
-		this._NPCManager = _NPCManager;
+        this._AIConversationController = _AIConversationController;
         if (!microphoneRecord.IsRecording)
         {
             whisper.UpdateLanguage(currentLanguage);
@@ -106,13 +104,14 @@ public class Transcribe : MonoBehaviour
     {
         print("Stream finished!");
 
-        if (finalResult.Contains("[ Inaudible ]"))
-        {
-            Debug.Log("'Inaudible' returned from Whisper. Make sure to hold the microphone button down for a few seconds.");
-            finalResult = "";
-        }
+        Debug.Log(finalResult);
+
+		if (finalResult.Contains("[ Inaudible ]")) {
+			finalResult = finalResult.Replace("[ Inaudible ]", "");
+		}
+
 		if (finalResult.Contains("[BLANK_AUDIO]")) {
-			finalResult.Replace("[BLANK_AUDIO]", "");
+			finalResult = finalResult.Replace("[BLANK_AUDIO]", "");
 		}
         // Set subtitles if active
         if (subtitlesEnabled)
@@ -120,7 +119,7 @@ public class Transcribe : MonoBehaviour
             subtitle.text = finalResult;
             StartCoroutine(WaitForSubtitleFadeOut());
         }
-		_NPCManager.EndRecording(finalResult);
+        _AIConversationController.CreateRequest(finalResult);
     }
 
 
