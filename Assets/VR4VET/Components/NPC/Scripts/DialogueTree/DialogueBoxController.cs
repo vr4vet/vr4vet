@@ -254,6 +254,7 @@ public class DialogueBoxController : MonoBehaviour
         // When 9 seconds have passed, stop the animation and exit the comment dialogue
         yield return new WaitForSeconds(8.0f);
         _animator.SetBool(_isTalkingHash, false);
+        _animator.SetBool(_isListeningHash, false);
         dialogueIsActive = false;
     }
 
@@ -300,6 +301,7 @@ public class DialogueBoxController : MonoBehaviour
     {
         yield return new WaitForSeconds(8.0f);
         _animator.SetBool(_isTalkingHash, false);
+        _animator.SetBool(_isListeningHash, false);
     }
 
     public int GetActivatedCount()
@@ -311,6 +313,7 @@ public class DialogueBoxController : MonoBehaviour
     {
         //stop talk-animation
         _animator.SetBool(_isTalkingHash, false);
+        _animator.SetBool(_isListeningHash, false);
         dialogueIsActive = false;
         ResetBox();
         if (dialogueTreeRestart.speakButtonOnExit)
@@ -371,8 +374,7 @@ public class DialogueBoxController : MonoBehaviour
         // Exit conversation when exit is pressed
         // ExitConversation();
 
-        yield return new WaitForSeconds(8.0f);
-        _animator.SetBool(_isTalkingHash, false);
+        StartCoroutine(revertToIdleAnimation());
 
         yield return null;
 
@@ -381,7 +383,6 @@ public class DialogueBoxController : MonoBehaviour
     public IEnumerator DisplayThinking()
     {
         // While waiting for a response, display thinking dialogue
-        _animator.SetBool(_isListeningHash, true);
         while (true)
         {
             _dialogueText.text = ".";
@@ -399,6 +400,11 @@ public class DialogueBoxController : MonoBehaviour
 
     public void useWitTTS(){
         useWitAI = true;
+    }
+
+    public void startThinking()
+    {
+        _animator.SetBool(_isListeningHash, true);
     }
 
     public void stopThinking()

@@ -156,12 +156,14 @@ public class AIRequest : MonoBehaviour
                     yield return new WaitUntil(() => _AIResponseToSpeech.readyToAnswer);
                     StopCoroutine(thinking);
                     _dialogueBoxController.stopThinking();
+                    
 
                     if (responseText.Length > 280)
                     {
                         responseText = responseText.Substring(0, 280);
                         responseText = $"{responseText}...";
                     }
+
 
                     // Display the response in the dialogue box
                     StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));

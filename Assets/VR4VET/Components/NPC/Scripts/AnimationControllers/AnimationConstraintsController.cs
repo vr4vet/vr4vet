@@ -9,6 +9,7 @@ public class AnimationConstraintsController : MonoBehaviour
 {
     [HideInInspector] private Animator animator;
     [HideInInspector] private int isTalkingHash;
+    [HideInInspector] private int isListeningHash;
     [HideInInspector] private RigBuilder rigBuilder; // Use RigBuilder instead of Rig
     private GameObject targetRef;
     private MultiAimConstraint headCon;
@@ -25,7 +26,9 @@ public class AnimationConstraintsController : MonoBehaviour
 
         // increases performance
         isTalkingHash = Animator.StringToHash("isTalking");
+        isListeningHash = Animator.StringToHash("isListening");
         // Ensure isTalking starts as false
+        animator.SetBool(isListeningHash, false);
         animator.SetBool(isTalkingHash, false);
 
         // Find the MultiAimConstraint component within the "TargetTracking" Rig Layer
@@ -54,7 +57,7 @@ public class AnimationConstraintsController : MonoBehaviour
                         {
                             // Set the player camera as the source object (what the NPC will look at)
                             var sourceObject = con.data.sourceObjects;
-                            var newSource = new WeightedTransform(targetRef.transform, 1.0f);
+                            var newSource = new WeightedTransform(targetRef.transform, 0.6f);
                             sourceObject.Add(newSource);
                             con.data.sourceObjects = sourceObject;
 
