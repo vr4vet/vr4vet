@@ -17,7 +17,7 @@ public class ConversationController : MonoBehaviour
 
     [HideInInspector] public bool playerInsideTrigger = false;
 
-
+    [HideInInspector] public bool isTalkable;  
 
 
     // Start is called before the first frame update
@@ -45,7 +45,9 @@ public class ConversationController : MonoBehaviour
 
     void Update()
     {
-        if (playerInsideTrigger)
+        isTalkable = _dialogueBoxController.isTalkable;
+
+        if (playerInsideTrigger &&  isTalkable)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -345,7 +347,6 @@ public class ConversationController : MonoBehaviour
             _animator.SetBool(_hasNewDialogueOptionsHash, true);
         }
     }
-
 
     // Easy way to test the functionality
     // public List<TextAsset> dialogueTreesJSONFormatTest;

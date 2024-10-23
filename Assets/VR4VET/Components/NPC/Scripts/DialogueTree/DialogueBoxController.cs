@@ -20,6 +20,9 @@ public class DialogueBoxController : MonoBehaviour
     [HideInInspector] private int _answerIndex;
     [SerializeField] private GameObject _skipLineButton;
     [SerializeField] private GameObject _exitButton;
+
+    [SerializeField] private GameObject _restartConversationButton;
+
     [SerializeField] private GameObject _speakButton;
     [HideInInspector] private Animator _animator;
     [HideInInspector] private int _isTalkingHash;
@@ -31,6 +34,7 @@ public class DialogueBoxController : MonoBehaviour
     [HideInInspector] public bool dialogueIsActive;
     private int _activatedCount = 0;
     [HideInInspector] public DialogueTree dialogueTreeRestart;
+
     public bool dialogueEnded;
     public int timesEnded = 0;
 
@@ -39,6 +43,10 @@ public class DialogueBoxController : MonoBehaviour
     public AIConversationController _AIConversationController; // Save messages here in order to save them across multiple instances of this AIrequset.
 
     public bool useWitAI = false;
+
+    [HideInInspector] public bool isTalkable;
+    [HideInInspector] private bool isConversationRestarting = false;
+    public SpriteRenderer holdBToTalkMessage;
 
     private void Awake()
     {
@@ -154,11 +162,21 @@ public class DialogueBoxController : MonoBehaviour
         backgroundRect.sizeDelta = new Vector2(160, 100);
         dialogueTextRect.sizeDelta = new Vector2(150, 60);
 
+        
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++)
         {
             // Start talking animation
             StartCoroutine(revertToIdleAnimation());
             _dialogueText.text = dialogueTree.sections[section].dialogue[i];
+
+            // if the dialogue is not interruptable, it should not be possible to interact with NPC
+            isTalkable = dialogueTree.sections[section].interruptableElements[i];  
+            if(isTalkable){
+                holdBToTalkMessage.enabled = true; // show the msg that you can talk to the NPC
+            } else {
+                holdBToTalkMessage.enabled = false; // hide the msg that you can talk to the NPC
+            }
+            
             AddDialogueToContext(_dialogueText.text);
             if (useWitAI)
             {
@@ -196,6 +214,7 @@ public class DialogueBoxController : MonoBehaviour
         {
             StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
         }
+
         ShowAnswers(dialogueTree.sections[section].branchPoint);
         while (_answerTriggered == false)
         {
@@ -261,6 +280,7 @@ public class DialogueBoxController : MonoBehaviour
         _answerTriggered = false;
         _skipLineButton.SetActive(false);
         _exitButton.SetActive(false);
+        _restartConversationButton.SetActive(false);
     }
 
     void AddDialogueToContext(string dialogue)
@@ -288,6 +308,8 @@ public class DialogueBoxController : MonoBehaviour
         // remove the buttons
         buttonSpawner.removeAllButtons();
     }
+
+ 
 
     // Reverts to idle animation after 10.267 seconds
     // Time is length of talking animation, should be tweaked to not use value
@@ -324,10 +346,17 @@ public class DialogueBoxController : MonoBehaviour
         buttonSpawner.spawnSpeakButton(dialogueTree);
     }
 
+    public void RestartConversation()
+    {
+        StartDialogue(dialogueTreeRestart, 0, "NPC");
+    }
+
+
     public void StartDynamicQuery(DialogueTree dialogueTree)
     {
         // Stop previous NPC speech
-        buttonSpawner.spawnRepeatButton(dialogueTree);
+        // buttonSpawner.spawnRepeatButton(dialogueTree);
+        _restartConversationButton.SetActive(true);  
         TTSSpeaker.GetComponent<TTSSpeaker>().Stop();
         _exitButton.SetActive(false);
         _dialogueBox.SetActive(true);

@@ -15,7 +15,8 @@ public class PressButton : MonoBehaviour
 
 	public void StartRecording(InputAction.CallbackContext context)
 	{
-		if (context.started && _ConversationController.playerInsideTrigger)
+		// if dialoguebox is set to true
+		if (context.started && _ConversationController.playerInsideTrigger && _ConversationController.isTalkable)
 		{
 			// Debug.Log("Recording button clicked.");
 			StartCoroutine(RecordingInput());
