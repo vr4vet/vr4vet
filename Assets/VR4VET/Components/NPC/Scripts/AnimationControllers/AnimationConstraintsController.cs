@@ -57,7 +57,7 @@ public class AnimationConstraintsController : MonoBehaviour
                         {
                             // Set the player camera as the source object (what the NPC will look at)
                             var sourceObject = con.data.sourceObjects;
-                            var newSource = new WeightedTransform(targetRef.transform, 1.0f);
+                            var newSource = new WeightedTransform(targetRef.transform, 0.6f);
                             sourceObject.Add(newSource);
                             con.data.sourceObjects = sourceObject;
 
