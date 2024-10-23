@@ -50,7 +50,7 @@ public class AIConversationController : MonoBehaviour
     // Function for pressing speech button in VR
     public void PressButton(InputAction.CallbackContext context)
 	{
-		if (context.started && _ConversationController.playerInsideTrigger)
+		if (context.started && _ConversationController.playerInsideTrigger && _ConversationController.isTalkable)
 		{
             StartRecording();
 		}

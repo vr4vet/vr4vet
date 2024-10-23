@@ -11214,7 +11214,7 @@ MonoBehaviour:
   whisper: {fileID: 0}
   microphoneRecord: {fileID: 0}
   subtitle: {fileID: 0}
-  _NPCManager: {fileID: 0}
+  _AIConversationController: {fileID: 0}
 --- !u!4 &832675802
 Transform:
   m_ObjectHideFlags: 0
@@ -18546,6 +18546,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f9fa5a4f5c0ef3e45886e93e2dea6469, type: 2}
   _AIConversationController: {fileID: 0}
   playerInsideTrigger: 0
+  isTalkable: 0
 --- !u!222 &850035738481018377
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19459,7 +19460,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _nPCs.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 9098763f7cf644565bbebfc3d3ec40cd,
+      objectReference: {fileID: 11400000, guid: 4304dc583138c22468c81129d720e06a,
         type: 2}
     - target: {fileID: 4376909619194593627, guid: ea7db852323fd6b4986a2685991fe1c5,
         type: 3}
@@ -19534,6 +19535,7 @@ MonoBehaviour:
   TTSSpeaker: {fileID: 1601938851}
   _skipLineButton: {fileID: 581411041842384488}
   _exitButton: {fileID: 715794130904074220}
+  _restartConversationButton: {fileID: 0}
   _speakButton: {fileID: 0}
   buttonSpawner: {fileID: 0}
   dialogueIsActive: 0
@@ -19543,6 +19545,8 @@ MonoBehaviour:
   _AIResponseToSpeech: {fileID: 0}
   _AIConversationController: {fileID: 0}
   useWitAI: 0
+  isTalkable: 0
+  holdBToTalkMessage: {fileID: 0}
 --- !u!136 &4781107937381062385
 CapsuleCollider:
   m_ObjectHideFlags: 0

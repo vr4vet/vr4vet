@@ -1,10 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public struct DialogueSection 
 {
     [TextArea]
     public string[] dialogue;
+    public bool[] interruptableElements;
     public bool endAfterDialogue;
     public BranchPoint branchPoint;
 }
