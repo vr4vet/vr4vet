@@ -1,10 +1,9 @@
 using UnityEngine;
-using DotNetEnv;
-public class DotenvPreloader : MonoBehaviour
+public class PreLoad : MonoBehaviour
 {
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	static void OnBeforeSceneLoadRuntimeMethod()
 	{
-		Env.Load();
+		EnvLoader.Load();
 	}
 }
