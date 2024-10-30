@@ -1,13 +1,18 @@
 using System;
 using System.Collections;
+using System.Net.Mime;
+using BNG;
 using TMPro;
 using UnityEngine;
 // Import of the TTS namespace
 using Meta.WitAi.TTS.Utilities;
+using UnityEngine.UI;
+using Button = UnityEngine.UIElements.Button;
+using Image = UnityEngine.UIElements.Image;
 
 public class DialogueBoxController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _dialogueText;
+    [SerializeField] public TextMeshProUGUI _dialogueText;
     [SerializeField] private GameObject _dialogueBox;
     [SerializeField] private GameObject _answerBox;
     [SerializeField] private GameObject _dialogueCanvas;
@@ -123,15 +128,23 @@ public class DialogueBoxController : MonoBehaviour
             StartCoroutine(revertToIdleAnimation());
             _dialogueText.text = dialogueTree.sections[section].dialogue[i];
             TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
+            _skipLineButton.SetActive(true);
+
+            
+            if (dialogueTree.sections[section].disableSkipLineButton)
+            {
+                _skipLineButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
+            }
+            
             while (!_skipLineTriggered)
             {
-                _skipLineButton.SetActive(true);
                 _exitButton.SetActive(true);
                 yield return null;
             }
+            
             _skipLineTriggered = false;
-            _skipLineButton.SetActive(false);
         }
+        
         if (dialogueTree.sections[section].endAfterDialogue)
         {
             dialogueEnded = true;
@@ -145,8 +158,10 @@ public class DialogueBoxController : MonoBehaviour
         ShowAnswers(dialogueTree.sections[section].branchPoint);
         while (_answerTriggered == false)
         {
+            _skipLineButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
             yield return null;
         }
+        _skipLineButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
         _answerTriggered = false;
         _exitButton.SetActive(false);
         _skipLineButton.SetActive(false);
