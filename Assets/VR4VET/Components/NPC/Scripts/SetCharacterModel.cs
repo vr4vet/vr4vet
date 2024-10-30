@@ -5,7 +5,6 @@ using BNG;
 using Meta.WitAi;
 using Meta.WitAi.TTS.Integrations;
 using Meta.WitAi.TTS.Utilities;
-using Photon.Voice;
 using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
