@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class EnvLoader
 {
+    // Function for loading the environment variable defined in the project's root
     public static void Load(string fileName = ".env")
     {
         string projectRootPath = Path.Combine(Application.dataPath, "..");
@@ -29,4 +30,10 @@ public static class EnvLoader
 
         UnityEngine.Debug.Log("Environment variables loaded from .env file.");
     }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+	static void OnBeforeSceneLoadRuntimeMethod()
+	{
+		Load();
+	}
 }
