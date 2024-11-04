@@ -45,7 +45,6 @@ public class DialogueBoxController : MonoBehaviour
     public bool useWitAI = false;
 
     [HideInInspector] public bool isTalkable;
-    [HideInInspector] private bool isConversationRestarting = false;
     public SpriteRenderer holdBToTalkMessage;
 
     private void Awake()
