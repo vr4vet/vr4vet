@@ -61,7 +61,6 @@ public class AIConversationController : MonoBehaviour
 		}
 	}
 
-
     public void EndRecording()
     {
         isAnimating = false; // Stop mic animation
@@ -78,7 +77,7 @@ public class AIConversationController : MonoBehaviour
 
         // Add components and create OpenAI query based on transcript
         AIRequest request = gameObject.AddComponent<AIRequest>();
-        request.query = transcript;
+        request.query = transcript + " and answer in language:" + _Transcribe.currentLanguage;
         request.contextPrompt = contextPrompt;
         request.maxTokens = maxTokens;
     }
@@ -87,13 +86,6 @@ public class AIConversationController : MonoBehaviour
     {
         messages.Add(message);
     }
-
-    IEnumerator RecordingInput()
-	{
-		yield return new WaitForSeconds(0.01f);
-		StartRecording();
-	}
-
 
     public void FixedUpdate()
     {
@@ -136,7 +128,3 @@ public class AIConversationController : MonoBehaviour
         microphoneIcon.transform.localScale = new Vector3(currentScale, currentScale, 1);
     }
 }
-
-
-
-

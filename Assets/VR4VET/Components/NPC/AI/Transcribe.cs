@@ -19,7 +19,7 @@ public class Transcribe : MonoBehaviour
 	public WhisperManager whisper; 
     private string[] languages = { "en", "no", "de", "nl" };
     private int currentLanguageIndex = 0;
-    private string currentLanguage;
+    public string currentLanguage;
     public MicrophoneRecord microphoneRecord;
     private WhisperStream _stream;
 	public const int MAX_RECORDTIME = 10; // Max recording time in secon
