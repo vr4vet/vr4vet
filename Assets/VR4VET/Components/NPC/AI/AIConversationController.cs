@@ -5,21 +5,14 @@ using UnityEngine.InputSystem;
 
 public class AIConversationController : MonoBehaviour
 {
-
     [SerializeField] private Transcribe _Transcribe;
     
     [TextArea(3, 10)]
     public string contextPrompt;
     public int maxTokens = 50;
-
     public List<Message> messages = new List<Message>();
-
     private ConversationController _ConversationController;
-
     private AudioSource audioSource;
-    private AudioClip myAudioClip;
-    public const string FILENAME = "conversation.wav";
-
     public float animationSpeed = 1.0f; // Speed of the animation
     public float minScale = 2f; // Minimum size
     public float maxScale = 4.0f; // Maximum size
@@ -28,26 +21,30 @@ public class AIConversationController : MonoBehaviour
     private float currentScale;
     private bool isAnimating = false; // Flag to control animation
 
-    
     void Start()
     {
+        // Set transcription manager and conversation controller
         _Transcribe = GameObject.Find("TranscriptionManager").GetComponent<Transcribe>();
         _ConversationController = GetComponentInChildren<ConversationController>();
 
+        // Set up microphone animation
         audioSource = GetComponent<AudioSource>();
         currentScale = maxScale;
         microphoneIcon.enabled = false; // Initially hide the microphone icon
         isAnimating = false;
     }
 
+    /* Function that starts the transcription of user speech and animates the microphone icon accordingly */
     public void StartRecording()
     {
-        _Transcribe.StartRecording(this);
+        _Transcribe.StartRecording(this); // Start transcribing and set reference to this conversation (this NPC)
         microphoneIcon.enabled = true; // Show the microphone icon
         isAnimating = true; // Start mic animation
     }
 
-    // Function for pressing speech button in VR
+    /* Function for pressing speech button in VR. Pressing the 'B' button in VR while within range of an NPC that currently 
+    is on a interruptable element in the dialogue tree will start the recording. When the button is let go, the transcriptions 
+    stops. */
     public void PressButton(InputAction.CallbackContext context)
 	{
 		if (context.started && _ConversationController.playerInsideTrigger && _ConversationController.isTalkable)
@@ -65,23 +62,25 @@ public class AIConversationController : MonoBehaviour
     {
         isAnimating = false; // Stop mic animation
         microphoneIcon.enabled = false; // Hide the microphone icon
-        _Transcribe.EndRecording();
+        _Transcribe.EndRecording(); // Stop transcribing
     }
 
-    public void CreateRequest(string transcript) {
+    /* Function for creating an AIRequest (request to OpenAI GPT model) based on the transcribed text. */
+    public void CreateRequest(string transcript) 
+    {
         if (transcript == "")
         {
-            // Transcription contained contained blank audio or was inaudible
+            // Transcription contained blank audio or was inaudible
             transcript = "Please respond by saying you cannot understand me, and that the microphone may have to be checked.";
         }
 
         // Add components and create OpenAI query based on transcript
         AIRequest request = gameObject.AddComponent<AIRequest>();
         request.query = transcript + " and answer in language:" + _Transcribe.currentLanguage;
-        request.contextPrompt = contextPrompt;
         request.maxTokens = maxTokens;
     }
 
+    /* Function for adding a message to the local NPC context prompt. Used for adding both user transcript and the AI's reply. */
     public void AddMessage(Message message)
     {
         messages.Add(message);
@@ -96,6 +95,7 @@ public class AIConversationController : MonoBehaviour
         }
     }
 
+    /* Function that handles animation of the microphone icon in interruptable dialogue boxes. */
     private void AnimateMicrophoneIcon()
     {
         if (growing)

@@ -10,22 +10,16 @@ public class AIRequest : MonoBehaviour
     private string api = "https://api.openai.com/v1/chat/completions";
     private string key;
     public string query;
-    public string contextPrompt;
     public int maxTokens;
     public string responseText;
-
     public AIResponseToSpeech _AIResponseToSpeech; // Reference to AIResponseToSpeech script, for dictation
     public DialogueBoxController _dialogueBoxController;
-
     public AIConversationController _AIConversationController; // Save messages here in order to save them across multiple instances of this AIrequset.
-
     private List<Message> messages = new List<Message>();
-
 
     void Start()
     {
         // Get OpenAI key, which must be set in .env file
-
         key = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
         _AIConversationController = GetComponent<AIConversationController>();
@@ -74,6 +68,8 @@ public class AIRequest : MonoBehaviour
         StartCoroutine(OpenAI());
     }
 
+    /* Function for sending a request to the OpenAI GPT model. Also displays thinking animation, sanitizes response, 
+    updates the context, displays the text in the dialogue box and calls the dictation function(s). */
     IEnumerator OpenAI()
     {
         while (string.IsNullOrEmpty(query))
@@ -160,12 +156,12 @@ public class AIRequest : MonoBehaviour
                     StopCoroutine(thinking);
                     _dialogueBoxController.stopThinking();
 
+                    // Limit response length to fit within dialogue box
                     if (responseText.Length > 255)
                     {
                         responseText = responseText.Substring(0, 255);
                         responseText = $"{responseText}...";
                     }
-
 
                     // Display the response in the dialogue box
                     StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));

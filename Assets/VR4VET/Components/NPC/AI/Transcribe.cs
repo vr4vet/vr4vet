@@ -9,10 +9,11 @@ using Whisper.Utils;
 using TMPro;
 
 /* 
-	This script resides on the TranscriptionManager GameObject, which needs to be present in the scene for transcription to work.
-	It handles all transcription locally, and updates the subtitle text (even if they are active or not).
-	Currently English, Norwegian, German and Dutch can be switched between by pressing the 'L' key on the keyboard.
-	It also runs the AIConversationController class' CreateRequest method once transcription has been completed. 
+	This script resides on the TranscriptionManager GameObject, which needs to be present in the scene for transcription 
+    to work. Subtitles also require a GameObject in the scene. It handles all transcription locally, and updates the 
+    subtitle text (even if they are active or not). Currently English, Norwegian, German and Dutch can be switched 
+    between by pressing the 'L' key on the keyboard. It also runs the AIConversationController class' CreateRequest 
+    method once transcription has been completed. Subtitles can be toggled by pressing the 'U' key on the keyboard.
 */
 public class Transcribe : MonoBehaviour
 {
@@ -22,19 +23,15 @@ public class Transcribe : MonoBehaviour
     public string currentLanguage;
     public MicrophoneRecord microphoneRecord;
     private WhisperStream _stream;
-	public const int MAX_RECORDTIME = 10; // Max recording time in secon
 	private bool subtitlesEnabled = true;
-	private const int SUBTITLE_DURATION = 8;	// How long it takes before subtitles fade
+	private const int SUBTITLE_DURATION = 8;	// How many seconds it takes before subtitles fade out
 	public TextMeshProUGUI subtitle;
     [SerializeField] private AIConversationController _AIConversationController;
-
 
 	public async void Start()
 	{
         microphoneRecord = GetComponent<MicrophoneRecord>();
-        // Assign whisper transcription manager (from the whisper package) and set current language.
-        whisper = GetComponent<WhisperManager>();
-		Debug.Log(whisper);
+        whisper = GetComponent<WhisperManager>();  // Assign whisper transcription manager (from the whisper package) and set current language.
         currentLanguage = languages[currentLanguageIndex];
         whisper.language = currentLanguage; // Default value is English
 
@@ -70,9 +67,10 @@ public class Transcribe : MonoBehaviour
         }
 	}
 
+    /* Function for initializing the Whisper transcription, called by AIConversationController */
 	public void StartRecording(AIConversationController _AIConversationController)
     {
-        this._AIConversationController = _AIConversationController;
+        this._AIConversationController = _AIConversationController; // Set current conversation reference
         if (!microphoneRecord.IsRecording)
         {
             whisper.UpdateLanguage(currentLanguage);
@@ -81,7 +79,8 @@ public class Transcribe : MonoBehaviour
         }
     }
 
-	 public void EndRecording()
+    /* Function for stopping the transcription, called by AIConversationController */
+	public void EndRecording()
     {
         microphoneRecord.StopRecord();
     }
@@ -100,6 +99,7 @@ public class Transcribe : MonoBehaviour
         print($"Segment finished: {segment.Result}");
     }
 
+    /* Function for setting subtitles and creating a TTS request (AIRequest) once the transcription has finialized. */
     private void OnFinished(string finalResult)
     {
         print("Stream finished!");
@@ -122,14 +122,14 @@ public class Transcribe : MonoBehaviour
         _AIConversationController.CreateRequest(finalResult);
     }
 
-
+    /* Function for toggling the visibility of subtitles */
 	public void ToggleSubtitles()
     {
         subtitlesEnabled = !subtitlesEnabled;
         subtitle.gameObject.SetActive(subtitlesEnabled);
     }
 
-    // Fade out subtitles after SUBTITLE_DURATION seconds
+    /* Helper function for fading out subtitles after SUBTITLE_DURATION seconds */
     private IEnumerator WaitForSubtitleFadeOut()
     {
         yield return new WaitForSeconds(SUBTITLE_DURATION);

@@ -11,12 +11,9 @@ public class AIResponseToSpeech : MonoBehaviour
     private string key;
     private AudioSource audioSource;
     public bool readyToAnswer = false;
-
     public GameObject TTSSpeaker;
     private TTSSpeaker ttsSpeakerComponent;
-
     private string newResponseText;
-
     public string OpenAiVoiceId;
 
     void Start()
@@ -46,9 +43,7 @@ public class AIResponseToSpeech : MonoBehaviour
                 return;
             }
         }
-
         ttsSpeakerComponent = TTSSpeaker.GetComponent<TTSSpeaker>();
-
         if (ttsSpeakerComponent == null)
         {
             Debug.LogError("TTSSpeaker component not found on the assigned or found TTSSpeaker GameObject.");
@@ -56,15 +51,13 @@ public class AIResponseToSpeech : MonoBehaviour
         }
     }
 
-    // Coroutine for dictation through OpenAI's API in JSON request format
+    /* Coroutine for dictation through OpenAI's API in JSON request format */
     public IEnumerator OpenAIDictate(string responseText)
     {
         // Indicate that the AI is thinking
         yield return readyToAnswer = false;
 
         newResponseText = responseText.Replace("\n", " ").Replace("\"", "").Replace(":", ""); // Replace newline with space
-
-        // Debug.Log($"Dictating text: {newResponseText}");
         string jsonData = $"{{\"model\": \"tts-1-hd-1106\", \"input\": \"{newResponseText}\", \"voice\": \"{OpenAiVoiceId}\"}}";
 
         using (UnityWebRequest request = new UnityWebRequest(api, "POST"))
@@ -75,7 +68,7 @@ public class AIResponseToSpeech : MonoBehaviour
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("Authorization", $"Bearer {key}");
 
-            // Asynchronously send and wait for the respons
+            // Asynchronously send and wait for the response
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
@@ -88,7 +81,6 @@ public class AIResponseToSpeech : MonoBehaviour
                 byte[] audioData = request.downloadHandler.data;
                 string filePath = Path.Combine(Application.persistentDataPath, "speech.mp3");
                 File.WriteAllBytes(filePath, audioData);
-                // Debug.Log($"Audio saved to: {filePath}");
 
                 // Indicate that the AI is ready to answer
                 yield return readyToAnswer = true;
@@ -99,6 +91,7 @@ public class AIResponseToSpeech : MonoBehaviour
         }
     }
 
+    /* Helper function for playing the resulting audio from OpenAI */
     private IEnumerator PlayAudio(string filePath)
     {
         // Load the audio file using UnityWebRequest
@@ -108,7 +101,7 @@ public class AIResponseToSpeech : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
-                // Debug.LogError($"Error loading audio file: {request.error}");
+                Debug.LogError($"Error loading audio file: {request.error}");
             }
             else
             {
@@ -119,6 +112,8 @@ public class AIResponseToSpeech : MonoBehaviour
             }
         }
     }
+
+    /* Alternative coroutine for dictation using Meta's WitAI */
     public IEnumerator WitAIDictate(string responseText)
     {
         readyToAnswer = false;
