@@ -115,13 +115,15 @@ public class AIRequest : MonoBehaviour
                 responseText = response.choices[0].message.content
                     .Replace("\\", "")
                     .Replace("\"", "")
-                    .Replace("\n", "")
+                    .Replace("’", "'")
+                    .Replace("‘", "'")
+                    .Replace("\n", " ")
                     .Replace("*", "")
                     .Replace("[", "")
                     .Replace("]", "")
                     .Replace("_", "")
                     .Replace("#", "")
-                    .Replace("\r", "");
+                    .Replace("\r", " ");
 
                 Message assistantMessage = new Message { role = "assistant", content = responseText };
                 messages.Add(assistantMessage);
@@ -138,9 +140,9 @@ public class AIRequest : MonoBehaviour
                     StopCoroutine(thinking);
                     _dialogueBoxController.stopThinking();
 
-                    if (responseText.Length > 280)
+                    if (responseText.Length > 255)
                     {
-                        responseText = responseText.Substring(0, 280);
+                        responseText = responseText.Substring(0, 255);
                         responseText = $"{responseText}...";
                     }
 
@@ -156,11 +158,10 @@ public class AIRequest : MonoBehaviour
                     yield return new WaitUntil(() => _AIResponseToSpeech.readyToAnswer);
                     StopCoroutine(thinking);
                     _dialogueBoxController.stopThinking();
-                    
 
-                    if (responseText.Length > 280)
+                    if (responseText.Length > 255)
                     {
-                        responseText = responseText.Substring(0, 280);
+                        responseText = responseText.Substring(0, 255);
                         responseText = $"{responseText}...";
                     }
 

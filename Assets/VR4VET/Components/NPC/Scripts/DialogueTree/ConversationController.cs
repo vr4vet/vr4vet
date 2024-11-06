@@ -26,12 +26,12 @@ public class ConversationController : MonoBehaviour
         _AIConversationController = GetComponentInParent<AIConversationController>();
         if (_AIConversationController == null)
         {
-            Debug.LogError("The NPC is missing the AIConversation script");
+            Debug.Log("AIConversationController component not found. Add it if the NPC needs AI abilities.");
         }
         _dialogueBoxController = GetComponentInParent<DialogueBoxController>();
         if (_dialogueBoxController == null)
         {
-            Debug.LogError("The NPC is missing the DialogueBoxCOntroller script");
+            Debug.LogError("The NPC is missing the DialogueBoxController script");
         }
         // Join the json-version and the dialogueTree-version into one list;
         // The dialogueTree-version will be first
@@ -45,9 +45,9 @@ public class ConversationController : MonoBehaviour
 
     void Update()
     {
+        // This code is for testing AI speech solution on computer with a keyboard using "E"
         isTalkable = _dialogueBoxController.isTalkable;
-
-        if (playerInsideTrigger &&  isTalkable)
+        if (playerInsideTrigger && isTalkable)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {

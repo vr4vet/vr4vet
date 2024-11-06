@@ -10,7 +10,6 @@ public class NPCSpawner : MonoBehaviour
     [TextArea(3, 10)]
     public string globalContextPrompt;
 
-
     private GameObject spawnedNpc;
 
     private void Awake()
@@ -87,8 +86,6 @@ public class NPCSpawner : MonoBehaviour
                 {
                     speakerAudio.minDistance = 5;
                 }
-
-
             }
         }
         else

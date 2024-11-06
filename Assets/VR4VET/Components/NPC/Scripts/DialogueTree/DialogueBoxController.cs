@@ -20,9 +20,7 @@ public class DialogueBoxController : MonoBehaviour
     [HideInInspector] private int _answerIndex;
     [SerializeField] private GameObject _skipLineButton;
     [SerializeField] private GameObject _exitButton;
-
     [SerializeField] private GameObject _restartConversationButton;
-
     [SerializeField] private GameObject _speakButton;
     [HideInInspector] private Animator _animator;
     [HideInInspector] private int _isTalkingHash;
@@ -99,7 +97,7 @@ public class DialogueBoxController : MonoBehaviour
             _AIResponseToSpeech = GetComponent<AIResponseToSpeech>();
             if (_AIResponseToSpeech == null)
             {
-                Debug.LogError("AIResponseToSpeech component not found in the scene.");
+                Debug.Log("AIResponseToSpeech component not found in the scene. Add it if the NPC needs AI abilities.");
                 return;
             }
         }
@@ -109,7 +107,7 @@ public class DialogueBoxController : MonoBehaviour
             _AIConversationController = GetComponent<AIConversationController>();
             if (_AIConversationController == null)
             {
-                Debug.LogError("AIConversationController component not found.");
+                Debug.Log("AIConversationController component not found. Add it if the NPC needs AI abilities.");
             }
         }
     }
@@ -128,7 +126,6 @@ public class DialogueBoxController : MonoBehaviour
         this._animator = animator;
     }
 
-
     public void StartDialogue(DialogueTree dialogueTree, int startSection, string name)
     {
         dialogueIsActive = true;
@@ -142,7 +139,6 @@ public class DialogueBoxController : MonoBehaviour
         _activatedCount = 0;
         StartCoroutine(RunDialogue(dialogueTree, startSection));
         _exitButton.SetActive(false);
-
     }
 
     IEnumerator RunDialogue(DialogueTree dialogueTree, int section)
@@ -160,7 +156,6 @@ public class DialogueBoxController : MonoBehaviour
         // Reset the dialogue box dimensions from "Speak" button dimensions
         backgroundRect.sizeDelta = new Vector2(160, 100);
         dialogueTextRect.sizeDelta = new Vector2(150, 60);
-
         
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++)
         {
@@ -175,13 +170,19 @@ public class DialogueBoxController : MonoBehaviour
 
             // if the dialogue is not interruptable, it should not be possible to interact with NPC
             isTalkable = dialogueTree.sections[section].interruptableElements[i];  
-            if(isTalkable){
+            if(isTalkable)
+            {
                 holdBToTalkMessage.enabled = true; // show the msg that you can talk to the NPC
-            } else {
+            }
+            else
+            {
                 holdBToTalkMessage.enabled = false; // hide the msg that you can talk to the NPC
             }
-            
+
+            // Add dialogue to context, so the NPC can remember it later
             AddDialogueToContext(_dialogueText.text);
+
+            // Check which TTS to use
             if (useWitAI)
             {
                 TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
@@ -210,6 +211,7 @@ public class DialogueBoxController : MonoBehaviour
             yield break;
         }
 
+        // Check which TTS to use
         if (useWitAI)
         {
             TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
@@ -288,10 +290,10 @@ public class DialogueBoxController : MonoBehaviour
         _restartConversationButton.SetActive(false);
     }
 
+    // This adds the message to the context, so the NPC can remember previous answers
     void AddDialogueToContext(string dialogue)
     {
         _AIConversationController.AddMessage(new Message { role = "assistant", content = dialogue });
-
     }
 
     void ShowAnswers(BranchPoint branchPoint)
@@ -313,9 +315,7 @@ public class DialogueBoxController : MonoBehaviour
         // remove the buttons
         buttonSpawner.removeAllButtons();
     }
-
  
-
     // Reverts to idle animation after 10.267 seconds
     // Time is length of talking animation, should be tweaked to not use value
     private IEnumerator revertToIdleAnimation()
@@ -332,14 +332,14 @@ public class DialogueBoxController : MonoBehaviour
 
     public void ExitConversation()
     {
-        //stop talk-animation
+        // Stop talk animation
         _animator.SetBool(_isTalkingHash, false);
         _animator.SetBool(_isListeningHash, false);
         dialogueIsActive = false;
         ResetBox();
         if (dialogueTreeRestart.speakButtonOnExit)
         {
-            //Only start speak canvas if option is not turned off
+            // Only start speak canvas if option is not turned off
             StartSpeakCanvas(dialogueTreeRestart);
         }
     }
@@ -353,11 +353,11 @@ public class DialogueBoxController : MonoBehaviour
         buttonSpawner.spawnSpeakButton(dialogueTree);
     }
 
+    // Restarts conversation when the restart button is clicked
     public void RestartConversation()
     {
         StartDialogue(dialogueTreeRestart, 0, "NPC");
     }
-
 
     public void StartDynamicQuery(DialogueTree dialogueTree)
     {
@@ -368,10 +368,10 @@ public class DialogueBoxController : MonoBehaviour
         _exitButton.SetActive(false);
         _dialogueBox.SetActive(true);
 
-        // Set text to generic question
+        // Set text to generic text for the end of the dialogue tree
         _dialogueText.text = "That is all I have to say.";
 
-        // NPC will speak generic question
+        // NPC will speak generic question, based on given TTS setting
         if (useWitAI)
         {
             TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
@@ -403,9 +403,7 @@ public class DialogueBoxController : MonoBehaviour
         // ExitConversation();
 
         StartCoroutine(revertToIdleAnimation());
-
         yield return null;
-
     }
 
     public IEnumerator DisplayThinking()
