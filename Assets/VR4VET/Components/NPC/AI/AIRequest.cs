@@ -122,6 +122,7 @@ public class AIRequest : MonoBehaviour
                     .Replace("[", "")
                     .Replace("]", "")
                     .Replace("_", "")
+                    .Replace("-", " ")
                     .Replace("#", "")
                     .Replace("\r", " ");
 
