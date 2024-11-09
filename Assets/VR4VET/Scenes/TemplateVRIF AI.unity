@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.548891, g: 0.7958065, b: 0.97291845, a: 1}
+  m_IndirectSpecularColor: {r: 0.5493609, g: 0.79545873, b: 0.9734807, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11212,6 +11212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whisper: {fileID: 0}
+  currentLanguage: 
   microphoneRecord: {fileID: 0}
   subtitle: {fileID: 0}
   _AIConversationController: {fileID: 0}
@@ -11546,7 +11547,7 @@ GameObject:
   - component: {fileID: 1044139779}
   - component: {fileID: 1044139784}
   - component: {fileID: 1044139783}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: SubtitleUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11661,7 +11662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   _delay: 0
-  _distanceToCamera: 1.5
+  _distanceToCamera: 0.9
 --- !u!1001 &1053194771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16089,7 +16090,7 @@ GameObject:
   - component: {fileID: 1451846579}
   - component: {fileID: 1451846581}
   - component: {fileID: 1451846580}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Subtitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16113,8 +16114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -130}
-  m_SizeDelta: {x: 350, y: 50}
+  m_AnchoredPosition: {x: 0, y: -150}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1451846580
 MonoBehaviour:
@@ -16167,8 +16168,8 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 14
+  m_fontSizeMax: 60
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
