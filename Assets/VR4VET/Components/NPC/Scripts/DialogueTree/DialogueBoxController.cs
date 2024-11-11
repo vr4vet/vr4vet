@@ -29,14 +29,17 @@ public class DialogueBoxController : MonoBehaviour
     [HideInInspector] private Animator _animator;
     [HideInInspector] private int _isTalkingHash;
     [HideInInspector] private int _hasNewDialogueOptionsHash;
+    [HideInInspector] private int _isPointingHash;
     [HideInInspector] private RectTransform backgroundRect;
     [HideInInspector] private RectTransform dialogueTextRect;
     [HideInInspector] public ButtonSpawner buttonSpawner;
+    private string currentDialogue;
     [HideInInspector] public bool dialogueIsActive;
     private int _activatedCount = 0;
     [HideInInspector]public DialogueTree dialogueTreeRestart;
     public bool dialogueEnded;
     public int timesEnded = 0;
+    private GameObject _pointingController;
 
     private void Awake() 
     {
@@ -54,6 +57,7 @@ public class DialogueBoxController : MonoBehaviour
 
     private void Start()
     {
+        _pointingController = GameObject.Find("PointingController");
         dialogueEnded = false;
         // Assign the event camera
         if (_dialogueCanvas != null)
@@ -90,6 +94,7 @@ public class DialogueBoxController : MonoBehaviour
         this._animator = GetComponentInChildren<Animator>();
         _isTalkingHash = Animator.StringToHash("isTalking");
         _hasNewDialogueOptionsHash = Animator.StringToHash("hasNewDialogueOptions");
+        _isPointingHash = Animator.StringToHash("isPointing");
     }
 
     public void updateAnimator(Animator animator) {
@@ -123,25 +128,48 @@ public class DialogueBoxController : MonoBehaviour
 
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++) 
         {   
+            if (_pointingController != null)
+            {
+                _pointingController.GetComponent<PointingController>().ResetDirection(talkingNpc: this.gameObject);
+            }
+            
+            _animator.SetBool(_isPointingHash, false);
             // Start talking animation
             _animator.SetBool(_isTalkingHash, true);
             StartCoroutine(revertToIdleAnimation());
             _dialogueText.text = dialogueTree.sections[section].dialogue[i];
+            _skipLineButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
             TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
             _skipLineButton.SetActive(true);
-
             
+            
+            // Check if the current section should have disabled the skip line button
             if (dialogueTree.sections[section].disableSkipLineButton)
             {
                 _skipLineButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
             }
+            // Check if the current dialogue section should have the NPC pointing
+            if (dialogueTree.sections[section].point)
+            {
+                if (_pointingController != null)
+                {
+                    _pointingController.GetComponent<PointingController>().ChangeDirection(section, talkingNpc: this.gameObject);
+                    _animator.SetBool(_isTalkingHash, false);
+                    _animator.SetBool(_isPointingHash, true);
+                }
+                else
+                {
+                    Debug.Log("PointingController not found in the scene");
+                }
+               
+            }
             
             while (!_skipLineTriggered)
             {
+                
                 _exitButton.SetActive(true);
                 yield return null;
             }
-            
             _skipLineTriggered = false;
         }
         
@@ -215,6 +243,11 @@ public class DialogueBoxController : MonoBehaviour
     {
         // Reveals the selectable answers and sets their text values
         buttonSpawner.spawnAnswerButtons(branchPoint.answers);
+        _animator.SetBool(_isPointingHash, false);
+        if (_pointingController != null)
+        {
+            _pointingController.GetComponent<PointingController>().ResetDirection(talkingNpc: this.gameObject);
+        }
     }
 
     public void SkipLine()
@@ -247,6 +280,11 @@ public class DialogueBoxController : MonoBehaviour
     {
         // stop talk-animation
         _animator.SetBool(_isTalkingHash, false);
+        _animator.SetBool(_isPointingHash, false);
+        if (_pointingController != null)
+        {
+            _pointingController.GetComponent<PointingController>().ResetDirection(talkingNpc: this.gameObject);
+        }
         dialogueIsActive = false;
         ResetBox();
         if (dialogueTreeRestart.speakButtonOnExit) {
