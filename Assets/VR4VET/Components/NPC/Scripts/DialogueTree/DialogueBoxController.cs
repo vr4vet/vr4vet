@@ -128,7 +128,7 @@ public class DialogueBoxController : MonoBehaviour
 
         for (int i = 0; i < dialogueTree.sections[section].dialogue.Length; i++) 
         {   
-            if (_pointingController != null)
+            if (_pointingController != null && dialogueTree.sections[section].point)
             {
                 _pointingController.GetComponent<PointingController>().ResetDirection(talkingNpc: this.gameObject);
             }
@@ -244,10 +244,11 @@ public class DialogueBoxController : MonoBehaviour
         // Reveals the selectable answers and sets their text values
         buttonSpawner.spawnAnswerButtons(branchPoint.answers);
         _animator.SetBool(_isPointingHash, false);
+        /* This is commented out because it can cause conflict with other NPC's since it currently doesn't check if the NPC is pointing
         if (_pointingController != null)
         {
             _pointingController.GetComponent<PointingController>().ResetDirection(talkingNpc: this.gameObject);
-        }
+        }*/
     }
 
     public void SkipLine()
@@ -281,10 +282,11 @@ public class DialogueBoxController : MonoBehaviour
         // stop talk-animation
         _animator.SetBool(_isTalkingHash, false);
         _animator.SetBool(_isPointingHash, false);
+        /* This is commented out because it can cause conflict with other NPC's since it currently doesn't check if the NPC is pointing
         if (_pointingController != null)
         {
             _pointingController.GetComponent<PointingController>().ResetDirection(talkingNpc: this.gameObject);
-        }
+        }*/
         dialogueIsActive = false;
         ResetBox();
         if (dialogueTreeRestart.speakButtonOnExit) {
