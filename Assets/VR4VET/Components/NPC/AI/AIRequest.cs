@@ -16,6 +16,8 @@ public class AIRequest : MonoBehaviour
     public DialogueBoxController _dialogueBoxController;
     public AIConversationController _AIConversationController; // Save messages here in order to save them across multiple instances of this AIrequset.
     private List<Message> messages = new List<Message>();
+    private AudioSource audioSource;
+    private AudioClip audioClip;
 
     void Start()
     {
@@ -60,9 +62,13 @@ public class AIRequest : MonoBehaviour
             }
         }
 
+
         Message userMessage = new Message { role = "user", content = query };
         messages.Add(userMessage);
         _AIConversationController.AddMessage(userMessage);
+
+        // Add no audio source to play audio when no internet available
+        audioSource = GetComponent<AudioSource>();
 
         // Start coroutine for the OpenAI request
         StartCoroutine(OpenAI());
@@ -99,9 +105,31 @@ public class AIRequest : MonoBehaviour
             // Asynchronously send and wait for the response
             yield return request.SendWebRequest();
 
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError($"Error: {request.error}\nResponse Code: {request.responseCode}");
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError) {
+                if (request.responseCode == 0) {
+                    Debug.Log("No internet connection");
+                    // Play no internet audio using alloy voice
+                    if (!audioSource.isPlaying)
+                    {
+                        if (_AIConversationController.GetTranscribe().currentLanguage == "en") {
+                            audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/English/alloy");
+                        }
+                        else if (_AIConversationController.GetTranscribe().currentLanguage == "de") {
+                            audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/German/alloy");
+                        }
+                        else if (_AIConversationController.GetTranscribe().currentLanguage == "nl") {
+                            audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/Dutch/alloy");
+                        }
+                        else {
+                            audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/Norwegian/alloy");
+                        }
+                        audioSource.clip = audioClip;
+                        audioSource.Play();
+                    }
+                }
+                else {
+                    Debug.LogError($"Error: {request.error}\nResponse Code: {request.responseCode}");
+                }
             }
             else
             {

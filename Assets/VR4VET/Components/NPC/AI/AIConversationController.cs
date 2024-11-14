@@ -42,6 +42,10 @@ public class AIConversationController : MonoBehaviour
         isAnimating = true; // Start mic animation
     }
 
+    public Transcribe GetTranscribe() {
+        return this._Transcribe;
+    }
+
     /* Function for pressing speech button in VR. Pressing the 'B' button in VR while within range of an NPC that currently 
     is on a interruptable element in the dialogue tree will start the recording. When the button is let go, the transcriptions 
     stops. */
