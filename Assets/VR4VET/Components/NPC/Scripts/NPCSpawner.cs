@@ -152,7 +152,7 @@ public class NPCSpawner : MonoBehaviour
         
         if (aiConversationController == null)
         {
-            Debug.LogError("The NPC is missing the AIConversationController");
+            Debug.Log("The NPC is missing the AIConversationController");
         }
         else
         {
@@ -179,7 +179,7 @@ public class NPCSpawner : MonoBehaviour
 
             AIResponseToSpeech aiResponseToSpeech = npc.GetComponent<AIResponseToSpeech>();
             if (aiResponseToSpeech == null){
-                Debug.LogError("The NPC is missing the AIresponseToSpeech");
+                Debug.Log("The NPC is missing the AIresponseToSpeech");
             }
             else{
                 aiResponseToSpeech.OpenAiVoiceId = openAiVoiceId;

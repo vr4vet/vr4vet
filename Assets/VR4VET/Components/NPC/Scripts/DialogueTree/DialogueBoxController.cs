@@ -7,7 +7,7 @@ using Meta.WitAi.TTS.Utilities;
 
 public class DialogueBoxController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _dialogueText;
+    [SerializeField] public TextMeshProUGUI _dialogueText;
     [SerializeField] private GameObject _dialogueBox;
     [SerializeField] private GameObject _answerBox;
     [SerializeField] private GameObject _dialogueCanvas;
@@ -180,10 +180,13 @@ public class DialogueBoxController : MonoBehaviour
             }
 
             // Add dialogue to context, so the NPC can remember it later
-            AddDialogueToContext(_dialogueText.text);
+            if (_AIConversationController != null) 
+            {
+                AddDialogueToContext(_dialogueText.text);
+            }
 
             // Check which TTS to use
-            if (useWitAI)
+            if (useWitAI || _AIConversationController == null)
             {
                 TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
             }
@@ -192,6 +195,7 @@ public class DialogueBoxController : MonoBehaviour
                 StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
                 yield return new WaitForSeconds(1.5f);
             }
+            
             _animator.SetBool(_isTalkingHash, true);
             while (!_skipLineTriggered)
             {
@@ -212,14 +216,14 @@ public class DialogueBoxController : MonoBehaviour
         }
 
         // Check which TTS to use
-        if (useWitAI)
+        if (useWitAI || _AIConversationController == null)
         {
             TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
         }
         else
         {
             StartCoroutine(_AIResponseToSpeech.OpenAIDictate(_dialogueText.text));
-        }
+        }      
 
         ShowAnswers(dialogueTree.sections[section].branchPoint);
         while (_answerTriggered == false)
@@ -372,7 +376,7 @@ public class DialogueBoxController : MonoBehaviour
         _dialogueText.text = "That is all I have to say.";
 
         // NPC will speak generic question, based on given TTS setting
-        if (useWitAI)
+        if (useWitAI || _AIConversationController == null)
         {
             TTSSpeaker.GetComponent<TTSSpeaker>().Speak(_dialogueText.text);
         }

@@ -43,6 +43,10 @@ public class ConversationController : MonoBehaviour
         updateAnimator();
     }
 
+    public DialogueTree GetDialogueTree() 
+    {
+        return this._dialogueTree;
+    }
     void Update()
     {
         // This code is for testing AI speech solution on computer with a keyboard using "E"
