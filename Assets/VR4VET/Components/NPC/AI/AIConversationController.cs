@@ -75,7 +75,7 @@ public class AIConversationController : MonoBehaviour
         if (transcript == "")
         {
             // Transcription contained blank audio or was inaudible
-            transcript = "Please respond by saying you cannot understand me, and that the microphone may have to be checked.";
+            transcript = "Please respond by saying you cannot understand me, and that the microphone button needs to be held for a couple of seconds.";
         }
 
         // Add components and create OpenAI query based on transcript

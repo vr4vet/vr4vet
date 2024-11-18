@@ -113,18 +113,23 @@ public class AIRequest : MonoBehaviour
                     {
                         if (_AIConversationController.GetTranscribe().currentLanguage == "en") {
                             audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/English/alloy");
+                            responseText = "You do not have internet connection."
                         }
                         else if (_AIConversationController.GetTranscribe().currentLanguage == "de") {
                             audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/German/alloy");
+                            responseText = "Sie haben keine Internetverbindung."
                         }
                         else if (_AIConversationController.GetTranscribe().currentLanguage == "nl") {
                             audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/Dutch/alloy");
+                            responseText = "Je hebt geen internetverbinding."
                         }
                         else {
                             audioClip = Resources.Load<AudioClip>("AudioFiles/NoInternet/Norwegian/alloy");
+                            responseText = "Du har ingen internettilkobling."
                         }
                         audioSource.clip = audioClip;
                         audioSource.Play();
+                        StartCoroutine(_dialogueBoxController.DisplayResponse(responseText));
                     }
                 }
                 else {
