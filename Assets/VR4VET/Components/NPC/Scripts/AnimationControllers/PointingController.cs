@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ public class PointingController : MonoBehaviour
                 if (parentTransform != null && !parentSet.Contains(parentTransform))
                 {
                     // Store the initial position and rotation of the NPC which would be used to reset it position and add it to the list
-                    Vector3 initialPosition = obj.transform.position;
+                    float initialPosition = obj.transform.position.y;
                     Quaternion initialRotation = obj.transform.rotation;
                     npcs.Add(new NpcData(obj, initialPosition, initialRotation));
                     
@@ -61,7 +60,9 @@ public class PointingController : MonoBehaviour
         if (npcData != null)
         {
             // Reset the position of the NPC to make sure it stays in the same place
-            npcData.Npc.transform.position = npcData.InitialPosition;
+            var vector3 = npcData.Npc.transform.position;
+            vector3.y = npcData.InitialPosition;
+            npcData.Npc.transform.position = vector3;
             // The object to look at is stored in the dialogue tree
             _objectToLookAt = talkingNpc.GetComponent<DialogueBoxController>().dialogueTreeRestart.sections[section].objectToLookAt;
             // Find the object in the scene which corresponds to the prefab that is set in the dialogue tree
@@ -91,6 +92,10 @@ public class PointingController : MonoBehaviour
         
         if (npcData != null)
         { 
+            // The NPC is reset to it's initial rotation. The initial rotation always updated in case the NPC has moved 
+            Vector3 rotation = npcData.InitialRotation.eulerAngles; 
+            rotation.y = npcData.Npc.transform.parent.rotation.eulerAngles.y;
+            npcData.InitialRotation = Quaternion.Euler(rotation);
             npcData.Npc.transform.rotation = npcData.InitialRotation;
         }
         else
@@ -99,3 +104,5 @@ public class PointingController : MonoBehaviour
         }
     }
 }
+
+

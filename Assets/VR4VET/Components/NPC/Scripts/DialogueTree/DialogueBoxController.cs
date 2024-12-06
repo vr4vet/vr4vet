@@ -1,14 +1,9 @@
 using System;
 using System.Collections;
-using System.Net.Mime;
-using BNG;
 using TMPro;
 using UnityEngine;
 // Import of the TTS namespace
 using Meta.WitAi.TTS.Utilities;
-using UnityEngine.UI;
-using Button = UnityEngine.UIElements.Button;
-using Image = UnityEngine.UIElements.Image;
 
 public class DialogueBoxController : MonoBehaviour
 {
@@ -195,6 +190,9 @@ public class DialogueBoxController : MonoBehaviour
         _skipLineButton.SetActive(false);
         if (dialogueTree.sections[section].branchPoint.answers[_answerIndex].endAfterAnswer) {
             // Exit conversation if the answer is set to exit after answer
+            dialogueEnded = true;
+            timesEnded++;
+            OnDialogueEnded?.Invoke(name);
             ExitConversation();
         } else {
             // Continue to section of the dialogue the answer points to
@@ -244,11 +242,10 @@ public class DialogueBoxController : MonoBehaviour
         // Reveals the selectable answers and sets their text values
         buttonSpawner.spawnAnswerButtons(branchPoint.answers);
         _animator.SetBool(_isPointingHash, false);
-        /* This is commented out because it can cause conflict with other NPC's since it currently doesn't check if the NPC is pointing
-        if (_pointingController != null)
+        if (_pointingController != null )
         {
             _pointingController.GetComponent<PointingController>().ResetDirection(talkingNpc: this.gameObject);
-        }*/
+        }
     }
 
     public void SkipLine()
@@ -282,11 +279,10 @@ public class DialogueBoxController : MonoBehaviour
         // stop talk-animation
         _animator.SetBool(_isTalkingHash, false);
         _animator.SetBool(_isPointingHash, false);
-        /* This is commented out because it can cause conflict with other NPC's since it currently doesn't check if the NPC is pointing
         if (_pointingController != null)
         {
             _pointingController.GetComponent<PointingController>().ResetDirection(talkingNpc: this.gameObject);
-        }*/
+        }
         dialogueIsActive = false;
         ResetBox();
         if (dialogueTreeRestart.speakButtonOnExit) {
