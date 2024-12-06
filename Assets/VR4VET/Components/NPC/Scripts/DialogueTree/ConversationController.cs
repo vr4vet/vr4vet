@@ -250,6 +250,27 @@ public class ConversationController : MonoBehaviour
         }
     }
 
+    // Start a specific dialogue tree from the dialogue tree list
+    public void StartDialogueTree(string dialogueTreeName)
+    {
+        // Find the dialogue tree based on the given name
+        _dialogueTree = _dialogueTreesSOFormat.Find(x => x.name == dialogueTreeName);
+        if (_dialogueTree != null)
+        {
+            _dialogueBoxController.StartSpeakCanvas(_dialogueTree);
+            if (_animator == null) 
+            { 
+                GameObject parent = this.transform.parent.gameObject; 
+                _animator = parent.GetComponentInChildren<Animator>(); 
+            }
+            _animator.SetBool(_hasNewDialogueOptionsHash, true);
+        }
+        else
+        {
+            Debug.LogError("The dialogueTree of the NPC is null");
+        }
+    }
+
     /// <summary>
     /// Go to the prior dialogueTree.
     /// The NPC will signal through animation that the dialogue changed. 
@@ -267,6 +288,10 @@ public class ConversationController : MonoBehaviour
             _dialogueBoxController.StartSpeakCanvas(_dialogueTree);
             _animator.SetBool(_hasNewDialogueOptionsHash, true);
         }
+    }
+
+    public DialogueTree GetDialogueTree() {
+        return _dialogueTree;
     }
 
 
