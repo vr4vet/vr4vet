@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 [System.Serializable]
 public class SlideChanged : UnityEvent<int>
@@ -12,12 +13,16 @@ public class SlideChanged : UnityEvent<int>
 
 public class SlidePresentation : MonoBehaviour
 {
+    [Tooltip("Will change slides every 10 seconds.")]
     [SerializeField] private bool AutomaticSlideShow = false;
-    [SerializeField] private List<Sprite> Slides = new();
-    [SerializeField] private List<GameObject> SlidesNew = new();
+
+    [Tooltip("Place instances of the Slide prefab here. These are the slides that will be displayed.")]
+    [SerializeField] private List<GameObject> Slides = new();
 
     private Image _targetImage;
     private int _imageIndex = 0;
+    private RawImage _videoTexture;
+    private VideoPlayer _videoPlayer;
 
     public SlideChanged m_SlideChanged;
     public UnityEvent ToggledOff;
@@ -35,24 +40,27 @@ public class SlidePresentation : MonoBehaviour
         if (ToggledOn != null)
             ToggledOn = new UnityEvent();
 
+        _videoTexture = GetComponentInChildren<RawImage>();
+        _videoPlayer = _videoTexture.GetComponentInChildren<VideoPlayer>();
         _targetImage = GetComponentInChildren<Image>();
-        _targetImage.sprite = Slides[0];
-        //_targetImage.sprite = SlidesNew[0].GetComponent<Slide>().SlideTexture;
+
+        SetSlide(0);
         if (AutomaticSlideShow)
             InvokeRepeating(nameof(NextSlide), 10, 10);
+
     }
 
     public void NextSlide()
     {
         _imageIndex = (_imageIndex + 1) % Slides.Count;
-        _targetImage.sprite = Slides[_imageIndex];
+        SetSlide(_imageIndex);
         m_SlideChanged.Invoke(_imageIndex);
     }
 
     public void PrevSlide()
     {
         _imageIndex = (_imageIndex - 1) < 0 ? Slides.Count - 1 : _imageIndex - 1;
-        _targetImage.sprite = Slides[_imageIndex];
+        SetSlide(_imageIndex);
         m_SlideChanged.Invoke(_imageIndex);
     }
 
@@ -66,5 +74,26 @@ public class SlidePresentation : MonoBehaviour
     {
         _targetImage.color = Color.white;
         ToggledOn.Invoke();
+    }
+
+    private void SetSlide(int index)
+    {
+        Slide slide = Slides[index].GetComponent<Slide>();
+        _targetImage.sprite = slide.SlideTexture;
+
+        if (slide.VideoClip != null)
+        {
+            _videoTexture.enabled = true;
+            _videoPlayer.clip = slide.VideoClip;
+            _videoTexture.transform.localPosition = slide.VideoClipPosition;
+            _videoTexture.transform.localScale = slide.VideoClipScale * new Vector3(1, 1, 0);
+            _videoPlayer.frame = 0;
+            _videoPlayer.Play();
+        }
+        else
+        {
+            _videoPlayer.Stop();
+            _videoTexture.enabled = false;
+        }
     }
 }
