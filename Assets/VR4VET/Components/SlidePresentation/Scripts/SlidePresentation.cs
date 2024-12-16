@@ -31,9 +31,11 @@ public class SlidePresentation : MonoBehaviour
     [Tooltip("Place instances of the Slide prefab here. These are the slides that will be displayed.")]
     [SerializeField] private List<GameObject> Slides = new();
 
-    private Image _targetImage;
+    private Image _targetImage; // image component which displays slides
     private int _imageIndex = 0;
-    private RawImage _videoTexture;
+    
+    private RawImage _videoTexture; // this will hold the Render Texture (below) which is used to display video clips on the canvas
+    private RenderTexture _renderTexture;
     private VideoPlayer _videoPlayer;
     private AudioSource _audioSource;
 
@@ -44,6 +46,7 @@ public class SlidePresentation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // setting up events
         if (m_SlideChanged != null)
             m_SlideChanged = new SlideChanged();
 
@@ -53,19 +56,29 @@ public class SlidePresentation : MonoBehaviour
         if (OnPowerOn != null)
             OnPowerOn = new UnityEvent();
 
+        // setting up video player. new render texture is created because it has methods Release() and Create(). used to prevent last frames of previous video clip from playing.
         _videoTexture = GetComponentInChildren<RawImage>();
         _videoPlayer = _videoTexture.GetComponentInChildren<VideoPlayer>();
-        _videoPlayer.waitForFirstFrame = true;
+        _renderTexture = new RenderTexture(1024, 1024, 16, RenderTextureFormat.ARGB32);
+
+        // placing newly created RenderTexture object where it's needed
+        _videoTexture.texture = _renderTexture;
+        _videoPlayer.targetTexture = _renderTexture;
 
         _audioSource = _videoPlayer.GetComponent<AudioSource>();
         _targetImage = GetComponentInChildren<Image>();
 
+        // setting up presentation using provided attribute values
         SetSlide(0);
         SetAutomaticSlideShow(AutomaticSlideshow);
         Mute(MuteAudio);
+
         AdjustVolumeBar();
     }
 
+    /// <summary>
+    /// Change to the next slide.
+    /// </summary>
     public void NextSlide()
     {
         _imageIndex = (_imageIndex + 1) % Slides.Count;
@@ -73,6 +86,9 @@ public class SlidePresentation : MonoBehaviour
         m_SlideChanged.Invoke(_imageIndex);
     }
 
+    /// <summary>
+    /// Change to the previous slide.
+    /// </summary>
     public void PrevSlide()
     {
         _imageIndex = (_imageIndex - 1) < 0 ? Slides.Count - 1 : _imageIndex - 1;
@@ -80,12 +96,16 @@ public class SlidePresentation : MonoBehaviour
         m_SlideChanged.Invoke(_imageIndex);
     }
 
+    /// <summary>
+    /// Hide all visual elements to simulate turning a projector off.
+    /// The (possibly) repeatedly invoking NextSlide() (suggesting automatic slideshow is activated) is also stopped to prevent slideshow from continuing while invisible.
+    /// </summary>
     public void PowerOff()
     {
         if (!PoweredOn)
             return;
 
-        if (AutomaticSlideshow && IsInvoking(nameof(NextSlide)))
+        if (IsInvoking(nameof(NextSlide)))
             CancelInvoke(nameof(NextSlide));
 
 
@@ -100,13 +120,16 @@ public class SlidePresentation : MonoBehaviour
         OnPowerOff.Invoke();
     }
 
+    /// <summary>
+    /// Show all visual elements to simulate turning a projector on.
+    /// NextSlide() is again (if automatic slideshow is activated) invoked repeatedly.
+    /// </summary>
     public void PowerOn()
     {
         if (PoweredOn)
             return;
 
-        if (AutomaticSlideshow && !IsInvoking(nameof(NextSlide)))
-            InvokeRepeating(nameof(NextSlide), 10, 10);
+        SetAutomaticSlideShow(AutomaticSlideshow);
 
         _targetImage.color = Color.white;
         if (_videoTexture.enabled)
@@ -119,6 +142,9 @@ public class SlidePresentation : MonoBehaviour
         OnPowerOn.Invoke();
     }
 
+    /// <summary>
+    /// Toggles the power (of the simulated projector) on or off. Simply changes the state back and forth.
+    /// </summary>
     public void TogglePower()
     {
         if (PoweredOn)
@@ -127,13 +153,17 @@ public class SlidePresentation : MonoBehaviour
             PowerOn();
     }
 
+    /// <summary>
+    /// Either activates or deactivates automatic slideshow depending on the parameter value.
+    /// </summary>
+    /// <param name="enable"></param>
     public void SetAutomaticSlideShow(bool enable)
     {
         AutomaticSlideshow = enable;
         if (enable)
         {
             if (!IsInvoking(nameof(NextSlide)))
-                InvokeRepeating(nameof(NextSlide), 10, 10);
+                InvokeRepeating(nameof(NextSlide), AutomaticSlideshowInterval, AutomaticSlideshowInterval);
         }
         else
         {
@@ -142,46 +172,73 @@ public class SlidePresentation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Toggles automatic slideshow on or off. Simply changes the state back and forth.
+    /// </summary>
     public void ToggleAutomaticSlideShow()
     {
         AutomaticSlideshow = !AutomaticSlideshow;
         SetAutomaticSlideShow(AutomaticSlideshow);
     }
 
+    /// <summary>
+    /// Mutes video clip audio.
+    /// </summary>
+    /// <param name="mute"></param>
     public void Mute(bool mute)
     {
         MuteAudio = mute;
         _audioSource.mute = mute;
     }
 
+    /// <summary>
+    /// Toggles video clip mute on or off. Simply changes the state back and forth.
+    /// </summary>
     public void ToggleMute()
     {
         MuteAudio = !MuteAudio;
         _audioSource.mute = MuteAudio;
     }
 
+    /// <summary>
+    /// Increases video clip volume. Adjusts VolumeBar accordingly if provided. 
+    /// </summary>
     public void VolumeUp()
     {
         _audioSource.volume += .125f;
         AdjustVolumeBar();
     }
 
+    /// <summary>
+    /// Lowers video clip volume. Adjusts VolumeBar accordingly if provided. 
+    /// </summary>
     public void VolumeDown()
     {
         _audioSource.volume -= .125f;
         AdjustVolumeBar();
     }
 
+    /// <summary>
+    /// The (optionally) provided image VolumeBar will be filled using the Audio Source's current volume
+    /// </summary>
     private void AdjustVolumeBar()
     {
         if (VolumeBar != null)
             VolumeBar.fillAmount = _audioSource.volume;
     }
 
+
+    /// <summary>
+    /// Displays the given slide at the given index. 
+    /// If it has a video clip in its VideoClip attribute, a Render Texture will be created, enabled, scaled and positioned, and then play the video clip.
+    /// Otherwise will simply display the slide's provided image without any video clip on top.
+    /// </summary>
+    /// <param name="index"></param>
     private void SetSlide(int index)
     {
         Slide slide = Slides[index].GetComponent<Slide>();
         _targetImage.sprite = slide.SlideTexture;
+        _renderTexture.Release();
 
         if (slide.VideoClip != null)
         {
@@ -189,8 +246,9 @@ public class SlidePresentation : MonoBehaviour
             _videoPlayer.frame = 0;
             _videoTexture.transform.localPosition = slide.VideoClipPosition;
             _videoTexture.transform.localScale = slide.VideoClipScale * new Vector3(1, 1, 0);
-            _videoTexture.enabled = true;
+            _renderTexture.Create();
             _videoPlayer.Play();
+            _videoTexture.enabled = true;
         }
         else
         {
