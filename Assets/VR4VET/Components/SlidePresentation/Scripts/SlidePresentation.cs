@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -69,7 +70,7 @@ public class SlidePresentation : MonoBehaviour
         _targetImage = GetComponentInChildren<Image>();
 
         // setting up presentation using provided attribute values
-        SetSlide(0);
+        DisplaySlide(0);
         SetAutomaticSlideShow(AutomaticSlideshow);
         Mute(MuteAudio);
 
@@ -82,7 +83,7 @@ public class SlidePresentation : MonoBehaviour
     public void NextSlide()
     {
         _imageIndex = (_imageIndex + 1) % Slides.Count;
-        SetSlide(_imageIndex);
+        DisplaySlide(_imageIndex);
         m_SlideChanged.Invoke(_imageIndex);
     }
 
@@ -92,7 +93,7 @@ public class SlidePresentation : MonoBehaviour
     public void PrevSlide()
     {
         _imageIndex = (_imageIndex - 1) < 0 ? Slides.Count - 1 : _imageIndex - 1;
-        SetSlide(_imageIndex);
+        DisplaySlide(_imageIndex);
         m_SlideChanged.Invoke(_imageIndex);
     }
 
@@ -234,7 +235,7 @@ public class SlidePresentation : MonoBehaviour
     /// Otherwise will simply display the slide's provided image without any video clip on top.
     /// </summary>
     /// <param name="index"></param>
-    private void SetSlide(int index)
+    private void DisplaySlide(int index)
     {
         Slide slide = Slides[index].GetComponent<Slide>();
         _targetImage.sprite = slide.SlideTexture;
@@ -246,14 +247,36 @@ public class SlidePresentation : MonoBehaviour
             _videoPlayer.frame = 0;
             _videoTexture.transform.localPosition = slide.VideoClipPosition;
             _videoTexture.transform.localScale = slide.VideoClipScale * new Vector3(1, 1, 0);
-            _renderTexture.Create();
-            _videoPlayer.Play();
-            _videoTexture.enabled = true;
+            StartCoroutine(nameof(PlayVideo));
         }
         else
         {
             _videoPlayer.Stop();
             _videoTexture.enabled = false;
         }
+    }
+
+    /// <summary>
+    /// The actual setting up of render texture and video file involves waiting for resources to load properly.
+    /// Otherwise, visual artifacts appear on the render texture.
+    /// Therefore, this is called as a coroutine, which waits until both the video player and the render texture are ready
+    /// before displaying the render texture and playing the video.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator PlayVideo()
+    {
+        // hiding and preparing render texture, and preparing video player
+        _videoTexture.color = Color.clear;
+        _videoTexture.enabled = true;
+        _renderTexture.Create();
+        _videoPlayer.Prepare();
+
+        // waiting for video player and render texture to get ready
+        while (!_videoPlayer.isPrepared || !_renderTexture.IsCreated())
+            yield return null;
+
+        // showing render texture when ready
+        _videoTexture.color = Color.white;
+        _videoPlayer.Play();
     }
 }
