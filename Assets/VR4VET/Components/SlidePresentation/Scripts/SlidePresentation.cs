@@ -82,6 +82,9 @@ public class SlidePresentation : MonoBehaviour
     /// </summary>
     public void NextSlide()
     {
+        if (!PoweredOn)
+            return;
+
         _imageIndex = (_imageIndex + 1) % Slides.Count;
         DisplaySlide(_imageIndex);
         m_SlideChanged.Invoke(_imageIndex);
@@ -92,6 +95,9 @@ public class SlidePresentation : MonoBehaviour
     /// </summary>
     public void PrevSlide()
     {
+        if (!PoweredOn)
+            return;
+
         _imageIndex = (_imageIndex - 1) < 0 ? Slides.Count - 1 : _imageIndex - 1;
         DisplaySlide(_imageIndex);
         m_SlideChanged.Invoke(_imageIndex);

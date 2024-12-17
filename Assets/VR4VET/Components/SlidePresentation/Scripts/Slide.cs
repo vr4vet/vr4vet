@@ -12,6 +12,6 @@ public class Slide : MonoBehaviour
     [Tooltip("The position of the video clip offset from the center of slide.")]
     public Vector2 VideoClipPosition = Vector2.zero;
 
-    [Tooltip("The scale of the video clip-")]
+    [Tooltip("The scale of the video clip.")]
     public float VideoClipScale = 1.0f;
 }
